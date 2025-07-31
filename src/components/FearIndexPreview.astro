@@ -1,17 +1,16 @@
 ---
 // FearIndexPreview component: sidebar list of fear categories
-const categories = [
-  'AI Takeover',
-  'Job Loss',
-  'Privacy Erosion',
-  'Bias & Ethics',
-];
+import { categories } from '../data/categories';
 ---
 <div class="bg-card-bg rounded-[var(--radius)] shadow-[var(--shadow)] p-4">
   <h3 class="font-bold mb-2 text-[var(--primary)] font-sans">Fear Index</h3>
   <ul class="space-y-1">
     {categories.map(cat => (
-      <li class="text-text-muted font-sans">{cat}</li>
+      <li class="text-text-muted font-sans flex items-center gap-2">
+        {/* Optionally render icon here if you have an icon component */}
+        <span style={`background:${cat.color};`} class="inline-block w-2 h-2 rounded-full"></span>
+        {cat.name}
+      </li>
     ))}
   </ul>
 </div>
