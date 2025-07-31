@@ -1,5 +1,7 @@
 ---
+
 import type { Post } from '../data/Posts'
+import { categories } from '../data/categories';
 
 const { groupedItems } = Astro.props as { groupedItems: Post[][] };
 ---
@@ -13,7 +15,21 @@ const { groupedItems } = Astro.props as { groupedItems: Post[][] };
           <div class="bg-black rounded-[var(--radius)] shadow-[var(--shadow)] overflow-hidden flex flex-col">
             <img src={`/images/${first.data.image}`} alt={first.data.image} class="w-full h-80 object-cover" />
             <div class="p-5 flex-1 flex flex-col">
-              <h2 class="text-lg font-bold mb-2 text-white font-sans">{first.data.title}</h2>
+              <div class="flex items-center gap-2 mb-2">
+                {(() => {
+                  const catObj = categories.find(cat => cat.name === first.data.category);
+                  return catObj ? (
+                    <span
+                      class="px-2 py-0.5 rounded font-semibold text-xs"
+                      style={`background:${catObj.color}; color:#222;`}
+                      title={catObj.description}
+                    >
+                      {catObj.name}
+                    </span>
+                  ) : null;
+                })()}
+                <h2 class="text-lg font-bold text-white font-sans">{first.data.title}</h2>
+              </div>
               <p class="text-white font-sans flex-1">{first.data.excerpt}</p>
             </div>
           </div>
@@ -27,7 +43,21 @@ const { groupedItems } = Astro.props as { groupedItems: Post[][] };
               <div class="bg-black rounded-[var(--radius)] shadow-[var(--shadow)] overflow-hidden flex flex-col">
                 <img src={`/images/${post.data.image}`} alt={post.data.image} class="w-full h-40 object-cover" />
                 <div class="p-5 flex-1 flex flex-col">
-                  <h2 class="text-lg font-bold mb-2 text-white font-sans">{post.data.title}</h2>
+                  <div class="flex items-center gap-2 mb-2">
+                    {(() => {
+                      const catObj = categories.find(cat => cat.name === post.data.category);
+                      return catObj ? (
+                        <span
+                          class="px-2 py-0.5 rounded font-semibold text-xs"
+                          style={`background:${catObj.color}; color:#222;`}
+                          title={catObj.description}
+                        >
+                          {catObj.name}
+                        </span>
+                      ) : null;
+                    })()}
+                    <h2 class="text-lg font-bold text-white font-sans">{post.data.title}</h2>
+                  </div>
                   <p class="text-white font-sans flex-1">{post.data.excerpt}</p>
                 </div>
               </div>

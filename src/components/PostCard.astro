@@ -1,5 +1,9 @@
 ---
+import { categories } from '../data/categories';
 const { title, excerpt, imageUrl, category, date } = Astro.props;
+
+// Find the category object for this post
+const catObj = categories.find(cat => cat.name === category);
 ---
 
 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 border border-gray-200 dark:border-gray-700">
@@ -7,7 +11,14 @@ const { title, excerpt, imageUrl, category, date } = Astro.props;
 
   <div class="p-5">
     <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
-      <span class="bg-red-100 text-red-700 px-2 py-0.5 rounded">{category}</span>
+      <span
+        class="px-2 py-0.5 rounded font-semibold"
+        style={`background:${catObj?.color ?? '#eee'}; color:#222;`}
+        title={catObj?.description}
+      >
+        {/* Optionally render icon here if you have an icon component */}
+        {catObj ? catObj.name : category}
+      </span>
       <span>{date}</span>
     </div>
     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
