@@ -1,1 +1,3 @@
+# Ignore bulk-issues script
+bulk-issues.sh
 node_modules

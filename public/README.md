@@ -1,3 +1,56 @@
+
+# Admin Note: Fear Index vs. Categories — What’s the Difference?
+
+Great question — and it's important we get this distinction clear.
+
+### ✅ **Fear Index vs. Categories — What’s the Difference?**
+
+In this project, **they refer to the same core topics**, but:
+
+---
+
+#### 1. **Fear Index** = Strategic Framing
+
+* Think of it as our **editorial lens**.
+* It's how we frame the major disruptive forces AI is triggering.
+* The Fear Index is used in:
+  * Landing page messaging
+  * Quizzes and scoring systems
+  * Brand voice and positioning
+  * Reports or interactive tools
+
+> Example: “Our Fear Index shows a spike in Cognitive Dependency this quarter…”
+
+---
+
+#### 2. **Categories** = Content Taxonomy
+
+* These are **technical tags or labels** we assign to content.
+* Used in:
+  * Markdown frontmatter
+  * Filters and search tools
+  * Sidebar navigation
+  * AI recommendation logic
+
+> Example: A blog post about AI tutors would be labeled:
+
+```yaml
+category: "Parenting & Education Collapse"
+```
+
+---
+
+### ✅ TL;DR:
+
+They represent the same **10 topics**, but:
+
+* **Fear Index** is **brand messaging and strategic framing**
+* **Categories** are **developer-usable tags** for organizing content
+
+You can confidently say:
+
+> “Our site categories are based directly on the Survive the AI Fear Index.”
+
 # /public
 Static assets (images, fonts, etc.) go here.
 
