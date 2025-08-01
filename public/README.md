@@ -65,23 +65,35 @@ Static assets (images, fonts, etc.) go here.
 ### 3. Add Frontmatter to the Markdown File
 At the top of your markdown file, include YAML frontmatter with the necessary metadata. For a post with an image, you might use:
 
-```markdown
----
 title: "My New Post"
 date: 2025-07-30
 author: "Your Name"
 image: "/images/myphoto.jpg"   # Path relative to the public folder
 description: "A short summary of the post."
 tags: ["example", "image"]
+```markdown
+---
+filename: "my-new-post.md"
+title: "My New Post"
+pubDate: 2025-07-30
+author: "Your Name"
+description: "A short summary of the post."
+excerpt: "A short excerpt for previews."
+image: "/images/myphoto.jpg"   # Path relative to the public folder
+tags: ["example", "image"]
+category: "Your Category Name"
 ---
 ```
 
+- `filename`: The markdown filename (for reference).
 - `title`: The title of your post.
-- `date`: The publication date.
+- `pubDate`: The publication date.
 - `author`: Your name or handle.
+- `description`: A short summary for previews.
+- `excerpt`: A short excerpt for previews.
 - `image`: The path to your image, starting with `/images/`.
-- `description`: (Optional) A short summary for previews.
-- `tags`: (Optional) List of tags for the post.
+- `tags`: List of tags for the post.
+- `category`: The category name (must match one from the categories list).
 
 ### 4. Write Your Post Content
 Below the frontmatter, write your post in standard Markdown. You can also embed images anywhere in the content:
