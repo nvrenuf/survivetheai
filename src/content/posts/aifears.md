@@ -7,6 +7,7 @@ description: "What keeps experts, governments, and citizens up at night as AI ac
 excerpt: "From job loss to deepfakes to runaway intelligence — these are the AI fears shaping the next era."
 image: "fears.jpg"
 tags: ["AI", "ethics", "technology", "future", "society"]
+category: "AI Job Displacement"
 ---
 
 As artificial intelligence races ahead in 2026, so do the anxieties surrounding it. From sci-fi scenarios to very real risks, people are asking: _Are we ready for what we’ve built?_ Below are the five biggest AI fears keeping both technologists and everyday people up at night.

@@ -7,6 +7,7 @@ description: "From careers to creativity, learn how to thrive in a world where e
 excerpt: "AI isn’t just changing the world — it’s speeding it up. Here's how to stay relevant and resilient."
 image: "lifechange.jpg"
 tags: ["adaptability", "AI", "technology", "resilience", "future of work"]
+category: "Cognitive Erosion"
 ---
 
 In an era where AI evolves weekly and industries shift overnight, adaptability isn’t optional — it’s survival.

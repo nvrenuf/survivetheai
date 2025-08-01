@@ -7,6 +7,7 @@ description: "Degrees used to be the golden ticket. Not anymore. Discover what e
 excerpt: "Degrees are losing power. Recruiters now value what you can do over what you claim on paper."
 image: "recruiter.jpg"
 tags: ["hiring trends", "credentialism", "recruiting", "skills-first", "future of work"]
+category: "AI Job Displacement"
 ---
 
 For decades, degrees were a gatekeeping mechanism in hiring. A bachelor's diploma from a reputable university could all but guarantee you an interview — and often, a job. But something has changed.

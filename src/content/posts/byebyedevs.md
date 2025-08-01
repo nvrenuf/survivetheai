@@ -7,6 +7,7 @@ author: Alex Morgan
 tags: ["AI", "future of work", "software engineering", "automation"]
 image: ai-takes-over-code.jpg
 excerpt: Can AI really replace programmers? Or are we entering a new era where human creativity shifts from coding to guiding machines?
+category: "AI Job Displacement"
 ---
 
 > “AI won’t replace programmers — but programmers who use AI will replace those who don’t.”  

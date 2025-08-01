@@ -7,6 +7,7 @@ description: "How freelancing, contract work, and on-demand labor are reshaping 
 excerpt: "Delivery drivers, freelancers, and side hustlers — here's what's coming."
 image: "uber.jpg"
 tags: ["gig economy", "future of work", "freelancing", "technology"]
+category: "Gig Collapse"
 ---
 
 ## Introduction

@@ -7,6 +7,7 @@ description: "A practical guide for parents who want to prepare their children f
 excerpt: "If your child’s future job can be automated, you need to read this."
 image: "aiproofkid.jpg"
 tags: ["parenting", "AI", "future of work", "education", "technology"]
+category: "AI Companionship"
 ---
 
 As AI becomes more powerful and ubiquitous, parents are asking the big question: _How do I future-proof my kid?_ The short answer is: **you can’t fully** — but you can AI-proof them by developing human skills machines still can’t replicate.
