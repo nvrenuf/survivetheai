@@ -1,13 +1,21 @@
 ---
-filename: "byebyedevs.md"
-title: Are Programmers Becoming Obsolete in the Age of AI?
-description: As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing.
-pubDate: 2025-07-26T13:52:00.000Z
-author: Alex Morgan
-tags: ["AI", "future of work", "software engineering", "automation"]
-image: ai-takes-over-code.jpg
-excerpt: Can AI really replace programmers? Or are we entering a new era where human creativity shifts from coding to guiding machines?
+title: "Are Programmers Becoming Obsolete in the Age of AI?"
+description: "As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing."
+date: 2025-07-26T13:52:00Z
+author: "Alex Morgan"
 category: "AI Job Displacement"
+tags:
+  - "AI"
+  - "future of work"
+  - "software engineering"
+  - "automation"
+fear_index_score: 72
+heroImage: "/images/placeholder-hero.svg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/byebyedevs"
 ---
 
 > “AI won’t replace programmers — but programmers who use AI will replace those who don’t.”  

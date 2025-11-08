@@ -1,0 +1,51 @@
+---
+import type { PostEntry } from '../content/config';
+import { formatDate } from '../utils/format';
+
+const { category, currentSlug, posts } = Astro.props as {
+  category: string;
+  currentSlug: string;
+  posts: PostEntry[];
+};
+
+const sortedPosts = [...posts].filter((entry) => entry.slug !== currentSlug);
+sortedPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categoryMatches = sortedPosts.filter((entry) => entry.data.category === category);
+const related = (categoryMatches.length >= 3 ? categoryMatches : sortedPosts).slice(0, 5);
+---
+<section class="space-y-4">
+  <h2 class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">
+    More in {category}
+  </h2>
+  <ul class="space-y-4">
+    {related.map((entry) => {
+      const heroImage = entry.data.heroImage;
+      const dateLabel = formatDate(entry.data.date);
+
+      return (
+        <li>
+          <a href={`/posts/${entry.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-transparent p-2 transition hover:border-neutral-700/80 hover:bg-neutral-900/40">
+            <div class="h-14 w-14 overflow-hidden rounded-xl bg-neutral-900">
+              <img
+                src={heroImage}
+                alt={entry.data.title}
+                loading="lazy"
+                decoding="async"
+                width="56"
+                height="56"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div class="space-y-1">
+              <p class="text-sm font-medium text-neutral-200 transition group-hover:text-neutral-50">
+                {entry.data.title}
+              </p>
+              <p class="text-xs text-neutral-500">{dateLabel}</p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>
