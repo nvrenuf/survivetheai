@@ -1,0 +1,32 @@
+---
+const {
+  src,
+  alt,
+  caption,
+} = Astro.props as {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+const srcset = `${src} 400w, ${src} 800w, ${src} 1200w`;
+---
+<figure class="space-y-3">
+  <div class="aspect-[1200/630] w-full overflow-hidden rounded-3xl bg-neutral-900">
+    <img
+      src={src}
+      alt={alt}
+      srcset={srcset}
+      sizes="(min-width: 1024px) 800px, 100vw"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="1200"
+      height="630"
+      class="h-full w-full object-cover"
+    />
+  </div>
+  {caption && (
+    <figcaption class="text-sm text-neutral-500">{caption}</figcaption>
+  )}
+</figure>

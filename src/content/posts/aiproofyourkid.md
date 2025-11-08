@@ -1,14 +1,22 @@
 ---
-filename: "aiproofyourkid.md"
 title: "How to AI-Proof Your Kid"
-pubDate: 2025-07-29T18:52:00.000Z
-author: "Justin Cuevas"
 description: "A practical guide for parents who want to prepare their children for a world dominated by artificial intelligence."
-excerpt: "If your child’s future job can be automated, you need to read this."
-image: "aiproofkid.jpg"
-hero_image: "/images/aiproofkid.jpg"
-tags: ["parenting", "AI", "future of work", "education", "technology"]
+date: 2025-07-29T18:52:00Z
+author: "Justin Cuevas"
 category: "AI Companionship"
+tags:
+  - "parenting"
+  - "AI"
+  - "future of work"
+  - "education"
+  - "technology"
+fear_index_score: 61
+heroImage: "/images/aiproofkid.jpg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/aiproofyourkid"
 ---
 
 As AI becomes more powerful and ubiquitous, parents are asking the big question: _How do I future-proof my kid?_ The short answer is: **you can’t fully** — but you can AI-proof them by developing human skills machines still can’t replicate.

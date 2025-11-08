@@ -1,14 +1,22 @@
 ---
-filename: "rapidchange.md"
 title: "How to Adapt to Rapid Change in the Age of AI"
-pubDate: 2025-07-29T16:52:00.000Z
-author: "Justin Cuevas"
 description: "From careers to creativity, learn how to thrive in a world where everything changes faster than ever."
-excerpt: "AI isn’t just changing the world — it’s speeding it up. Here's how to stay relevant and resilient."
-image: "lifechange.jpg"
-hero_image: "/images/lifechange.jpg"
-tags: ["adaptability", "AI", "technology", "resilience", "future of work"]
+date: 2025-07-29T16:52:00Z
+author: "Justin Cuevas"
 category: "Cognitive Erosion"
+tags:
+  - "adaptability"
+  - "AI"
+  - "technology"
+  - "resilience"
+  - "future of work"
+fear_index_score: 47
+heroImage: "/images/lifechange.jpg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/rapidchange"
 ---
 
 In an era where AI evolves weekly and industries shift overnight, adaptability isn’t optional — it’s survival.

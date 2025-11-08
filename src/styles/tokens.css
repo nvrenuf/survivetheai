@@ -1,0 +1,27 @@
+:root {
+  color-scheme: dark;
+  --color-page: #09090b;
+  --color-surface: #111113;
+  --color-border: #1f1f23;
+  --color-text: #f5f5f5;
+  --color-muted: #9ca3af;
+  --color-subtle: #6b7280;
+  --max-page-width: 1200px;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --font-sans: 'IBM Plex Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --space-xs: 0.75rem;
+    --space-sm: 1rem;
+    --space-md: 1.75rem;
+    --space-lg: 2.5rem;
+    --space-xl: 3.5rem;
+  }
+}
