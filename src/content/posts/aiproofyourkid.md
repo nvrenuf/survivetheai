@@ -6,6 +6,7 @@ author: "Justin Cuevas"
 description: "A practical guide for parents who want to prepare their children for a world dominated by artificial intelligence."
 excerpt: "If your child’s future job can be automated, you need to read this."
 image: "aiproofkid.jpg"
+hero_image: "/images/aiproofkid.jpg"
 tags: ["parenting", "AI", "future of work", "education", "technology"]
 category: "AI Companionship"
 ---

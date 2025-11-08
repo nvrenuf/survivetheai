@@ -1,0 +1,42 @@
+---
+import '../styles/tailwind.css';
+
+const { frontmatter, Content } = Astro.props;
+const { title, description, hero_image } = frontmatter;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-base-bg text-base-text">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-base-bg text-base-text">
+    <header class="px-6 pb-10 pt-10 md:px-0">
+      <div class="mx-auto max-w-5xl">
+        <h1 class="text-4xl font-bold tracking-tight text-base-text">{title}</h1>
+        {description && (
+          <p class="mt-2 text-base text-base-mute">{description}</p>
+        )}
+      </div>
+    </header>
+
+    {hero_image && (
+      <figure class="w-full bg-black">
+        <img
+          src={hero_image}
+          alt={title}
+          class="h-[320px] w-full object-cover md:h-[420px]"
+        />
+      </figure>
+    )}
+
+    <main class="px-6 pb-16 md:px-0">
+      <article class="prose">
+        <Content />
+      </article>
+    </main>
+  </body>
+</html>

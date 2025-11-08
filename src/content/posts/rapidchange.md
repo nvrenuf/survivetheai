@@ -6,6 +6,7 @@ author: "Justin Cuevas"
 description: "From careers to creativity, learn how to thrive in a world where everything changes faster than ever."
 excerpt: "AI isn’t just changing the world — it’s speeding it up. Here's how to stay relevant and resilient."
 image: "lifechange.jpg"
+hero_image: "/images/lifechange.jpg"
 tags: ["adaptability", "AI", "technology", "resilience", "future of work"]
 category: "Cognitive Erosion"
 ---
