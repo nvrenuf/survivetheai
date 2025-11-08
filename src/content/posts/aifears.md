@@ -6,6 +6,7 @@ author: "Justin Cuevas"
 description: "What keeps experts, governments, and citizens up at night as AI accelerates into 2026?"
 excerpt: "From job loss to deepfakes to runaway intelligence — these are the AI fears shaping the next era."
 image: "fears.jpg"
+hero_image: "/images/fears.jpg"
 tags: ["AI", "ethics", "technology", "future", "society"]
 category: "AI Job Displacement"
 ---

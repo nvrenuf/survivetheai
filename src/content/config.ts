@@ -9,9 +9,10 @@ const posts = defineCollection({
     description: z.string(),
     excerpt: z.string(),
     image: z.string(),
-    tags: z.array(z.string())
+    tags: z.array(z.string()),
+    hero_image: z.string().optional(),
   }),
-  layout: '../../layouts/BaseLayout.astro'
+  layout: '../../layouts/PostLayout.astro',
 });
 
 export const collections = {
