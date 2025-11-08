@@ -11,7 +11,7 @@
 
 @layer components {
   .prose {
-    @apply mx-auto max-w-prose text-base text-base-text;
+    @apply mx-auto max-w-prose text-base leading-7 text-base-text;
   }
 
   .prose > :first-child {
@@ -22,38 +22,36 @@
     @apply mb-0;
   }
 
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
+  .prose :where(h1, h2, h3, h4, h5, h6) {
     @apply font-semibold tracking-tight text-base-text;
   }
 
-  .prose h1 {
-    @apply mt-0 text-3xl;
+  .prose :where(h1) {
+    @apply text-3xl;
   }
 
-  .prose h2 {
-    @apply mt-12 text-2xl;
+  .prose :where(h2) {
+    @apply mt-10 text-2xl;
   }
 
-  .prose h3 {
-    @apply mt-10 text-xl;
+  .prose :where(h3) {
+    @apply mt-8 text-xl;
   }
 
-  .prose h4 {
-    @apply mt-8 text-lg;
+  .prose :where(h4) {
+    @apply mt-6 text-lg;
   }
 
-  .prose p,
-  .prose ul,
-  .prose ol,
-  .prose blockquote,
-  .prose pre,
-  .prose table {
-    @apply mt-6 text-base leading-7;
+  .prose :where(h5) {
+    @apply mt-4 text-base;
+  }
+
+  .prose :where(h6) {
+    @apply mt-4 text-sm uppercase tracking-widest text-base-mute;
+  }
+
+  .prose :where(p, ul, ol, blockquote, pre, table) {
+    @apply mt-6 text-base leading-7 text-base-text;
   }
 
   .prose a {
@@ -61,7 +59,7 @@
   }
 
   .prose a:hover {
-    @apply text-base-text underline;
+    @apply underline;
   }
 
   .prose hr {
@@ -69,7 +67,7 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-zinc-600 pl-6 italic text-base-mute;
+    @apply border-l-4 border-zinc-600 pl-6 text-base-mute;
   }
 
   .prose blockquote p {
@@ -81,7 +79,7 @@
   }
 
   .prose code {
-    @apply rounded bg-zinc-900 px-2 py-0.5 text-sm text-base-text;
+    @apply rounded bg-zinc-900 px-1.5 py-0.5 text-sm text-base-text;
   }
 
   .prose pre {
@@ -105,7 +103,7 @@
   }
 
   .prose table {
-    @apply my-6 block w-full overflow-x-auto border-collapse rounded-lg;
+    @apply my-6 block w-full overflow-x-auto border-collapse;
   }
 
   .prose thead th {
@@ -134,7 +132,7 @@
 
   .heading-anchor:hover,
   .heading-anchor:focus-visible,
-  .prose :is(h1,h2,h3,h4,h5,h6):hover .heading-anchor {
+  .prose :where(h1, h2, h3, h4, h5, h6):hover .heading-anchor {
     @apply opacity-100 text-base-text;
   }
 
