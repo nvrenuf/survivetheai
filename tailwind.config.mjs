@@ -16,5 +16,5 @@ export default {
       maxWidth: { prose: '72ch' },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

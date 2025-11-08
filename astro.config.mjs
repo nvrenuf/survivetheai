@@ -2,13 +2,12 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import remarkGfm from 'remark-gfm';
-import { rehypeSlug, rehypeAutolinkHeadings } from './src/lib/rehype/slugAutolink.mjs';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export default defineConfig({
   integrations: [
-    tailwind({
-      config: { applyBaseStyles: false },
-    }),
+    tailwind({ config: { applyBaseStyles: false } }),
     react(),
   ],
   markdown: {

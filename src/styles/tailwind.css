@@ -2,149 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html,
-  body {
-    @apply bg-base-bg text-base-text antialiased;
-  }
+/* Dark prose for Markdown */
+.prose{
+  @apply max-w-prose prose-invert mx-auto;
+  @apply prose-headings:font-semibold prose-headings:tracking-tight;
+  @apply prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl;
+  @apply prose-p:leading-7 prose-a:text-inherit prose-a:underline-offset-4 hover:prose-a:underline;
+  @apply prose-hr:my-10;
+  @apply prose-blockquote:border-l-4 prose-blockquote:border-zinc-600;
+  @apply prose-img:rounded-xl prose-img:mx-auto;
+  @apply prose-code:bg-zinc-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded;
+  @apply prose-pre:bg-zinc-900 prose-pre:rounded-xl prose-pre:p-4;
 }
 
-@layer components {
-  .prose {
-    @apply mx-auto max-w-prose text-base leading-7 text-base-text;
-  }
+/* GFM tables */
+.prose table{ @apply w-full block overflow-x-auto border-collapse my-6; }
+.prose thead th{ @apply border-b border-zinc-700 text-left py-2 px-3; }
+.prose tbody td{ @apply border-b border-zinc-800 py-2 px-3 align-top; }
+.prose tbody tr:nth-child(odd) td{ @apply bg-zinc-900/30; }
 
-  .prose > :first-child {
-    @apply mt-0;
-  }
+/* Callout utility */
+.callout{ @apply border-l-4 border-zinc-600 pl-4 py-3 my-6 bg-zinc-900/40 rounded-r; }
 
-  .prose > :last-child {
-    @apply mb-0;
-  }
+/* Figure + image sizing utilities */
+.figure-wide{ @apply not-prose my-8; }
+.figure-narrow{ @apply my-8; }
+.figcap{ @apply mt-3 text-sm text-base-mute text-center; }
 
-  .prose :where(h1, h2, h3, h4, h5, h6) {
-    @apply font-semibold tracking-tight text-base-text;
-  }
+.img-wide{ @apply w-full max-w-5xl mx-auto rounded-xl shadow; }
+.img-medium{ @apply w-full max-w-3xl mx-auto rounded-xl shadow; }
+.img-small{ @apply w-full max-w-xl mx-auto rounded-lg shadow; }
+.img-tuck{ @apply md:float-right md:ml-6 md:mb-2 md:w-[360px] rounded-lg; }
 
-  .prose :where(h1) {
-    @apply text-3xl;
-  }
+/* Ensure images inside prose respect container widths */
+.prose img{ @apply max-w-full h-auto; }
 
-  .prose :where(h2) {
-    @apply mt-10 text-2xl;
-  }
+/* If a figure should break out of the prose container, use `.figure-wide` + `not-prose` on the element */
+.figure-wide.not-prose{ @apply -mx-6 md:mx-0; }
 
-  .prose :where(h3) {
-    @apply mt-8 text-xl;
-  }
 
-  .prose :where(h4) {
-    @apply mt-6 text-lg;
-  }
-
-  .prose :where(h5) {
-    @apply mt-4 text-base;
-  }
-
-  .prose :where(h6) {
-    @apply mt-4 text-sm uppercase tracking-widest text-base-mute;
-  }
-
-  .prose :where(p, ul, ol, blockquote, pre, table) {
-    @apply mt-6 text-base leading-7 text-base-text;
-  }
-
-  .prose a {
-    @apply text-base-text underline-offset-4 transition-colors;
-  }
-
-  .prose a:hover {
-    @apply underline;
-  }
-
-  .prose hr {
-    @apply my-10 border-zinc-800;
-  }
-
-  .prose blockquote {
-    @apply border-l-4 border-zinc-600 pl-6 text-base-mute;
-  }
-
-  .prose blockquote p {
-    @apply text-base-mute;
-  }
-
-  .prose img {
-    @apply mx-auto my-10 h-auto w-full rounded-xl;
-  }
-
-  .prose code {
-    @apply rounded bg-zinc-900 px-1.5 py-0.5 text-sm text-base-text;
-  }
-
-  .prose pre {
-    @apply overflow-x-auto rounded-xl bg-zinc-900 p-4 text-sm leading-6;
-  }
-
-  .prose pre code {
-    @apply block bg-transparent p-0 text-sm;
-  }
-
-  .prose ul {
-    @apply list-disc pl-6;
-  }
-
-  .prose ol {
-    @apply list-decimal pl-6;
-  }
-
-  .prose li {
-    @apply my-2;
-  }
-
-  .prose table {
-    @apply my-6 block w-full overflow-x-auto border-collapse;
-  }
-
-  .prose thead th {
-    @apply border-b border-zinc-700 py-2 px-3 text-left font-semibold;
-  }
-
-  .prose tbody td {
-    @apply border-b border-zinc-800 py-2 px-3 align-top;
-  }
-
-  .prose tbody tr:nth-child(odd) td {
-    @apply bg-zinc-900/30;
-  }
-
-  .prose figure {
-    @apply my-10;
-  }
-
-  .prose figcaption {
-    @apply mt-3 text-sm text-base-mute;
-  }
-
-  .heading-anchor {
-    @apply ml-2 text-sm text-base-mute opacity-0 transition-opacity;
-  }
-
-  .heading-anchor:hover,
-  .heading-anchor:focus-visible,
-  .prose :where(h1, h2, h3, h4, h5, h6):hover .heading-anchor {
-    @apply opacity-100 text-base-text;
-  }
-
-  .heading-anchor-wrap {
-    @apply no-underline;
-  }
-
-  .figure-wide {
-    @apply -mx-6 md:mx-0;
-  }
-
-  .callout {
-    @apply my-6 rounded-r border-l-4 border-zinc-600 bg-zinc-900/40 px-4 py-3;
-  }
-}
