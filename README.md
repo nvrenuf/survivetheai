@@ -28,6 +28,25 @@ AI is transforming every aspect of our lives—from the workplace to the classro
 ## 📂 How to Contribute
 We welcome contributions! Check out the `/src/content/posts/` directory to add new articles, or see `/public/README.md` for instructions on adding images and creating posts.
 
+### Working without the VS Code CLI
+This containerized environment cannot download or run Microsoft's official
+`code` binary, which previously caused a `command not found` error when trying
+to launch Visual Studio Code from the terminal. To surface more helpful
+guidance we now ship a small shim at `bin/code` that explains alternatives for
+opening the project in VS Code.
+
+To use it, add the repository's `bin` directory to your `PATH` in the current
+shell session:
+
+```bash
+export PATH="$(pwd)/bin:$PATH"
+```
+
+Running `code` (or `code --help`) afterwards will display a message detailing
+options such as using [vscode.dev](https://vscode.dev), connecting through VS
+Code Remote Tunnels, or cloning the repository locally where the real CLI is
+available.
+
 ---
 
 SurviveTheAI: Because the best way to predict the future is to create it. 🌍🤖
