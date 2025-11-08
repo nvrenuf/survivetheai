@@ -12,6 +12,10 @@
   --space-md: 1.5rem;
   --space-lg: 2rem;
   --space-xl: 3rem;
+  --figure-width-narrow: calc(var(--max-page-width) * 0.55);
+  --figure-width-default: 760px;
+  --figure-width-wide: calc(var(--max-page-width) * 0.85);
+  --figure-width-full: var(--max-page-width);
   --font-sans: 'IBM Plex Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
 }
@@ -28,7 +32,23 @@
 
 .prose figure {
   margin: 1.25rem auto;
-  max-width: 760px;
+  width: 100%;
+  max-width: var(--figure-width-default);
+}
+
+.prose figure.figure-narrow,
+.prose img.img-medium {
+  max-width: var(--figure-width-narrow);
+}
+
+.prose figure.figure-wide,
+.prose img.img-wide {
+  max-width: var(--figure-width-wide);
+}
+
+.prose figure.figure-full,
+.prose img.img-full {
+  max-width: var(--figure-width-full);
 }
 
 .prose img {
@@ -36,7 +56,7 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 0.75rem;
-  max-width: 760px;
+  max-width: var(--figure-width-default);
   width: 100%;
   height: auto;
 }
