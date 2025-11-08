@@ -73,8 +73,8 @@ const structuredData = {
   </head>
   <body class="bg-neutral-950 text-neutral-100 antialiased">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-      <article class="lg:grid lg:grid-cols-12 lg:gap-12">
-        <div class="lg:col-span-8 space-y-6 sm:space-y-8 pb-16">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-10">
+        <main class="pb-16 space-y-6 sm:space-y-8 lg:col-span-8">
           <slot name="hero">
             <HeroImage src={heroImage} alt={heroAlt} />
           </slot>
@@ -107,17 +107,17 @@ const structuredData = {
               <TableOfContents client:load headings={filteredHeadings} initiallyCollapsed={true} />
             </div>
           )}
-          <div class="prose prose-invert mx-auto max-w-none text-base sm:text-lg">
+          <article class="mx-auto w-full max-w-[760px] prose prose-invert prose-headings:font-extrabold prose-a:underline-offset-2">
             <slot />
-          </div>
+          </article>
           <footer class="pt-6">
             <slot name="share-bar-bottom">
               <ShareBar client:load url={shareUrl} title={title} />
             </slot>
           </footer>
-        </div>
-        <aside class="lg:col-span-4 lg:space-y-8 space-y-8">
-          <div class="lg:sticky lg:top-24 lg:space-y-8 space-y-8">
+        </main>
+        <aside class="space-y-8 lg:col-span-4">
+          <div class="space-y-8 lg:sticky lg:top-24">
             <RightRailRelated category={category} currentSlug={post.slug} posts={allPosts} />
             {filteredHeadings.length > 0 && (
               <div class="hidden lg:block">
@@ -126,7 +126,7 @@ const structuredData = {
             )}
           </div>
         </aside>
-      </article>
+      </div>
     </div>
   </body>
 </html>
