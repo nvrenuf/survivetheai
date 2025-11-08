@@ -2,7 +2,7 @@
 title: "Don’t Get Replaced: Pick the AI Study Platform That Builds the Right Skills"
 description: "Match your skill gaps to the right AI study tool—so you stay useful and employed."
 date: 2025-11-07T12:00:00Z
-author: "Justin Cuevas"
+author: "Lee Cuevas"
 category: "Learning"
 tags:
   - "AI"
@@ -10,7 +10,7 @@ tags:
   - "careers"
   - "education"
 fear_index_score: 64
-heroImage: "/images/placeholder-hero.svg"
+heroImage: "/images/ai-study-platforms-2025.jpg"
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"
