@@ -6,6 +6,7 @@ author: "Justin Cuevas"
 description: "Degrees used to be the golden ticket. Not anymore. Discover what employers truly value in a post-credential era."
 excerpt: "Degrees are losing power. Recruiters now value what you can do over what you claim on paper."
 image: "recruiter.jpg"
+hero_image: "/images/recruiter.jpg"
 tags: ["hiring trends", "credentialism", "recruiting", "skills-first", "future of work"]
 category: "AI Job Displacement"
 ---

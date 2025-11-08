@@ -6,6 +6,7 @@ author: "Justin Cuevas"
 description: "How freelancing, contract work, and on-demand labor are reshaping the modern workforce."
 excerpt: "Delivery drivers, freelancers, and side hustlers — here's what's coming."
 image: "uber.jpg"
+hero_image: "/images/uber.jpg"
 tags: ["gig economy", "future of work", "freelancing", "technology"]
 category: "Gig Collapse"
 ---
