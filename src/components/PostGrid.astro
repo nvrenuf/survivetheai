@@ -33,7 +33,7 @@ const { groupedItems } = Astro.props as { groupedItems: Post[][] };
           {rest.map((post) => (
             <a key={post.slug} href={`/posts/${post.slug}/`} class="block">
               <div class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/50 transition hover:border-neutral-700">
-                <img src={post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-40 w-full object-cover" loading="lazy" decoding="async" width="400" height="210" />
+                <img src={post.data.heroImageThumb ?? post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-40 w-full object-cover" loading="lazy" decoding="async" width="400" height="210" />
                 <div class="flex flex-1 flex-col gap-3 p-5">
                   <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-500">
                     <span>{post.data.category}</span>
