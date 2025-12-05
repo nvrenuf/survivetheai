@@ -3,7 +3,7 @@ title: "Placeholder: Cognitive Erosion"
 description: "This is a placeholder post for the Cognitive Erosion category."
 date: 2025-07-31
 author: "Admin"
-category: "Cognitive Erosion"
+category: "Mind & Attention – Cognitive Erosion & Offloading"
 tags:
   - "Cognitive Erosion"
 fear_index_score: 49

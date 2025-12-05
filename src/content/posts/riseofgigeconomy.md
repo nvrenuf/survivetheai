@@ -3,7 +3,7 @@ title: "The Rise of the Gig Economy"
 description: "How freelancing, contract work, and on-demand labor are reshaping the modern workforce."
 date: 2025-07-29T15:52:00Z
 author: "Justin Cuevas"
-category: "Gig Collapse"
+category: "Work & Money – AI Job Displacement"
 tags:
   - "gig economy"
   - "future of work"

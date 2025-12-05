@@ -3,7 +3,7 @@ title: "How to Adapt to Rapid Change in the Age of AI"
 description: "From careers to creativity, learn how to thrive in a world where everything changes faster than ever."
 date: 2025-07-29T16:52:00Z
 author: "Justin Cuevas"
-category: "Cognitive Erosion"
+category: "Mind & Attention – Cognitive Erosion & Offloading"
 tags:
   - "adaptability"
   - "AI"

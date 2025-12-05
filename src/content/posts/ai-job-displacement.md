@@ -3,7 +3,7 @@ title: "Placeholder: AI Job Displacement"
 description: "This is a placeholder post for the AI Job Displacement category."
 date: 2025-07-31
 author: "Admin"
-category: "AI Job Displacement"
+category: "Work & Money – AI Job Displacement"
 tags:
   - "AI Job Displacement"
 fear_index_score: 58

@@ -3,7 +3,7 @@ title: "Are Programmers Becoming Obsolete in the Age of AI?"
 description: "As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing."
 date: 2025-07-26T13:52:00Z
 author: "Alex Morgan"
-category: "AI Job Displacement"
+category: "Work & Money – AI Job Displacement"
 tags:
   - "AI"
   - "future of work"
@@ -60,4 +60,3 @@ If a machine can deliver clean, tested code instantly, why hire a human?
 AI won’t kill programming. But it **will kill programming as we knew it**. The future belongs to those who embrace the shift — not by clinging to syntax, but by evolving into roles where **human intuition guides machine output**.
 
 The programmers of tomorrow won't write code. They'll write ideas.
-

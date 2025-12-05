@@ -3,7 +3,7 @@ title: "Credentialism is Collapsing: Here's What Recruiters Actually Look For No
 description: "Degrees used to be the golden ticket. Not anymore. Discover what employers truly value in a post-credential era."
 date: 2025-07-29T14:52:00Z
 author: "Justin Cuevas"
-category: "AI Job Displacement"
+category: "Work & Money – AI Job Displacement"
 tags:
   - "hiring trends"
   - "credentialism"

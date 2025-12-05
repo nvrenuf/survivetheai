@@ -3,7 +3,7 @@ title: "How to AI-Proof Your Kid"
 description: "A practical guide for parents who want to prepare their children for a world dominated by artificial intelligence."
 date: 2025-07-29T18:52:00Z
 author: "Justin Cuevas"
-category: "AI Companionship"
+category: "Kids & School – AI vs Your Children’s Future"
 tags:
   - "parenting"
   - "AI"

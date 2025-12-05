@@ -3,7 +3,7 @@ title: "Entry-Level Is Dead: How AI Is Sawing Off the Bottom Rung of the Career 
 description: "AI is deleting entry-level roles and hollowing out the career ladder; this post explains the data, drivers, and what to do about it."
 date: 2024-12-04
 author: "Admin"
-category: "AI Job Displacement"
+category: "Work & Money – AI Job Displacement"
 tags:
   - "Entry-Level"
   - "Automation"
