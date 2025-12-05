@@ -4,6 +4,8 @@ description: "Degrees used to be the golden ticket. Not anymore. Discover what e
 date: 2025-07-29T14:52:00Z
 author: "Justin Cuevas"
 category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
 tags:
   - "hiring trends"
   - "credentialism"

@@ -4,6 +4,8 @@ description: "This is a placeholder post for the AI Companionship category."
 date: 2025-07-31
 author: "Admin"
 category: "Love, Sex & Connection – AI Relationships & Synthetic Intimacy"
+fearCategories:
+  - "love-connection"
 tags:
   - "AI Companionship"
 fear_index_score: 42

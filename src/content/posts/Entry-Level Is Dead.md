@@ -4,6 +4,8 @@ description: "AI is deleting entry-level roles and hollowing out the career ladd
 date: 2024-12-04
 author: "Admin"
 category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
 tags:
   - "Entry-Level"
   - "Automation"

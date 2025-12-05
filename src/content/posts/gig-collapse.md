@@ -4,6 +4,8 @@ description: "This is a placeholder post for the Gig Collapse category."
 date: 2025-07-31
 author: "Admin"
 category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
 tags:
   - "Gig Collapse"
 fear_index_score: 53

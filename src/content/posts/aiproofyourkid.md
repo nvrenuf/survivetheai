@@ -4,6 +4,8 @@ description: "A practical guide for parents who want to prepare their children f
 date: 2025-07-29T18:52:00Z
 author: "Justin Cuevas"
 category: "Kids & School – AI vs Your Children’s Future"
+fearCategories:
+  - "kids-school"
 tags:
   - "parenting"
   - "AI"

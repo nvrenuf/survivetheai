@@ -4,6 +4,8 @@ description: "Match your skill gaps to the right AI study tool—so you stay use
 date: 2025-11-07T12:00:00Z
 author: "Lee Cuevas"
 category: "Kids & School – AI vs Your Children’s Future"
+fearCategories:
+  - "kids-school"
 tags:
   - "AI"
   - "learning"

@@ -4,6 +4,8 @@ description: "How freelancing, contract work, and on-demand labor are reshaping 
 date: 2025-07-29T15:52:00Z
 author: "Justin Cuevas"
 category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
 tags:
   - "gig economy"
   - "future of work"

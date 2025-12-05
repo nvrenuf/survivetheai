@@ -4,6 +4,8 @@ description: "This is a placeholder post for the Soft Extinction category."
 date: 2025-07-31
 author: "Admin"
 category: "System Shock – Soft Extinction & Collapse"
+fearCategories:
+  - "system-shock"
 tags:
   - "Soft Extinction"
 fear_index_score: 57

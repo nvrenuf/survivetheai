@@ -9,6 +9,7 @@ import '../styles/tailwind.css';
 import type { PostEntry } from '../content/config';
 import type { MarkdownHeading } from 'astro';
 import { formatDate, formatReadingMinutes } from '../utils/format';
+import { FEAR_CATEGORIES } from '../data/categories';
 
 const {
   post,
@@ -24,12 +25,15 @@ const {
   allPosts: PostEntry[];
 };
 
-const { title, description, date, author, heroImage, heroImageAlt, category, fear_index_score, canonicalUrl } = post.data;
+const { title, description, date, author, heroImage, heroImageAlt, fearCategories, fear_index_score, canonicalUrl } = post.data;
 const displayDate = formatDate(date);
 const readingTimeLabel = formatReadingMinutes(readingTime);
 const isoDate = date.toISOString();
 const heroAlt = heroImageAlt ?? `${title} hero image`;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const categoryByKey = new Map(FEAR_CATEGORIES.map((c) => [c.key, c]));
+const primaryCategory = fearCategories?.[0] ? categoryByKey.get(fearCategories[0]) : undefined;
+const categoryLabel = primaryCategory?.label;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -80,7 +84,7 @@ const structuredData = {
           </slot>
           <header class="space-y-4">
             <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
-              <span>{category}</span>
+              <span>{categoryLabel ?? 'Fear Index'}</span>
               <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
               <span>Fear Index: {fear_index_score}</span>
             </div>
@@ -118,7 +122,7 @@ const structuredData = {
         </main>
         <aside class="space-y-8 lg:col-span-4">
           <div class="space-y-8 lg:sticky lg:top-24">
-            <RightRailRelated category={category} currentSlug={post.slug} posts={allPosts} />
+            <RightRailRelated currentSlug={post.slug} posts={allPosts} />
             {filteredHeadings.length > 0 && (
               <div class="hidden lg:block">
                 <TableOfContents client:load headings={filteredHeadings} initiallyCollapsed={false} />

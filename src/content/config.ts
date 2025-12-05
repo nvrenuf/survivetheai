@@ -5,7 +5,16 @@ export const postSchema = z.object({
   description: z.string(),
   date: z.coerce.date(),
   author: z.string(),
-  category: z.string(),
+  category: z.string().optional(),
+  fearCategories: z.array(
+    z.enum([
+      'work-money',
+      'kids-school',
+      'love-connection',
+      'mind-attention',
+      'system-shock',
+    ]),
+  ),
   tags: z.array(z.string()).min(1),
   fear_index_score: z.number().min(0).max(100),
   heroImage: z.string(),

@@ -4,6 +4,8 @@ description: "This is a placeholder post for the AI Job Displacement category."
 date: 2025-07-31
 author: "Admin"
 category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
 tags:
   - "AI Job Displacement"
 fear_index_score: 58

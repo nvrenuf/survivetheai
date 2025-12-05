@@ -4,6 +4,8 @@ description: "From careers to creativity, learn how to thrive in a world where e
 date: 2025-07-29T16:52:00Z
 author: "Justin Cuevas"
 category: "Mind & Attention – Cognitive Erosion & Offloading"
+fearCategories:
+  - "mind-attention"
 tags:
   - "adaptability"
   - "AI"
