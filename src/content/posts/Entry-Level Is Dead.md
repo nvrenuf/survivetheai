@@ -1,3 +1,22 @@
+---
+title: "Entry-Level Is Dead: How AI Is Sawing Off the Bottom Rung of the Career Ladder"
+description: "AI is deleting entry-level roles and hollowing out the career ladder; this post explains the data, drivers, and what to do about it."
+date: 2024-12-04
+author: "Admin"
+category: "AI Job Displacement"
+tags:
+  - "Entry-Level"
+  - "Automation"
+fear_index_score: 67
+heroImage: "/images/entry-level-dead-ladder-bw.jpg"
+heroImageAlt: "Black-and-white career ladder with the bottom rungs missing, fading into shadow"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/entry-level-is-dead"
+---
+
 Entry-Level Is Dead: How AI Is Sawing Off the Bottom Rung of the Career Ladder
 
 ![Black and white hero image: a career ladder in stark lighting with its bottom rungs missing, fading into shadow below.](/images/entry-level-dead-ladder-bw.jpg)
