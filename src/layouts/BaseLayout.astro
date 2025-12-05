@@ -12,7 +12,7 @@ import '../styles/global.css';
     <meta name="description" content="Survive the AI — Tools, strategies, and content to prepare for the AI disruption." />
     <title>Survive the AI</title>
     <script is:inline>
-      {`(function() {
+      (function() {
         try {
           const stored = localStorage.getItem('theme');
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -22,7 +22,7 @@ import '../styles/global.css';
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           if (prefersDark) document.documentElement.classList.add('dark');
         }
-      })();`}
+      })();
     </script>
   </head>
   <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 font-sans">
