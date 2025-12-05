@@ -74,7 +74,7 @@ const structuredData = {
     <meta name="twitter:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-    <script>
+    <script is:inline>
       {`(function() {
         try {
           const stored = localStorage.getItem('theme');
