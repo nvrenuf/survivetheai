@@ -32,6 +32,19 @@
         "category": {
           "type": "string"
         },
+        "fearCategories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "work-money",
+              "kids-school",
+              "love-connection",
+              "mind-attention",
+              "system-shock"
+            ]
+          }
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -83,7 +96,7 @@
         "description",
         "date",
         "author",
-        "category",
+        "fearCategories",
         "tags",
         "fear_index_score",
         "heroImage",
