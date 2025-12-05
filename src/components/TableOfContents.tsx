@@ -31,10 +31,13 @@ const TableOfContents: FC<TableOfContentsProps> = ({
     : 'mt-4 list-none space-y-2 pl-0';
 
   return (
-    <nav className={`rounded-3xl border border-neutral-200 bg-white p-5 text-sm text-neutral-700 shadow-sm ${className}`.trim()} aria-label="Table of contents">
+    <nav
+      className={`rounded-3xl border border-neutral-200 bg-white p-5 text-sm text-neutral-700 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 ${className}`.trim()}
+      aria-label="Table of contents"
+    >
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-2 text-left font-medium text-neutral-200 lg:cursor-auto lg:text-neutral-300"
+        className="flex w-full items-center justify-between gap-2 text-left font-medium text-neutral-800 dark:text-neutral-100 lg:cursor-auto"
         onClick={() => setCollapsed((value) => !value)}
         aria-expanded={!collapsed}
       >
@@ -51,8 +54,11 @@ const TableOfContents: FC<TableOfContentsProps> = ({
       </button>
       <ul className={listClasses}>
         {filtered.map((heading) => (
-          <li key={heading.slug} className={heading.depth === 3 ? 'pl-4 text-neutral-500' : ''}>
-            <a href={`#${heading.slug}`} className="block rounded-md px-2 py-1 transition hover:text-neutral-100">
+          <li key={heading.slug} className={heading.depth === 3 ? 'pl-4 text-neutral-500 dark:text-neutral-400' : ''}>
+            <a
+              href={`#${heading.slug}`}
+              className="block rounded-md px-2 py-1 transition hover:text-neutral-900 dark:hover:text-neutral-100"
+            >
               {heading.text}
             </a>
           </li>

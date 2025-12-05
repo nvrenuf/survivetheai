@@ -11,6 +11,19 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Survive the AI — Tools, strategies, and content to prepare for the AI disruption." />
     <title>Survive the AI</title>
+    <script>
+      {`(function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const useDark = stored ? stored === 'dark' : prefersDark;
+          document.documentElement.classList.toggle('dark', useDark);
+        } catch (e) {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) document.documentElement.classList.add('dark');
+        }
+      })();`}
+    </script>
   </head>
   <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 font-sans">
     <Navbar />

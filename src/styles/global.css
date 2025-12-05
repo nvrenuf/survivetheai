@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 body {
-  background: var(--bg-light);
-  color: var(--text-main);
+  background: inherit;
+  color: inherit;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 h1, h2, h3, h4, h5 {

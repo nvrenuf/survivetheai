@@ -74,6 +74,19 @@ const structuredData = {
     <meta name="twitter:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
+    <script>
+      {`(function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const useDark = stored ? stored === 'dark' : prefersDark;
+          document.documentElement.classList.toggle('dark', useDark);
+        } catch (e) {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) document.documentElement.classList.add('dark');
+        }
+      })();`}
+    </script>
   </head>
   <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 antialiased">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
