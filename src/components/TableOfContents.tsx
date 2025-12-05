@@ -31,7 +31,7 @@ const TableOfContents: FC<TableOfContentsProps> = ({
     : 'mt-4 list-none space-y-2 pl-0';
 
   return (
-    <nav className={`rounded-3xl border border-neutral-800/80 bg-neutral-950/60 p-5 text-sm text-neutral-400 ${className}`.trim()} aria-label="Table of contents">
+    <nav className={`rounded-3xl border border-neutral-200 bg-white p-5 text-sm text-neutral-700 shadow-sm ${className}`.trim()} aria-label="Table of contents">
       <button
         type="button"
         className="flex w-full items-center justify-between gap-2 text-left font-medium text-neutral-200 lg:cursor-auto lg:text-neutral-300"

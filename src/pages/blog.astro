@@ -18,12 +18,12 @@ const groupedItems = chunkArray(posts, 5);
 ---
 
 <Layout>
-  <main class="bg-neutral-950 py-20">
+  <main class="bg-white py-20 text-neutral-900">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="mb-10 space-y-3">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Blog</p>
-        <h1 class="text-3xl font-extrabold text-neutral-50 sm:text-4xl">Latest posts</h1>
-        <p class="text-neutral-400">Newest to oldest, refreshed automatically from the posts collection.</p>
+        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">Latest posts</h1>
+        <p class="text-neutral-600">Newest to oldest, refreshed automatically from the posts collection.</p>
       </div>
       <PostGrid groupedItems={groupedItems} />
     </div>

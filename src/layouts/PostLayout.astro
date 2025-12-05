@@ -51,7 +51,7 @@ const structuredData = {
 };
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-neutral-950 text-neutral-100">
+<html lang="en" class="bg-white text-neutral-900">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,7 +71,7 @@ const structuredData = {
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
   </head>
-  <body class="bg-neutral-950 text-neutral-100 antialiased">
+  <body class="bg-white text-neutral-900 antialiased">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
       <div class="lg:grid lg:grid-cols-12 lg:gap-10">
         <main class="pb-16 space-y-6 sm:space-y-8 lg:col-span-8">
@@ -85,7 +85,7 @@ const structuredData = {
               <span>Fear Index: {fear_index_score}</span>
             </div>
             <slot name="heading">
-              <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">{title}</h1>
+              <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
               {description && <p class="text-base text-neutral-400 sm:text-lg">{description}</p>}
             </slot>
             <div class="lg:hidden">
