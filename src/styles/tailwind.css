@@ -35,31 +35,34 @@
 }
 
 .prose {
-  @apply mx-auto max-w-none text-neutral-200 leading-7 sm:leading-8;
-  @apply prose-invert prose-headings:tracking-tight prose-headings:font-semibold;
+  @apply mx-auto max-w-none leading-7 sm:leading-8 prose-headings:tracking-tight prose-headings:font-semibold;
+  @apply prose-neutral dark:prose-invert;
   @apply prose-h1:text-3xl prose-h1:sm:text-4xl prose-h1:font-extrabold;
   @apply prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:font-bold;
   @apply prose-h3:text-xl prose-h3:sm:text-2xl prose-h3:font-semibold;
   @apply prose-p:text-base prose-p:sm:text-lg;
   @apply prose-a:no-underline hover:prose-a:underline;
-  @apply prose-img:rounded-2xl prose-img:border prose-img:border-neutral-800;
-  @apply prose-code:bg-neutral-900 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-neutral-100;
-  @apply prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800 prose-pre:rounded-2xl prose-pre:p-5;
-  @apply prose-hr:border-neutral-800 prose-blockquote:border-l-4 prose-blockquote:border-neutral-700 prose-blockquote:text-neutral-400;
+  @apply prose-img:rounded-2xl prose-img:border prose-img:border-neutral-200 dark:prose-img:border-neutral-800;
+  @apply prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:bg-neutral-100 prose-code:text-neutral-900 dark:prose-code:bg-neutral-900 dark:prose-code:text-neutral-100;
+  @apply prose-pre:rounded-2xl prose-pre:p-5 prose-pre:bg-neutral-50 prose-pre:text-neutral-900 prose-pre:border prose-pre:border-neutral-200;
+  @apply dark:prose-pre:bg-neutral-900 dark:prose-pre:text-neutral-100 dark:prose-pre:border-neutral-800;
+  @apply prose-hr:border-neutral-200 dark:prose-hr:border-neutral-800;
+  @apply prose-blockquote:border-l-4 prose-blockquote:border-neutral-200 prose-blockquote:text-neutral-600;
+  @apply dark:prose-blockquote:border-neutral-700 dark:prose-blockquote:text-neutral-400;
 }
 
 .prose table {
-  @apply w-full overflow-x-auto rounded-2xl border border-neutral-800 text-sm;
+  @apply w-full overflow-x-auto rounded-2xl border border-neutral-200 text-sm dark:border-neutral-800;
 }
 
 .prose thead th {
-  @apply border-b border-neutral-800 px-4 py-3 text-left text-neutral-300;
+  @apply border-b border-neutral-200 px-4 py-3 text-left text-neutral-600 dark:border-neutral-800 dark:text-neutral-300;
 }
 
 .prose tbody td {
-  @apply border-b border-neutral-900/60 px-4 py-3 align-top text-neutral-400;
+  @apply border-b border-neutral-100 px-4 py-3 align-top text-neutral-700 dark:border-neutral-900/60 dark:text-neutral-400;
 }
 
 .prose tbody tr:nth-child(odd) td {
-  @apply bg-neutral-900/40;
+  @apply bg-neutral-50 dark:bg-neutral-900/40;
 }
