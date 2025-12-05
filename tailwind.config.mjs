@@ -46,6 +46,16 @@ export default {
         glow: '0 24px 72px -40px rgba(0,0,0,0.75)',
       },
       typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.gray.900'),
+          },
+        },
+        dark: {
+          css: {
+            color: theme('colors.gray.100'),
+          },
+        },
         invert: {
           css: {
             '--tw-prose-body': theme('colors.neutral.200'),
