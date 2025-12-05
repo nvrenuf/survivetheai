@@ -81,12 +81,12 @@ const structuredData = {
           <header class="space-y-4">
             <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
               <span>{category}</span>
-              <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-700 sm:block" />
+              <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
               <span>Fear Index: {fear_index_score}</span>
             </div>
             <slot name="heading">
               <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
-              {description && <p class="text-base text-neutral-400 sm:text-lg">{description}</p>}
+              {description && <p class="text-base text-neutral-700 sm:text-lg">{description}</p>}
             </slot>
             <div class="lg:hidden">
               <slot name="share-bar-top">
@@ -107,7 +107,7 @@ const structuredData = {
               <TableOfContents client:load headings={filteredHeadings} initiallyCollapsed={true} />
             </div>
           )}
-          <article class="mx-auto w-full max-w-[760px] prose prose-invert prose-headings:font-extrabold prose-a:underline-offset-2">
+          <article class="mx-auto w-full max-w-[760px] prose prose-headings:font-extrabold prose-a:underline-offset-2">
             <slot />
           </article>
           <footer class="pt-6">
