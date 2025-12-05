@@ -1,13 +1,23 @@
 ---
-filename: "riseofgigeconomy.md"
 title: "The Rise of the Gig Economy"
-pubDate: 2025-07-29T15:52:00.000Z
-author: "Justin Cuevas"
 description: "How freelancing, contract work, and on-demand labor are reshaping the modern workforce."
-excerpt: "Delivery drivers, freelancers, and side hustlers — here's what's coming."
-image: "uber.jpg"
-tags: ["gig economy", "future of work", "freelancing", "technology"]
-category: "Gig Collapse"
+date: 2025-07-29T15:52:00Z
+author: "Justin Cuevas"
+category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
+tags:
+  - "gig economy"
+  - "future of work"
+  - "freelancing"
+  - "technology"
+fear_index_score: 51
+heroImage: "/images/uber.jpg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/riseofgigeconomy"
 ---
 
 ## Introduction

@@ -1,12 +1,12 @@
 /* Global styles for Survive the AI */
+@import './wrapkit-theme.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import './wrapkit-theme.css';
 
 body {
-  background: var(--bg-light);
-  color: var(--text-main);
+  background: inherit;
+  color: inherit;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 h1, h2, h3, h4, h5 {

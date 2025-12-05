@@ -1,9 +1,11 @@
 ---
-import { categories } from '../data/categories';
-const { title, excerpt, imageUrl, category, date } = Astro.props;
+import { FEAR_CATEGORIES } from '../data/categories';
+const { title, excerpt, imageUrl, fearCategories, date, category } = Astro.props;
 
 // Find the category object for this post
-const catObj = categories.find(cat => cat.name === category);
+const catObj =
+  (Array.isArray(fearCategories) && FEAR_CATEGORIES.find((cat) => cat.key === fearCategories[0])) ||
+  FEAR_CATEGORIES.find((cat) => cat.label === category);
 ---
 
 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 border border-gray-200 dark:border-gray-700">

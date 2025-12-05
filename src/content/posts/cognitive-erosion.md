@@ -1,13 +1,20 @@
 ---
-filename: "cognitive-erosion.md"
 title: "Placeholder: Cognitive Erosion"
-pubDate: 2025-07-31
-author: "Admin"
 description: "This is a placeholder post for the Cognitive Erosion category."
-excerpt: "Placeholder content for the Cognitive Erosion category."
-image: "placeholder.jpg"
-tags: ["Cognitive Erosion"]
-category: "Cognitive Erosion"
+date: 2025-07-31
+author: "Admin"
+category: "Mind & Attention – Cognitive Erosion & Offloading"
+fearCategories:
+  - "mind-attention"
+tags:
+  - "Cognitive Erosion"
+fear_index_score: 49
+heroImage: "/images/placeholder-hero.svg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/cognitive-erosion"
 ---
 
 Content coming soon for this category.

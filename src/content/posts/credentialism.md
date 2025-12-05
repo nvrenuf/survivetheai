@@ -1,13 +1,24 @@
 ---
-filename: "credentialism.md"
 title: "Credentialism is Collapsing: Here's What Recruiters Actually Look For Now"
-pubDate: 2025-07-29T14:52:00.000Z
-author: "Justin Cuevas"
 description: "Degrees used to be the golden ticket. Not anymore. Discover what employers truly value in a post-credential era."
-excerpt: "Degrees are losing power. Recruiters now value what you can do over what you claim on paper."
-image: "recruiter.jpg"
-tags: ["hiring trends", "credentialism", "recruiting", "skills-first", "future of work"]
-category: "AI Job Displacement"
+date: 2025-07-29T14:52:00Z
+author: "Justin Cuevas"
+category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
+tags:
+  - "hiring trends"
+  - "credentialism"
+  - "recruiting"
+  - "skills-first"
+  - "future of work"
+fear_index_score: 54
+heroImage: "/images/recruiter.jpg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/credentialism"
 ---
 
 For decades, degrees were a gatekeeping mechanism in hiring. A bachelor's diploma from a reputable university could all but guarantee you an interview — and often, a job. But something has changed.

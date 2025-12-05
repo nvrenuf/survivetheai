@@ -1,64 +1,51 @@
 ---
-
-import type { Post } from '../data/Posts'
-import { categories } from '../data/categories';
+import type { Post } from '../data/Posts';
+import { FEAR_CATEGORIES } from '../data/categories';
 
 const { groupedItems } = Astro.props as { groupedItems: Post[][] };
----
 
+const categoryByKey = new Map(FEAR_CATEGORIES.map((c) => [c.key, c]));
+const primaryLabel = (keys?: string[]) => {
+  if (!keys || keys.length === 0) return undefined;
+  const first = categoryByKey.get(keys[0]);
+  return first?.label;
+};
+---
 {groupedItems.map((posts) => {
   const [first, ...rest] = posts;
   return (
     <>
-      <div class="mb-2">
-        <a href={`/posts/${first.slug}`}>
-          <div class="bg-black rounded-[var(--radius)] shadow-[var(--shadow)] overflow-hidden flex flex-col">
-            <img src={`/images/${first.data.image}`} alt={first.data.image} class="w-full h-80 object-cover" />
-            <div class="p-5 flex-1 flex flex-col">
-              <div class="flex items-center gap-2 mb-2">
-                {(() => {
-                  const catObj = categories.find(cat => cat.name === first.data.category);
-                  return catObj ? (
-                    <span
-                      class="px-2 py-0.5 rounded font-semibold text-xs"
-                      style={`background:${catObj.color}; color:#222;`}
-                      title={catObj.description}
-                    >
-                      {catObj.name}
-                    </span>
-                  ) : null;
-                })()}
-                <h2 class="text-lg font-bold text-white font-sans">{first.data.title}</h2>
+      <div class="mb-6">
+        <a href={`/posts/${first.slug}/`} class="block">
+          <div class="flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-lg transition hover:border-neutral-300">
+            <img src={first.data.heroImage} alt={first.data.heroImageAlt ?? first.data.title} class="h-80 w-full object-cover" loading="lazy" decoding="async" width="1200" height="630" />
+            <div class="flex flex-1 flex-col gap-4 p-6">
+              <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
+                <span>{primaryLabel(first.data.fearCategories) ?? first.data.category}</span>
+                <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                <span>Fear Index {first.data.fear_index_score}</span>
               </div>
-              <p class="text-white font-sans flex-1">{first.data.excerpt}</p>
+              <h2 class="text-2xl font-semibold text-neutral-900 sm:text-3xl">{first.data.title}</h2>
+              <p class="text-neutral-700">{first.data.description}</p>
             </div>
           </div>
         </a>
       </div>
 
       {rest.length > 0 && (
-        <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-2">
+        <div class="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {rest.map((post) => (
-            <a href={`/posts/${post.slug}`}>
-              <div class="bg-black rounded-[var(--radius)] shadow-[var(--shadow)] overflow-hidden flex flex-col">
-                <img src={`/images/${post.data.image}`} alt={post.data.image} class="w-full h-40 object-cover" />
-                <div class="p-5 flex-1 flex flex-col">
-                  <div class="flex items-center gap-2 mb-2">
-                    {(() => {
-                      const catObj = categories.find(cat => cat.name === post.data.category);
-                      return catObj ? (
-                        <span
-                          class="px-2 py-0.5 rounded font-semibold text-xs"
-                          style={`background:${catObj.color}; color:#222;`}
-                          title={catObj.description}
-                        >
-                          {catObj.name}
-                        </span>
-                      ) : null;
-                    })()}
-                    <h2 class="text-lg font-bold text-white font-sans">{post.data.title}</h2>
+            <a key={post.slug} href={`/posts/${post.slug}/`} class="block">
+              <div class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white transition hover:border-neutral-300 shadow">
+                <img src={post.data.heroImageThumb ?? post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-40 w-full object-cover" loading="lazy" decoding="async" width="400" height="210" />
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                    <span>{primaryLabel(post.data.fearCategories) ?? post.data.category}</span>
+                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                    <span>{post.data.fear_index_score}</span>
                   </div>
-                  <p class="text-white font-sans flex-1">{post.data.excerpt}</p>
+                  <h3 class="text-lg font-semibold text-neutral-900">{post.data.title}</h3>
+                  <p class="text-sm text-neutral-700">{post.data.description}</p>
                 </div>
               </div>
             </a>

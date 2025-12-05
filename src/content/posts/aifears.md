@@ -1,13 +1,24 @@
 ---
-filename: "aifears.md"
 title: "Exploring the Biggest AI Fears in 2026"
-pubDate: 2025-07-29T17:52:00.000Z
-author: "Justin Cuevas"
 description: "What keeps experts, governments, and citizens up at night as AI accelerates into 2026?"
-excerpt: "From job loss to deepfakes to runaway intelligence — these are the AI fears shaping the next era."
-image: "fears.jpg"
-tags: ["AI", "ethics", "technology", "future", "society"]
-category: "AI Job Displacement"
+date: 2025-07-29T17:52:00Z
+author: "Justin Cuevas"
+category: "System Shock – Soft Extinction & Collapse"
+fearCategories:
+  - "system-shock"
+tags:
+  - "AI"
+  - "ethics"
+  - "technology"
+  - "future"
+  - "society"
+fear_index_score: 88
+heroImage: "/images/fears.jpg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/aifears"
 ---
 
 As artificial intelligence races ahead in 2026, so do the anxieties surrounding it. From sci-fi scenarios to very real risks, people are asking: _Are we ready for what we’ve built?_ Below are the five biggest AI fears keeping both technologists and everyday people up at night.

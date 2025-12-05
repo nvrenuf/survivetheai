@@ -4,13 +4,13 @@
     "posts": {
       "type": "object",
       "properties": {
-        "filename": {
-          "type": "string"
-        },
         "title": {
           "type": "string"
         },
-        "pubDate": {
+        "description": {
+          "type": "string"
+        },
+        "date": {
           "anyOf": [
             {
               "type": "string",
@@ -29,34 +29,79 @@
         "author": {
           "type": "string"
         },
-        "description": {
+        "category": {
           "type": "string"
         },
-        "excerpt": {
-          "type": "string"
-        },
-        "image": {
-          "type": "string"
+        "fearCategories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "work-money",
+              "kids-school",
+              "love-connection",
+              "mind-attention",
+              "system-shock"
+            ]
+          }
         },
         "tags": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "minItems": 1
+        },
+        "fear_index_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "heroImage": {
+          "type": "string"
+        },
+        "heroImageAlt": {
+          "type": "string"
+        },
+        "affiliate_offer": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        "canonicalUrl": {
+          "type": "string",
+          "format": "uri"
         },
         "$schema": {
           "type": "string"
         }
       },
       "required": [
-        "filename",
         "title",
-        "pubDate",
-        "author",
         "description",
-        "excerpt",
-        "image",
-        "tags"
+        "date",
+        "author",
+        "fearCategories",
+        "tags",
+        "fear_index_score",
+        "heroImage",
+        "affiliate_offer",
+        "canonicalUrl"
       ],
       "additionalProperties": false
     }

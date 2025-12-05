@@ -1,13 +1,23 @@
 ---
-filename: "byebyedevs.md"
-title: Are Programmers Becoming Obsolete in the Age of AI?
-description: As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing.
-pubDate: 2025-07-26T13:52:00.000Z
-author: Alex Morgan
-tags: ["AI", "future of work", "software engineering", "automation"]
-image: ai-takes-over-code.jpg
-excerpt: Can AI really replace programmers? Or are we entering a new era where human creativity shifts from coding to guiding machines?
-category: "AI Job Displacement"
+title: "Are Programmers Becoming Obsolete in the Age of AI?"
+description: "As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing."
+date: 2025-07-26T13:52:00Z
+author: "Alex Morgan"
+category: "Work & Money – AI Job Displacement"
+fearCategories:
+  - "work-money"
+tags:
+  - "AI"
+  - "future of work"
+  - "software engineering"
+  - "automation"
+fear_index_score: 72
+heroImage: "/images/placeholder-hero.svg"
+affiliate_offer:
+  label: "Get the Survival Playbook"
+  url: "https://survivetheai.com/playbook"
+  description: "Download the free resilience playbook to stay employable through 2026."
+canonicalUrl: "https://survivetheai.com/posts/byebyedevs"
 ---
 
 > “AI won’t replace programmers — but programmers who use AI will replace those who don’t.”  
@@ -52,4 +62,3 @@ If a machine can deliver clean, tested code instantly, why hire a human?
 AI won’t kill programming. But it **will kill programming as we knew it**. The future belongs to those who embrace the shift — not by clinging to syntax, but by evolving into roles where **human intuition guides machine output**.
 
 The programmers of tomorrow won't write code. They'll write ideas.
-
