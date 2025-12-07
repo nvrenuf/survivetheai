@@ -6,7 +6,7 @@ Welcome to SurviveTheAI – your essential guide to thriving in the age of artif
 SurviveTheAI is a modern, content-driven web application designed to empower individuals, families, and professionals to navigate the rapidly changing world shaped by AI. Our mission is to demystify artificial intelligence, address real fears, and provide actionable insights so you can future-proof your life and career.
 
 ## 🌟 Key Features
-- **Fear Index:** Explore the most common concerns about AI and discover practical ways to overcome them.
+- **Topic Explorer:** Browse the most common concerns about AI and discover practical ways to overcome them.
 - **Expert Insights:** Read blog posts and guides from thought leaders, educators, and technologists.
 - **Interactive Quizzes:** Test your knowledge and learn how to adapt to the AI revolution.
 - **Newsletter:** Stay ahead with curated news, tips, and resources delivered straight to your inbox.

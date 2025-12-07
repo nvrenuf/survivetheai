@@ -1,2 +1,2 @@
 # /src/data
-Static JSON or JS files (Fear Index categories, quiz logic).
+Static JSON or JS files (topic categories, quiz logic).

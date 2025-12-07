@@ -4,14 +4,14 @@ description: "As AI tools become more powerful, the traditional role of a progra
 date: 2025-07-26T13:52:00Z
 author: "Alex Morgan"
 category: "Work & Money – AI Job Displacement"
-fearCategories:
+topics:
   - "work-money"
 tags:
   - "AI"
   - "future of work"
   - "software engineering"
   - "automation"
-fear_index_score: 72
+impact_score: 72
 heroImage: "/images/placeholder-hero.svg"
 affiliate_offer:
   label: "Get the Survival Playbook"

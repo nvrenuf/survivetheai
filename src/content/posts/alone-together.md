@@ -4,13 +4,13 @@ description: "AI friends soothe loneliness in the short term but can erode real-
 date: 2025-12-05
 author: "Admin"
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
-fearCategories:
+topics:
   - "love-connection"
 tags:
   - "AI companions"
   - "loneliness"
   - "emotional dependence"
-fear_index_score: 64
+impact_score: 64
 heroImage: "/images/alone-together.png"
 heroImageAlt: "A solitary face with digital tears made of binary code"
 affiliate_offer:

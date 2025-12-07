@@ -4,7 +4,7 @@ description: "What keeps experts, governments, and citizens up at night as AI ac
 date: 2025-07-29T17:52:00Z
 author: "Justin Cuevas"
 category: "System Shock – Soft Extinction & Collapse"
-fearCategories:
+topics:
   - "system-shock"
 tags:
   - "AI"
@@ -12,7 +12,7 @@ tags:
   - "technology"
   - "future"
   - "society"
-fear_index_score: 88
+impact_score: 88
 heroImage: "/images/fears.jpg"
 affiliate_offer:
   label: "Get the Survival Playbook"

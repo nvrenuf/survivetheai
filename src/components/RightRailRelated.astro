@@ -1,15 +1,15 @@
 ---
 import type { PostEntry } from '../content/config';
 import { formatDate } from '../utils/format';
-import { FEAR_CATEGORIES } from '../data/categories';
+import { TOPIC_CATEGORIES } from '../data/categories';
 
 const { currentSlug, posts } = Astro.props as {
   currentSlug: string;
   posts: PostEntry[];
 };
 
-const categoryByKey = new Map(FEAR_CATEGORIES.map((c) => [c.key, c]));
-const getPrimaryKey = (entry: PostEntry) => entry.data.fearCategories?.[0];
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const getPrimaryKey = (entry: PostEntry) => entry.data.topics?.[0];
 const getPrimaryLabel = (entry: PostEntry) => {
   const key = getPrimaryKey(entry);
   return key ? categoryByKey.get(key)?.label : undefined;
@@ -18,10 +18,10 @@ const getPrimaryLabel = (entry: PostEntry) => {
 const sortedPosts = [...posts].filter((entry) => entry.slug !== currentSlug);
 sortedPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const currentPrimaryKey = posts.find((p) => p.slug === currentSlug)?.data.fearCategories?.[0];
+const currentPrimaryKey = posts.find((p) => p.slug === currentSlug)?.data.topics?.[0];
 const relatedPool =
   currentPrimaryKey != null
-    ? sortedPosts.filter((entry) => entry.data.fearCategories?.includes(currentPrimaryKey))
+    ? sortedPosts.filter((entry) => entry.data.topics?.includes(currentPrimaryKey))
     : sortedPosts;
 const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5);
 ---
