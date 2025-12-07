@@ -4,13 +4,13 @@ description: "AI companions promise endless empathy and attention -- this post e
 date: 2025-12-05
 author: "Admin"
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
-fearCategories:
+topics:
   - "love-connection"
 tags:
   - "AI companions"
   - "loneliness"
   - "synthetic intimacy"
-fear_index_score: 63
+impact_score: 63
 heroImage: "/images/The_Artificial_Companion.jpg"
 heroImageAlt: "AI companion reaching out to a human in a dimly lit digital space"
 affiliate_offer:

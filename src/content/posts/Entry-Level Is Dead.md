@@ -4,12 +4,12 @@ description: "AI is deleting entry-level roles and hollowing out the career ladd
 date: 2024-12-04
 author: "Admin"
 category: "Work & Money – AI Job Displacement"
-fearCategories:
+topics:
   - "work-money"
 tags:
   - "Entry-Level"
   - "Automation"
-fear_index_score: 67
+impact_score: 67
 heroImage: "/images/entry-level-dead-ladder-bw.jpg"
 heroImageAlt: "Black-and-white career ladder with the bottom rungs missing, fading into shadow"
 affiliate_offer:

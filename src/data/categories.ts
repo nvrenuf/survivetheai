@@ -1,5 +1,5 @@
 // src/data/categories.ts
-// Single source of truth for all Fear Index categories
+// Single source of truth for all topic categories
 
 export interface Category {
   key: string;
@@ -11,7 +11,7 @@ export interface Category {
   description?: string;
 }
 
-export const FEAR_CATEGORIES: Category[] = [
+export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "work-money",
     label: "Work & Money – AI Job Displacement",

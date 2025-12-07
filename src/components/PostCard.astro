@@ -1,11 +1,11 @@
 ---
-import { FEAR_CATEGORIES } from '../data/categories';
-const { title, excerpt, imageUrl, fearCategories, date, category } = Astro.props;
+import { TOPIC_CATEGORIES } from '../data/categories';
+const { title, excerpt, imageUrl, topics, date, category } = Astro.props;
 
 // Find the category object for this post
 const catObj =
-  (Array.isArray(fearCategories) && FEAR_CATEGORIES.find((cat) => cat.key === fearCategories[0])) ||
-  FEAR_CATEGORIES.find((cat) => cat.label === category);
+  (Array.isArray(topics) && TOPIC_CATEGORIES.find((cat) => cat.key === topics[0])) ||
+  TOPIC_CATEGORIES.find((cat) => cat.label === category);
 ---
 
 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 border border-gray-200 dark:border-gray-700">
@@ -19,7 +19,7 @@ const catObj =
         title={catObj?.description}
       >
         {/* Optionally render icon here if you have an icon component */}
-        {catObj ? catObj.name : category}
+        {catObj ? catObj.label : category}
       </span>
       <span>{date}</span>
     </div>

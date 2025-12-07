@@ -4,7 +4,7 @@ description: "From careers to creativity, learn how to thrive in a world where e
 date: 2025-07-29T16:52:00Z
 author: "Justin Cuevas"
 category: "Mind & Attention – Cognitive Erosion & Offloading"
-fearCategories:
+topics:
   - "mind-attention"
 tags:
   - "adaptability"
@@ -12,7 +12,7 @@ tags:
   - "technology"
   - "resilience"
   - "future of work"
-fear_index_score: 47
+impact_score: 47
 heroImage: "/images/lifechange.jpg"
 affiliate_offer:
   label: "Get the Survival Playbook"

@@ -1,10 +1,10 @@
 ---
 import type { Post } from '../data/Posts';
-import { FEAR_CATEGORIES } from '../data/categories';
+import { TOPIC_CATEGORIES } from '../data/categories';
 
 const { groupedItems } = Astro.props as { groupedItems: Post[][] };
 
-const categoryByKey = new Map(FEAR_CATEGORIES.map((c) => [c.key, c]));
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const primaryLabel = (keys?: string[]) => {
   if (!keys || keys.length === 0) return undefined;
   const first = categoryByKey.get(keys[0]);
@@ -21,9 +21,9 @@ const primaryLabel = (keys?: string[]) => {
             <img src={first.data.heroImage} alt={first.data.heroImageAlt ?? first.data.title} class="h-80 w-full object-cover" loading="lazy" decoding="async" width="1200" height="630" />
             <div class="flex flex-1 flex-col gap-4 p-6">
               <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
-                <span>{primaryLabel(first.data.fearCategories) ?? first.data.category}</span>
+                <span>{primaryLabel(first.data.topics) ?? first.data.category}</span>
                 <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                <span>Fear Index {first.data.fear_index_score}</span>
+                <span>Impact Score {first.data.impact_score}</span>
               </div>
               <h2 class="text-2xl font-semibold text-neutral-900 sm:text-3xl">{first.data.title}</h2>
               <p class="text-neutral-700">{first.data.description}</p>
@@ -40,9 +40,9 @@ const primaryLabel = (keys?: string[]) => {
                 <img src={post.data.heroImageThumb ?? post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-40 w-full object-cover" loading="lazy" decoding="async" width="400" height="210" />
                 <div class="flex flex-1 flex-col gap-3 p-5">
                   <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
-                    <span>{primaryLabel(post.data.fearCategories) ?? post.data.category}</span>
+                    <span>{primaryLabel(post.data.topics) ?? post.data.category}</span>
                     <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                    <span>{post.data.fear_index_score}</span>
+                    <span>{post.data.impact_score}</span>
                   </div>
                   <h3 class="text-lg font-semibold text-neutral-900">{post.data.title}</h3>
                   <p class="text-sm text-neutral-700">{post.data.description}</p>

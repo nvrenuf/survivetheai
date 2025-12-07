@@ -9,7 +9,7 @@ import '../styles/tailwind.css';
 import type { PostEntry } from '../content/config';
 import type { MarkdownHeading } from 'astro';
 import { formatDate, formatReadingMinutes } from '../utils/format';
-import { FEAR_CATEGORIES } from '../data/categories';
+import { TOPIC_CATEGORIES } from '../data/categories';
 
 const {
   post,
@@ -25,14 +25,14 @@ const {
   allPosts: PostEntry[];
 };
 
-const { title, description, date, author, heroImage, heroImageAlt, fearCategories, fear_index_score, canonicalUrl } = post.data;
+const { title, description, date, author, heroImage, heroImageAlt, topics, impact_score, canonicalUrl } = post.data;
 const displayDate = formatDate(date);
 const readingTimeLabel = formatReadingMinutes(readingTime);
 const isoDate = date.toISOString();
 const heroAlt = heroImageAlt ?? `${title} hero image`;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
-const categoryByKey = new Map(FEAR_CATEGORIES.map((c) => [c.key, c]));
-const primaryCategory = fearCategories?.[0] ? categoryByKey.get(fearCategories[0]) : undefined;
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const primaryCategory = topics?.[0] ? categoryByKey.get(topics[0]) : undefined;
 const categoryLabel = primaryCategory?.label;
 
 const structuredData = {
@@ -97,9 +97,9 @@ const structuredData = {
           </slot>
           <header class="space-y-4">
             <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
-              <span>{categoryLabel ?? 'Fear Index'}</span>
+              <span>{categoryLabel ?? 'Key Topic'}</span>
               <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
-              <span>Fear Index: {fear_index_score}</span>
+              <span>Impact Score: {impact_score}</span>
             </div>
             <slot name="heading">
               <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
