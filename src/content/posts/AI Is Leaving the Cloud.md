@@ -4,13 +4,13 @@ description: "Local, open-weight AI removes friction, making automation cheap, p
 date: 2025-12-18
 author: "Lee Cuevas"
 category: "Work & Money - AI Job Displacement"
-fearCategories:
+topics:
   - "work-money"
 tags:
   - "AI"
   - "automation"
   - "job loss"
-fear_index_score: 71
+impact_score: 71
 heroImage: "/images/ai-leaving-the-cloud-job-loss.png"
 heroImageAlt: "AI escaping centralized cloud infrastructure into individual laptops, symbolizing loss of control and accelerated job displacement"
 affiliate_offer:
