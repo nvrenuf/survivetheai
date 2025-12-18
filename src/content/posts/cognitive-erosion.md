@@ -1,4 +1,4 @@
----
+﻿---
 title: "Placeholder: Cognitive Erosion"
 description: "This is a placeholder post for the Cognitive Erosion category."
 date: 2025-07-31
@@ -18,3 +18,4 @@ canonicalUrl: "https://survivetheai.com/posts/cognitive-erosion"
 ---
 
 Content coming soon for this category.
+
