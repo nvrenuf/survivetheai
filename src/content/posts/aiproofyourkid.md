@@ -1,4 +1,4 @@
----
+﻿---
 title: "How to AI-Proof Your Kid"
 description: "A practical guide for parents who want to prepare their children for a world dominated by artificial intelligence."
 date: 2025-07-29T18:52:00Z
@@ -54,3 +54,5 @@ AI will speed up everything — except human biology. Resilience, mindfulness, a
 AI isn’t the enemy. But passivity is. Help your kid **be the human the machines can’t replace** — adaptable, ethical, creative, and emotionally intelligent.
 
 Their future depends on it.
+
+

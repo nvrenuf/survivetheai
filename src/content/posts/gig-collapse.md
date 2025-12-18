@@ -1,4 +1,4 @@
----
+﻿---
 title: "Placeholder: Gig Collapse"
 description: "This is a placeholder post for the Gig Collapse category."
 date: 2025-07-31
@@ -18,3 +18,4 @@ canonicalUrl: "https://survivetheai.com/posts/gig-collapse"
 ---
 
 Content coming soon for this category.
+

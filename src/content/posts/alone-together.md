@@ -1,4 +1,4 @@
----
+﻿---
 title: "Alone, Together: How AI Companions Are Quietly Rewiring Human Emotion"
 description: "AI friends soothe loneliness in the short term but can erode real-world connection and emotional resilience."
 date: 2025-12-05
@@ -93,3 +93,4 @@ More urgently: What happens when it doesn't?
 ---
 
 *Want more unsettling stories of emotional tech? Subscribe for the next chapter: when AI starts shaping who we become.*
+

@@ -1,25 +1,31 @@
+﻿
+# Admin Note: Fear Index vs. Categories — What’s the Difference?
 
-# Admin Note: Topic Tags and Categories
+Great question — and it's important we get this distinction clear.
 
-Great question — and it's important we keep our language consistent.
+### âœ… **Fear Index vs. Categories — What’s the Difference?**
 
-### ✅ **Topics vs. Categories — How They Work Together**
-
-In this project, **topics and categories refer to the same set of key themes**, but we use them in slightly different contexts:
+In this project, **they refer to the same core topics**, but:
 
 ---
 
-#### 1. **Topics** = Editorial Lens
+#### 1. **Fear Index** = Strategic Framing
 
-* Think of topics as our **storytelling angle**.
-* They shape landing page messaging, quizzes, and overall brand voice.
-* When designing new experiences, align them to a topic so content feels cohesive.
+* Think of it as our **editorial lens**.
+* It's how we frame the major disruptive forces AI is triggering.
+* The Fear Index is used in:
+  * Landing page messaging
+  * Quizzes and scoring systems
+  * Brand voice and positioning
+  * Reports or interactive tools
+
+> Example: “Our Fear Index shows a spike in Cognitive Dependency this quarter…”
 
 ---
 
 #### 2. **Categories** = Content Taxonomy
 
-* Categories are **technical tags or labels** assigned to content.
+* These are **technical tags or labels** we assign to content.
 * Used in:
   * Markdown frontmatter
   * Filters and search tools
@@ -29,14 +35,21 @@ In this project, **topics and categories refer to the same set of key themes**, 
 > Example: A blog post about AI tutors would be labeled:
 
 ```yaml
-category: "Parenting & Education"
+category: "Parenting & Education Collapse"
 ```
 
 ---
 
-### ✅ TL;DR:
+### âœ… TL;DR:
 
-They represent the same topics, but **topics** guide narrative framing while **categories** keep content organized for developers and tooling.
+They represent the same **10 topics**, but:
+
+* **Fear Index** is **brand messaging and strategic framing**
+* **Categories** are **developer-usable tags** for organizing content
+
+You can confidently say:
+
+> “Our site categories are based directly on the Survive the AI Fear Index.”
 
 # /public
 Static assets (images, fonts, etc.) go here.
@@ -108,3 +121,5 @@ Below the frontmatter, write your post in standard Markdown. You can also embed 
 ---
 
 If you need to update navigation, tags, or other site-wide settings, check for configuration files in `src/content/config.ts` or similar.
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Placeholder: AI Job Displacement"
 description: "This is a placeholder post for the AI Job Displacement category."
 date: 2025-07-31
@@ -18,3 +18,4 @@ canonicalUrl: "https://survivetheai.com/posts/ai-job-displacement"
 ---
 
 Content coming soon for this category.
+

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Entry-Level Is Dead: How AI Is Sawing Off the Bottom Rung of the Career Ladder"
 description: "AI is deleting entry-level roles and hollowing out the career ladder; this post explains the data, drivers, and what to do about it."
 date: 2024-12-04
@@ -289,13 +289,13 @@ You want to live in the second category.
 
 #### Examples of smart pivots
 
-- **Content writer → AI-assisted content strategist**  
+- **Content writer â†’ AI-assisted content strategist**  
   You still own narrative, positioning, and distribution. AI drafts; you direct and refine.
 
-- **Junior developer → AI systems integrator / copilot engineer**  
+- **Junior developer â†’ AI systems integrator / copilot engineer**  
   You design flows, enforce quality, and connect tools instead of writing only boilerplate code.
 
-- **Data entry clerk → workflow automation specialist**  
+- **Data entry clerk â†’ workflow automation specialist**  
   You build the automations that eliminate manual work, using AI and low-code tools.
 
 This does not require you to become a hardcore engineer.
@@ -389,7 +389,7 @@ And plug into sources whose entire job is watching these signals for you.
 Entry-level, as we knew it, is not coming back.
 
 - The tasks that made junior roles viable are being eaten by AI.  
-- The degree → junior job → promotion pipeline is breaking.  
+- The degree â†’ junior job â†’ promotion pipeline is breaking.  
 - The official unemployment rate will keep telling a story that doesn’t match what you or your kids are living.
 
 You cannot fix macro policy alone.
@@ -409,3 +409,5 @@ That is what **AI Survival Intelligence** really means.
 You are not going to be handed a new ladder.
 
 You are going to have to build your own rung—and then pull yourself up.
+
+
