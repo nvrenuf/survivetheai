@@ -196,24 +196,29 @@ Convert mechanisms into glanceable understanding.
 
 ---
 
-### 6C — Video
+### 6C — Video (YouTube-First, v1)
 **Owner:** NotebookLM
 
 **Purpose**
-Provide a companion explanation (alternate intake path).
+Provide a companion explanation as an alternate intake path.
 
 **Inputs**
 - Locked article
 - Strict “do not change source” instructions
 
 **Outputs**
-- 4–8 minute narration script
-- Optional MP4
-- Optional captions (.vtt)
+- One source-faithful video (length determined by NotebookLM)
+- Published to YouTube
+- Embedded in the blog post
 
 **Rules**
-- Companion, not replacement
-- No new facts or reframing
+- Blog remains the canonical asset
+- Video must not introduce new claims
+- Runtime optimization is deferred
+- Short/long video splits are optional and future-state
+
+**Internal note**
+High-performing posts may later receive expanded or segmented video versions.
 
 ---
 
@@ -223,11 +228,13 @@ Provide a companion explanation (alternate intake path).
 **Structure**
 - Posts: `src/content/posts/`
 - Images: `public/images/`
-- Videos: `public/videos/`
+- Videos: *YouTube-hosted by default*
 
 **Rules**
-- Use web-root paths (`/images/...`, `/videos/...`)
-- Do not use relative `./images` paths for public assets
+- Embed videos from YouTube
+- Do not self-host video files unless explicitly required
+- Use web-root paths for images (`/images/...`)
+- Avoid relative `./images` paths for public assets
 
 ---
 
@@ -239,7 +246,7 @@ Provide a companion explanation (alternate intake path).
 - No encoding artifacts (`â`, `Â`, etc.)
 - Hero renders once
 - All images resolve
-- Video plays
+- Embedded video plays
 - Canonical URL correct
 - Mobile layout sanity check
 
@@ -272,5 +279,6 @@ Provide a companion explanation (alternate intake path).
 - Fear without false certainty
 - Survival = positioning, not safety
 - Visuals must never introduce new claims
+- Blog is canonical; video is supportive
 
 **This workflow is canonical. Deviations require intent.**
