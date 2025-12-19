@@ -48,6 +48,10 @@ Code Remote Tunnels, or cloning the repository locally where the real CLI is
 available.
 
 ---
+## Content Workflow  
+This project uses a strict, source-first blog creation process. See the canonical workflow: [`/docs/workflows/blog-creation.md`](/docs/workflows/blog-creation.md).
+
+
 
 SurviveTheAI: Because the best way to predict the future is to create it. ðŸŒðŸ¤–
 
