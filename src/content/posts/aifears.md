@@ -1,10 +1,10 @@
----
+﻿---
 title: "Exploring the Biggest AI Fears in 2026"
 description: "What keeps experts, governments, and citizens up at night as AI accelerates into 2026?"
 date: 2025-07-29T17:52:00Z
 author: "Justin Cuevas"
 category: "System Shock – Soft Extinction & Collapse"
-fearCategories:
+topics:
   - "system-shock"
 tags:
   - "AI"
@@ -12,7 +12,7 @@ tags:
   - "technology"
   - "future"
   - "society"
-fear_index_score: 88
+impact_score: 88
 heroImage: "/images/fears.jpg"
 affiliate_offer:
   label: "Get the Survival Playbook"
@@ -64,3 +64,5 @@ The real threat isn’t AI itself. It’s uncritical deployment, unchecked power
 As we enter 2026, the most important question isn’t _“What can AI do?”_ but rather:
 
 > _“What should we let it do — and who gets to decide?”_
+
+

@@ -1,10 +1,10 @@
----
+﻿---
 title: "How to Adapt to Rapid Change in the Age of AI"
 description: "From careers to creativity, learn how to thrive in a world where everything changes faster than ever."
 date: 2025-07-29T16:52:00Z
 author: "Justin Cuevas"
 category: "Mind & Attention – Cognitive Erosion & Offloading"
-fearCategories:
+topics:
   - "mind-attention"
 tags:
   - "adaptability"
@@ -12,7 +12,7 @@ tags:
   - "technology"
   - "resilience"
   - "future of work"
-fear_index_score: 47
+impact_score: 47
 heroImage: "/images/lifechange.jpg"
 affiliate_offer:
   label: "Get the Survival Playbook"
@@ -75,3 +75,5 @@ The future isn’t about being the smartest — it’s about being the most **fl
 You don’t need to predict the next wave. You just need to stay buoyant enough to ride it.
 
 > In the age of AI, adaptability is the new intelligence.
+
+

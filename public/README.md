@@ -1,9 +1,9 @@
-
+﻿
 # Admin Note: Fear Index vs. Categories — What’s the Difference?
 
 Great question — and it's important we get this distinction clear.
 
-### ✅ **Fear Index vs. Categories — What’s the Difference?**
+### âœ… **Fear Index vs. Categories — What’s the Difference?**
 
 In this project, **they refer to the same core topics**, but:
 
@@ -40,7 +40,7 @@ category: "Parenting & Education Collapse"
 
 ---
 
-### ✅ TL;DR:
+### âœ… TL;DR:
 
 They represent the same **10 topics**, but:
 
@@ -121,3 +121,5 @@ Below the frontmatter, write your post in standard Markdown. You can also embed 
 ---
 
 If you need to update navigation, tags, or other site-wide settings, check for configuration files in `src/content/config.ts` or similar.
+
+

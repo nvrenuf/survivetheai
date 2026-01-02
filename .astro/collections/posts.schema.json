@@ -32,7 +32,7 @@
         "category": {
           "type": "string"
         },
-        "fearCategories": {
+        "topics": {
           "type": "array",
           "items": {
             "type": "string",
@@ -52,7 +52,7 @@
           },
           "minItems": 1
         },
-        "fear_index_score": {
+        "impact_score": {
           "type": "number",
           "minimum": 0,
           "maximum": 100
@@ -96,9 +96,9 @@
         "description",
         "date",
         "author",
-        "fearCategories",
+        "topics",
         "tags",
-        "fear_index_score",
+        "impact_score",
         "heroImage",
         "affiliate_offer",
         "canonicalUrl"

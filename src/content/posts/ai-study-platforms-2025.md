@@ -1,17 +1,17 @@
----
+﻿---
 title: "Don’t Get Replaced: Pick the AI Study Platform That Builds the Right Skills"
 description: "Match your skill gaps to the right AI study tool—so you stay useful and employed."
 date: 2025-11-07T12:00:00Z
 author: "Lee Cuevas"
 category: "Kids & School – AI vs Your Children’s Future"
-fearCategories:
+topics:
   - "kids-school"
 tags:
   - "AI"
   - "learning"
   - "careers"
   - "education"
-fear_index_score: 64
+impact_score: 64
 heroImage: "/images/ai-study-platforms-2025.jpg"
 heroImageAlt: "AI study platforms — skill-building comparison"
 heroImageThumb: "/images/ai-study-platforms-2025.jpg"
@@ -44,8 +44,8 @@ canonicalUrl: "https://survivetheai.com/posts/ai-study-platforms-2025"
 ## TL;DR
 - AI study tools can make you fast, but also dependent.
 - Don’t pick by brand. **Pick by the skill you must build.**
-- Use the guide below to match **your skill gap → the right platform**.
-- Run the **14‑day test** to prove you can perform **without** the tool.
+- Use the guide below to match **your skill gap â†’ the right platform**.
+- Run the **14â€‘day test** to prove you can perform **without** the tool.
 
 ---
 
@@ -73,8 +73,8 @@ Circle 1–2 gaps you must fix next:
 |---|---|---|---|
 | **Reasoning depth** | **Claude (Extended Thinking)** | Pushes you to explain steps and defend choices | Slower on purpose. Stay with it. |
 | **Turn ideas into drafts** | **ChatGPT (Study Mode)** | Great sparring partner for outlines and edits | Don’t let it write everything. You decide. |
-| **Code or math clarity** | **Gemini (Guided Learning / LearnLM)** | Clear step‑by‑step logic and debugging | Don’t skip to the answer. Show your work. |
-| **Foundations (K‑12, basics)** | **Khanmigo** | Mastery practice with guardrails | Narrow scope. Use others as you advance. |
+| **Code or math clarity** | **Gemini (Guided Learning / LearnLM)** | Clear stepâ€‘byâ€‘step logic and debugging | Don’t skip to the answer. Show your work. |
+| **Foundations (Kâ€‘12, basics)** | **Khanmigo** | Mastery practice with guardrails | Narrow scope. Use others as you advance. |
 | **Quick homework help** | **QANDA** | Fast walkthroughs and solutions | High dependency risk. Use lightly. |
 | **Casual learning only** | **Grok** | Light summaries and context | Not for deep skill. Don’t rely on it. |
 
@@ -100,16 +100,16 @@ Circle 1–2 gaps you must fix next:
 - Build an outline, then expand to a draft  
 - Rewrite emails, briefs, landing pages  
 - Create study plans, checklists, interview prep  
-- Role‑play customer or manager questions to stress‑test ideas  
+- Roleâ€‘play customer or manager questions to stressâ€‘test ideas  
 **Jobs/industries:** Marketing, content, sales, product, HR/comms, founders, educators.  
-**Training & resources:** In‑app tips, example prompts, short “how to” guides.  
+**Training & resources:** Inâ€‘app tips, example prompts, short “how to” guides.  
 **Common trap:** Letting it write the whole thing. You stop thinking.  
 **Pro tip:** You write first. Ask ChatGPT to **critique** and **push back** before it edits.
 
 ---
 
 ### Claude — Extended Thinking
-**Best at:** deep reasoning, long answers, clear step‑by‑step logic.  
+**Best at:** deep reasoning, long answers, clear stepâ€‘byâ€‘step logic.  
 **Great for tasks:**  
 - Threat models, incident timelines, policy reviews  
 - Research summaries with sources and assumptions  
@@ -123,21 +123,21 @@ Circle 1–2 gaps you must fix next:
 ---
 
 ### Gemini — Guided Learning / LearnLM
-**Best at:** code/math step‑through, debugging, “show your work.”  
+**Best at:** code/math stepâ€‘through, debugging, “show your work.”  
 **Great for tasks:**  
 - Explain a failing test and fix it, step by step  
 - Build SQL queries and check edge cases  
 - Translate formulas across Sheets/Excel  
 - Walk through data pipelines and simple ML exercises  
 **Jobs/industries:** Software/devops, data analysis, finance ops, ops analysts, STEM students, IT help desks.  
-**Training & resources:** Tutorials, codelab‑style walkthroughs, Workspace/Classroom tie‑ins.  
+**Training & resources:** Tutorials, codelabâ€‘style walkthroughs, Workspace/Classroom tieâ€‘ins.  
 **Common trap:** Copying the fix without learning the pattern.  
 **Pro tip:** After a walkthrough, **rebuild from scratch** without hints. Then ask Gemini to grade your steps.
 
 ---
 
 ### Khanmigo
-**Best at:** safe, structured practice and mastery for basics (K‑12 and adult refresh).  
+**Best at:** safe, structured practice and mastery for basics (Kâ€‘12 and adult refresh).  
 **Great for tasks:**  
 - Math practice with hints that don’t spoil the answer  
 - Reading comprehension and writing basics  
@@ -145,18 +145,18 @@ Circle 1–2 gaps you must fix next:
 **Jobs/industries:** Teachers, tutors, parents, homeschool, adults restarting core math/reading.  
 **Training & resources:** Teacher dashboards, lesson plans, unit guides.  
 **Common trap:** Staying here too long after basics.  
-**Pro tip:** Use Khanmigo to **master basics**, then graduate to ChatGPT/Claude/Gemini for real‑world work.
+**Pro tip:** Use Khanmigo to **master basics**, then graduate to ChatGPT/Claude/Gemini for realâ€‘world work.
 
 ---
 
 ### QANDA
 **Best at:** fast help for a single problem under time pressure.  
 **Great for tasks:**  
-- Scan a math problem → get steps and similar examples  
+- Scan a math problem â†’ get steps and similar examples  
 - Quick science explanations  
 - Rapid review before a test  
-**Jobs/industries:** Students, cram schools, after‑school programs.  
-**Training & resources:** In‑app tutorials and examples.  
+**Jobs/industries:** Students, cram schools, afterâ€‘school programs.  
+**Training & resources:** Inâ€‘app tutorials and examples.  
 **Common trap:** Using it daily as a crutch.  
 **Pro tip:** Treat it like a **calculator**: allowed sometimes, never the main teacher.
 
@@ -190,17 +190,17 @@ Use **one** tool for deep work and **one** for speed. Add a third only if needed
 	<figcaption class="figcap">Pick tools by the mental muscle they build.</figcaption>
 </figure>
 
-- **Suffering Engine** → **Claude** for hard reasoning.  
-- **Sparring Partner** → **ChatGPT** for idea fights and polish.  
-- **Specialist** → **Gemini** for stepwise code/math.  
-- **Trainer Mode** → **Khanmigo** for basics and practice.  
-- **Utility Layer** → **QANDA** for quick lookups only.
+- **Suffering Engine** â†’ **Claude** for hard reasoning.  
+- **Sparring Partner** â†’ **ChatGPT** for idea fights and polish.  
+- **Specialist** â†’ **Gemini** for stepwise code/math.  
+- **Trainer Mode** â†’ **Khanmigo** for basics and practice.  
+- **Utility Layer** â†’ **QANDA** for quick lookups only.
 
 Keep it small. Depth first. Add tools later.
 
 ---
 
-## The 14‑day skill test (keep what works)
+## The 14â€‘day skill test (keep what works)
 - **Days 1–3 — Learn.** Study one topic with your chosen tool.  
 - **Day 4 — Go dark.** Explain it **without** any AI.  
 - **Days 5–7 — Switch.** Learn the same topic with a second tool. Compare.  
@@ -222,3 +222,5 @@ If not, change tools or change your stack.
 ---
 
 *SurviveTheAI — practical guidance to stay useful in an AI world.*
+
+
