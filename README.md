@@ -28,6 +28,15 @@ AI is transforming every aspect of our lives—from the workplace to the classro
 ## ðŸ“‚ How to Contribute
 We welcome contributions! Check out the `/src/content/posts/` directory to add new articles, or see `/public/README.md` for instructions on adding images and creating posts.
 
+## 🔄 Release and PR conventions
+- **PR titles must use Conventional Commits** with one of these types: `feat`, `fix`, `docs`, `chore`, `refactor`, `perf`, `test`, `build`, `ci`. Scopes are optional. Examples:
+  - Patch: `fix: correct footer link styling`
+  - Minor: `feat: add new AI safety guide`
+  - Major: `feat!: remove legacy article templates` (note the `!` for breaking changes)
+- **Use squash merges** and set the squash commit message to exactly match the PR title so release notes stay accurate.
+- **Release automation:** Release Please runs on pushes to the default `main` branch and opens a Release PR that bumps the version in `package.json` (currently `0.1.0`) and updates `CHANGELOG.md`. Merging that PR creates a tag like `vX.Y.Z` and a GitHub Release. No Vercel changes are required.
+- **Branch protection to enable:** require the status check named `PR title follows Conventional Commits`, require a PR before merging, and optionally require squash merge to keep history clean.
+
 ### Working without the VS Code CLI
 This containerized environment cannot download or run Microsoft's official
 `code` binary, which previously caused a `command not found` error when trying
@@ -54,4 +63,3 @@ This project uses a strict, source-first blog creation process. See the canonica
 
 
 SurviveTheAI: Because the best way to predict the future is to create it. ðŸŒðŸ¤–
-
