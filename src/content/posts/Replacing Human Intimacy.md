@@ -13,6 +13,7 @@ tags:
 impact_score: 63
 heroImage: "/images/The_Artificial_Companion.jpg"
 heroImageAlt: "AI companion reaching out to a human in a dimly lit digital space"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

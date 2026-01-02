@@ -13,6 +13,7 @@ tags:
   - "automation"
 impact_score: 72
 heroImage: "/images/placeholder-hero.svg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

@@ -19,6 +19,10 @@ export const postSchema = z.object({
   impact_score: z.number().min(0).max(100),
   heroImage: z.string(),
   heroImageAlt: z.string().optional(),
+  featured: z.boolean().optional(),
+  evergreen: z.boolean().optional(),
+  start_here: z.boolean().optional(),
+  version: z.number(),
   affiliate_offer: z.object({
     label: z.string(),
     url: z.string().url(),

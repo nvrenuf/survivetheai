@@ -15,6 +15,7 @@ impact_score: 64
 heroImage: "/images/ai-study-platforms-2025.jpg"
 heroImageAlt: "AI study platforms — skill-building comparison"
 heroImageThumb: "/images/ai-study-platforms-2025.jpg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

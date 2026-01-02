@@ -1,0 +1,64 @@
+---
+import type { PostEntry } from '../../content/config';
+import { formatDate } from '../../utils/format';
+import { TOPIC_CATEGORIES } from '../../data/categories';
+
+const { currentSlug, posts } = Astro.props as {
+  currentSlug: string;
+  posts: PostEntry[];
+};
+
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const getPrimaryKey = (entry: PostEntry) => entry.data.topics?.[0];
+const getPrimaryLabel = (entry: PostEntry) => {
+  const key = getPrimaryKey(entry);
+  return key ? categoryByKey.get(key)?.label : undefined;
+};
+
+const sortedPosts = [...posts].filter((entry) => entry.slug !== currentSlug);
+sortedPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const currentPrimaryKey = posts.find((p) => p.slug === currentSlug)?.data.topics?.[0];
+const relatedPool =
+  currentPrimaryKey != null
+    ? sortedPosts.filter((entry) => entry.data.topics?.includes(currentPrimaryKey))
+    : sortedPosts;
+const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5);
+---
+<section class="space-y-4">
+  <h2 class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-600">
+    More in {currentPrimaryKey ? categoryByKey.get(currentPrimaryKey)?.label ?? 'Related' : 'Related'}
+  </h2>
+  <ul class="space-y-4">
+    {related.map((entry) => {
+      const heroImage = entry.data.heroImage;
+      const dateLabel = formatDate(entry.data.date);
+      const label = getPrimaryLabel(entry) ?? 'Related';
+
+      return (
+        <li>
+          <a href={`/v2/posts/${entry.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-neutral-200 p-2 transition hover:border-neutral-300 hover:bg-neutral-50">
+            <div class="h-14 w-14 overflow-hidden rounded-xl bg-neutral-100">
+              <img
+                src={heroImage}
+                alt={entry.data.title}
+                loading="lazy"
+                decoding="async"
+                width="56"
+                height="56"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">{label}</p>
+              <p class="text-sm font-medium text-neutral-900 transition group-hover:text-neutral-700">
+                {entry.data.title}
+              </p>
+              <p class="text-xs text-neutral-600">{dateLabel}</p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>

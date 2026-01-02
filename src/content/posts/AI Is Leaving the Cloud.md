@@ -13,6 +13,7 @@ tags:
 impact_score: 71
 heroImage: "/images/ai-leaving-the-cloud-job-loss.png"
 heroImageAlt: "AI escaping centralized cloud infrastructure into individual laptops, symbolizing loss of control and accelerated job displacement"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

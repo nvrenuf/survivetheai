@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { TOPIC_CATEGORIES } from '../../data/categories';
+import { formatDate } from '../../utils/format';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.version === 2 && post.data.start_here)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const primaryLabel = (topics?: string[], fallback?: string) => {
+  if (!topics || topics.length === 0) return fallback;
+  return categoryByKey.get(topics[0])?.label ?? fallback;
+};
+---
+
+<Layout>
+  <main class="bg-white py-16 text-neutral-900">
+    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-10">
+      <header class="space-y-3 text-center sm:text-left">
+        <p class="text-xs uppercase tracking-[0.35em] text-neutral-500">Version 2</p>
+        <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">Start Here</h1>
+        <p class="text-base text-neutral-700 sm:text-lg">
+          A curated path for SurviveTheAI V2 — hand-picked fundamentals to get you oriented.
+        </p>
+      </header>
+
+      {posts.length ? (
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {posts.map((post) => (
+            <a
+              key={post.slug}
+              href={`/v2/posts/${post.slug}/`}
+              class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div class="h-44 w-full overflow-hidden">
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? post.data.title}
+                  class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="360"
+                />
+              </div>
+              <div class="flex flex-1 flex-col gap-3 p-5">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                  <span>{primaryLabel(post.data.topics, post.data.category)}</span>
+                  <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                  <span>{formatDate(post.data.date)}</span>
+                </div>
+                <h2 class="text-lg font-semibold text-neutral-900 group-hover:text-neutral-700">{post.data.title}</h2>
+                <p class="text-sm text-neutral-700">{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-neutral-600">Mark V2 posts with <code class="font-mono">start_here: true</code> to feature them here.</p>
+      )}
+    </div>
+  </main>
+</Layout>
