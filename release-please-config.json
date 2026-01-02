@@ -1,0 +1,11 @@
+{
+  "branches": [
+    {
+      "branch": "main",
+      "release-type": "node",
+      "manifest-path": ".release-please-manifest.json",
+      "changelog-path": "CHANGELOG.md",
+      "package-name": "survive-the-ai"
+    }
+  ]
+}
