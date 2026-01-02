@@ -10,6 +10,7 @@ tags:
   - "Cognitive Erosion"
 impact_score: 49
 heroImage: "/images/placeholder-hero.svg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

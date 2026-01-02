@@ -13,6 +13,7 @@ tags:
 impact_score: 64
 heroImage: "/images/alone-together.png"
 heroImageAlt: "A solitary face with digital tears made of binary code"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

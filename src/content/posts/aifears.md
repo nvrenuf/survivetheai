@@ -14,6 +14,7 @@ tags:
   - "society"
 impact_score: 88
 heroImage: "/images/fears.jpg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

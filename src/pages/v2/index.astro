@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import { getCollection } from 'astro:content';
+import type { PostEntry } from '../../content/config';
+import { TOPIC_CATEGORIES } from '../../data/categories';
+import { formatDate } from '../../utils/format';
+
+const posts = (await getCollection('posts')).filter((post) => post.data.version === 2);
+posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const hero = posts.find((post) => post.data.featured);
+const heroSlug = hero?.slug;
+const evergreenPosts = posts.filter((post) => post.data.evergreen && post.slug !== heroSlug).slice(0, 4);
+const excludedSlugs = new Set<string>();
+if (heroSlug) excludedSlugs.add(heroSlug);
+evergreenPosts.forEach((post) => excludedSlugs.add(post.slug));
+const latestPosts = posts.filter((post) => !excludedSlugs.has(post.slug)).slice(0, 5);
+
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const primaryLabel = (entry: PostEntry) => {
+  const key = entry.data.topics?.[0];
+  const category = key ? categoryByKey.get(key) : undefined;
+  return category?.label ?? entry.data.category;
+};
+---
+
+<Layout>
+  <main class="bg-white py-16 text-neutral-900">
+    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-16">
+      <section class="space-y-6">
+        <div class="flex items-center justify-between">
+          <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">SurviveTheAI · V2</h1>
+          <a href="/v2/start-here" class="text-sm font-semibold text-neutral-700 hover:text-neutral-900 underline underline-offset-4">
+            Start Here
+          </a>
+        </div>
+        {hero ? (
+          <article class="grid grid-cols-1 gap-6 rounded-3xl border border-neutral-200 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-700 p-6 text-white shadow-xl md:grid-cols-2">
+            <div class="space-y-4">
+              <p class="text-xs uppercase tracking-[0.35em] text-neutral-300">Featured Insight</p>
+              <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl">{hero.data.title}</h2>
+              <p class="text-base text-neutral-200 sm:text-lg">{hero.data.description}</p>
+              <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-200">
+                <span class="font-semibold">{primaryLabel(hero)}</span>
+                <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-400 sm:block" />
+                <span>Impact {hero.data.impact_score}</span>
+                <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-400 sm:block" />
+                <span>{formatDate(hero.data.date)}</span>
+              </div>
+              <a
+                href={`/v2/posts/${hero.slug}/`}
+                class="inline-flex items-center justify-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-neutral-900 transition hover:-translate-y-[1px] hover:shadow-lg"
+              >
+                Read the playbook
+              </a>
+            </div>
+            <div class="overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
+              <img
+                src={hero.data.heroImage}
+                alt={hero.data.heroImageAlt ?? hero.data.title}
+                class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="630"
+              />
+            </div>
+          </article>
+        ) : (
+          <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 p-6 text-neutral-700">
+            No featured post yet. Add a V2 post with <code class="font-mono">featured: true</code> to highlight it here.
+          </div>
+        )}
+      </section>
+
+      <section class="space-y-8">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-neutral-900">Evergreen</h2>
+          <p class="text-sm text-neutral-600">Timeless playbooks that stay relevant</p>
+        </div>
+        {evergreenPosts.length ? (
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {evergreenPosts.map((post) => (
+              <a
+                key={post.slug}
+                href={`/v2/posts/${post.slug}/`}
+                class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div class="h-48 w-full overflow-hidden">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? post.data.title}
+                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    width="640"
+                    height="360"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                    <span>{primaryLabel(post)}</span>
+                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                    <span>{formatDate(post.data.date)}</span>
+                  </div>
+                  <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-neutral-700">{post.data.title}</h3>
+                  <p class="text-sm text-neutral-700">{post.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-neutral-600">Add up to four evergreen V2 posts to populate this grid.</p>
+        )}
+      </section>
+
+      <section class="space-y-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-neutral-900">Latest</h2>
+          <p class="text-sm text-neutral-600">Newest drops for V2</p>
+        </div>
+        {latestPosts.length ? (
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {latestPosts.map((post) => (
+              <a
+                key={post.slug}
+                href={`/v2/posts/${post.slug}/`}
+                class="group flex h-full flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-600">
+                  <span>{primaryLabel(post)}</span>
+                  <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
+                  <span>{formatDate(post.data.date)}</span>
+                </div>
+                <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-neutral-700">{post.data.title}</h3>
+                <p class="text-sm text-neutral-700">{post.data.description}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-neutral-600">Latest posts will appear here once V2 content is published.</p>
+        )}
+      </section>
+
+      <section class="rounded-3xl border border-neutral-200 bg-gradient-to-r from-neutral-50 to-white p-8 shadow-sm">
+        <NewsletterSignup />
+      </section>
+    </div>
+  </main>
+</Layout>

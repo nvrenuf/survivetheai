@@ -13,6 +13,7 @@ tags:
   - "technology"
 impact_score: 51
 heroImage: "/images/uber.jpg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

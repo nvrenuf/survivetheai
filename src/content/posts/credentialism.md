@@ -14,6 +14,7 @@ tags:
   - "future of work"
 impact_score: 54
 heroImage: "/images/recruiter.jpg"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"

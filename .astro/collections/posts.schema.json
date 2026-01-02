@@ -63,6 +63,18 @@
         "heroImageAlt": {
           "type": "string"
         },
+        "featured": {
+          "type": "boolean"
+        },
+        "evergreen": {
+          "type": "boolean"
+        },
+        "start_here": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "number"
+        },
         "affiliate_offer": {
           "type": "object",
           "properties": {
@@ -100,6 +112,7 @@
         "tags",
         "impact_score",
         "heroImage",
+        "version",
         "affiliate_offer",
         "canonicalUrl"
       ],

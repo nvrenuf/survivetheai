@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import PostLayout from '../../../layouts/v2/PostLayout.astro';
+import { readingTime } from '../../../utils/readingTime';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const v2Posts = posts.filter((post) => post.data.version === 2);
+  return v2Posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post, allPosts: v2Posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+const { Content, headings } = await post.render();
+const { minutes } = readingTime(post.body ?? '');
+const shareUrl = post.data.canonicalUrl || new URL(`/v2/posts/${post.slug}/`, Astro.site ?? 'https://survivetheai.com').toString();
+const affiliate = post.data.affiliate_offer;
+---
+<PostLayout
+  post={post}
+  headings={headings}
+  readingTime={minutes}
+  shareUrl={shareUrl}
+  allPosts={allPosts}
+>
+  {affiliate && (
+    <div
+      slot="inline-cta"
+      class="space-y-4 rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.12)]"
+    >
+      <div class="space-y-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-600">Featured offer</p>
+        <h2 class="text-xl font-semibold text-neutral-900 sm:text-2xl">{affiliate.label}</h2>
+        {affiliate.description && <p class="text-sm text-neutral-700 sm:text-base">{affiliate.description}</p>}
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a
+          href={affiliate.url}
+          class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Access the offer
+        </a>
+        <a
+          href={shareUrl}
+          class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-2 text-sm font-semibold text-neutral-800 transition hover:border-neutral-500 hover:text-neutral-900"
+        >
+          Share this playbook
+        </a>
+      </div>
+    </div>
+  )}
+  <Content />
+</PostLayout>

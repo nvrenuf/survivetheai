@@ -12,6 +12,7 @@ tags:
 impact_score: 67
 heroImage: "/images/entry-level-dead-ladder-bw.jpg"
 heroImageAlt: "Black-and-white career ladder with the bottom rungs missing, fading into shadow"
+version: 1
 affiliate_offer:
   label: "Get the Survival Playbook"
   url: "https://survivetheai.com/playbook"
