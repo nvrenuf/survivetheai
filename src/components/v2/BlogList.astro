@@ -1,4 +1,5 @@
 ---
+// BlogList renders a responsive grid of V2 posts with pagination controls and ensures cards collapse to one column on small screens.
 import type { PostEntry } from '../../content/config';
 import { formatDate } from '../../utils/format';
 import { TOPIC_CATEGORIES } from '../../data/categories';
@@ -88,24 +89,24 @@ const primaryLabel = (post: PostEntry) => {
           {prevPath ? (
             <a
               href={prevPath}
-              class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
+              class="tap-target inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-base font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900"
             >
               ← Previous
             </a>
           ) : (
-            <span class="inline-flex items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-400">
+            <span class="inline-flex min-h-12 items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-base font-semibold text-neutral-400">
               ← Previous
             </span>
           )}
           {nextPath ? (
             <a
               href={nextPath}
-              class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
+              class="tap-target inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-base font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900"
             >
               Next →
             </a>
           ) : (
-            <span class="inline-flex items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-400">
+            <span class="inline-flex min-h-12 items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-base font-semibold text-neutral-400">
               Next →
             </span>
           )}
@@ -118,7 +119,7 @@ const primaryLabel = (post: PostEntry) => {
             return (
               <a
                 href={path}
-                class={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800 ${
+                class={`tap-target inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold transition ${
                   isActive
                     ? 'bg-neutral-900 text-white shadow-md'
                     : 'border border-neutral-200 bg-white text-neutral-800 hover:border-neutral-300 hover:text-neutral-900'

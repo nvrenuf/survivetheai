@@ -1,4 +1,5 @@
 ---
+// PostLayout orchestrates the v2 article experience with responsive TOC, share controls, and a sidebar that reappears on large screens.
 import HeroImage from '../../components/HeroImage.astro';
 import Byline from '../../components/Byline.tsx';
 import RightRailRelated from '../../components/v2/RightRailRelated.astro';
@@ -135,7 +136,7 @@ const structuredData = {
             </slot>
           </footer>
         </main>
-        <aside class="space-y-8 lg:col-span-4">
+        <aside class="hidden space-y-8 lg:col-span-4 lg:block">
           <div class="space-y-8 lg:sticky lg:top-24">
             <RightRailRelated currentSlug={post.slug} posts={allPosts} />
             {filteredHeadings.length > 0 && (
