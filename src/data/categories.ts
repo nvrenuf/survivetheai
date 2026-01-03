@@ -15,7 +15,7 @@ export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "work-money",
     label: "Work & Money – AI Job Displacement",
-    slug: "work-and-money-ai-job-displacement",
+    slug: "work-money-ai-job-displacement",
     order: 1,
     color: "#e63b2e",
     icon: "briefcase",
@@ -24,7 +24,7 @@ export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "kids-school",
     label: "Kids & School – AI vs Your Children’s Future",
-    slug: "kids-and-school-ai-vs-your-childrens-future",
+    slug: "kids-school-ai-vs-your-childrens-future",
     order: 2,
     color: "#f59e0b",
     icon: "school",
@@ -33,7 +33,7 @@ export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "love-connection",
     label: "Love, Sex & Connection – AI Relationships & Synthetic Intimacy",
-    slug: "love-sex-and-connection-ai-relationships-synthetic-intimacy",
+    slug: "love-sex-connection-ai-relationships-synthetic-intimacy",
     order: 3,
     color: "#ec4899",
     icon: "heart",
@@ -42,7 +42,7 @@ export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "mind-attention",
     label: "Mind & Attention – Cognitive Erosion & Offloading",
-    slug: "mind-and-attention-cognitive-erosion-offloading",
+    slug: "mind-attention-cognitive-erosion-offloading",
     order: 4,
     color: "#6366f1",
     icon: "brain",
@@ -51,7 +51,7 @@ export const TOPIC_CATEGORIES: Category[] = [
   {
     key: "system-shock",
     label: "System Shock – Soft Extinction & Collapse",
-    slug: "system-shock-soft-extinction-and-collapse",
+    slug: "system-shock-soft-extinction-collapse",
     order: 5,
     color: "#0ea5e9",
     icon: "alert",

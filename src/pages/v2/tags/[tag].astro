@@ -1,0 +1,52 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+import BlogList from '../../../components/v2/BlogList.astro';
+import { getV2Posts } from '../../../utils/getV2Posts';
+
+export async function getStaticPaths() {
+  const posts = await getV2Posts();
+  const tags = new Set<string>();
+  posts.forEach((post) => post.data.tags?.forEach((tag) => tags.add(tag)));
+  return Array.from(tags).map((tag) => ({
+    params: { tag },
+  }));
+}
+
+const tagParam = Astro.params.tag ? decodeURIComponent(Astro.params.tag) : '';
+const normalizedTag = tagParam.toLowerCase();
+const posts = (await getV2Posts()).filter((post) =>
+  Array.isArray(post.data.tags) && post.data.tags.some((tag) => tag.toLowerCase() === normalizedTag)
+);
+---
+
+<Layout>
+  <main class="bg-white py-16 text-neutral-900">
+    <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
+      <!-- Tag hero -->
+      <header class="flex flex-col gap-2 rounded-3xl border border-neutral-200 bg-gradient-to-r from-white to-neutral-50 p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <div class="space-y-1">
+          <p class="text-xs uppercase tracking-[0.35em] text-neutral-500">Tag</p>
+          <h1 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">#{tagParam}</h1>
+          <p class="text-sm text-neutral-700 sm:text-base">Articles tagged with “{tagParam}”.</p>
+        </div>
+        <a
+          href="/v2/blog"
+          class="inline-flex items-center justify-center rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
+        >
+          Back to Blog
+        </a>
+      </header>
+
+      <!-- Posts scoped to tag -->
+      <BlogList
+        posts={posts}
+        currentPage={1}
+        totalPages={1}
+        basePath={`/v2/tags/${encodeURIComponent(tagParam)}`}
+        title="Tagged posts"
+        description={`Showing SurviveTheAI V2 posts tagged with “${tagParam}”.`}
+        eyebrow={`#${tagParam}`}
+      />
+    </div>
+  </main>
+</Layout>

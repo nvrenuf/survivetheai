@@ -1,0 +1,21 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+import BlogList from '../../../components/v2/BlogList.astro';
+import { getV2Posts } from '../../../utils/getV2Posts';
+
+const PAGE_SIZE = 12;
+const posts = await getV2Posts();
+const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+const visiblePosts = posts.slice(0, PAGE_SIZE);
+---
+
+<Layout>
+  <BlogList
+    posts={visiblePosts}
+    currentPage={1}
+    totalPages={totalPages}
+    basePath="/v2/blog"
+    title="Blog"
+    description="Browse every SurviveTheAI V2 article in one place."
+  />
+</Layout>

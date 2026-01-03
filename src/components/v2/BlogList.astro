@@ -1,0 +1,135 @@
+---
+import type { PostEntry } from '../../content/config';
+import { formatDate } from '../../utils/format';
+import { TOPIC_CATEGORIES } from '../../data/categories';
+
+interface BlogListProps {
+  posts: PostEntry[];
+  currentPage: number;
+  totalPages: number;
+  basePath?: string;
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+}
+
+const {
+  posts,
+  currentPage,
+  totalPages,
+  basePath = '/v2/blog',
+  title = 'All V2 Drops',
+  description = 'Latest SurviveTheAI V2 insights, playbooks, and experiments.',
+  eyebrow = 'Version 2',
+} = Astro.props as BlogListProps;
+
+const toPagePath = (pageNumber: number) => (pageNumber === 1 ? basePath : `${basePath}/page/${pageNumber}`);
+const prevPath = currentPage > 1 ? toPagePath(currentPage - 1) : undefined;
+const nextPath = currentPage < totalPages ? toPagePath(currentPage + 1) : undefined;
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const primaryLabel = (post: PostEntry) => {
+  const key = post.data.topics?.[0];
+  const category = key ? categoryByKey.get(key) : undefined;
+  return category?.label ?? post.data.category ?? 'Topic';
+};
+---
+
+<section class="bg-white py-16 text-neutral-900">
+  <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
+    <!-- Page heading -->
+    <header class="space-y-3">
+      <p class="text-xs uppercase tracking-[0.35em] text-neutral-500">{eyebrow}</p>
+      <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
+      {description && <p class="text-base text-neutral-700 sm:text-lg">{description}</p>}
+    </header>
+
+    <!-- Post grid -->
+    {posts.length ? (
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a
+            key={post.slug}
+            href={`/v2/posts/${post.slug}/`}
+            class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="h-48 w-full overflow-hidden">
+              <img
+                src={post.data.heroImage}
+                alt={post.data.heroImageAlt ?? post.data.title}
+                class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+                width="640"
+                height="360"
+              />
+            </div>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                <span>{primaryLabel(post)}</span>
+                <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
+                <span>{formatDate(post.data.date)}</span>
+              </div>
+              <h2 class="text-lg font-semibold text-neutral-900 group-hover:text-neutral-700">{post.data.title}</h2>
+              <p class="text-sm text-neutral-700">{post.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 p-6 text-neutral-700">
+        No posts found yet for this view.
+      </div>
+    )}
+
+    <!-- Pagination -->
+    {totalPages > 1 && (
+      <nav class="flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row">
+        <div class="flex items-center gap-2">
+          {prevPath ? (
+            <a
+              href={prevPath}
+              class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
+            >
+              ← Previous
+            </a>
+          ) : (
+            <span class="inline-flex items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-400">
+              ← Previous
+            </span>
+          )}
+          {nextPath ? (
+            <a
+              href={nextPath}
+              class="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
+            >
+              Next →
+            </a>
+          ) : (
+            <span class="inline-flex items-center gap-2 rounded-full border border-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-400">
+              Next →
+            </span>
+          )}
+        </div>
+        <div class="flex items-center gap-2">
+          {Array.from({ length: totalPages }).map((_, index) => {
+            const pageNumber = index + 1;
+            const path = toPagePath(pageNumber);
+            const isActive = pageNumber === currentPage;
+            return (
+              <a
+                href={path}
+                class={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800 ${
+                  isActive
+                    ? 'bg-neutral-900 text-white shadow-md'
+                    : 'border border-neutral-200 bg-white text-neutral-800 hover:border-neutral-300 hover:text-neutral-900'
+                }`}
+              >
+                {pageNumber}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    )}
+  </div>
+</section>

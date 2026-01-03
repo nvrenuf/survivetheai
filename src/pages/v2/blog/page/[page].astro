@@ -1,0 +1,19 @@
+---
+import Layout from '../../../../layouts/BaseLayout.astro';
+import BlogList from '../../../../components/v2/BlogList.astro';
+import type { Page } from 'astro';
+import type { PostEntry } from '../../../../content/config';
+import { getV2Posts } from '../../../../utils/getV2Posts';
+
+export async function getStaticPaths({ paginate }) {
+  const PAGE_SIZE = 12;
+  const posts = await getV2Posts();
+  return paginate(posts, { pageSize: PAGE_SIZE });
+}
+
+const { page } = Astro.props as { page: Page<PostEntry> };
+---
+
+<Layout>
+  <BlogList posts={page.data} currentPage={page.currentPage} totalPages={page.lastPage} basePath="/v2/blog" />
+</Layout>
