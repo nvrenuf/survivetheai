@@ -1,4 +1,5 @@
 ---
+// RightRailRelated surfaces the most relevant additional V2 posts and collapses behind the sidebar breakpoint on mobile.
 import type { PostEntry } from '../../content/config';
 import { formatDate } from '../../utils/format';
 import { TOPIC_CATEGORIES } from '../../data/categories';
@@ -37,7 +38,10 @@ const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5
 
       return (
         <li>
-          <a href={`/v2/posts/${entry.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-neutral-200 p-2 transition hover:border-neutral-300 hover:bg-neutral-50">
+          <a
+            href={`/v2/posts/${entry.slug}/`}
+            class="tap-target group w-full items-center justify-start gap-4 rounded-2xl border border-neutral-200 px-3 py-2 transition hover:border-neutral-300 hover:bg-neutral-50"
+          >
             <div class="h-14 w-14 overflow-hidden rounded-xl bg-neutral-100">
               <img
                 src={heroImage}
@@ -50,11 +54,11 @@ const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5
               />
             </div>
             <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">{label}</p>
-              <p class="text-sm font-medium text-neutral-900 transition group-hover:text-neutral-700">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-neutral-500">{label}</p>
+              <p class="text-base font-medium text-neutral-900 transition group-hover:text-neutral-700">
                 {entry.data.title}
               </p>
-              <p class="text-xs text-neutral-600">{dateLabel}</p>
+              <p class="text-sm text-neutral-600">{dateLabel}</p>
             </div>
           </a>
         </li>

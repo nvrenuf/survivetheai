@@ -37,7 +37,7 @@ const TableOfContents: FC<TableOfContentsProps> = ({
     >
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-2 text-left font-medium text-neutral-800 dark:text-neutral-100 lg:cursor-auto"
+        className="tap-target w-full items-center justify-between gap-2 text-left font-medium text-neutral-800 dark:text-neutral-100 lg:cursor-auto"
         onClick={() => setCollapsed((value) => !value)}
         aria-expanded={!collapsed}
       >
@@ -57,7 +57,7 @@ const TableOfContents: FC<TableOfContentsProps> = ({
           <li key={heading.slug} className={heading.depth === 3 ? 'pl-4 text-neutral-500 dark:text-neutral-400' : ''}>
             <a
               href={`#${heading.slug}`}
-              className="block rounded-md px-2 py-1 transition hover:text-neutral-900 dark:hover:text-neutral-100"
+              className="tap-target w-full justify-start rounded-md px-2 text-base transition hover:text-neutral-900 dark:hover:text-neutral-100"
             >
               {heading.text}
             </a>

@@ -8,6 +8,7 @@ body {
   background: inherit;
   color: inherit;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  overflow-x: hidden;
 }
 h1, h2, h3, h4, h5 {
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
@@ -20,4 +21,10 @@ a {
 }
 a:hover {
   color: var(--accent);
+}
+
+@layer components {
+  .tap-target {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full px-4 py-3 text-base font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800;
+  }
 }
