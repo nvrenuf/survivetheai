@@ -32,9 +32,14 @@ const emojiMap: Record<string, string> = {
 const icon = emojiMap[category.icon] ?? '⭐';
 const title = category.label;
 const description = category.description ?? 'Explore the latest articles in this category.';
----
+--- 
 
-<Layout>
+<Layout
+  title={`${title} · SurviveTheAI V2`}
+  description={description}
+  ogImage={posts[0]?.data.heroImage ?? '/images/hero-banner-survive.png'}
+  canonical={`/v2/categories/${category.slug}`}
+>
   <main class="bg-white py-16 text-neutral-900">
     <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
       <!-- Category hero -->
@@ -70,6 +75,7 @@ const description = category.description ?? 'Explore the latest articles in this
         title="Articles in this topic"
         description={description}
         eyebrow={category.label}
+        headingLevel="h2"
       />
     </div>
   </main>

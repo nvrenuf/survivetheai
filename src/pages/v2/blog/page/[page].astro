@@ -6,14 +6,20 @@ import type { PostEntry } from '../../../../content/config';
 import { getV2Posts } from '../../../../utils/getV2Posts';
 
 export async function getStaticPaths({ paginate }) {
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = 2;
   const posts = await getV2Posts();
   return paginate(posts, { pageSize: PAGE_SIZE });
 }
 
 const { page } = Astro.props as { page: Page<PostEntry> };
+const ogImage = page.data[0]?.data.heroImage ?? '/images/hero-banner-survive.png';
 ---
 
-<Layout>
+<Layout
+  title={`SurviveTheAI V2 Blog – Page ${page.currentPage}`}
+  description="Browse every SurviveTheAI V2 article in one place."
+  canonical={`/v2/blog/page/${page.currentPage}`}
+  ogImage={ogImage}
+>
   <BlogList posts={page.data} currentPage={page.currentPage} totalPages={page.lastPage} basePath="/v2/blog" />
 </Layout>

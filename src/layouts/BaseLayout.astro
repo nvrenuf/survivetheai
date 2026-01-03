@@ -2,6 +2,18 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+
+const {
+  title = 'Survive the AI',
+  description = 'Survive the AI — Tools, strategies, and content to prepare for the AI disruption.',
+  ogImage = '/images/hero-banner-survive.png',
+  canonical,
+  ogType = 'website',
+} = Astro.props;
+
+const siteUrl = (Astro.site ?? new URL('https://survivetheai.com/')).toString();
+const canonicalUrl = canonical ?? new URL(Astro.url?.pathname ?? '/', siteUrl).toString();
+const resolvedOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
 ---
 
 <!DOCTYPE html>
@@ -9,8 +21,20 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Survive the AI — Tools, strategies, and content to prepare for the AI disruption." />
-    <title>Survive the AI</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+    <title>{title}</title>
     <script is:inline>
       (function() {
         try {

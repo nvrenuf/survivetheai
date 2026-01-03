@@ -8,14 +8,18 @@ const posts = (await getCollection('posts'))
   .filter((post) => post.data.version === 2 && post.data.start_here)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
+const primaryOgImage = posts[0]?.data.heroImage ?? '/images/hero-banner-survive.png';
+const pageTitle = 'Start Here · SurviveTheAI V2';
+const pageDescription = 'Guided SurviveTheAI V2 onboarding with the essential posts to read first.';
+
 const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const primaryLabel = (topics?: string[], fallback?: string) => {
   if (!topics || topics.length === 0) return fallback;
   return categoryByKey.get(topics[0])?.label ?? fallback;
 };
----
+--- 
 
-<Layout>
+<Layout title={pageTitle} description={pageDescription} ogImage={primaryOgImage} canonical="/v2/start-here">
   <main class="bg-white py-16 text-neutral-900">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-10">
       <header class="space-y-3 text-center sm:text-left">

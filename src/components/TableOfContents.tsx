@@ -40,6 +40,7 @@ const TableOfContents: FC<TableOfContentsProps> = ({
         className="tap-target w-full items-center justify-between gap-2 text-left font-medium text-neutral-800 dark:text-neutral-100 lg:cursor-auto"
         onClick={() => setCollapsed((value) => !value)}
         aria-expanded={!collapsed}
+        data-testid="toc-toggle"
       >
         <span>{title}</span>
         <svg

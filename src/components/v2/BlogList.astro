@@ -12,6 +12,7 @@ interface BlogListProps {
   title?: string;
   description?: string;
   eyebrow?: string;
+  headingLevel?: 'h1' | 'h2' | 'h3';
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   title = 'All V2 Drops',
   description = 'Latest SurviveTheAI V2 insights, playbooks, and experiments.',
   eyebrow = 'Version 2',
+  headingLevel = 'h1',
 } = Astro.props as BlogListProps;
 
 const toPagePath = (pageNumber: number) => (pageNumber === 1 ? basePath : `${basePath}/page/${pageNumber}`);
@@ -33,6 +35,8 @@ const primaryLabel = (post: PostEntry) => {
   const category = key ? categoryByKey.get(key) : undefined;
   return category?.label ?? post.data.category ?? 'Topic';
 };
+
+const HeadingTag = headingLevel;
 ---
 
 <section class="bg-white py-16 text-neutral-900">
@@ -40,7 +44,7 @@ const primaryLabel = (post: PostEntry) => {
     <!-- Page heading -->
     <header class="space-y-3">
       <p class="text-xs uppercase tracking-[0.35em] text-neutral-500">{eyebrow}</p>
-      <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
+      <HeadingTag class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</HeadingTag>
       {description && <p class="text-base text-neutral-700 sm:text-lg">{description}</p>}
     </header>
 

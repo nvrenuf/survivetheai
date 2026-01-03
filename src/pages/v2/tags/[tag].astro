@@ -17,9 +17,15 @@ const normalizedTag = tagParam.toLowerCase();
 const posts = (await getV2Posts()).filter((post) =>
   Array.isArray(post.data.tags) && post.data.tags.some((tag) => tag.toLowerCase() === normalizedTag)
 );
+const ogImage = posts[0]?.data.heroImage ?? '/images/hero-banner-survive.png';
 ---
 
-<Layout>
+<Layout
+  title={`#${tagParam} · SurviveTheAI V2`}
+  description={`Showing SurviveTheAI V2 posts tagged with “${tagParam}”.`}
+  ogImage={ogImage}
+  canonical={`/v2/tags/${encodeURIComponent(tagParam)}`}
+>
   <main class="bg-white py-16 text-neutral-900">
     <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
       <!-- Tag hero -->
@@ -46,6 +52,7 @@ const posts = (await getV2Posts()).filter((post) =>
         title="Tagged posts"
         description={`Showing SurviveTheAI V2 posts tagged with “${tagParam}”.`}
         eyebrow={`#${tagParam}`}
+        headingLevel="h2"
       />
     </div>
   </main>
