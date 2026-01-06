@@ -1,7 +1,6 @@
 ---
 import type { PostEntry } from '../content/config';
-import { formatDate } from '../utils/format';
-import { TOPIC_CATEGORIES } from '../data/categories';
+import PostCard from './PostCard.astro';
 
 const { posts, currentPage, totalPages, basePath } = Astro.props as {
   posts: PostEntry[];
@@ -10,44 +9,15 @@ const { posts, currentPage, totalPages, basePath } = Astro.props as {
   basePath: string;
 };
 
-const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const normalizedBasePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
 const buildPageHref = (page: number) => (page === 1 ? `${normalizedBasePath}/` : `${normalizedBasePath}/page/${page}/`);
 ---
 
 <div class="space-y-8" data-testid="blog-list" data-total-pages={totalPages} data-current-page={currentPage}>
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {posts.map((post) => {
-      const primaryCategory = post.data.topics?.[0] ? categoryByKey.get(post.data.topics[0]) : undefined;
-      return (
-        <article class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300">
-          <a href={`/posts/${post.slug}/`} class="block">
-            <img
-              src={post.data.heroImageThumb ?? post.data.heroImage}
-              alt={post.data.heroImageAlt ?? post.data.title}
-              class="h-48 w-full object-cover"
-              loading="lazy"
-              decoding="async"
-              width="640"
-              height="360"
-            />
-          </a>
-          <div class="flex flex-1 flex-col gap-3 p-5">
-            <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
-              <span>{primaryCategory?.label ?? post.data.category ?? 'Key Topic'}</span>
-              <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-              <span>{formatDate(post.data.date)}</span>
-            </div>
-            <h3 class="text-lg font-semibold text-neutral-900">
-              <a href={`/posts/${post.slug}/`} class="transition hover:text-neutral-700">
-                {post.data.title}
-              </a>
-            </h3>
-            <p class="text-sm text-neutral-700">{post.data.description}</p>
-          </div>
-        </article>
-      );
-    })}
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((post) => (
+      <PostCard post={post} />
+    ))}
   </div>
 
   {totalPages > 1 && (

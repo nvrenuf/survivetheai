@@ -37,8 +37,8 @@ const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5
 
       return (
         <li>
-          <a href={`/posts/${entry.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-neutral-200 p-2 transition hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/60">
-            <div class="relative h-14 w-14 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-800/70">
+          <a href={`/posts/${entry.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-neutral-200 p-2 transition hover:border-neutral-300 hover:bg-neutral-50">
+            <div class="relative h-14 w-14 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50">
               {hasHero && (
                 <img
                   src={heroImage}
@@ -51,18 +51,18 @@ const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5
                   onerror="this.style.display='none'; const placeholder = this.nextElementSibling; if (placeholder) placeholder.classList.remove('hidden');"
                 />
               )}
-              <div class={`absolute inset-0 flex items-center justify-center text-[10px] font-medium text-neutral-400 dark:text-neutral-500 ${hasHero ? 'hidden' : ''}`}>
+              <div class={`absolute inset-0 flex items-center justify-center text-[10px] font-medium text-neutral-400 ${hasHero ? 'hidden' : ''}`}>
                 No image
               </div>
             </div>
             <div class="space-y-1">
               <p
-                class="text-sm font-semibold text-neutral-900 transition group-hover:text-neutral-700 dark:text-neutral-50 dark:group-hover:text-neutral-200"
+                class="text-sm font-semibold text-neutral-900 transition group-hover:text-neutral-700"
                 style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
               >
                 {entry.data.title}
               </p>
-              <p class="text-xs text-neutral-600 dark:text-neutral-400">{dateLabel}</p>
+              <p class="text-xs text-neutral-600">{dateLabel}</p>
             </div>
           </a>
         </li>

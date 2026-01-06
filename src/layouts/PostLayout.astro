@@ -57,7 +57,7 @@ const structuredData = {
 };
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
+<html lang="en" class="bg-white text-neutral-900">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,21 +76,8 @@ const structuredData = {
     <meta name="twitter:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-    <script is:inline>
-      (function() {
-        try {
-          const stored = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const useDark = stored ? stored === 'dark' : prefersDark;
-          document.documentElement.classList.toggle('dark', useDark);
-        } catch (e) {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (prefersDark) document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
   </head>
-  <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 antialiased">
+  <body class="bg-white text-neutral-900 antialiased">
     <Navbar />
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
       <div class="lg:grid lg:grid-cols-12 lg:gap-10">
@@ -107,7 +94,7 @@ const structuredData = {
             <slot name="heading">
               <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
               {description && (
-                <p class="text-lg text-neutral-700 dark:text-neutral-200 sm:text-xl">
+                <p class="text-lg text-neutral-700 sm:text-xl">
                   {description}
                 </p>
               )}
@@ -126,7 +113,7 @@ const structuredData = {
             readingTime={readingTimeLabel}
           />
           <slot name="inline-cta" />
-          <article class="mx-auto w-full max-w-[760px] prose prose-neutral text-neutral-900 prose-headings:font-extrabold prose-a:underline-offset-2 dark:prose-invert dark:text-neutral-100">
+          <article class="prose text-neutral-900 prose-headings:font-extrabold">
             <slot />
           </article>
           <footer class="pt-6">
