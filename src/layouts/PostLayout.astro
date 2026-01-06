@@ -57,7 +57,7 @@ const structuredData = {
 };
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
+<html lang="en" class="bg-white text-neutral-900">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,38 +76,25 @@ const structuredData = {
     <meta name="twitter:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-    <script is:inline>
-      (function() {
-        try {
-          const stored = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const useDark = stored ? stored === 'dark' : prefersDark;
-          document.documentElement.classList.toggle('dark', useDark);
-        } catch (e) {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (prefersDark) document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
   </head>
-  <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 antialiased">
+  <body class="bg-white text-neutral-900 antialiased">
     <Navbar />
-    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-10">
-        <main class="pb-16 space-y-6 sm:space-y-8 lg:col-span-8">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 pt-10 sm:pt-12">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+        <main class="space-y-8 sm:space-y-10 lg:col-span-8">
           <slot name="hero">
             <HeroImage src={heroImage} alt={heroAlt} />
           </slot>
-          <header class="space-y-4">
-            <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
+          <header class="space-y-5 sm:space-y-6">
+            <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-neutral-500">
               <span>{categoryLabel ?? 'Key Topic'}</span>
               <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
               <span>Impact Score: {impact_score}</span>
             </div>
             <slot name="heading">
-              <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
+              <h1 class="text-4xl font-black tracking-tight text-neutral-900 sm:text-5xl leading-[1.05]">{title}</h1>
               {description && (
-                <p class="text-lg text-neutral-700 dark:text-neutral-200 sm:text-xl">
+                <p class="text-xl text-neutral-700 sm:text-2xl leading-relaxed">
                   {description}
                 </p>
               )}
@@ -126,7 +113,7 @@ const structuredData = {
             readingTime={readingTimeLabel}
           />
           <slot name="inline-cta" />
-          <article class="mx-auto w-full max-w-[760px] prose prose-neutral text-neutral-900 prose-headings:font-extrabold prose-a:underline-offset-2 dark:prose-invert dark:text-neutral-100">
+          <article class="prose prose-lg text-neutral-900 prose-headings:font-black prose-h2:mt-12 prose-h2:pt-2 prose-h3:mt-8 prose-p:text-neutral-800 prose-li:text-neutral-800 prose-strong:text-neutral-900 prose-blockquote:border-l-4 prose-blockquote:border-neutral-900/30 prose-blockquote:bg-neutral-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-semibold prose-blockquote:text-neutral-800">
             <slot />
           </article>
           <footer class="pt-6">

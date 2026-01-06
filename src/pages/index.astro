@@ -3,53 +3,64 @@ import Layout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { buildSections } from '../utils/postSections';
 import { formatDate } from '../utils/format';
+import PostCard from '../components/PostCard.astro';
+import { TOPIC_CATEGORIES } from '../data/categories';
 
 const posts = await getCollection('posts');
 const { featured, evergreen, latest, remaining } = buildSections(posts);
+const supportingPosts = [...evergreen, ...latest].slice(0, 6);
+const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
 ---
 
 <Layout title="Survive the AI — Prepare, adapt, and stay ahead">
-  <main class="bg-white py-14 text-neutral-900 sm:py-16">
-    <div class="mx-auto max-w-screen-xl space-y-14 px-4 sm:px-6 lg:px-8">
+  <main class="bg-white py-16 text-neutral-900 sm:py-20">
+    <div class="mx-auto max-w-screen-xl space-y-16 px-4 sm:px-6 lg:px-8">
       {featured ? (
-        <section class="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center" data-testid="hero-section">
-          <div class="space-y-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Featured</p>
-            <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              {featured.data.title}
-            </h1>
-            <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{featured.data.description}</p>
-            <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
-              <span>{formatDate(featured.data.date)}</span>
-              <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-              <span>Impact Score {featured.data.impact_score}</span>
-            </div>
-            <div class="flex flex-wrap gap-3 pt-2">
-              <a
-                href={`/posts/${featured.slug}/`}
-                class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-              >
-                Read the feature
-              </a>
-              <a
-                href="/posts"
-                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-              >
-                Browse the Survival Library
-              </a>
+        <section class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl ring-1 ring-neutral-100" data-testid="hero-section">
+          <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+            <a
+              href={`/posts/${featured.slug}/`}
+              class="block overflow-hidden bg-neutral-100 transition lg:order-last lg:border-l lg:border-neutral-200"
+            >
+              <div class="relative h-full min-h-[260px] sm:min-h-[320px]">
+                <img
+                  src={featured.data.heroImage}
+                  alt={featured.data.heroImageAlt ?? featured.data.title}
+                  class="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width="1200"
+                  height="630"
+                />
+              </div>
+            </a>
+            <div class="space-y-6 px-6 py-8 sm:px-8 sm:py-10 lg:py-12">
+              <div class="space-y-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Primary Featured Post</p>
+                <h1 class="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">{featured.data.title}</h1>
+                <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{featured.data.description}</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
+                <span>{formatDate(featured.data.date)}</span>
+                <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                <span>Impact Score {featured.data.impact_score}</span>
+              </div>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <a
+                  href={`/posts/${featured.slug}/`}
+                  class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                >
+                  Start here
+                </a>
+                <a
+                  href="/posts"
+                  class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                >
+                  Browse the Survival Library
+                </a>
+              </div>
             </div>
           </div>
-          <a href={`/posts/${featured.slug}/`} class="block overflow-hidden rounded-3xl shadow-lg ring-1 ring-neutral-200 transition hover:-translate-y-0.5 hover:shadow-xl">
-            <img
-              src={featured.data.heroImage}
-              alt={featured.data.heroImageAlt ?? featured.data.title}
-              class="h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="630"
-            />
-          </a>
         </section>
       ) : (
         <section class="space-y-3" data-testid="hero-section">
@@ -58,87 +69,60 @@ const { featured, evergreen, latest, remaining } = buildSections(posts);
         </section>
       )}
 
-      {evergreen.length > 0 && (
-        <section class="space-y-4" data-testid="evergreen-section">
-          <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Evergreen</p>
-            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Playbooks that stay relevant</h2>
+      {supportingPosts.length > 0 && (
+        <section class="space-y-5" data-testid="curated-grid-section">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div class="space-y-2">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Next up</p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Further intelligence</h2>
+              <p class="max-w-3xl text-neutral-600">A deliberate stack of follow-on reads—kept tight so the featured story still leads.</p>
+            </div>
+            <a
+              href="/posts"
+              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+            >
+              View the full library
+            </a>
           </div>
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {evergreen.map((post) => (
-              <a
-                href={`/posts/${post.slug}/`}
-                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
-              >
-                <img
-                  src={post.data.heroImageThumb ?? post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                  class="h-44 w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
-                <div class="flex flex-1 flex-col gap-2 p-4">
-                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
-                    <span>Impact {post.data.impact_score}</span>
-                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                    <span>{formatDate(post.data.date)}</span>
-                  </div>
-                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
-                  <p class="text-sm text-neutral-700">{post.data.description}</p>
-                </div>
-              </a>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {supportingPosts.map((post) => (
+              <PostCard post={post} />
             ))}
           </div>
         </section>
       )}
 
-      {latest.length > 0 && (
-        <section class="space-y-4" data-testid="latest-section">
-          <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Latest</p>
-            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Latest intelligence</h2>
-          </div>
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latest.map((post) => (
-              <a
-                href={`/posts/${post.slug}/`}
-                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
-              >
-                <img
-                  src={post.data.heroImageThumb ?? post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                  class="h-44 w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
-                <div class="flex flex-1 flex-col gap-2 p-4">
-                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
-                    <span>Impact {post.data.impact_score}</span>
-                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                    <span>{formatDate(post.data.date)}</span>
-                  </div>
-                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
-                  <p class="text-sm text-neutral-700">{post.data.description}</p>
+      <section class="space-y-6" data-testid="survival-areas-section">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Areas</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Choose your entry point</h2>
+          <p class="max-w-3xl text-neutral-600">Deep dives organized by the five arenas where AI is already rewriting the rules.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {survivalAreas.map((area) => (
+            <a
+              href={`/category/${area.key}/`}
+              class="group flex h-full flex-col justify-between gap-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+            >
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-block h-2 w-2 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
+                <div class="space-y-1">
+                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Navigation</p>
+                  <h3 class="text-lg font-bold leading-tight text-neutral-900 transition group-hover:text-neutral-700">{area.label}</h3>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+              </div>
+              {area.description && <p class="text-sm leading-relaxed text-neutral-600">{area.description}</p>}
+            </a>
+          ))}
+        </div>
+      </section>
 
       {remaining.length > 0 && (
         <section class="space-y-6" data-testid="library-cta-section">
           <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival Library</p>
-            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Rolled off? It lives in the library.</h2>
-            <p class="text-neutral-600">
-              We keep featured, evergreen, and the latest five posts up top. Everything else moves to the Survival Library so you can binge
-              without duplicates.
-            </p>
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Library</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Rolled off? It lives in the library.</h2>
+            <p class="max-w-3xl text-neutral-600">Featured and curated posts stay above. Everything else lands in the Survival Library so you can binge without duplicates.</p>
           </div>
           <div class="flex flex-wrap gap-3">
             <a
