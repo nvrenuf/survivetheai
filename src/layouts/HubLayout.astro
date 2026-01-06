@@ -1,0 +1,76 @@
+---
+import Layout from './BaseLayout.astro';
+import type { SurvivalHub } from '../data/hubs';
+import type { PostEntry } from '../content/config';
+import PostCard from '../components/PostCard.astro';
+import SubscribeInline from '../components/SubscribeInline';
+
+const { hub, posts } = Astro.props as { hub: SurvivalHub; posts: PostEntry[] };
+const hasPosts = posts.length > 0;
+const title = `${hub.shortName} · Survival Areas`;
+---
+
+<Layout title={`${title} · Survive the AI`} description={`${hub.shortName} hub: ${hub.tagline}`}>
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto flex max-w-screen-xl flex-col gap-12 px-4 sm:px-6 lg:px-8" data-testid="hub-page">
+      <header class="space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival Areas</p>
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-baseline lg:justify-between">
+          <div class="space-y-3">
+            <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{hub.shortName}</h1>
+            <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{hub.intro}</p>
+          </div>
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-700">
+            <span class="h-2 w-2 rounded-full" style={`background:${hub.color}`} aria-hidden="true" />
+            {hub.tagline}
+          </span>
+        </div>
+      </header>
+
+      <section class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-3 rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">What’s happening</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">{hub.shortName} right now</h2>
+          <p class="text-neutral-700 leading-relaxed">{hub.whatsHappening}</p>
+        </div>
+        <div class="space-y-4 rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">What to do now</p>
+          <h2 class="text-xl font-black text-neutral-900 sm:text-2xl">Mini checklist</h2>
+          <ul class="space-y-3 text-neutral-800">
+            {hub.actionSteps.map((step) => (
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 flex-none rounded-full" style={`background:${hub.color}`} aria-hidden="true" />
+                <span class="leading-relaxed">{step}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-5">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div class="space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">In this hub</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Latest coverage</h2>
+            <p class="text-neutral-600">Posts tagged for {hub.shortName}. Updated as new drops go live.</p>
+          </div>
+        </div>
+        {hasPosts ? (
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        ) : (
+          <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 p-6 text-neutral-700">
+            We are drafting this playbook now. Subscribe below to get the first drop.
+          </div>
+        )}
+      </section>
+
+      <section class="pb-4">
+        <SubscribeInline client:load location={`hub-${hub.key}`} heading={`Stay updated on ${hub.shortName}`} />
+      </section>
+    </div>
+  </main>
+</Layout>

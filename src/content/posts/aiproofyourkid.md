@@ -7,6 +7,9 @@ evergreen: true
 category: "Kids & School – AI vs Your Children’s Future"
 topics:
   - "kids-school"
+pillar: "kids-school"
+related:
+  - "ai-study-platforms-2025"
 tags:
   - "parenting"
   - "AI"
@@ -55,4 +58,3 @@ AI will speed up everything — except human biology. Resilience, mindfulness, a
 AI isn’t the enemy. But passivity is. Help your kid **be the human the machines can’t replace** — adaptable, ethical, creative, and emotionally intelligent.
 
 Their future depends on it.
-

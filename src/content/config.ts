@@ -18,6 +18,16 @@ export const postSchema = z.object({
       'system-shock',
     ]),
   ),
+  pillar: z
+    .enum([
+      'work-money',
+      'kids-school',
+      'love-connection',
+      'mind-attention',
+      'system-shock',
+    ])
+    .optional(),
+  related: z.array(z.string()).optional(),
   tags: z.array(z.string()).min(1),
   impact_score: z.number().min(0).max(100),
   heroImage: z.string(),

@@ -4,6 +4,7 @@ import HeroImage from '../components/HeroImage.astro';
 import Byline from '../components/Byline.tsx';
 import RightRailRelated from '../components/RightRailRelated.astro';
 import ShareBar from '../components/ShareBar.tsx';
+import PostCard from '../components/PostCard.astro';
 import TableOfContents from '../components/TableOfContents.tsx';
 import '../styles/tokens.css';
 import '../styles/tailwind.css';
@@ -11,6 +12,9 @@ import type { PostEntry } from '../content/config';
 import type { MarkdownHeading } from 'astro';
 import { formatDate, formatReadingMinutes } from '../utils/format';
 import { TOPIC_CATEGORIES } from '../data/categories';
+import SubscribeInline from '../components/SubscribeInline';
+import { buildPostLinking } from '../utils/postLinking';
+import { getHubByKey } from '../data/hubs';
 
 const {
   post,
@@ -36,6 +40,12 @@ const tocHeadings = filteredHeadings.length >= 4 ? filteredHeadings : [];
 const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const primaryCategory = topics?.[0] ? categoryByKey.get(topics[0]) : undefined;
 const categoryLabel = primaryCategory?.label;
+const linking = buildPostLinking(post, allPosts);
+const hub = getHubByKey(linking.pillar);
+const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
+const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
+const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
+const hasGa = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -79,7 +89,7 @@ const structuredData = {
   </head>
   <body class="bg-white text-neutral-900 antialiased">
     <Navbar />
-    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 pt-10 sm:pt-12">
+  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 pt-10 sm:pt-12">
       <div class="lg:grid lg:grid-cols-12 lg:gap-12">
         <main class="space-y-8 sm:space-y-10 lg:col-span-8">
           <slot name="hero">
@@ -112,10 +122,67 @@ const structuredData = {
             isoDate={isoDate}
             readingTime={readingTimeLabel}
           />
+          {hub && (
+            <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm">
+              <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-600">Part of this Survival Area</p>
+              <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <a
+                    class="text-lg font-bold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-700"
+                    href={hubPath}
+                  >
+                    {hub.shortName}
+                  </a>
+                  <p class="text-sm text-neutral-700">{hub.tagline}</p>
+                </div>
+                <a
+                  class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                  href={hubPath}
+                >
+                  View the hub
+                </a>
+              </div>
+            </div>
+          )}
           <slot name="inline-cta" />
           <article class="prose prose-lg text-neutral-900 prose-headings:font-black prose-h2:mt-12 prose-h2:pt-2 prose-h3:mt-8 prose-p:text-neutral-800 prose-li:text-neutral-800 prose-strong:text-neutral-900 prose-blockquote:border-l-4 prose-blockquote:border-neutral-900/30 prose-blockquote:bg-neutral-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-semibold prose-blockquote:text-neutral-800">
             <slot />
           </article>
+          <section class="space-y-6 pt-6">
+            <SubscribeInline client:load location="post" />
+            {linking.related.length > 0 && (
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Related reading</p>
+                    <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Stay in the flow</h2>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  {linking.related.map((entry) => (
+                    <PostCard post={entry} />
+                  ))}
+                </div>
+              </div>
+            )}
+            {linking.nextUp && (
+              <div class="space-y-3 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Next up</p>
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div class="space-y-1">
+                    <h2 class="text-xl font-black text-neutral-900 sm:text-2xl">{linking.nextUp.data.title}</h2>
+                    <p class="text-sm text-neutral-700">{linking.nextUp.data.description}</p>
+                  </div>
+                  <a
+                    href={`/posts/${linking.nextUp.slug}/`}
+                    class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-500 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                  >
+                    Keep reading
+                  </a>
+                </div>
+              </div>
+            )}
+          </section>
           <footer class="pt-6">
             <slot name="share-bar-bottom">
               <ShareBar client:load url={shareUrl} title={title} />
@@ -124,7 +191,9 @@ const structuredData = {
         </main>
         <aside class="space-y-8 lg:col-span-4">
           <div class="space-y-8 lg:sticky lg:top-24">
-            <RightRailRelated currentSlug={post.slug} posts={allPosts} />
+            {linking.sidebar.length > 0 && (
+              <RightRailRelated related={linking.sidebar} heading={hubLabel ? `More in ${hubLabel}` : 'More to explore'} />
+            )}
             {tocHeadings.length > 0 && (
               <div class="hidden lg:block">
                 <TableOfContents client:load headings={tocHeadings} initiallyCollapsed={false} />
@@ -134,5 +203,37 @@ const structuredData = {
         </aside>
       </div>
     </div>
+    <script is:inline>
+      {`
+        (function() {
+          const thresholds = [25, 50, 75, 90];
+          const seen = new Set();
+          const debug = ${analyticsDebug ? 'true' : 'false'};
+          const hasGa = ${hasGa ? 'true' : 'false'};
+
+          function report(threshold) {
+            if (hasGa && typeof window.gtag === 'function') {
+              window.gtag('event', 'scroll_depth', { threshold });
+            } else if (debug) {
+              console.info('[analytics] scroll_depth', threshold);
+            }
+          }
+
+          function checkScroll() {
+            const doc = document.documentElement;
+            const scrolled = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
+            thresholds.forEach((threshold) => {
+              if (!seen.has(threshold) && scrolled >= threshold) {
+                seen.add(threshold);
+                report(threshold);
+              }
+            });
+          }
+
+          window.addEventListener('scroll', checkScroll, { passive: true });
+          checkScroll();
+        })();
+      `}
+    </script>
   </body>
 </html>

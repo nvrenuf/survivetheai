@@ -54,6 +54,22 @@
             ]
           }
         },
+        "pillar": {
+          "type": "string",
+          "enum": [
+            "work-money",
+            "kids-school",
+            "love-connection",
+            "mind-attention",
+            "system-shock"
+          ]
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "tags": {
           "type": "array",
           "items": {

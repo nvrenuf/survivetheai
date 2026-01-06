@@ -6,6 +6,9 @@ author: "Admin"
 category: "Mind & Attention – Cognitive Erosion & Offloading"
 topics:
   - "mind-attention"
+pillar: "mind-attention"
+related:
+  - "rapidchange"
 tags:
   - "Cognitive Erosion"
 impact_score: 49
@@ -18,4 +21,3 @@ canonicalUrl: "https://survivetheai.com/posts/cognitive-erosion"
 ---
 
 Content coming soon for this category.
-
