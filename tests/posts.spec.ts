@@ -1,16 +1,28 @@
 import { expect, test } from '@playwright/test';
 
-test('posts index paginates six posts per page', async ({ page }) => {
+test('Survival Library excludes homepage posts and stays within 12 per page', async ({ page }) => {
+  await page.goto('/');
+
+  const excluded = await page
+    .locator('[data-testid$="-section"] a[href^="/posts/"]')
+    .evaluateAll((links) => links.map((link) => (link.getAttribute('href') ?? '').replace(/\/posts\/|\/$/g, '')));
+
   await page.goto('/posts/');
-  await expect(page).toHaveTitle(/All Posts/);
+  await expect(page).toHaveTitle(/Survival Library/);
 
-  await expect(page.locator('[data-testid="blog-list"] article')).toHaveCount(6);
-  await expect(page.getByTestId('pagination')).toBeVisible();
+  const articles = page.locator('[data-testid="blog-list"] article a[href^="/posts/"]');
+  const librarySlugs = await articles.evaluateAll((links) => links.map((link) => (link.getAttribute('href') ?? '').replace(/\/posts\/|\/$/g, '')));
 
-  await page.getByRole('link', { name: '2' }).click();
-  await expect(page).toHaveURL(/\/posts\/page\/2\//);
-  await expect(page.locator('[data-testid="blog-list"] article')).toHaveCount(6);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/All Posts – Page 2/);
+  excluded.forEach((slug) => expect(librarySlugs).not.toContain(slug));
+  expect(librarySlugs.length).toBeLessThanOrEqual(12);
+
+  const totalPagesAttr = await page.getByTestId('blog-list').getAttribute('data-total-pages');
+  const totalPages = Number(totalPagesAttr ?? '1');
+  if (totalPages > 1) {
+    await expect(page.getByTestId('pagination')).toBeVisible();
+  } else {
+    await expect(page.getByTestId('pagination')).toHaveCount(0);
+  }
 });
 
 test('individual post pages render without signup forms', async ({ page }) => {

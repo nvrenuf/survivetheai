@@ -3,6 +3,7 @@ title: "The Artificial Embrace: How AI Companions Are Quietly Replacing Human In
 description: "AI companions promise endless empathy and attention -- this post explores how they reshape intimacy, fuel dependence, and deepen loneliness."
 date: 2025-12-05
 author: "Admin"
+evergreen: true
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"
@@ -97,5 +98,4 @@ That’s what makes it addictive. And that’s exactly what makes it dangerous.
 In the next installment, we’ll pull back the veil on Silicon Valley’s growing influence over emotional AI—and explore what happens when therapeutic tools become **addictive products** by design.
 
 ---
-
 

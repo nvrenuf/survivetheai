@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import BlogList from '../../components/BlogList.astro';
+import { getCollection } from 'astro:content';
+import { TOPIC_CATEGORIES } from '../../data/categories';
+import { sortPosts } from '../../utils/postSections';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const published = posts.filter((post) => !post.data.draft);
+
+  return TOPIC_CATEGORIES.map((category) => {
+    const categoryPosts = sortPosts(published.filter((post) => post.data.topics?.includes(category.key)));
+    return {
+      params: { key: category.key },
+      props: { category, categoryPosts },
+      route: `/category/${category.key}/`,
+    };
+  });
+}
+
+const { category, categoryPosts } = Astro.props;
+const pageTitle = `${category.label} · Survival Areas`;
+---
+<Layout title={`${pageTitle} · Survive the AI`} description={`Survival posts focused on ${category.label}.`}>
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-6 px-4 sm:px-6 lg:px-8" data-testid="category-page">
+      <div class="space-y-3">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival Areas</p>
+        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{category.label}</h1>
+        {category.description && <p class="max-w-3xl text-neutral-600">{category.description}</p>}
+      </div>
+
+      {categoryPosts.length > 0 ? (
+        <BlogList posts={categoryPosts} currentPage={1} totalPages={1} basePath={`/category/${category.key}`} />
+      ) : (
+        <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 text-neutral-700">
+          No posts found in this Survival Area yet. Check back soon.
+        </div>
+      )}
+    </div>
+  </main>
+</Layout>

@@ -1,13 +1,18 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Homepage layout', () => {
-  test('shows hero, evergreen, latest, and all posts without duplicate slugs', async ({ page }) => {
+  test('shows featured, evergreen, and latest posts without duplicates', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByTestId('hero-section')).toBeVisible();
     await expect(page.getByTestId('evergreen-section')).toBeVisible();
     await expect(page.getByTestId('latest-section')).toBeVisible();
-    await expect(page.getByTestId('all-posts-section')).toBeVisible();
+
+    const evergreenCards = page.getByTestId('evergreen-section').locator('a[href^="/posts/"]');
+    const latestCards = page.getByTestId('latest-section').locator('a[href^="/posts/"]');
+
+    await expect(evergreenCards).toHaveCount(4);
+    await expect(latestCards).toHaveCount(5);
 
     const slugs = await page.locator('[data-testid$="-section"] a[href^="/posts/"]').evaluateAll((links) =>
       links
@@ -17,6 +22,28 @@ test.describe('Homepage layout', () => {
 
     const unique = new Set(slugs);
     expect(unique.size).toBe(slugs.length);
+  });
+
+  test('latest posts exclude featured and evergreen content', async ({ page }) => {
+    await page.goto('/');
+
+    const heroSlug = await page.getByTestId('hero-section').locator('a[href^="/posts/"]').first().getAttribute('href');
+    const evergreenSlugs = await page
+      .getByTestId('evergreen-section')
+      .locator('a[href^="/posts/"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+
+    const latestSlugs = await page
+      .getByTestId('latest-section')
+      .locator('a[href^="/posts/"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+
+    const normalizedHero = heroSlug?.replace(/\/posts\/|\/$/g, '');
+    const normalizedEvergreen = evergreenSlugs.map((href) => (href ?? '').replace(/\/posts\/|\/$/g, ''));
+    const normalizedLatest = latestSlugs.map((href) => (href ?? '').replace(/\/posts\/|\/$/g, ''));
+
+    expect(normalizedLatest).not.toContain(normalizedHero);
+    normalizedEvergreen.forEach((slug) => expect(normalizedLatest).not.toContain(slug));
   });
 
   test('hides newsletter and version switchers', async ({ page }) => {
