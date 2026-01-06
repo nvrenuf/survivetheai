@@ -22,7 +22,7 @@ const TableOfContents: FC<TableOfContentsProps> = ({
   const filtered = useMemo(() => headings.filter((heading) => heading.depth === 2 || heading.depth === 3), [headings]);
   const [collapsed, setCollapsed] = useState(initiallyCollapsed);
 
-  if (filtered.length === 0) {
+  if (filtered.length < 4) {
     return null;
   }
 
