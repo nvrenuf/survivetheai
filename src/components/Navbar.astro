@@ -7,8 +7,13 @@ const links = [
 ];
 
 const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+};
 ---
-<nav class="bg-white text-neutral-900 shadow-sm border-b border-neutral-200" data-testid="navbar">
+<nav class="bg-white/95 text-neutral-900 shadow-sm border-b border-neutral-200 backdrop-blur" data-testid="navbar">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
     <a href="/" aria-label="SurviveTheAI home" class="flex items-start gap-2 text-neutral-900 transition hover:text-neutral-700" data-testid="nav-logo">
       <div class="flex flex-col leading-none">
@@ -24,7 +29,11 @@ const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
       {links.map((link) => (
         <a
           href={link.href}
-          class="rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+          class={`relative rounded-full px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${
+            isActive(link.href)
+              ? 'border border-neutral-900/60 bg-neutral-900/5 text-neutral-950 shadow-[inset_0_-2px_0_0_rgba(15,15,17,0.9)]'
+              : 'text-neutral-800 hover:border hover:border-neutral-200 hover:bg-neutral-50 hover:text-neutral-900'
+          }`}
           data-testid={link.testId}
         >
           {link.label}
@@ -33,7 +42,7 @@ const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
       <div class="relative" data-testid="survival-areas-desktop">
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+          class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
           aria-haspopup="true"
           aria-expanded="false"
           aria-controls="desktop-survival-areas"
@@ -60,7 +69,9 @@ const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
             <a
               href={`/category/${area.key}/`}
               role="menuitem"
-              class="rounded-xl px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+              class={`rounded-xl px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${
+                currentPath.startsWith(`/category/${area.key}`) ? 'bg-neutral-100 text-neutral-950 ring-1 ring-neutral-300' : ''
+              }`}
               data-testid={`survival-area-${area.key}`}
             >
               {area.label}
@@ -88,7 +99,11 @@ const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
       {links.map((link) => (
         <a
           href={link.href}
-          class="rounded-xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+          class={`rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${
+            isActive(link.href)
+              ? 'bg-neutral-100 text-neutral-950 ring-1 ring-neutral-300'
+              : 'text-neutral-800 hover:bg-neutral-100 hover:text-neutral-900'
+          }`}
           data-testid={`${link.testId}-mobile`}
         >
           {link.label}

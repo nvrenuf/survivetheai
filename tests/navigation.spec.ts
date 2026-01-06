@@ -6,8 +6,9 @@ test('desktop navigation links to the Survival Library and shows Survival Areas 
 
   await expect(page.getByRole('link', { name: 'Drops' })).toHaveCount(0);
 
-  const logoColor = await page.getByTestId('nav-logo').evaluate((el) => getComputedStyle(el).color);
-  expect(logoColor).toContain('255, 255, 255');
+  const navbar = page.getByTestId('navbar');
+  await expect(navbar).toBeVisible();
+  await expect(page.getByTestId('nav-home')).toHaveClass(/text-neutral-95/);
 
   await page.getByRole('link', { name: 'Survival Library' }).click();
   await expect(page).toHaveURL(/\/posts\/$/);
