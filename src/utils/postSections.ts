@@ -7,6 +7,10 @@ type Sections = {
   remaining: PostEntry[];
 };
 
+export const EVERGREEN_SECTION_MAX = 4;
+export const LATEST_SECTION_SIZE = 5;
+export const SURVIVAL_LIBRARY_PAGE_SIZE = 12;
+
 export function sortPosts(posts: PostEntry[]): PostEntry[] {
   return [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
@@ -15,39 +19,20 @@ export function buildSections(allPosts: PostEntry[]): Sections {
   const posts = sortPosts(allPosts).filter((post) => !post.data.draft);
   const used = new Set<string>();
 
-  let featured = posts.find((post) => post.data.featured);
-  if (!featured && posts.length > 0) {
-    featured = posts[0];
-  }
-  if (featured) {
-    used.add(featured.slug);
-  }
+  const featured = posts.find((post) => post.data.featured);
+  if (featured) used.add(featured.slug);
 
-  const evergreen: PostEntry[] = [];
-  for (const post of posts) {
-    if (used.has(post.slug)) continue;
-    if (post.data.evergreen) {
-      evergreen.push(post);
-      used.add(post.slug);
-    }
-    if (evergreen.length === 4) break;
-  }
-
-  if (evergreen.length < 4) {
-    for (const post of posts) {
-      if (used.has(post.slug)) continue;
-      evergreen.push(post);
-      used.add(post.slug);
-      if (evergreen.length === 4) break;
-    }
-  }
+  const evergreen = posts
+    .filter((post) => !used.has(post.slug) && post.data.evergreen)
+    .slice(0, EVERGREEN_SECTION_MAX);
+  evergreen.forEach((post) => used.add(post.slug));
 
   const latest: PostEntry[] = [];
   for (const post of posts) {
     if (used.has(post.slug)) continue;
     latest.push(post);
     used.add(post.slug);
-    if (latest.length === 6) break;
+    if (latest.length === LATEST_SECTION_SIZE) break;
   }
 
   const remaining = posts.filter((post) => !used.has(post.slug));
@@ -55,7 +40,7 @@ export function buildSections(allPosts: PostEntry[]): Sections {
   return { featured, evergreen, latest, remaining };
 }
 
-export function paginatePosts(posts: PostEntry[], pageSize: number) {
+export function paginatePosts(posts: PostEntry[], pageSize = SURVIVAL_LIBRARY_PAGE_SIZE) {
   const sorted = sortPosts(posts).filter((post) => !post.data.draft);
   const pages: PostEntry[][] = [];
 

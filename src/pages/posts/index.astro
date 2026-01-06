@@ -2,13 +2,14 @@
 import Layout from '../../layouts/BaseLayout.astro';
 import BlogList from '../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
-import { sortPosts } from '../../utils/postSections';
+import { buildSections, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../utils/postSections';
 
-const pageSize = 6;
-const posts = sortPosts(await getCollection('posts')).filter((post) => !post.data.draft);
-const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
-const pagePosts = posts.slice(0, pageSize);
-const pageTitle = 'All Posts';
+const posts = await getCollection('posts');
+const { remaining } = buildSections(posts);
+const sortedLibraryPosts = sortPosts(remaining);
+const totalPages = Math.max(1, Math.ceil(sortedLibraryPosts.length / SURVIVAL_LIBRARY_PAGE_SIZE));
+const pagePosts = sortedLibraryPosts.slice(0, SURVIVAL_LIBRARY_PAGE_SIZE);
+const pageTitle = 'Survival Library';
 ---
 
 <Layout title={`${pageTitle} · Survive the AI`} description="Browse every SurviveTheAI post in reverse chronological order.">
@@ -17,7 +18,9 @@ const pageTitle = 'All Posts';
       <div class="space-y-2">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
         <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
-        <p class="text-neutral-600">Newest first, six posts per page.</p>
+        <p class="text-neutral-600">
+          Excludes the featured post, evergreen playbooks, and the five freshest stories to keep the homepage clean. Twelve posts per page.
+        </p>
       </div>
 
       <BlogList posts={pagePosts} currentPage={1} totalPages={totalPages} basePath="/posts" />

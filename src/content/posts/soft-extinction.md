@@ -3,6 +3,7 @@ title: "Placeholder: Soft Extinction"
 description: "This is a placeholder post for the Soft Extinction category."
 date: 2025-07-31
 author: "Admin"
+evergreen: true
 category: "System Shock – Soft Extinction & Collapse"
 topics:
   - "system-shock"
@@ -18,4 +19,3 @@ canonicalUrl: "https://survivetheai.com/posts/soft-extinction"
 ---
 
 Content coming soon for this category.
-

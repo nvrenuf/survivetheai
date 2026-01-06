@@ -1,14 +1,11 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import BlogList from '../components/BlogList.astro';
-import { buildSections, paginatePosts } from '../utils/postSections';
+import { buildSections } from '../utils/postSections';
 import { formatDate } from '../utils/format';
 
 const posts = await getCollection('posts');
 const { featured, evergreen, latest, remaining } = buildSections(posts);
-const { pages: remainingPages, totalPages } = paginatePosts(remaining, 6);
-const allPostsFirstPage = remainingPages[0] ?? [];
 ---
 
 <Layout title="Survive the AI — Prepare, adapt, and stay ahead">
@@ -38,7 +35,7 @@ const allPostsFirstPage = remainingPages[0] ?? [];
                 href="/posts"
                 class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
               >
-                Browse all posts
+                Browse the Survival Library
               </a>
             </div>
           </div>
@@ -101,7 +98,7 @@ const allPostsFirstPage = remainingPages[0] ?? [];
         <section class="space-y-4" data-testid="latest-section">
           <div class="space-y-2">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Latest</p>
-            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Fresh drops</h2>
+            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Latest intelligence</h2>
           </div>
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latest.map((post) => (
@@ -133,14 +130,30 @@ const allPostsFirstPage = remainingPages[0] ?? [];
         </section>
       )}
 
-      {allPostsFirstPage.length > 0 && (
-        <section class="space-y-6" id="all-posts" data-testid="all-posts-section">
+      {remaining.length > 0 && (
+        <section class="space-y-6" data-testid="library-cta-section">
           <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">All Posts</p>
-            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Everything else</h2>
-            <p class="text-neutral-600">Browse the full archive. Pagination links take you to the dedicated posts index.</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival Library</p>
+            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Rolled off? It lives in the library.</h2>
+            <p class="text-neutral-600">
+              We keep featured, evergreen, and the latest five posts up top. Everything else moves to the Survival Library so you can binge
+              without duplicates.
+            </p>
           </div>
-          <BlogList posts={allPostsFirstPage} currentPage={1} totalPages={totalPages} basePath="/posts" />
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="/posts"
+              class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+            >
+              Go to the Survival Library
+            </a>
+            <a
+              href="/category/work-money"
+              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+            >
+              Browse Survival Areas
+            </a>
+          </div>
         </section>
       )}
     </div>
