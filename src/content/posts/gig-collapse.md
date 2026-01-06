@@ -6,6 +6,11 @@ author: "Admin"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "riseofgigeconomy"
+  - "ai-job-displacement"
+  - "ai-is-leaving-the-cloud"
 tags:
   - "Gig Collapse"
 impact_score: 53
@@ -18,4 +23,3 @@ canonicalUrl: "https://survivetheai.com/posts/gig-collapse"
 ---
 
 Content coming soon for this category.
-

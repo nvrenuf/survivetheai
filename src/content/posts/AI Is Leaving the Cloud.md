@@ -7,6 +7,11 @@ featured: true
 category: "Work & Money - AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "entry-level-is-dead"
+  - "riseofgigeconomy"
+  - "gig-collapse"
 tags:
   - "AI"
   - "automation"
@@ -256,7 +261,6 @@ Fear, in this case, is not irrational.
 It is information.
 
 And those who recognize what is happening early still have time to adapt.
-
 
 
 

@@ -6,6 +6,10 @@ author: "Admin"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "gig-collapse"
+  - "entry-level-is-dead"
 tags:
   - "AI Job Displacement"
 impact_score: 58
@@ -18,4 +22,3 @@ canonicalUrl: "https://survivetheai.com/posts/ai-job-displacement"
 ---
 
 Content coming soon for this category.
-

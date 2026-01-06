@@ -6,6 +6,11 @@ author: "Alex Morgan"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "ai-is-leaving-the-cloud"
+  - "entry-level-is-dead"
+  - "credentialism"
 tags:
   - "AI"
   - "future of work"
@@ -62,5 +67,4 @@ If a machine can deliver clean, tested code instantly, why hire a human?
 AI won’t kill programming. But it **will kill programming as we knew it**. The future belongs to those who embrace the shift — not by clinging to syntax, but by evolving into roles where **human intuition guides machine output**.
 
 The programmers of tomorrow won't write code. They'll write ideas.
-
 

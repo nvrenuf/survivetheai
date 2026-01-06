@@ -6,6 +6,10 @@ author: "Justin Cuevas"
 category: "System Shock – Soft Extinction & Collapse"
 topics:
   - "system-shock"
+pillar: "system-shock"
+related:
+  - "soft-extinction"
+  - "ai-is-leaving-the-cloud"
 tags:
   - "AI"
   - "ethics"
@@ -64,5 +68,4 @@ The real threat isn’t AI itself. It’s uncritical deployment, unchecked power
 As we enter 2026, the most important question isn’t _“What can AI do?”_ but rather:
 
 > _“What should we let it do — and who gets to decide?”_
-
 

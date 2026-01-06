@@ -7,6 +7,10 @@ evergreen: true
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"
+pillar: "love-connection"
+related:
+  - "alone-together"
+  - "ai-companionship"
 tags:
   - "AI companions"
   - "loneliness"
@@ -98,4 +102,3 @@ That’s what makes it addictive. And that’s exactly what makes it dangerous.
 In the next installment, we’ll pull back the veil on Silicon Valley’s growing influence over emotional AI—and explore what happens when therapeutic tools become **addictive products** by design.
 
 ---
-

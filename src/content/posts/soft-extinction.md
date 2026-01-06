@@ -7,6 +7,9 @@ evergreen: true
 category: "System Shock – Soft Extinction & Collapse"
 topics:
   - "system-shock"
+pillar: "system-shock"
+related:
+  - "aifears"
 tags:
   - "Soft Extinction"
 impact_score: 57
