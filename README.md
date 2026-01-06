@@ -25,9 +25,25 @@ AI is transforming every aspect of our lives—from the workplace to the classro
 - **Markdown** for easy content creation
 - **Modern JavaScript/TypeScript** for interactivity
 
-## ðŸ“§ Newsletter + Analytics
-- Inline subscribe forms post to `/api/subscribe` and forward to Buttondown when `BUTTONDOWN_API_KEY` (and optional `BUTTONDOWN_PUBLICATION_ID`) are set. Without keys, submissions log server-side with a “coming soon” confirmation.
-- GA4 hooks are available via `PUBLIC_GA_MEASUREMENT_ID` (with optional `PUBLIC_ANALYTICS_DEBUG=true` to mirror events in the console). Newsletter submit/success/error and scroll depth (25/50/75/90) events are ready to emit.
+## 📨 Newsletter + Analytics
+- Inline subscribe forms post to `/api/subscribe` and forward to Buttondown when `PUBLIC_ENABLE_SUBSCRIBE_API=true` and `BUTTONDOWN_API_KEY` are set. Without keys, submissions can run in log-only mode (`SUBSCRIBE_LOG_ONLY=true`) for previews; otherwise the endpoint returns a clear “not enabled” or “temporarily unavailable” response surfaced in the UI.
+- Buttondown setup: generate a personal API token in Buttondown → Settings → API and add it as `BUTTONDOWN_API_KEY`; optionally set `BUTTONDOWN_PUBLICATION_ID` if you manage multiple publications.
+- UX states are explicit: idle → loading (button disabled) → success (“Check your inbox”) or friendly error. Invalid requests never show false success.
+- GA4 hooks are available via `PUBLIC_GA_MEASUREMENT_ID` (with optional `PUBLIC_ANALYTICS_DEBUG=true` to mirror events in the console). Newsletter submit/success/error and scroll depth (25/50/75/90) events are emitted once per interaction; debug logs only appear when GA is missing or debug is enabled.
+
+### Deployment checklist
+- Set environment variables in Vercel → Project Settings → Environment Variables:
+  - Public: `PUBLIC_GA_MEASUREMENT_ID` (optional), `PUBLIC_ANALYTICS_DEBUG` (optional), `PUBLIC_ENABLE_SUBSCRIBE_API` (set to `true` only when ready).
+  - Server-only: `BUTTONDOWN_API_KEY`, `BUTTONDOWN_PUBLICATION_ID` (optional), `SUBSCRIBE_LOG_ONLY` (set to `true` for previews without Buttondown).
+- Keep `PUBLIC_ENABLE_SUBSCRIBE_API=false` until credentials are present or log-only mode is enabled.
+- Verify subscribe flows:
+  - Disabled flag shows “Newsletter signup isn’t enabled yet.”
+  - Enabled without creds shows “Signup temporarily unavailable. Please try again later.”
+  - Enabled with creds delivers “Check your inbox…” on success.
+- Verify analytics:
+  - Scroll depth events fire once per threshold on post pages only.
+  - Newsletter submit/success/error events include the page path.
+- Confirm hero imagery: posts with explicit heroes keep them; posts without heroes fall back to `/images/placeholder-hero.svg` for OG and on-page rendering without replacing real images.
 
 ## ðŸ“‚ How to Contribute
 We welcome contributions! Check out the `/src/content/posts/` directory to add new articles, or see `/public/README.md` for instructions on adding images and creating posts.
