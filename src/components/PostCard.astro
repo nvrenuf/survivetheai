@@ -1,29 +1,45 @@
 ---
+import type { PostEntry } from '../content/config';
 import { TOPIC_CATEGORIES } from '../data/categories';
-const { title, excerpt, imageUrl, topics, date, category } = Astro.props;
+import { formatDate } from '../utils/format';
 
-// Find the category object for this post
-const catObj =
-  (Array.isArray(topics) && TOPIC_CATEGORIES.find((cat) => cat.key === topics[0])) ||
-  TOPIC_CATEGORIES.find((cat) => cat.label === category);
+const { post } = Astro.props as { post: PostEntry };
+
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const primaryCategory = post.data.topics?.[0] ? categoryByKey.get(post.data.topics[0]) : undefined;
+const categoryLabel = primaryCategory?.label ?? post.data.category ?? 'Key Topic';
+const dateLabel = formatDate(post.data.date);
+const imageSrc = post.data.heroImageThumb ?? post.data.heroImage;
+const imageAlt = post.data.heroImageAlt ?? post.data.title;
 ---
 
-<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 border border-gray-200 dark:border-gray-700">
-  <img src={imageUrl} alt={title} class="w-full h-48 object-cover" />
-
-  <div class="p-5">
-    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
-      <span
-        class="px-2 py-0.5 rounded font-semibold"
-        style={`background:${catObj?.color ?? '#eee'}; color:#222;`}
-        title={catObj?.description}
-      >
-        {/* Optionally render icon here if you have an icon component */}
-        {catObj ? catObj.label : category}
-      </span>
-      <span>{date}</span>
-    </div>
-    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
-    <p class="text-sm text-gray-600 dark:text-gray-300">{excerpt}</p>
+<a
+  href={`/posts/${post.slug}/`}
+  class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+>
+  <div class="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+    <img
+      src={imageSrc}
+      alt={imageAlt}
+      loading="lazy"
+      decoding="async"
+      width="640"
+      height="360"
+      class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+    />
   </div>
-</article>
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-neutral-600">
+      <span>{categoryLabel}</span>
+      <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+      <span>{dateLabel}</span>
+    </div>
+    <h3 class="text-lg font-semibold leading-tight text-neutral-900 transition group-hover:text-neutral-700 line-clamp-2">
+      {post.data.title}
+    </h3>
+    <p class="text-sm leading-relaxed text-neutral-700 line-clamp-3">{post.data.description}</p>
+    <div class="mt-auto flex items-center text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">
+      <span>Impact Score {post.data.impact_score}</span>
+    </div>
+  </div>
+</a>

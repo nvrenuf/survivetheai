@@ -3,6 +3,7 @@ import Layout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { buildSections } from '../utils/postSections';
 import { formatDate } from '../utils/format';
+import PostCard from '../components/PostCard.astro';
 
 const posts = await getCollection('posts');
 const { featured, evergreen, latest, remaining } = buildSections(posts);
@@ -39,16 +40,21 @@ const { featured, evergreen, latest, remaining } = buildSections(posts);
               </a>
             </div>
           </div>
-          <a href={`/posts/${featured.slug}/`} class="block overflow-hidden rounded-3xl shadow-lg ring-1 ring-neutral-200 transition hover:-translate-y-0.5 hover:shadow-xl">
-            <img
-              src={featured.data.heroImage}
-              alt={featured.data.heroImageAlt ?? featured.data.title}
-              class="h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="630"
-            />
+          <a
+            href={`/posts/${featured.slug}/`}
+            class="block overflow-hidden rounded-3xl shadow-lg ring-1 ring-neutral-200 transition hover:-translate-y-0.5 hover:shadow-xl"
+          >
+            <div class="relative aspect-[16/9] bg-neutral-100">
+              <img
+                src={featured.data.heroImage}
+                alt={featured.data.heroImageAlt ?? featured.data.title}
+                class="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="630"
+              />
+            </div>
           </a>
         </section>
       ) : (
@@ -64,31 +70,9 @@ const { featured, evergreen, latest, remaining } = buildSections(posts);
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Evergreen</p>
             <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Playbooks that stay relevant</h2>
           </div>
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {evergreen.map((post) => (
-              <a
-                href={`/posts/${post.slug}/`}
-                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
-              >
-                <img
-                  src={post.data.heroImageThumb ?? post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                  class="h-44 w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
-                <div class="flex flex-1 flex-col gap-2 p-4">
-                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
-                    <span>Impact {post.data.impact_score}</span>
-                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                    <span>{formatDate(post.data.date)}</span>
-                  </div>
-                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
-                  <p class="text-sm text-neutral-700">{post.data.description}</p>
-                </div>
-              </a>
+              <PostCard post={post} />
             ))}
           </div>
         </section>
@@ -100,31 +84,9 @@ const { featured, evergreen, latest, remaining } = buildSections(posts);
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Latest</p>
             <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Latest intelligence</h2>
           </div>
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latest.map((post) => (
-              <a
-                href={`/posts/${post.slug}/`}
-                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
-              >
-                <img
-                  src={post.data.heroImageThumb ?? post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                  class="h-44 w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
-                <div class="flex flex-1 flex-col gap-2 p-4">
-                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
-                    <span>Impact {post.data.impact_score}</span>
-                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                    <span>{formatDate(post.data.date)}</span>
-                  </div>
-                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
-                  <p class="text-sm text-neutral-700">{post.data.description}</p>
-                </div>
-              </a>
+              <PostCard post={post} />
             ))}
           </div>
         </section>
