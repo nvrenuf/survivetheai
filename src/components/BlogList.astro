@@ -1,0 +1,95 @@
+---
+import type { PostEntry } from '../content/config';
+import { formatDate } from '../utils/format';
+import { TOPIC_CATEGORIES } from '../data/categories';
+
+const { posts, currentPage, totalPages, basePath } = Astro.props as {
+  posts: PostEntry[];
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+};
+
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
+const normalizedBasePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+const buildPageHref = (page: number) => (page === 1 ? `${normalizedBasePath}/` : `${normalizedBasePath}/page/${page}/`);
+---
+
+<div class="space-y-8" data-testid="blog-list">
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((post) => {
+      const primaryCategory = post.data.topics?.[0] ? categoryByKey.get(post.data.topics[0]) : undefined;
+      return (
+        <article class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300">
+          <a href={`/posts/${post.slug}/`} class="block">
+            <img
+              src={post.data.heroImageThumb ?? post.data.heroImage}
+              alt={post.data.heroImageAlt ?? post.data.title}
+              class="h-48 w-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="360"
+            />
+          </a>
+          <div class="flex flex-1 flex-col gap-3 p-5">
+            <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-neutral-500">
+              <span>{primaryCategory?.label ?? post.data.category ?? 'Key Topic'}</span>
+              <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+              <span>{formatDate(post.data.date)}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-neutral-900">
+              <a href={`/posts/${post.slug}/`} class="transition hover:text-neutral-700">
+                {post.data.title}
+              </a>
+            </h3>
+            <p class="text-sm text-neutral-700">{post.data.description}</p>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  {totalPages > 1 && (
+    <nav class="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold" aria-label="Pagination" data-testid="pagination">
+      <a
+        class={`rounded-full border px-3 py-1 transition ${
+          currentPage > 1
+            ? 'border-neutral-300 text-neutral-800 hover:border-neutral-500 hover:text-neutral-950'
+            : 'cursor-not-allowed border-neutral-200 text-neutral-400'
+        }`}
+        aria-disabled={currentPage === 1}
+        href={currentPage > 1 ? buildPageHref(currentPage - 1) : undefined}
+      >
+        Previous
+      </a>
+      {Array.from({ length: totalPages }, (_, index) => {
+        const page = index + 1;
+        const isActive = page === currentPage;
+        return (
+          <a
+            href={buildPageHref(page)}
+            class={`min-w-[44px] rounded-full px-3 py-1 text-center transition ${
+              isActive
+                ? 'bg-neutral-900 text-white'
+                : 'border border-neutral-300 text-neutral-800 hover:border-neutral-500 hover:text-neutral-950'
+            }`}
+          >
+            {page}
+          </a>
+        );
+      })}
+      <a
+        class={`rounded-full border px-3 py-1 transition ${
+          currentPage < totalPages
+            ? 'border-neutral-300 text-neutral-800 hover:border-neutral-500 hover:text-neutral-950'
+            : 'cursor-not-allowed border-neutral-200 text-neutral-400'
+        }`}
+        aria-disabled={currentPage === totalPages}
+        href={currentPage < totalPages ? buildPageHref(currentPage + 1) : undefined}
+      >
+        Next
+      </a>
+    </nav>
+  )}
+</div>

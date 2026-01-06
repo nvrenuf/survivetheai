@@ -29,6 +29,15 @@
         "author": {
           "type": "string"
         },
+        "draft": {
+          "type": "boolean"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "evergreen": {
+          "type": "boolean"
+        },
         "category": {
           "type": "string"
         },
@@ -58,6 +67,9 @@
           "maximum": 100
         },
         "heroImage": {
+          "type": "string"
+        },
+        "heroImageThumb": {
           "type": "string"
         },
         "heroImageAlt": {

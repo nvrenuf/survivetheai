@@ -1,0 +1,47 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+import BlogList from '../../../components/BlogList.astro';
+import { getCollection } from 'astro:content';
+import { sortPosts } from '../../../utils/postSections';
+import type { PostEntry } from '../../../content/config';
+
+export async function getStaticPaths() {
+  const PAGE_SIZE = 6;
+  const posts = sortPosts(await getCollection('posts')).filter((post) => !post.data.draft);
+  const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {
+    const pageNumber = index + 2;
+    const start = (pageNumber - 1) * PAGE_SIZE;
+    const pagePosts = posts.slice(start, start + PAGE_SIZE);
+
+    return {
+      params: { page: pageNumber.toString() },
+      props: { pageNumber, totalPages, pagePosts },
+      route: `/posts/page/${pageNumber}/`,
+    };
+  });
+}
+
+const { pageNumber, totalPages, pagePosts } = Astro.props as {
+  pageNumber: number;
+  totalPages: number;
+  pagePosts: PostEntry[];
+};
+
+const pageTitle = `All Posts – Page ${pageNumber}`;
+---
+
+<Layout title={`${pageTitle} · Survive the AI`} description="SurviveTheAI post archive with pagination.">
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-6 px-4 sm:px-6 lg:px-8">
+      <div class="space-y-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
+        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
+        <p class="text-neutral-600">Newest first, six posts per page.</p>
+      </div>
+
+      <BlogList posts={pagePosts} currentPage={pageNumber} totalPages={totalPages} basePath="/posts" />
+    </div>
+  </main>
+</Layout>

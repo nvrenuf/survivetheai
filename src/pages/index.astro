@@ -1,38 +1,148 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
-import PostGrid from '../components/PostGrid.astro';
-import TopicPreview from '../components/TopicPreview.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
-import type { Post } from '../data/Posts';
+import BlogList from '../components/BlogList.astro';
+import { buildSections, paginatePosts } from '../utils/postSections';
+import { formatDate } from '../utils/format';
 
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, i + size));
-  }
-  return result;
-}
-
-const chunkSize = 5;
-
-const posts: Post[] = await getCollection('posts');
-posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const groupedItems = chunkArray(posts, chunkSize);
+const posts = await getCollection('posts');
+const { featured, evergreen, latest, remaining } = buildSections(posts);
+const { pages: remainingPages, totalPages } = paginatePosts(remaining, 6);
+const allPostsFirstPage = remainingPages[0] ?? [];
 ---
 
-<Layout>
-  <main class="bg-white py-20 text-neutral-900">
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div>
-          <PostGrid groupedItems={groupedItems} />
-        </div>
-        <aside class="space-y-6">
-          <TopicPreview />
-          <NewsletterSignup />
-        </aside>
-      </div>
+<Layout title="Survive the AI — Prepare, adapt, and stay ahead">
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-14 px-4 sm:px-6 lg:px-8">
+      {featured ? (
+        <section class="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center" data-testid="hero-section">
+          <div class="space-y-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Featured</p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
+              {featured.data.title}
+            </h1>
+            <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{featured.data.description}</p>
+            <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
+              <span>{formatDate(featured.data.date)}</span>
+              <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+              <span>Impact Score {featured.data.impact_score}</span>
+            </div>
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a
+                href={`/posts/${featured.slug}/`}
+                class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+              >
+                Read the feature
+              </a>
+              <a
+                href="/posts"
+                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+              >
+                Browse all posts
+              </a>
+            </div>
+          </div>
+          <a href={`/posts/${featured.slug}/`} class="block overflow-hidden rounded-3xl shadow-lg ring-1 ring-neutral-200 transition hover:-translate-y-0.5 hover:shadow-xl">
+            <img
+              src={featured.data.heroImage}
+              alt={featured.data.heroImageAlt ?? featured.data.title}
+              class="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="630"
+            />
+          </a>
+        </section>
+      ) : (
+        <section class="space-y-3" data-testid="hero-section">
+          <h1 class="text-3xl font-extrabold sm:text-4xl">No posts published yet.</h1>
+          <p class="text-neutral-600">Come back soon for the latest analysis on surviving the AI disruption.</p>
+        </section>
+      )}
+
+      {evergreen.length > 0 && (
+        <section class="space-y-4" data-testid="evergreen-section">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Evergreen</p>
+            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Playbooks that stay relevant</h2>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {evergreen.map((post) => (
+              <a
+                href={`/posts/${post.slug}/`}
+                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
+              >
+                <img
+                  src={post.data.heroImageThumb ?? post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? post.data.title}
+                  class="h-44 w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="360"
+                />
+                <div class="flex flex-1 flex-col gap-2 p-4">
+                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                    <span>Impact {post.data.impact_score}</span>
+                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                    <span>{formatDate(post.data.date)}</span>
+                  </div>
+                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
+                  <p class="text-sm text-neutral-700">{post.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {latest.length > 0 && (
+        <section class="space-y-4" data-testid="latest-section">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Latest</p>
+            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Fresh drops</h2>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {latest.map((post) => (
+              <a
+                href={`/posts/${post.slug}/`}
+                class="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300"
+              >
+                <img
+                  src={post.data.heroImageThumb ?? post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? post.data.title}
+                  class="h-44 w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="360"
+                />
+                <div class="flex flex-1 flex-col gap-2 p-4">
+                  <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-neutral-600">
+                    <span>Impact {post.data.impact_score}</span>
+                    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                    <span>{formatDate(post.data.date)}</span>
+                  </div>
+                  <h3 class="text-base font-semibold text-neutral-900">{post.data.title}</h3>
+                  <p class="text-sm text-neutral-700">{post.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {allPostsFirstPage.length > 0 && (
+        <section class="space-y-6" id="all-posts" data-testid="all-posts-section">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">All Posts</p>
+            <h2 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Everything else</h2>
+            <p class="text-neutral-600">Browse the full archive. Pagination links take you to the dedicated posts index.</p>
+          </div>
+          <BlogList posts={allPostsFirstPage} currentPage={1} totalPages={totalPages} basePath="/posts" />
+        </section>
+      )}
     </div>
   </main>
 </Layout>
