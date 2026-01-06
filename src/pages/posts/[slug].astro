@@ -16,6 +16,8 @@ const { Content, headings } = await post.render();
 const { minutes } = readingTime(post.body ?? '');
 const shareUrl = post.data.canonicalUrl || new URL(`/posts/${post.slug}/`, Astro.site ?? 'https://survivetheai.com').toString();
 const affiliate = post.data.affiliate_offer;
+// Toggle via PUBLIC_SHOW_PLAYBOOK_OFFER=true to re-enable the inline playbook offer block.
+const showPlaybookOffer = import.meta.env.PUBLIC_SHOW_PLAYBOOK_OFFER === 'true';
 ---
 <PostLayout
   post={post}
@@ -24,7 +26,7 @@ const affiliate = post.data.affiliate_offer;
   shareUrl={shareUrl}
   allPosts={allPosts}
 >
-  {affiliate && (
+  {showPlaybookOffer && affiliate && (
     <div
       slot="inline-cta"
       class="space-y-4 rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.12)]"
