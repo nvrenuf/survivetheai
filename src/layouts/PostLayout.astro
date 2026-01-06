@@ -1,4 +1,5 @@
 ---
+import Navbar from '../components/Navbar.astro';
 import HeroImage from '../components/HeroImage.astro';
 import Byline from '../components/Byline.tsx';
 import RightRailRelated from '../components/RightRailRelated.astro';
@@ -31,6 +32,7 @@ const readingTimeLabel = formatReadingMinutes(readingTime);
 const isoDate = date.toISOString();
 const heroAlt = heroImageAlt ?? `${title} hero image`;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const tocHeadings = filteredHeadings.length >= 4 ? filteredHeadings : [];
 const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const primaryCategory = topics?.[0] ? categoryByKey.get(topics[0]) : undefined;
 const categoryLabel = primaryCategory?.label;
@@ -89,6 +91,7 @@ const structuredData = {
     </script>
   </head>
   <body class="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 antialiased">
+    <Navbar />
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
       <div class="lg:grid lg:grid-cols-12 lg:gap-10">
         <main class="pb-16 space-y-6 sm:space-y-8 lg:col-span-8">
@@ -103,7 +106,11 @@ const structuredData = {
             </div>
             <slot name="heading">
               <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">{title}</h1>
-              {description && <p class="text-base text-neutral-700 sm:text-lg">{description}</p>}
+              {description && (
+                <p class="text-lg text-neutral-700 dark:text-neutral-200 sm:text-xl">
+                  {description}
+                </p>
+              )}
             </slot>
             <div class="lg:hidden">
               <slot name="share-bar-top">
@@ -119,11 +126,6 @@ const structuredData = {
             readingTime={readingTimeLabel}
           />
           <slot name="inline-cta" />
-          {filteredHeadings.length > 0 && (
-            <div class="lg:hidden">
-              <TableOfContents client:load headings={filteredHeadings} initiallyCollapsed={true} />
-            </div>
-          )}
           <article class="mx-auto w-full max-w-[760px] prose prose-neutral text-neutral-900 prose-headings:font-extrabold prose-a:underline-offset-2 dark:prose-invert dark:text-neutral-100">
             <slot />
           </article>
@@ -136,9 +138,9 @@ const structuredData = {
         <aside class="space-y-8 lg:col-span-4">
           <div class="space-y-8 lg:sticky lg:top-24">
             <RightRailRelated currentSlug={post.slug} posts={allPosts} />
-            {filteredHeadings.length > 0 && (
+            {tocHeadings.length > 0 && (
               <div class="hidden lg:block">
-                <TableOfContents client:load headings={filteredHeadings} initiallyCollapsed={false} />
+                <TableOfContents client:load headings={tocHeadings} initiallyCollapsed={false} />
               </div>
             )}
           </div>
