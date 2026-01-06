@@ -5,6 +5,9 @@ export const postSchema = z.object({
   description: z.string(),
   date: z.coerce.date(),
   author: z.string(),
+  draft: z.boolean().optional(),
+  featured: z.boolean().optional(),
+  evergreen: z.boolean().optional(),
   category: z.string().optional(),
   topics: z.array(
     z.enum([
@@ -18,6 +21,7 @@ export const postSchema = z.object({
   tags: z.array(z.string()).min(1),
   impact_score: z.number().min(0).max(100),
   heroImage: z.string(),
+  heroImageThumb: z.string().optional(),
   heroImageAlt: z.string().optional(),
   affiliate_offer: z.object({
     label: z.string(),

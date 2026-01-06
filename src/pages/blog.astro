@@ -1,31 +1,16 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
-import PostGrid from '../components/PostGrid.astro';
-import { getCollection } from 'astro:content';
-import type { Post } from '../data/Posts';
-
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, i + size));
-  }
-  return result;
-}
-
-const posts: Post[] = await getCollection('posts');
-posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const groupedItems = chunkArray(posts, 5);
 ---
 
-<Layout>
+<Layout title="All Posts · Survive the AI">
   <main class="bg-white py-20 text-neutral-900">
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-10 space-y-3">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Blog</p>
-        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">Latest posts</h1>
-        <p class="text-neutral-600">Newest to oldest, refreshed automatically from the posts collection.</p>
-      </div>
-      <PostGrid groupedItems={groupedItems} />
+    <div class="mx-auto max-w-screen-md space-y-4 px-4 sm:px-6 lg:px-8 text-center">
+      <meta http-equiv="refresh" content="0; url=/posts/" />
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Redirecting</p>
+      <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">We moved the blog</h1>
+      <p class="text-neutral-600">
+        All posts now live at <a class="text-blue-600 underline" href="/posts/">/posts</a>. You should be redirected automatically.
+      </p>
     </div>
   </main>
 </Layout>

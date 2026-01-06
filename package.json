@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "playwright test"
   },
   "dependencies": {
     "@astrojs/react": "^3.0.0",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
     "@tailwindcss/typography": "^0.5.19",
+    "@playwright/test": "^1.50.1",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "rehype-autolink-headings": "^7.1.0",
