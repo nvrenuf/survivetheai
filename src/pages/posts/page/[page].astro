@@ -1,0 +1,50 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+import BlogList from '../../../components/BlogList.astro';
+import { getCollection } from 'astro:content';
+import { buildSections, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
+import type { PostEntry } from '../../../content/config';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const { remaining } = buildSections(posts);
+  const sortedLibraryPosts = sortPosts(remaining);
+  const totalPages = Math.max(1, Math.ceil(sortedLibraryPosts.length / SURVIVAL_LIBRARY_PAGE_SIZE));
+
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {
+    const pageNumber = index + 2;
+    const start = (pageNumber - 1) * SURVIVAL_LIBRARY_PAGE_SIZE;
+    const pagePosts = sortedLibraryPosts.slice(start, start + SURVIVAL_LIBRARY_PAGE_SIZE);
+
+    return {
+      params: { page: pageNumber.toString() },
+      props: { pageNumber, totalPages, pagePosts },
+      route: `/posts/page/${pageNumber}/`,
+    };
+  });
+}
+
+const { pageNumber, totalPages, pagePosts } = Astro.props as {
+  pageNumber: number;
+  totalPages: number;
+  pagePosts: PostEntry[];
+};
+
+const pageTitle = `Survival Library – Page ${pageNumber}`;
+---
+
+<Layout title={`${pageTitle} · Survive the AI`} description="SurviveTheAI post archive with pagination.">
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-6 px-4 sm:px-6 lg:px-8">
+      <div class="space-y-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
+        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
+        <p class="text-neutral-600">
+          Excludes the featured post, evergreen playbooks, and the five freshest stories to keep the homepage clean. Twelve posts per page.
+        </p>
+      </div>
+
+      <BlogList posts={pagePosts} currentPage={pageNumber} totalPages={totalPages} basePath="/posts" />
+    </div>
+  </main>
+</Layout>

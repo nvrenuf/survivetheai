@@ -3,6 +3,7 @@ title: "AI Is Leaving the Cloud - And That's Why Job Loss Is About to Accelerate
 description: "Local, open-weight AI removes friction, making automation cheap, private, and uncontrollable, silently eroding roles long before layoffs are announced."
 date: 2025-12-18
 author: "Lee Cuevas"
+featured: true
 category: "Work & Money - AI Job Displacement"
 topics:
   - "work-money"
@@ -255,7 +256,6 @@ Fear, in this case, is not irrational.
 It is information.
 
 And those who recognize what is happening early still have time to adapt.
-
 
 
 

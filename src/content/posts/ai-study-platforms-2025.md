@@ -3,6 +3,7 @@ title: "Don’t Get Replaced: Pick the AI Study Platform That Builds the Right S
 description: "Match your skill gaps to the right AI study tool—so you stay useful and employed."
 date: 2025-11-07T12:00:00Z
 author: "Lee Cuevas"
+evergreen: true
 category: "Kids & School – AI vs Your Children’s Future"
 topics:
   - "kids-school"
@@ -222,5 +223,4 @@ If not, change tools or change your stack.
 ---
 
 *SurviveTheAI — practical guidance to stay useful in an AI world.*
-
 
