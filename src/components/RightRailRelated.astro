@@ -1,34 +1,14 @@
 ---
 import type { PostEntry } from '../content/config';
 import { formatDate } from '../utils/format';
-import { TOPIC_CATEGORIES } from '../data/categories';
 
-const { currentSlug, posts } = Astro.props as {
-  currentSlug: string;
-  posts: PostEntry[];
+const { related, heading = 'Related reading' } = Astro.props as {
+  related: PostEntry[];
+  heading?: string;
 };
-
-const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
-const getPrimaryKey = (entry: PostEntry) => entry.data.topics?.[0];
-const getPrimaryLabel = (entry: PostEntry) => {
-  const key = getPrimaryKey(entry);
-  return key ? categoryByKey.get(key)?.label : undefined;
-};
-
-const sortedPosts = [...posts].filter((entry) => entry.slug !== currentSlug);
-sortedPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const currentPrimaryKey = posts.find((p) => p.slug === currentSlug)?.data.topics?.[0];
-const relatedPool =
-  currentPrimaryKey != null
-    ? sortedPosts.filter((entry) => entry.data.topics?.includes(currentPrimaryKey))
-    : sortedPosts;
-const related = (relatedPool.length >= 3 ? relatedPool : sortedPosts).slice(0, 5);
 ---
 <section class="space-y-4">
-  <h2 class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-600">
-    More in {currentPrimaryKey ? categoryByKey.get(currentPrimaryKey)?.label ?? 'Related' : 'Related'}
-  </h2>
+  <h2 class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-600">{heading}</h2>
   <ul class="space-y-4">
     {related.map((entry) => {
       const heroImage = entry.data.heroImage;

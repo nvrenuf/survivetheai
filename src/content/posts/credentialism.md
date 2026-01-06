@@ -6,6 +6,11 @@ author: "Justin Cuevas"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "entry-level-is-dead"
+  - "byebyedevs"
+  - "ai-is-leaving-the-cloud"
 tags:
   - "hiring trends"
   - "credentialism"
@@ -51,5 +56,4 @@ Whether you're a recent grad or pivoting careers, here’s how to thrive in this
 ## Final Thoughts
 
 Credentialism isn’t dead — yet. But it's no longer the kingmaker it once was. In the eyes of forward-thinking recruiters, **what you can do and how you think now outweigh where you went to school**. The playing field is flattening, and for those willing to demonstrate their value, it’s never been a more exciting time to stand out.
-
 

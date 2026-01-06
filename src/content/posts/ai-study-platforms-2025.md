@@ -7,6 +7,9 @@ evergreen: true
 category: "Kids & School – AI vs Your Children’s Future"
 topics:
   - "kids-school"
+pillar: "kids-school"
+related:
+  - "aiproofyourkid"
 tags:
   - "AI"
   - "learning"
@@ -223,4 +226,3 @@ If not, change tools or change your stack.
 ---
 
 *SurviveTheAI — practical guidance to stay useful in an AI world.*
-

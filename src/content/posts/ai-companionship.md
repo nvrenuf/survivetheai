@@ -6,6 +6,10 @@ author: "Admin"
 category: "Love, Sex & Connection – AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"
+pillar: "love-connection"
+related:
+  - "alone-together"
+  - "replacing-human-intimacy"
 tags:
   - "AI Companionship"
 impact_score: 42
@@ -18,4 +22,3 @@ canonicalUrl: "https://survivetheai.com/posts/ai-companionship"
 ---
 
 Content coming soon for this category.
-

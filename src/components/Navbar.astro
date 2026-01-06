@@ -1,12 +1,13 @@
 ---
-import { TOPIC_CATEGORIES } from '../data/categories';
+import { SURVIVAL_HUBS } from '../data/hubs';
 
 const links = [
   { href: '/', label: 'Home', testId: 'nav-home' },
   { href: '/posts', label: 'Survival Library', testId: 'nav-library' },
+  { href: '/about', label: 'About', testId: 'nav-about' },
 ];
 
-const survivalAreas = [...TOPIC_CATEGORIES].sort((a, b) => a.order - b.order);
+const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => {
   if (href === '/') return currentPath === '/';
@@ -67,14 +68,14 @@ const isActive = (href: string) => {
         >
           {survivalAreas.map((area) => (
             <a
-              href={`/category/${area.key}/`}
+              href={`${area.slug}/`}
               role="menuitem"
               class={`rounded-xl px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${
-                currentPath.startsWith(`/category/${area.key}`) ? 'bg-neutral-100 text-neutral-950 ring-1 ring-neutral-300' : ''
+                currentPath.startsWith(`${area.slug}`) ? 'bg-neutral-100 text-neutral-950 ring-1 ring-neutral-300' : ''
               }`}
               data-testid={`survival-area-${area.key}`}
             >
-              {area.label}
+              {area.shortName}
             </a>
           ))}
         </div>
@@ -137,12 +138,12 @@ const isActive = (href: string) => {
         >
           {survivalAreas.map((area) => (
             <a
-              href={`/category/${area.key}/`}
+              href={`${area.slug}/`}
               role="menuitem"
               class="rounded-lg px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
               data-testid={`survival-area-${area.key}-mobile`}
             >
-              {area.label}
+              {area.shortName}
             </a>
           ))}
         </div>

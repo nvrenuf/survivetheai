@@ -25,6 +25,10 @@ AI is transforming every aspect of our lives—from the workplace to the classro
 - **Markdown** for easy content creation
 - **Modern JavaScript/TypeScript** for interactivity
 
+## ðŸ“§ Newsletter + Analytics
+- Inline subscribe forms post to `/api/subscribe` and forward to Buttondown when `BUTTONDOWN_API_KEY` (and optional `BUTTONDOWN_PUBLICATION_ID`) are set. Without keys, submissions log server-side with a “coming soon” confirmation.
+- GA4 hooks are available via `PUBLIC_GA_MEASUREMENT_ID` (with optional `PUBLIC_ANALYTICS_DEBUG=true` to mirror events in the console). Newsletter submit/success/error and scroll depth (25/50/75/90) events are ready to emit.
+
 ## ðŸ“‚ How to Contribute
 We welcome contributions! Check out the `/src/content/posts/` directory to add new articles, or see `/public/README.md` for instructions on adding images and creating posts.
 
@@ -54,4 +58,3 @@ This project uses a strict, source-first blog creation process. See the canonica
 
 
 SurviveTheAI: Because the best way to predict the future is to create it. ðŸŒðŸ¤–
-

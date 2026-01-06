@@ -6,6 +6,11 @@ author: "Justin Cuevas"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "gig-collapse"
+  - "ai-is-leaving-the-cloud"
+  - "entry-level-is-dead"
 tags:
   - "gig economy"
   - "future of work"
@@ -65,5 +70,4 @@ The gig economy is redefining what it means to work in the 21st century. While i
 ---
 
 *What’s your take? Are you thriving in the gig world or cautious about its rise?*
-
 

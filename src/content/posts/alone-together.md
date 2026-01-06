@@ -6,6 +6,10 @@ author: "Admin"
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"
+pillar: "love-connection"
+related:
+  - "ai-companionship"
+  - "replacing-human-intimacy"
 tags:
   - "AI companions"
   - "loneliness"
@@ -93,4 +97,3 @@ More urgently: What happens when it doesn't?
 ---
 
 *Want more unsettling stories of emotional tech? Subscribe for the next chapter: when AI starts shaping who we become.*
-

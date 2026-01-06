@@ -6,6 +6,11 @@ author: "Admin"
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"
+pillar: "work-money"
+related:
+  - "ai-is-leaving-the-cloud"
+  - "credentialism"
+  - "byebyedevs"
 tags:
   - "Entry-Level"
   - "Automation"
@@ -409,5 +414,4 @@ That is what **AI Survival Intelligence** really means.
 You are not going to be handed a new ladder.
 
 You are going to have to build your own rung—and then pull yourself up.
-
 

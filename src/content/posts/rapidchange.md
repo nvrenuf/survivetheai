@@ -6,6 +6,9 @@ author: "Justin Cuevas"
 category: "Mind & Attention – Cognitive Erosion & Offloading"
 topics:
   - "mind-attention"
+pillar: "mind-attention"
+related:
+  - "cognitive-erosion"
 tags:
   - "adaptability"
   - "AI"
@@ -75,5 +78,4 @@ The future isn’t about being the smartest — it’s about being the most **fl
 You don’t need to predict the next wave. You just need to stay buoyant enough to ride it.
 
 > In the age of AI, adaptability is the new intelligence.
-
 
