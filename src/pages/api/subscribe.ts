@@ -1,39 +1,71 @@
 import type { APIRoute } from 'astro';
-export const prerender = true;
+import { getSubscribeConfig } from '../../utils/env.server';
 
-const BUTTONDOWN_API_KEY = import.meta.env.BUTTONDOWN_API_KEY;
-const BUTTONDOWN_PUBLICATION_ID = import.meta.env.BUTTONDOWN_PUBLICATION_ID;
+export const prerender = false;
 
 const BAD_REQUEST = (message: string) =>
-  new Response(JSON.stringify({ message }), { status: 400, headers: { 'Content-Type': 'application/json' } });
-
-export const GET: APIRoute = () =>
-  new Response(JSON.stringify({ status: 'ready', mode: BUTTONDOWN_API_KEY ? 'provider' : 'log-only' }), {
-    status: 200,
+  new Response(JSON.stringify({ message, error: 'bad_request' }), {
+    status: 400,
     headers: { 'Content-Type': 'application/json' },
   });
 
+const SERVICE_UNAVAILABLE = (message: string, code = 'disabled') =>
+  new Response(JSON.stringify({ message, error: code }), {
+    status: 503,
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+export const GET: APIRoute = () => {
+  const config = getSubscribeConfig();
+  return new Response(JSON.stringify({ status: 'ready', mode: config.mode, enabled: config.enabled, hasCredentials: config.hasCredentials }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
+
 export const POST: APIRoute = async ({ request }) => {
+  const config = getSubscribeConfig();
   const contentType = request.headers.get('content-type') ?? '';
   if (!contentType.includes('application/json')) {
     return BAD_REQUEST('Invalid request.');
   }
 
-  const { email, source } = (await request.json().catch(() => ({}))) as { email?: string; source?: string };
-  if (!email || !email.includes('@')) {
+  const { email, source, honeypot } = (await request.json().catch(() => ({}))) as {
+    email?: string;
+    source?: string;
+    honeypot?: string;
+  };
+
+  if (honeypot) {
+    return new Response(JSON.stringify({ status: 'ignored' }), { status: 200 });
+  }
+
+  if (!email || !email.includes('@') || email.length > 150) {
     return BAD_REQUEST('Add a valid email to subscribe.');
   }
 
-  // Default: log-only mode to avoid losing submissions while credentials are not configured.
-  if (!BUTTONDOWN_API_KEY) {
+  if (!config.enabled) {
+    return SERVICE_UNAVAILABLE("Newsletter signup isn't enabled yet.", 'disabled');
+  }
+
+  if (config.mode === 'log-only') {
     console.info(`[newsletter][log-only] ${email}`, { source: source ?? 'inline' });
     return new Response(
       JSON.stringify({
         status: 'pending',
-        message: 'Newsletter coming soon. You are on the early-access list.',
+        message: 'Saved (dev mode). Newsletter will go live soon.',
+        mode: 'log-only',
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
+  }
+
+  if (!config.hasCredentials || !config.buttondownKey) {
+    console.error('[newsletter] BUTTONDOWN_API_KEY missing while PUBLIC_ENABLE_SUBSCRIBE_API=true');
+    return new Response(JSON.stringify({ message: 'Signup temporarily unavailable. Please try again later.', error: 'missing_credentials' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
@@ -41,32 +73,36 @@ export const POST: APIRoute = async ({ request }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${BUTTONDOWN_API_KEY}`,
+        Authorization: `Token ${config.buttondownKey}`,
       },
       body: JSON.stringify({
         email,
         notes: `Source: ${source ?? 'inline'}`,
-        publication_id: BUTTONDOWN_PUBLICATION_ID || undefined,
+        publication_id: config.publicationId || undefined,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`[newsletter][buttondown] error`, errorText);
-      return BAD_REQUEST('Unable to subscribe right now. Please try again later.');
+      return new Response(
+        JSON.stringify({ message: 'Unable to subscribe right now. Please try again later.', error: 'provider_error' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      );
     }
 
     return new Response(
       JSON.stringify({
         status: 'subscribed',
-        message: 'Welcome to SurviveTheAI. Watch your inbox for the next drop.',
+        message: 'Check your inbox to confirm your subscription.',
+        mode: 'provider',
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
   } catch (error) {
     console.error('[newsletter] unexpected error', error);
     return new Response(
-      JSON.stringify({ message: 'Something went wrong. Try again in a bit.' }),
+      JSON.stringify({ message: 'Something went wrong. Try again in a bit.', error: 'unexpected_error' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } },
     );
   }
