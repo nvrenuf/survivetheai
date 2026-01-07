@@ -7,3 +7,6 @@ dist
 # Local
 .vercel/
 test-results/
+
+# Local data
+data-store.json
