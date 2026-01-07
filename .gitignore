@@ -3,3 +3,7 @@ bulk-issues.sh
 node_modules
 dist
 .astro
+
+# Local
+.vercel/
+test-results/
