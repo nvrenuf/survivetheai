@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { trackEvent } from '../utils/analytics';
 
-type Status = 'idle' | 'loading' | 'success' | 'error';
+type Status = 'idle' | 'loading' | 'success' | 'error' | 'disabled';
 
 type SubscribeInlineProps = {
   heading?: string;
@@ -18,29 +18,81 @@ export default function SubscribeInline({
 }: SubscribeInlineProps) {
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState<string>('');
+  const [enabled, setEnabled] = useState<boolean>(false);
+  const [mode, setMode] = useState<'provider' | 'log-only' | 'disabled'>('disabled');
   const enableApi = import.meta.env.PUBLIC_ENABLE_SUBSCRIBE_API === 'true';
 
   const statusMessage = useMemo(() => {
-    if (status === 'success') return message || 'You are in. Watch your inbox for the next drop.';
+    if (status === 'success') return message || 'Check your inbox to confirm.';
     if (status === 'error') return message || 'Something went wrong. Try again or come back later.';
+    if (status === 'disabled') return message || "Newsletter signup isn't enabled yet.";
     return '';
   }, [status, message]);
+
+  useEffect(() => {
+    if (!enableApi) {
+      setEnabled(false);
+      setMode('disabled');
+      setStatus('disabled');
+      setMessage("Newsletter signup isn't enabled yet.");
+      return;
+    }
+
+    let cancelled = false;
+    fetch('/api/subscribe')
+      .then((response) => response.json())
+      .then((data: { mode?: 'provider' | 'log-only' | 'disabled'; enabled?: boolean; hasCredentials?: boolean }) => {
+        if (cancelled) return;
+        const currentMode = data.mode ?? 'disabled';
+        const canSubmit = Boolean(data.enabled) && (currentMode !== 'provider' || data.hasCredentials);
+        setMode(currentMode);
+        setEnabled(canSubmit);
+        if (!canSubmit) {
+          setStatus('disabled');
+          setMessage(data.enabled ? 'Signup temporarily unavailable. Please try again later.' : "Newsletter signup isn't enabled yet.");
+        }
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setMode('disabled');
+        setEnabled(false);
+        setStatus('disabled');
+        setMessage('Signup temporarily unavailable. Please try again later.');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [enableApi]);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const email = (formData.get('email') as string | null)?.trim();
+    const honeypot = (formData.get('organization') as string | null)?.trim();
 
-    if (!email) {
+    if (status === 'disabled' || !enabled) {
+      setStatus('disabled');
+      setMessage("Newsletter signup isn't enabled yet.");
+      return;
+    }
+
+    if (honeypot) {
+      form.reset();
+      setStatus('idle');
+      return;
+    }
+
+    if (!email || !email.includes('@')) {
       setStatus('error');
-      setMessage('Enter an email to join the list.');
+      setMessage('Add a valid email to subscribe.');
       return;
     }
 
     setStatus('loading');
     setMessage('');
-    trackEvent('newsletter_submit', { location });
+    trackEvent('newsletter_submit', { location, mode });
 
     if (!enableApi) {
       form.reset();
@@ -54,9 +106,9 @@ export default function SubscribeInline({
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: location }),
+        body: JSON.stringify({ email, source: location, honeypot }),
       });
-      const data = (await response.json().catch(() => ({}))) as { message?: string };
+      const data = (await response.json().catch(() => ({}))) as { message?: string; mode?: string };
 
       if (!response.ok) {
         throw new Error(data?.message || 'Unable to subscribe right now.');
@@ -65,12 +117,12 @@ export default function SubscribeInline({
       setStatus('success');
       setMessage(data?.message ?? 'You are subscribed. Welcome aboard.');
       form.reset();
-      trackEvent('newsletter_success', { location });
+      trackEvent('newsletter_success', { location, mode: data?.mode ?? mode });
     } catch (error) {
       const fallbackMessage = error instanceof Error ? error.message : 'Unable to subscribe right now.';
       setStatus('error');
       setMessage(fallbackMessage);
-      trackEvent('newsletter_error', { location, message: fallbackMessage });
+      trackEvent('newsletter_error', { location, message: fallbackMessage, mode });
     }
   };
 
@@ -86,6 +138,7 @@ export default function SubscribeInline({
       </div>
 
       <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+        <input type="text" name="organization" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="flex-1 space-y-2">
             <label htmlFor={`email-${location}`} className="text-sm font-semibold text-neutral-800">
@@ -99,7 +152,7 @@ export default function SubscribeInline({
               className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 shadow-sm transition focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/30"
               placeholder="you@example.com"
               autoComplete="email"
-              disabled={status === 'loading'}
+              disabled={status === 'loading' || status === 'disabled'}
               aria-describedby={`subscribe-helper-${location}`}
             />
           </div>
@@ -107,7 +160,7 @@ export default function SubscribeInline({
             <button
               type="submit"
               className="inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 disabled:cursor-not-allowed disabled:opacity-70"
-              disabled={status === 'loading'}
+              disabled={status === 'loading' || status === 'disabled'}
             >
               {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
             </button>

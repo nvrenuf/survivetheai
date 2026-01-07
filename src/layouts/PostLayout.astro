@@ -15,6 +15,8 @@ import { TOPIC_CATEGORIES } from '../data/categories';
 import SubscribeInline from '../components/SubscribeInline';
 import { buildPostLinking } from '../utils/postLinking';
 import { getHubByKey } from '../data/hubs';
+import Footer from '../components/Footer.astro';
+import { getBuildFingerprint } from '../utils/buildFingerprint';
 
 const {
   post,
@@ -34,6 +36,8 @@ const { title, description, date, author, heroImage, heroImageAlt, topics, impac
 const displayDate = formatDate(date);
 const readingTimeLabel = formatReadingMinutes(readingTime);
 const isoDate = date.toISOString();
+const FALLBACK_HERO = '/images/placeholder-hero.svg';
+const heroSrc = heroImage?.trim() || FALLBACK_HERO;
 const heroAlt = heroImageAlt ?? `${title} hero image`;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 const tocHeadings = filteredHeadings.length >= 4 ? filteredHeadings : [];
@@ -46,13 +50,14 @@ const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
 const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
 const hasGa = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
+const fingerprint = getBuildFingerprint();
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: title,
   description,
-  image: heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString(),
+  image: heroSrc.startsWith('http') ? heroSrc : new URL(heroSrc, canonicalUrl).toString(),
   datePublished: isoDate,
   dateModified: isoDate,
   author: {
@@ -77,13 +82,14 @@ const structuredData = {
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
+    <meta property="og:image" content={heroSrc.startsWith('http') ? heroSrc : new URL(heroSrc, canonicalUrl).toString()} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
-    <meta name="twitter:image" content={heroImage.startsWith('http') ? heroImage : new URL(heroImage, canonicalUrl).toString()} />
+    <meta name="twitter:image" content={heroSrc.startsWith('http') ? heroSrc : new URL(heroSrc, canonicalUrl).toString()} />
+    <meta name="build" content={fingerprint.metaContent} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
   </head>
@@ -93,7 +99,7 @@ const structuredData = {
       <div class="lg:grid lg:grid-cols-12 lg:gap-12">
         <main class="space-y-8 sm:space-y-10 lg:col-span-8">
           <slot name="hero">
-            <HeroImage src={heroImage} alt={heroAlt} />
+            <HeroImage src={heroSrc} alt={heroAlt} />
           </slot>
           <header class="space-y-5 sm:space-y-6">
             <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-neutral-500">
@@ -150,7 +156,7 @@ const structuredData = {
           </article>
           <section class="space-y-6 pt-6">
             <SubscribeInline client:load location="post" />
-            {linking.related.length > 0 && (
+            {linking.related.length >= 2 && (
               <div class="space-y-3">
                 <div class="flex items-center justify-between">
                   <div>
@@ -203,6 +209,7 @@ const structuredData = {
         </aside>
       </div>
     </div>
+    <Footer fingerprint={fingerprint} />
     <script is:inline>
       {`
         (function() {
@@ -219,6 +226,8 @@ const structuredData = {
             }
           }
 
+          let ticking = false;
+
           function checkScroll() {
             const doc = document.documentElement;
             const scrolled = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
@@ -228,9 +237,19 @@ const structuredData = {
                 report(threshold);
               }
             });
+            if (seen.size === thresholds.length) {
+              window.removeEventListener('scroll', onScroll);
+            }
+            ticking = false;
           }
 
-          window.addEventListener('scroll', checkScroll, { passive: true });
+          function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(checkScroll);
+          }
+
+          window.addEventListener('scroll', onScroll, { passive: true });
           checkScroll();
         })();
       `}

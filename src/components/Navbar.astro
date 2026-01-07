@@ -16,15 +16,10 @@ const isActive = (href: string) => {
 ---
 <nav class="bg-white/95 text-neutral-900 shadow-sm border-b border-neutral-200 backdrop-blur" data-testid="navbar">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-    <a href="/" aria-label="SurviveTheAI home" class="flex items-start gap-2 text-neutral-900 transition hover:text-neutral-700" data-testid="nav-logo">
-      <div class="flex flex-col leading-none">
-        <span class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight uppercase">Survive</span>
-        <div class="mt-0.5 text-sm sm:text-base md:text-lg font-semibold tracking-wide uppercase">
-          <span>THE </span>
-          <span class="text-orange-500">AI</span>
-        </div>
-        <span class="mt-1 hidden md:block text-xs md:text-sm font-medium text-neutral-500">The AI flood is here. Learn to swim.</span>
-      </div>
+    <a href="/" aria-label="SurviveTheAI home" class="flex items-center gap-2 text-neutral-900 transition hover:text-neutral-700" data-testid="nav-logo">
+      <span class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight uppercase">
+        Survive <span class="text-orange-500">THE AI</span>
+      </span>
     </a>
     <div class="hidden items-center gap-2 md:flex">
       {links.map((link) => (

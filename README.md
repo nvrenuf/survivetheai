@@ -1,60 +1,54 @@
-﻿# SurviveTheAI
+# SurviveTheAI
 
-Welcome to SurviveTheAI – your essential guide to thriving in the age of artificial intelligence!
+Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel.
 
-## ðŸš€ What is SurviveTheAI?
-SurviveTheAI is a modern, content-driven web application designed to empower individuals, families, and professionals to navigate the rapidly changing world shaped by AI. Our mission is to demystify artificial intelligence, address real fears, and provide actionable insights so you can future-proof your life and career.
+## Deployment architecture
+- Astro v5 site deployed on Vercel.
+- Uses the official `@astrojs/vercel` adapter (`adapter: vercel()` in `astro.config.mjs`) so server endpoints and on‑demand rendering are packaged as Vercel functions. Without the adapter, API routes like `/api/subscribe` will fail or be excluded from the build.
+- Primary rendering mode is static; Vercel serves static assets from the edge CDN and routes API traffic to serverless functions.
 
-## ðŸŒŸ Key Features
-- **Fear Index:** Explore the most common concerns about AI and discover practical ways to overcome them.
-- **Expert Insights:** Read blog posts and guides from thought leaders, educators, and technologists.
-- **Interactive Quizzes:** Test your knowledge and learn how to adapt to the AI revolution.
-- **Newsletter:** Stay ahead with curated news, tips, and resources delivered straight to your inbox.
-- **Community:** Join a growing movement of people committed to learning, adapting, and thriving together.
+## Astro build configuration
+- `output: "static"` is set in `astro.config.mjs` for Astro v5. Static builds keep page rendering fast and cacheable.
+- Vercel adapter must remain enabled; removing it breaks server routes and Vercel deploys.
+- Any server route that should not be prerendered must export `export const prerender = false;` (see `src/pages/api/subscribe.ts`) so Astro ships it as a function.
+- `output: "hybrid"` is invalid in Astro v5—do not set it. Use `output: "static"` with selective `prerender = false` for server needs.
 
-## ðŸ§­ Why SurviveTheAI?
-AI is transforming every aspect of our lives—from the workplace to the classroom, from healthcare to entertainment. SurviveTheAI is your trusted companion, helping you:
-- Understand the opportunities and risks of AI
-- Build resilience and adaptability
-- Equip your family and children for the future
-- Make informed decisions in a world of rapid change
+## Newsletter / Subscribe system
+- Inline forms post to `/api/subscribe`, which routes to Buttondown when enabled.
+- Modes:
+  - **Disabled:** default when `PUBLIC_ENABLE_SUBSCRIBE_API` is not `true`. Forms show “not enabled.”
+  - **Log-only:** set `PUBLIC_ENABLE_SUBSCRIBE_API=true` and `SUBSCRIBE_LOG_ONLY=true`; requests log to the server console, no provider calls.
+  - **Provider:** set `PUBLIC_ENABLE_SUBSCRIBE_API=true` with `BUTTONDOWN_API_KEY` (and optional `BUTTONDOWN_PUBLICATION_ID`); live Buttondown API calls return “Check your inbox.”
+- Required environment variables:
+  - `PUBLIC_ENABLE_SUBSCRIBE_API` (string `true`/`false`)
+  - `SUBSCRIBE_LOG_ONLY` (string `true`/`false`, optional)
+  - `BUTTONDOWN_API_KEY` (server-only, required for provider mode)
+  - `BUTTONDOWN_PUBLICATION_ID` (server-only, optional for multi-publication setups)
+- Safe enable checklist:
+  - In a preview, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` and `SUBSCRIBE_LOG_ONLY=true` to validate UI flow without Buttondown.
+  - Add `BUTTONDOWN_API_KEY` (and optional publication ID) to the Preview environment, flip `SUBSCRIBE_LOG_ONLY=false`, and confirm successful subscriptions.
+  - Promote the same secrets to Production, keep `PUBLIC_ENABLE_SUBSCRIBE_API=true`, and verify `/api/subscribe` GET reports `mode: "provider"` with `hasCredentials: true`.
 
-## ðŸ› ï¸ Tech Stack
-- **Astro** for blazing-fast static site generation
-- **Tailwind CSS** for beautiful, responsive design
-- **Markdown** for easy content creation
-- **Modern JavaScript/TypeScript** for interactivity
+## Analytics (minimal)
+- Events:
+  - `newsletter_submit`, `newsletter_success`, `newsletter_error` (emitted from subscribe flows with location + mode metadata).
+  - `scroll_depth` at 25/50/75/90 thresholds on post pages.
+- Enable GA4 by setting `PUBLIC_GA_MEASUREMENT_ID`; analytics uses `gtag` when present.
+- Debug behavior:
+  - If GA is absent and `PUBLIC_ANALYTICS_DEBUG=true` (or running in dev), events log to the console instead of sending to GA.
+  - `warnIfAnalyticsMissing()` emits a console warning during server render when GA is not configured.
 
-## ðŸ“§ Newsletter + Analytics
-- Inline subscribe forms post to `/api/subscribe` and forward to Buttondown when `BUTTONDOWN_API_KEY` (and optional `BUTTONDOWN_PUBLICATION_ID`) are set. Without keys, submissions log server-side with a “coming soon” confirmation.
-- GA4 hooks are available via `PUBLIC_GA_MEASUREMENT_ID` (with optional `PUBLIC_ANALYTICS_DEBUG=true` to mirror events in the console). Newsletter submit/success/error and scroll depth (25/50/75/90) events are ready to emit.
-
-## ðŸ“‚ How to Contribute
-We welcome contributions! Check out the `/src/content/posts/` directory to add new articles, or see `/public/README.md` for instructions on adding images and creating posts.
-
-### Working without the VS Code CLI
-This containerized environment cannot download or run Microsoft's official
-`code` binary, which previously caused a `command not found` error when trying
-to launch Visual Studio Code from the terminal. To surface more helpful
-guidance we now ship a small shim at `bin/code` that explains alternatives for
-opening the project in VS Code.
-
-To use it, add the repository's `bin` directory to your `PATH` in the current
-shell session:
-
-```bash
-export PATH="$(pwd)/bin:$PATH"
-```
-
-Running `code` (or `code --help`) afterwards will display a message detailing
-options such as using [vscode.dev](https://vscode.dev), connecting through VS
-Code Remote Tunnels, or cloning the repository locally where the real CLI is
-available.
-
----
-## Content Workflow  
-This project uses a strict, source-first blog creation process. See the canonical workflow: [`/docs/workflows/blog-creation.md`](/docs/workflows/blog-creation.md).
-
-
-
-SurviveTheAI: Because the best way to predict the future is to create it. ðŸŒðŸ¤–
+## Operator checklist
+- Domains + SSL: set primary domain in Vercel (apex or `www`) and enforce redirects between apex and `www` to avoid duplicate origins; ensure TLS is active on both.
+- Required env vars in Vercel:
+  - Public: `PUBLIC_ENABLE_SUBSCRIBE_API`, `PUBLIC_ANALYTICS_DEBUG` (optional), `PUBLIC_GA_MEASUREMENT_ID` (optional).
+  - Server-only: `BUTTONDOWN_API_KEY`, `BUTTONDOWN_PUBLICATION_ID` (optional), `SUBSCRIBE_LOG_ONLY` for preview safety.
+- Healthy deployment verification:
+  - `npm run build` succeeds locally or in CI.
+  - `/api/subscribe` GET responds with the expected mode (`provider` with credentials, `log-only`, or disabled).
+  - Page loads show GA script when `PUBLIC_GA_MEASUREMENT_ID` is set; in debug mode, console logs appear when GA is absent.
+- Common failure modes:
+  - Missing Vercel adapter → API routes omitted or 404 in production.
+  - `PUBLIC_ENABLE_SUBSCRIBE_API=true` without `BUTTONDOWN_API_KEY` and `SUBSCRIBE_LOG_ONLY=true` → server errors on subscribe.
+  - Setting `output` to `hybrid` in Astro v5 → build failure. Keep `output: "static"` and mark server routes with `prerender = false`.
+Adding a line to force deploy one more time

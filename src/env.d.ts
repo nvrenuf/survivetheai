@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_ANALYTICS_DEBUG?: string;
   readonly PUBLIC_SHOW_PLAYBOOK_OFFER?: string;
   readonly PUBLIC_ENABLE_SUBSCRIBE_API?: string;
+  readonly SUBSCRIBE_LOG_ONLY?: string;
 }
 
 interface ImportMeta {

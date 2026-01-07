@@ -24,6 +24,10 @@ export function buildPostLinking(post: PostEntry, allPosts: PostEntry[]) {
   const pillar = getPillarFromPost(post);
   const hub = getHubByKey(pillar);
 
+  if (import.meta.env.DEV && !pillar) {
+    console.warn(`[linking] Missing pillar for post ${post.slug}. Hub link will be hidden.`);
+  }
+
   const explicitRelatedSlugs = new Set(post.data.related ?? []);
   const explicitRelated = sorted.filter((entry) => explicitRelatedSlugs.has(entry.slug));
 
