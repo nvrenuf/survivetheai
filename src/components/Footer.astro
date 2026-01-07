@@ -1,5 +1,8 @@
 ---
 // Footer.astro — Wrappixel-inspired, as described in SETUP.md
+import type { BuildFingerprint } from '../utils/buildFingerprint';
+
+const { fingerprint } = Astro.props as { fingerprint: BuildFingerprint };
 ---
 <footer class="w-full bg-gray-50 border-t border-gray-200 py-6 mt-12 text-sm">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2">
@@ -14,5 +17,8 @@
       <a href="/privacy" class="hover:text-blue-600 transition">Privacy</a>
       <a href="/terms" class="hover:text-blue-600 transition">Terms</a>
     </nav>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 pt-3 text-xs text-gray-400">
+    {fingerprint.displayLabel}
   </div>
 </footer>
