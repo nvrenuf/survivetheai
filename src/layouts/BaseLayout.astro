@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { warnIfAnalyticsMissing } from '../utils/env.server';
+import { getBuildFingerprint } from '../utils/buildFingerprint';
 
 const {
   title = 'Survive the AI',
@@ -14,6 +15,7 @@ const {
 
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
+const fingerprint = getBuildFingerprint();
 
 warnIfAnalyticsMissing();
 ---
@@ -24,6 +26,7 @@ warnIfAnalyticsMissing();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="build" content={fingerprint.metaContent} />
     <title>{title}</title>
     {gaMeasurementId && (
       <>
@@ -44,7 +47,7 @@ warnIfAnalyticsMissing();
     <main class="min-h-screen">
       <slot />
     </main>
-    <Footer />
+    <Footer fingerprint={fingerprint} />
     <script is:inline>
       {`
         (function() {
