@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { createHash, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
@@ -10,8 +11,19 @@ const json = (status: number, body: Record<string, unknown>) =>
     headers: { "Content-Type": "application/json" },
   });
 
+const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
+
+const normalizeEmail = (email: string) => email.trim().toLowerCase();
+
+const getClientIp = (request: Request, clientAddress?: string) => {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const headerIp = forwardedFor?.split(",")[0]?.trim();
+  return headerIp || clientAddress || null;
+};
+
 const getEnv = () => {
   const enabled = (import.meta.env.PUBLIC_ENABLE_SUBSCRIBE_API ?? "").toLowerCase() === "true";
+  const siteUrl = import.meta.env.SITE_URL as string | undefined;
 
   const supabaseUrl = import.meta.env.SUPABASE_URL as string | undefined;
   const supabaseServiceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY as string | undefined;
@@ -25,31 +37,27 @@ const getEnv = () => {
 
   return {
     enabled,
+    siteUrl,
     supabaseUrl,
     supabaseKey: supabaseServiceRoleKey || supabaseAnonKey,
-    supabaseKeyType: supabaseServiceRoleKey ? "service_role" : supabaseAnonKey ? "anon" : "missing",
     resendApiKey,
     resendFrom,
-    hasCredentials: hasSupabase && hasResend,
-    hasSupabase,
-    hasResend,
+    hasCredentials: hasSupabase && hasResend && Boolean(siteUrl),
   };
 };
 
 export const GET: APIRoute = () => {
   const env = getEnv();
+  const status = env.enabled && env.hasCredentials ? "ready" : "needs_config";
   return json(200, {
-    status: "ready",
+    status,
     enabled: env.enabled,
     hasCredentials: env.hasCredentials,
     provider: "supabase+resend",
-    supabaseKeyType: env.supabaseKeyType,
-    hasSupabase: env.hasSupabase,
-    hasResend: env.hasResend,
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   const env = getEnv();
 
   const contentType = request.headers.get("content-type") ?? "";
@@ -57,25 +65,20 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { ok: false, message: "Invalid request.", error: "bad_request" });
   }
 
-  // Accept both old and new field names to avoid breaking clients
   const payload = (await request.json().catch(() => ({}))) as {
     email?: string;
     source?: string;
     source_page?: string;
     honeypot?: string;
-    company?: string; // optional honeypot field name
+    company?: string;
   };
 
-  // Honeypot: if present, pretend success (anti-bot)
   if (payload.honeypot || payload.company) {
     return json(200, { ok: true, status: "ignored" });
   }
 
-  const rawEmail = (payload.email ?? "").trim();
-  const email = rawEmail.toLowerCase();
-
-  // Basic validation (kept intentionally simple)
-  if (!email || !email.includes("@") || email.length > 254) {
+  const normalizedEmail = payload.email ? normalizeEmail(payload.email) : "";
+  if (!normalizedEmail || !normalizedEmail.includes("@") || normalizedEmail.length > 254) {
     return json(400, { ok: false, message: "Add a valid email to subscribe.", error: "bad_request" });
   }
 
@@ -105,17 +108,53 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const sourcePage = (payload.source_page ?? payload.source ?? "inline").toString().slice(0, 200);
+  const sourceValue = (payload.source_page ?? payload.source ?? "").toString().slice(0, 200);
 
   try {
-    // Supabase insert/upsert (do not reveal if they already exist)
     const supabase = createClient(env.supabaseUrl, env.supabaseKey, {
       auth: { persistSession: false },
     });
 
+    const { data: existingSubscriber, error: lookupError } = await supabase
+      .from("subscribers")
+      .select("status")
+      .eq("email", normalizedEmail)
+      .maybeSingle();
+
+    if (lookupError) {
+      console.error("[newsletter] Supabase lookup error", lookupError);
+      return json(500, {
+        ok: false,
+        message: "Unable to subscribe right now. Please try again later.",
+        error: "db_error",
+      });
+    }
+
+    if (existingSubscriber?.status === "unsubscribed") {
+      return json(200, { ok: true, status: "ok" });
+    }
+
+    const confirmToken = randomBytes(32).toString("hex");
+    const unsubscribeToken = randomBytes(32).toString("hex");
+    const lastIp = getClientIp(request, clientAddress);
+    const lastUserAgent = request.headers.get("user-agent");
+
     const { error: upsertError } = await supabase
       .from("subscribers")
-      .upsert({ email, source_page: sourcePage }, { onConflict: "email" });
+      .upsert(
+        {
+          email: normalizedEmail,
+          source_page: sourceValue || null,
+          status: "pending",
+          confirmed_at: null,
+          unsubscribed_at: null,
+          confirm_token_hash: hashToken(confirmToken),
+          unsubscribe_token_hash: hashToken(unsubscribeToken),
+          last_ip: lastIp,
+          last_user_agent: lastUserAgent ?? null,
+        },
+        { onConflict: "email" },
+      );
 
     if (upsertError) {
       console.error("[newsletter] Supabase upsert error", upsertError);
@@ -126,43 +165,32 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Resend welcome email
     const resend = new Resend(env.resendApiKey);
-
-    const subject = "You're on the Survive the AI list";
-    const text =
-      `You’re subscribed.\n\n` +
-      `What you’ll get: weekly survival intel—early signals, what it means, and what to do next.\n\n` +
-      `Start here: https://www.survivetheai.com\n`;
+    const base = (env.siteUrl ?? new URL(request.url).origin).replace(/\/$/, "");
+    const confirmUrl = `${base}/api/confirm?token=${confirmToken}`;
 
     const sendResult = await resend.emails.send({
       from: env.resendFrom,
-      to: [email],
-      subject,
-      text,
+      to: [normalizedEmail],
+      subject: "Confirm your Survive the AI subscription",
+      text: `Confirm your subscription to Survive the AI:\n\n${confirmUrl}\n\nIf you didn't request this, you can ignore this email.`,
     });
 
-    // Resend SDK returns { data, error } patterns depending on version
-    // Defensive handling:
-    // @ts-expect-error - tolerate SDK shape differences
-    if (sendResult?.error) {
-      // @ts-expect-error
-      console.error("[newsletter] Resend send error", sendResult.error);
-      // Don’t fail signup if email send fails; DB already has them.
-      return json(200, {
-        ok: true,
-        status: "subscribed",
-        message: "Subscribed. (Welcome email may be delayed.)",
-        emailSent: false,
+    const resendError =
+      typeof sendResult === "object" && sendResult && "error" in sendResult
+        ? (sendResult as { error?: unknown }).error
+        : undefined;
+
+    if (resendError) {
+      console.error("[newsletter] Resend send error", resendError);
+      return json(502, {
+        ok: false,
+        message: "Unable to subscribe right now. Please try again later.",
+        error: "email_error",
       });
     }
 
-    return json(200, {
-      ok: true,
-      status: "subscribed",
-      message: "Check your inbox.",
-      emailSent: true,
-    });
+    return json(200, { ok: true, status: "pending", message: "Check your inbox to confirm." });
   } catch (err) {
     console.error("[newsletter] unexpected error", err);
     return json(500, {
