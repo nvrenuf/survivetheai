@@ -175,7 +175,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     const resend = new Resend(env.resendApiKey);
-    const confirmUrl = `${env.siteUrl.replace(/\\/$/, "")}/api/confirm?token=${confirmToken}`;
+    const confirmUrl = `${env.siteUrl.replace(/\/$/, "")}/api/confirm?token=${confirmToken}`;
 
     const sendResult = await resend.emails.send({
       from: env.resendFrom,
@@ -184,10 +184,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       text: `Confirm your subscription to Survive the AI:\n\n${confirmUrl}\n\nIf you didn't request this, you can ignore this email.`,
     });
 
-    // @ts-expect-error - tolerate SDK shape differences
-    if (sendResult?.error) {
-      // @ts-expect-error
-      console.error("[newsletter] Resend send error", sendResult.error);
+    const resendError =
+      typeof sendResult === "object" && sendResult && "error" in sendResult
+        ? (sendResult as { error?: unknown }).error
+        : undefined;
+
+    if (resendError) {
+      console.error("[newsletter] Resend send error", resendError);
       return json(502, {
         ok: false,
         message: "Unable to subscribe right now. Please try again later.",

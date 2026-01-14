@@ -104,7 +104,7 @@ export const GET: APIRoute = async ({ request }) => {
       return redirectTo(request, "/newsletter/confirmed", env.siteUrl);
     }
 
-    const base = (env.siteUrl ?? new URL(request.url).origin).replace(/\\/$/, "");
+    const base = (env.siteUrl ?? new URL(request.url).origin).replace(/\/$/, "");
     const unsubscribeUrl = `${base}/api/unsubscribe?token=${unsubscribeToken}`;
     const resend = new Resend(env.resendApiKey);
     const sendResult = await resend.emails.send({
@@ -118,10 +118,13 @@ export const GET: APIRoute = async ({ request }) => {
         `Unsubscribe: ${unsubscribeUrl}`,
     });
 
-    // @ts-expect-error - tolerate SDK shape differences
-    if (sendResult?.error) {
-      // @ts-expect-error
-      console.error("[newsletter] Resend send error", sendResult.error);
+    const resendError =
+      typeof sendResult === "object" && sendResult && "error" in sendResult
+        ? (sendResult as { error?: unknown }).error
+        : undefined;
+
+    if (resendError) {
+      console.error("[newsletter] Resend send error", resendError);
     }
 
     return redirectTo(request, "/newsletter/confirmed", env.siteUrl);
