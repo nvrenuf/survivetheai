@@ -70,7 +70,7 @@ export default function SubscribeInline({
     const form = event.currentTarget;
     const formData = new FormData(form);
     const email = (formData.get('email') as string | null)?.trim();
-    const honeypot = (formData.get('organization') as string | null)?.trim();
+    const honeypot = (formData.get('company') as string | null)?.trim();
 
     if (status === 'disabled' || !enabled) {
       setStatus('disabled');
@@ -106,11 +106,11 @@ export default function SubscribeInline({
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: location, honeypot }),
+        body: JSON.stringify({ email, source_page: location, company: honeypot }),
       });
-      const data = (await response.json().catch(() => ({}))) as { message?: string; mode?: string };
+      const data = (await response.json().catch(() => ({}))) as { ok?: boolean; message?: string; mode?: string };
 
-      if (!response.ok) {
+      if (!response.ok || data.ok === false) {
         throw new Error(data?.message || 'Unable to subscribe right now.');
       }
 
@@ -138,7 +138,7 @@ export default function SubscribeInline({
       </div>
 
       <form className="mt-6 space-y-4" onSubmit={onSubmit}>
-        <input type="text" name="organization" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+        <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="flex-1 space-y-2">
             <label htmlFor={`email-${location}`} className="text-sm font-semibold text-neutral-800">
