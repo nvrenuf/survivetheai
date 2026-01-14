@@ -108,15 +108,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
-  if (!env.siteUrl) {
-    console.error("[newsletter] Missing SITE_URL");
-    return json(500, {
-      ok: false,
-      message: "Signup temporarily unavailable. Please try again later.",
-      error: "missing_site_url",
-    });
-  }
-
   const sourceValue = (payload.source_page ?? payload.source ?? "").toString().slice(0, 200);
 
   try {
@@ -175,7 +166,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     const resend = new Resend(env.resendApiKey);
-    const confirmUrl = `${env.siteUrl.replace(/\/$/, "")}/api/confirm?token=${confirmToken}`;
+    const base = (env.siteUrl ?? new URL(request.url).origin).replace(/\/$/, "");
+    const confirmUrl = `${base}/api/confirm?token=${confirmToken}`;
 
     const sendResult = await resend.emails.send({
       from: env.resendFrom,
