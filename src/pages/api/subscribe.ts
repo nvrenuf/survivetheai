@@ -21,7 +21,8 @@ const SERVICE_UNAVAILABLE = (message: string, code = 'disabled') =>
 
 export const GET: APIRoute = () => {
   const config = getSubscribeConfig();
-  return new Response(JSON.stringify({ status: 'ready', mode: config.mode, enabled: config.enabled, hasCredentials: config.hasCredentials }), {
+  const status = config.enabled && config.hasCredentials ? 'ready' : 'needs_config';
+  return new Response(JSON.stringify({ status, enabled: config.enabled, hasCredentials: config.hasCredentials }), {
     status: 200,
     headers: JSON_HEADERS,
   });
@@ -42,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
   };
 
   if (company) {
-    return new Response(JSON.stringify({ ok: true }), { status: 200, headers: JSON_HEADERS });
+    return new Response(JSON.stringify({ status: 'ignored' }), { status: 200, headers: JSON_HEADERS });
   }
 
   const normalizedEmail = email?.trim().toLowerCase();
@@ -52,11 +53,6 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (!config.enabled) {
     return SERVICE_UNAVAILABLE("Newsletter signup isn't enabled yet.", 'disabled');
-  }
-
-  if (config.mode === 'log-only') {
-    console.info(`[newsletter][log-only] ${normalizedEmail}`, { source_page: source_page ?? source ?? 'inline' });
-    return new Response(JSON.stringify({ ok: true, mode: 'log-only' }), { status: 200, headers: JSON_HEADERS });
   }
 
   try {
@@ -102,9 +98,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const resend = new Resend(resendKey);
-    const origin = new URL('/', request.url).origin;
-    const subject = import.meta.env.RESEND_WELCOME_SUBJECT ?? 'Welcome to Survive the AI';
-    const text = `You're in.\n\nExpect weekly survival intel—practical moves to protect your work, family, and focus.\n\nVisit: ${origin}\n\nUnsubscribe anytime via your email provider.`;
+    const subject = "You're on the Survive the AI list";
+    const text = `Welcome to the Survive the AI list.\n\nEach week you'll get practical, no-fluff guidance on navigating AI at work and in life.\n\nRead more: https://www.survivetheai.com`;
     const { error: resendError } = await resend.emails.send({
       from: resendFrom,
       to: normalizedEmail,
@@ -115,12 +110,12 @@ export const POST: APIRoute = async ({ request }) => {
     if (resendError) {
       console.error('[newsletter] Resend error', resendError);
       return new Response(JSON.stringify({ ok: false, message: 'Unable to subscribe right now. Please try again later.' }), {
-        status: 500,
+        status: 502,
         headers: JSON_HEADERS,
       });
     }
 
-    return new Response(JSON.stringify({ ok: true }), { status: 200, headers: JSON_HEADERS });
+    return new Response(JSON.stringify({ ok: true, status: 'subscribed' }), { status: 200, headers: JSON_HEADERS });
   } catch (error) {
     console.error('[newsletter] unexpected error', error);
     return new Response(JSON.stringify({ ok: false, message: 'Something went wrong. Try again in a bit.', error: 'unexpected_error' }), {
