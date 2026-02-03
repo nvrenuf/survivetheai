@@ -15,6 +15,8 @@ import { TOPIC_CATEGORIES } from '../data/categories';
 import SubscribeInline from '../components/SubscribeInline';
 import { buildPostLinking } from '../utils/postLinking';
 import { getHubByKey } from '../data/hubs';
+import Footer from '../components/Footer.astro';
+import { getBuildFingerprint } from '../utils/buildFingerprint';
 
 const {
   post,
@@ -48,6 +50,7 @@ const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
 const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
 const hasGa = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
+const fingerprint = getBuildFingerprint();
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -86,6 +89,7 @@ const structuredData = {
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={heroSrc.startsWith('http') ? heroSrc : new URL(heroSrc, canonicalUrl).toString()} />
+    <meta name="build" content={fingerprint.metaContent} />
     <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
   </head>
@@ -205,6 +209,7 @@ const structuredData = {
         </aside>
       </div>
     </div>
+    <Footer fingerprint={fingerprint} />
     <script is:inline>
       {`
         (function() {
