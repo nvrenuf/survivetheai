@@ -52,3 +52,5 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
   - `PUBLIC_ENABLE_SUBSCRIBE_API=true` without `BUTTONDOWN_API_KEY` and `SUBSCRIBE_LOG_ONLY=true` → server errors on subscribe.
   - Setting `output` to `hybrid` in Astro v5 → build failure. Keep `output: "static"` and mark server routes with `prerender = false`.
 Adding a line to force deploy
+
+Standards: docs/standards/…
