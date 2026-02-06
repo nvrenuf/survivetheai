@@ -41,6 +41,17 @@ This post explains **the mechanism**—not the hype—so you can see where the p
 
 ---
 
+## Listen: Headcount Compression (20-minute audio)
+
+<audio controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
+  <source src="/videos/agents-compress-audio.mp4" type="audio/mp4">
+  Your browser does not support the audio element.
+</audio>
+
+*20-minute audio breakdown of how agentic workflows flatten org charts and squeeze hiring pipelines.*
+
+---
+
 ## What’s actually changing
 
 The confusion starts because people lump very different technologies together under “AI.”
