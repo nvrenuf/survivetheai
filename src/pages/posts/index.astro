@@ -2,13 +2,12 @@
 import Layout from '../../layouts/BaseLayout.astro';
 import BlogList from '../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
-import { buildSections, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../utils/postSections';
+import { paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../utils/postSections';
 
 const posts = await getCollection('posts');
-const { remaining } = buildSections(posts);
-const sortedLibraryPosts = sortPosts(remaining);
-const totalPages = Math.max(1, Math.ceil(sortedLibraryPosts.length / SURVIVAL_LIBRARY_PAGE_SIZE));
-const pagePosts = sortedLibraryPosts.slice(0, SURVIVAL_LIBRARY_PAGE_SIZE);
+const sortedPosts = sortPosts(posts).filter((post) => !post.data.draft);
+const { pages, totalPages } = paginatePosts(sortedPosts, SURVIVAL_LIBRARY_PAGE_SIZE);
+const pagePosts = pages[0] ?? [];
 const pageTitle = 'Survival Library';
 ---
 
