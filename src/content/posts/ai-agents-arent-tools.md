@@ -3,6 +3,7 @@ title: "AI Agents Aren’t Tools. They’re Headcount Compression."
 description: "AI agents take ownership of workflows—flattening org charts, shrinking entry-level paths, and quietly compressing headcount."
 date: 2026-02-06
 author: "Lee Cuevas"
+featured: true
 topics:
   - work-money
 pillar: work-money
