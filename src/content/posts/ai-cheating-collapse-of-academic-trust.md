@@ -42,7 +42,7 @@ Generative AI didn’t invent cheating. What it changed is something far more de
 ## 🎧 Listen Instead (Audio Version)
 
 <audio controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
-  <source src="/videos/ai-cheating-collapse-of-trust-audio.m4a" type="audio/mp4">
+  <source src="/videos/ai-cheating-collapse-of-trust-audio.mp4" type="audio/mp4">
   Your browser does not support the audio element.
 </audio>
 
