@@ -8,7 +8,6 @@ topics:
   - "work-money"
 pillar: "work-money"
 related:
-  - "gig-collapse"
   - "ai-is-leaving-the-cloud"
   - "entry-level-is-dead"
 tags:

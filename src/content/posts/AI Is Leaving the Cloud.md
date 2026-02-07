@@ -11,7 +11,6 @@ pillar: "work-money"
 related:
   - "entry-level-is-dead"
   - "riseofgigeconomy"
-  - "gig-collapse"
 tags:
   - "AI"
   - "automation"
