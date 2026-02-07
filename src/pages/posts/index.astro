@@ -17,9 +17,7 @@ const pageTitle = 'Survival Library';
       <div class="space-y-2">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
         <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
-        <p class="text-neutral-600">
-          Excludes the featured post, evergreen playbooks, and the five freshest stories to keep the homepage clean. Twelve posts per page.
-        </p>
+        <p class="text-neutral-600">All posts in reverse chronological order. Twelve posts per page.</p>
       </div>
 
       <BlogList posts={pagePosts} currentPage={1} totalPages={totalPages} basePath="/posts" />
