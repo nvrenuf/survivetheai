@@ -19,18 +19,19 @@ affiliate_offer:
   url: "https://survivetheai.com/playbook"
 canonicalUrl: "https://survivetheai.com/posts/ai-chatfishing-ai-wingmen-dating-apps"
 reading_level: Grade 10
-audio_file: Is_AI_Writing_Your_Date_s_Messages.m4a
+video_file: ai-chatfishing-ai-wingmen-dating-apps-video.mp4
 slug: ai-chatfishing-ai-wingmen-dating-apps
 ---
 
 ![AI chatfishing proxy hero](/images/ai-chatfishing-proxy-hero.png)
 
-## Listen Instead (Audio Version)
+## Watch Instead (Video Overview)
 
-<audio controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
-  <source src="/videos/Is_AI_Writing_Your_Date_s_Messages.m4a" type="audio/mp4">
-  Your browser does not support the audio element.
-</audio>
+<video controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
+  <source src="/videos/ai-chatfishing-ai-wingmen-dating-apps-video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 
 *Audio summary: "Is AI writing your date's messages?" — format: MP4 audio.*
 
