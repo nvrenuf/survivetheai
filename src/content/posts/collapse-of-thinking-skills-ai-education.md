@@ -23,8 +23,6 @@ audio_file: ai-thinking-skills-collapse-audio.m4a
 slug: collapse-of-thinking-skills-ai-education
 ---
 
-![A student working at a kitchen table with a laptop and schoolbooks](/images/ai-thinking-skills-hero.png)
-
 ## 🎧 Listen Instead (Audio Version)
 
 <audio controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
