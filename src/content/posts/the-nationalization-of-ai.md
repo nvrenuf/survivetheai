@@ -35,12 +35,6 @@ canonicalUrl: "https://survivetheai.com/posts/the-nationalization-of-ai"
 
 ---
 
-## 🎧 Audio Version (Coming Soon)
-
-> Prefer to listen? [Listen to the narrated version](/videos/the-nationalization-of-ai-audio.m4a).
-
----
-
 Silicon Valley believes it can draw moral boundaries around artificial intelligence.
 
 Washington believes it can draw national ones.
