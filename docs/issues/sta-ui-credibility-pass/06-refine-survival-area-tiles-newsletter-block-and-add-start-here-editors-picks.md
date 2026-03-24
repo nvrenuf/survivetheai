@@ -31,6 +31,6 @@ Make the supporting homepage modules more intentional by tightening survival-are
 - `src/components/PostCard.astro`
 
 ## Completion Notes
-- Added a restrained `Start here` / `Editor's picks` onboarding block using the existing evergreen post bucket.
-- Tightened the homepage newsletter CTA copy so it reads more like an editorial briefing and less like a generic signup block.
-- Refined the survival-area tiles with clearer labels, stronger footer cues, and more consistent internal spacing without changing the underlying content model.
+- Kept the stronger issue 05 homepage rhythm by integrating `Start here` / `Editor's picks` into the existing latest-intelligence section rather than adding another top-level homepage block.
+- Tightened the homepage newsletter CTA copy so it reads more like an editorial briefing without changing the broader homepage layout.
+- Refined the survival-area tiles in a lighter-touch way by clarifying the section label while avoiding the heavier tile treatment from the first issue 06 pass.

@@ -7,7 +7,6 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('navbar')).toHaveCount(1);
     await expect(page.getByTestId('homepage-hero')).toBeVisible();
     await expect(page.getByTestId('featured-story-section')).toBeVisible();
-    await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('latest-intelligence-section')).toBeVisible();
     await expect(page.getByTestId('survival-areas-section')).toBeVisible();
     await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
@@ -16,7 +15,7 @@ test.describe('Homepage layout', () => {
     const heroSlug = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
     const gridCards = page.getByTestId('latest-intelligence-section').locator('a[href^="/posts/"]');
 
-    await expect(gridCards).toHaveCount(4);
+    await expect(gridCards).toHaveCount(6);
 
     const normalizedHero = heroSlug?.replace(/\/posts\/|\/$/g, '');
     const gridSlugs = await gridCards.evaluateAll((links) =>
@@ -52,7 +51,6 @@ test.describe('Homepage layout', () => {
     expect(sectionOrder).toEqual([
       'homepage-hero',
       'featured-story-section',
-      'start-here-section',
       'latest-intelligence-section',
       'survival-areas-section',
       'homepage-subscribe',
@@ -60,12 +58,12 @@ test.describe('Homepage layout', () => {
     ]);
   });
 
-  test('start here section provides restrained onboarding with real posts', async ({ page }) => {
+  test('latest intelligence keeps a restrained start here stack for onboarding', async ({ page }) => {
     await page.goto('/');
 
-    const startHereCards = page.getByTestId('start-here-section').getByTestId('post-card');
-    await expect(startHereCards).toHaveCount(3);
-    await expect(page.getByTestId('start-here-section')).toContainText("Editor's picks for first-time readers");
+    const startHereCards = page.getByTestId('context-stack').getByTestId('post-card');
+    await expect(startHereCards).toHaveCount(2);
+    await expect(page.getByTestId('context-stack')).toContainText("Editor's picks for first-time readers");
   });
 
   test('survival areas section links to the five survival hubs', async ({ page }) => {
@@ -77,16 +75,15 @@ test.describe('Homepage layout', () => {
     const hrefs = await survivalCards.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));
     expect(new Set(hrefs).size).toBe(5);
     await expect(survivalCards.first()).toContainText('Survival area');
-    await expect(survivalCards.first()).toContainText('View hub');
   });
 
   test('homepage and hub surfaced post cards use the shared metadata and spacing treatment', async ({ page }) => {
     await page.goto('/');
 
     const homepageCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
-    await expect(homepageCards).toHaveCount(4);
-    await expect(homepageCards.locator('[data-testid="post-card-meta"]')).toHaveCount(4);
-    await expect(homepageCards.locator('[data-testid="post-card-impact"]')).toHaveCount(4);
+    await expect(homepageCards).toHaveCount(6);
+    await expect(homepageCards.locator('[data-testid="post-card-meta"]')).toHaveCount(6);
+    await expect(homepageCards.locator('[data-testid="post-card-impact"]')).toHaveCount(6);
 
     await page.goto('/survival-areas/work-money/');
 
@@ -123,8 +120,8 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
     await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
-    await expect(page.getByTestId('start-here-section')).toContainText('Start here');
-    await expect(page.getByTestId('latest-intelligence-section')).toContainText('What moved most recently');
+    await expect(page.getByTestId('context-stack')).toContainText('Start here');
+    await expect(page.getByTestId('signal-stack')).toContainText('What moved most recently');
   });
 
   test('homepage newsletter CTA stays concise and intentional', async ({ page }) => {
