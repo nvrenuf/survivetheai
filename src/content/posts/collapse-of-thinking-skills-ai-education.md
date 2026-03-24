@@ -1,6 +1,6 @@
 ﻿---
 title: "The Collapse of Thinking Skills: How AI Is Changing the Way Our Children Learn"
-description: "AI lets students outsource the thinking steps in writing, math, and studyingâ€”hollowing out the learning process even as outputs look polished."
+description: "AI lets students outsource the thinking steps in writing, math, and studying-hollowing out the learning process even as outputs look polished."
 date: 2026-02-07
 author: "Lee Cuevas"
 topics:

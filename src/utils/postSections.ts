@@ -15,8 +15,22 @@ export function sortPosts(posts: PostEntry[]): PostEntry[] {
   return [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
+export function isPlaceholderPost(post: PostEntry): boolean {
+  const title = post.data.title.trim().toLowerCase();
+  const description = post.data.description.trim().toLowerCase();
+  const body = (post.body ?? '').trim().toLowerCase();
+
+  return (
+    title.startsWith('placeholder:') ||
+    description.includes('placeholder post') ||
+    body === 'content coming soon for this category.' ||
+    body === 'content coming soon for this category'
+  );
+}
+
 export function buildSections(allPosts: PostEntry[]): Sections {
-  const posts = sortPosts(allPosts).filter((post) => !post.data.draft);
+  const publishedPosts = sortPosts(allPosts).filter((post) => !post.data.draft);
+  const posts = publishedPosts.filter((post) => !isPlaceholderPost(post));
   const used = new Set<string>();
 
   const featured = posts.find((post) => post.data.featured);
@@ -35,7 +49,7 @@ export function buildSections(allPosts: PostEntry[]): Sections {
     if (latest.length === LATEST_SECTION_SIZE) break;
   }
 
-  const remaining = posts.filter((post) => !used.has(post.slug));
+  const remaining = publishedPosts.filter((post) => !used.has(post.slug));
 
   return { featured, evergreen, latest, remaining };
 }

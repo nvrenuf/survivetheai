@@ -28,6 +28,12 @@ test('homepage and article pages render one global header', async ({ page }) => 
 });
 
 test('article pages render one hero/title block on reviewed posts', async ({ page }) => {
+  await page.goto('/posts/ai-agents-arent-tools/');
+
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText("AI Agents Aren't Tools. They're Headcount Compression.");
+  await expect(page.locator('article')).not.toContainText(/â€™|â€œ|â€|â€“|Ã/);
+  await expect(page).toHaveTitle(/AI Agents Aren't Tools\. They're Headcount Compression\. - Survive the AI/);
+
   await page.goto('/posts/normal-photo-child-ai-risk/');
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);

@@ -162,7 +162,7 @@ export default function SubscribeInline({
               className="inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 disabled:cursor-not-allowed disabled:opacity-70"
               disabled={status === 'loading' || status === 'disabled'}
             >
-              {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
+              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
             </button>
             <p id={`subscribe-helper-${location}`} className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">
               {privacyText}
