@@ -9,7 +9,7 @@ import { SURVIVAL_HUBS } from '../data/hubs';
 
 const posts = await getCollection('posts');
 const { featured, evergreen, latest, remaining } = buildSections(posts);
-const contextPosts = evergreen.slice(0, 2);
+const startHerePosts = evergreen.slice(0, 3);
 const signalPosts = latest.slice(0, 4);
 const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 ---
@@ -106,14 +106,40 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
         </section>
       )}
 
-      {(contextPosts.length > 0 || signalPosts.length > 0) && (
+      {startHerePosts.length > 0 && (
+        <section class="space-y-5" data-testid="start-here-section">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div class="max-w-3xl space-y-2">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start here</p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Editor's picks for first-time readers</h2>
+              <p class="text-neutral-600">
+                If you are new to STA, these are the clearest entry points for understanding the pressure, the stakes, and the practical
+                response.
+              </p>
+            </div>
+            <a
+              href="/posts"
+              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+            >
+              Browse all analysis
+            </a>
+          </div>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {startHerePosts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {signalPosts.length > 0 && (
         <section class="space-y-6" data-testid="latest-intelligence-section">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div class="max-w-3xl space-y-2">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Latest intelligence</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The next stories to read after the lead</h2>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">What moved most recently</h2>
               <p class="text-neutral-600">
-                Use the context stack for durable framing, then scan the latest signals to see where new pressure is surfacing.
+                Fresh reporting and newly surfaced pressure points from across the AI disruption beat.
               </p>
             </div>
             <a
@@ -123,33 +149,10 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               View the full library
             </a>
           </div>
-          <div class="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-            {contextPosts.length > 0 && (
-              <div class="space-y-4" data-testid="context-stack">
-                <div class="space-y-1">
-                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Editorial context</p>
-                  <h3 class="text-xl font-black text-neutral-900">Keep the long arc in view</h3>
-                </div>
-                <div class="grid grid-cols-1 gap-6">
-                  {contextPosts.map((post) => (
-                    <PostCard post={post} />
-                  ))}
-                </div>
-              </div>
-            )}
-            {signalPosts.length > 0 && (
-              <div class="space-y-4" data-testid="signal-stack">
-                <div class="space-y-1">
-                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">New pressure points</p>
-                  <h3 class="text-xl font-black text-neutral-900">What moved most recently</h3>
-                </div>
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  {signalPosts.map((post) => (
-                    <PostCard post={post} />
-                  ))}
-                </div>
-              </div>
-            )}
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {signalPosts.map((post) => (
+              <PostCard post={post} />
+            ))}
           </div>
         </section>
       )}
@@ -164,23 +167,41 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
           {survivalAreas.map((area) => (
             <a
               href={`${area.slug}/`}
-              class="group flex h-full flex-col justify-between gap-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+              class="group flex h-full flex-col justify-between gap-5 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+              data-testid="survival-area-tile"
             >
-              <div class="flex items-start gap-3">
-                <span class="mt-1 inline-block h-2 w-2 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
-                <div class="space-y-1">
-                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Navigation</p>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="inline-flex items-center gap-2">
+                    <span class="inline-block h-2 w-2 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
+                    <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival area</p>
+                  </div>
+                  <span class="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400">
+                    {String(area.order).padStart(2, '0')}
+                  </span>
+                </div>
+                <div class="space-y-2">
                   <h3 class="text-lg font-bold leading-tight text-neutral-900 transition group-hover:text-neutral-700">{area.shortName}</h3>
+                  <p class="text-sm leading-relaxed text-neutral-600">{area.tagline}</p>
                 </div>
               </div>
-              <p class="text-sm leading-relaxed text-neutral-600">{area.tagline}</p>
+              <div class="flex items-center justify-between border-t border-neutral-100 pt-4">
+                <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Open playbook</span>
+                <span class="text-sm font-semibold text-neutral-700 transition group-hover:text-neutral-900">View hub</span>
+              </div>
             </a>
           ))}
         </div>
       </section>
 
       <section class="space-y-6" data-testid="homepage-subscribe">
-        <SubscribeInline client:load location="home" />
+        <SubscribeInline
+          client:load
+          location="home"
+          heading="Get the weekly briefing"
+          helperText="One concise weekly email with the newest signal, what it means, and where to act next."
+          privacyText="Free. No spam. Unsubscribe anytime."
+        />
       </section>
 
       {remaining.length > 0 && (
