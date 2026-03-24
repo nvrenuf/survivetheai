@@ -47,6 +47,23 @@ test.describe('Homepage layout', () => {
     expect(new Set(hrefs).size).toBe(5);
   });
 
+  test('homepage and hub surfaced post cards use the shared metadata and spacing treatment', async ({ page }) => {
+    await page.goto('/');
+
+    const homepageCards = page.getByTestId('curated-grid-section').getByTestId('post-card');
+    await expect(homepageCards).toHaveCount(6);
+    await expect(homepageCards.locator('[data-testid="post-card-meta"]')).toHaveCount(6);
+    await expect(homepageCards.locator('[data-testid="post-card-impact"]')).toHaveCount(6);
+
+    await page.goto('/survival-areas/work-money/');
+
+    const hubCards = page.getByTestId('hub-page').getByTestId('post-card');
+    const hubCount = await hubCards.count();
+    expect(hubCount).toBeGreaterThan(0);
+    await expect(hubCards.locator('[data-testid="post-card-meta"]')).toHaveCount(hubCount);
+    await expect(hubCards.locator('[data-testid="post-card-impact"]')).toHaveCount(hubCount);
+  });
+
   test('reviewed hub page copy renders without mojibake', async ({ page }) => {
     await page.goto('/survival-areas/kids-school/');
 
