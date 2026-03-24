@@ -6,10 +6,14 @@ import { getBuildFingerprint } from '../utils/buildFingerprint';
 
 const {
   title = 'Survive the AI',
-  description = 'Survive the AI — Tools, strategies, and content to prepare for the AI disruption.',
+  description = 'Survive the AI â€” Tools, strategies, and content to prepare for the AI disruption.',
+  wrapMain = true,
+  bodyClass = 'bg-white text-neutral-900 font-sans antialiased',
 } = Astro.props as {
   title?: string;
   description?: string;
+  wrapMain?: boolean;
+  bodyClass?: string;
 };
 
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
@@ -24,6 +28,7 @@ const fingerprint = getBuildFingerprint();
     <meta name="description" content={description} />
     <meta name="build" content={fingerprint.metaContent} />
     <title>{title}</title>
+    <slot name="head" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQHX35EW09"></script>
     <script>
@@ -33,11 +38,9 @@ const fingerprint = getBuildFingerprint();
       gtag('config', 'G-BQHX35EW09');
     </script>
   </head>
-  <body class="bg-white text-neutral-900 font-sans antialiased">
+  <body class={bodyClass}>
     <Navbar />
-    <main class="min-h-screen">
-      <slot />
-    </main>
+    {wrapMain ? <main class="min-h-screen"><slot /></main> : <slot />}
     <Footer fingerprint={fingerprint} />
     <script is:inline>
       {`

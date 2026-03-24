@@ -24,10 +24,7 @@ affiliate_offer:
 canonicalUrl: "https://survivetheai.com/posts/the-nationalization-of-ai"
 ---
 
-![Priority National Defense Stamp Over Data Center](/images/hero_ai_nationalization_stamp.png)
-
-# The Nationalization of AI  
-### When the State Decides Your Model Is a Weapon
+*When the State Decides Your Model Is a Weapon*
 
 ---
 

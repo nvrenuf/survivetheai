@@ -22,8 +22,6 @@ audio_file: ai-classroom-divide-audio.mp4
 slug: ai-divide-classrooms
 ---
 
-![Students working on laptops in a classroom with uneven access to guidance and resources](/images/ai-classroom-divide-hero.png)
-
 ## Listen Instead (Audio Version)
 
 <audio controls preload="metadata" style="width: 100%; max-width: 900px; margin: 1.5rem auto; display: block;">
@@ -34,8 +32,6 @@ slug: ai-divide-classrooms
 *Audio summary: "The AI Divide in Classrooms" — format: MP4 audio.*
 
 ---
-
-# The AI Divide: Why Some Students Learn to Think and Others Don't
 
 When Maria Chen's ninth-grade son started bringing home polished essays on topics he could barely discuss at dinner, she knew something had changed. He wasn't cheating in the traditional sense—he was using AI to write his assignments. Down the street, another parent was teaching her daughter to use the same tools to brainstorm ideas, catch logical gaps, and refine arguments she'd already written herself. Same technology. Same grade level. Completely different outcomes.
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Don’t Get Replaced: Pick the AI Study Platform That Builds the Right Skills"
 description: "Match your skill gaps to the right AI study tool—so you stay useful and employed."
 date: 2025-11-07T12:00:00Z
@@ -25,7 +25,6 @@ affiliate_offer:
   description: "Download the free resilience playbook to stay employable through 2026."
 canonicalUrl: "https://survivetheai.com/posts/ai-study-platforms-2025"
 ---
-# Don’t Get Replaced: Pick the AI Study Platform That Builds the Right Skills
 
 > **If you don’t control the tools, the tools will control you.**
 

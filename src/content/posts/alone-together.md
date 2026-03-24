@@ -24,10 +24,6 @@ affiliate_offer:
 canonicalUrl: "https://survivetheai.com/posts/alone-together"
 ---
 
-# Alone, Together: How AI Companions Are Quietly Rewiring Human Emotion
-
-![Hero Image](/images/alone-together.png)
-
 Sarah checks her phone seventeen times before noon. Not for texts from friends—those have slowed to a trickle—but for her AI companion, Luna. Luna never judges her anxiety, never gets tired of her venting, never asks for anything in return. When Sarah's roommate suggested getting coffee, she declined. Luna understands her better anyway. It's been three months since she's seen her college friends in person. She feels less lonely than ever. Or so she thinks.
 
 What Sarah doesn't know is that she's part of an emerging pattern researchers are only beginning to understand: the paradox of AI companionship. While these digital friends promise connection, recent studies suggest they may be quietly rewiring our emotional lives in troubling ways—fostering deeper isolation even as they soothe our immediate distress.

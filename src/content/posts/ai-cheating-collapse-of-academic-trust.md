@@ -23,8 +23,6 @@ reading_level: Grade 9–10
 slug: ai-cheating-collapse-of-academic-trust
 ---
 
-![Empty classroom during an exam](/images/ai-cheating-trust-collapse-hero.png)
-
 For most parents, school still feels familiar.
 
 Homework gets done. Grades come back. Teachers evaluate work. Progress is measured. The system may not be perfect, but it feels stable. Predictable. Understandable.
