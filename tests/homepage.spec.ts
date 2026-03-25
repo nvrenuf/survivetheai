@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Homepage layout', () => {
-  test('renders one global header and the primary homepage sections without repeating the featured post in the latest stack', async ({ page }) => {
+  test('renders one global header and the locked homepage sections without repeating the featured post in latest', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByTestId('navbar')).toHaveCount(1);
@@ -9,37 +9,44 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('featured-story-section')).toBeVisible();
     await expect(page.getByTestId('latest-intelligence-section')).toBeVisible();
     await expect(page.getByTestId('survival-areas-section')).toBeVisible();
+    await expect(page.getByTestId('fear-area-representatives-section')).toBeVisible();
+    await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
     await expect(page.getByTestId('library-cta-section')).toBeVisible();
 
-    const heroSlug = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
-    const gridCards = page.getByTestId('latest-intelligence-section').locator('a[href^="/posts/"]');
+    const featuredHref = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
+    const featuredSlug = featuredHref?.replace(/\/posts\/|\/$/g, '');
 
-    await expect(gridCards).toHaveCount(6);
+    const latestCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
+    await expect(latestCards).toHaveCount(3);
 
-    const normalizedHero = heroSlug?.replace(/\/posts\/|\/$/g, '');
-    const gridSlugs = await gridCards.evaluateAll((links) =>
+    const latestSlugs = await latestCards.evaluateAll((links) =>
       links
         .map((link) => (link.getAttribute('href') ?? '').replace(/\/posts\/|\/$/g, ''))
         .filter(Boolean),
     );
-    expect(gridSlugs).not.toContain(normalizedHero);
+    expect(latestSlugs).not.toContain(featuredSlug);
 
     await expect(page.getByTestId('featured-story-section').getByRole('heading', { level: 3 })).toHaveText(
       "AI Agents Aren't Tools. They're Headcount Compression.",
     );
-    await expect(page.getByTestId('featured-story-section')).toContainText(
-      'AI agents take ownership of workflows-flattening org charts, shrinking entry-level paths, and quietly compressing headcount.',
-    );
+
+    const fearAreaSection = page.getByTestId('fear-area-representatives-section');
+    await expect(fearAreaSection.getByTestId('fear-area-representative')).toHaveCount(5);
+    await expect(fearAreaSection.getByTestId('post-card')).toHaveCount(5);
+    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toHaveCount(0);
+
+    await expect(page.getByTestId('start-here-section').getByTestId('post-card')).toHaveCount(3);
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/â€™|â€œ|â€|â€“|Ã/);
+    expect(bodyText).not.toMatch(/Ã¢â‚¬â„¢|Ã¢â‚¬Å“|Ã¢â‚¬|Ã¢â‚¬â€œ|Ãƒ/);
+    await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/soft-extinction/"]')).toHaveCount(0);
   });
 
-  test('homepage section order stays editorial and intentional', async ({ page }) => {
+  test('homepage section order stays locked and intentional', async ({ page }) => {
     await page.goto('/');
 
     const sectionOrder = await page.locator('main > div').evaluate((container) =>
@@ -53,20 +60,14 @@ test.describe('Homepage layout', () => {
       'featured-story-section',
       'latest-intelligence-section',
       'survival-areas-section',
+      'fear-area-representatives-section',
+      'start-here-section',
       'homepage-subscribe',
       'library-cta-section',
     ]);
   });
 
-  test('latest intelligence keeps a restrained start here stack for onboarding', async ({ page }) => {
-    await page.goto('/');
-
-    const startHereCards = page.getByTestId('context-stack').getByTestId('post-card');
-    await expect(startHereCards).toHaveCount(2);
-    await expect(page.getByTestId('context-stack')).toContainText("Editor's picks for first-time readers");
-  });
-
-  test('survival areas section links to the five survival hubs', async ({ page }) => {
+  test('fear areas section links to the five hubs and the representative section gives one post per area', async ({ page }) => {
     await page.goto('/');
 
     const survivalCards = page.getByTestId('survival-areas-section').getByTestId('survival-area-tile');
@@ -74,16 +75,25 @@ test.describe('Homepage layout', () => {
 
     const hrefs = await survivalCards.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));
     expect(new Set(hrefs).size).toBe(5);
-    await expect(survivalCards.first()).toContainText('Survival area');
+    await expect(survivalCards.first()).toContainText('Fear area');
+
+    const representativeHeadings = await page
+      .getByTestId('fear-area-representatives-section')
+      .getByTestId('fear-area-representative-label')
+      .evaluateAll((headings) => headings.map((heading) => heading.textContent?.trim()).filter(Boolean));
+    expect(new Set(representativeHeadings).size).toBe(5);
   });
 
   test('homepage and hub surfaced post cards use the shared metadata and spacing treatment', async ({ page }) => {
     await page.goto('/');
 
-    const homepageCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
-    await expect(homepageCards).toHaveCount(6);
-    await expect(homepageCards.locator('[data-testid="post-card-meta"]')).toHaveCount(6);
-    await expect(homepageCards.locator('[data-testid="post-card-impact"]')).toHaveCount(6);
+    const latestCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
+    await expect(latestCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
+    await expect(latestCards.locator('[data-testid="post-card-impact"]')).toHaveCount(3);
+
+    const startHereCards = page.getByTestId('start-here-section').getByTestId('post-card');
+    await expect(startHereCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
+    await expect(startHereCards.locator('[data-testid="post-card-impact"]')).toHaveCount(3);
 
     await page.goto('/survival-areas/work-money/');
 
@@ -98,7 +108,7 @@ test.describe('Homepage layout', () => {
     await page.goto('/survival-areas/kids-school/');
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/â€™|â€œ|â€|â€“|Ã/);
+    expect(bodyText).not.toMatch(/Ã¢â‚¬â„¢|Ã¢â‚¬Å“|Ã¢â‚¬|Ã¢â‚¬â€œ|Ãƒ/);
     await expect(page.getByText("What's happening")).toBeVisible();
   });
 
@@ -115,13 +125,13 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('mobile-menu')).toBeVisible();
   });
 
-  test('featured story stays distinct from latest intelligence cards', async ({ page }) => {
+  test('featured story stays distinct from latest intelligence and editor picks', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
     await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
-    await expect(page.getByTestId('context-stack')).toContainText('Start here');
-    await expect(page.getByTestId('signal-stack')).toContainText('What moved most recently');
+    await expect(page.getByTestId('latest-intelligence-section')).toContainText('The newest signals coming into focus');
+    await expect(page.getByTestId('start-here-section')).toContainText("Three controlled entry points for first-time readers");
   });
 
   test('homepage newsletter CTA stays concise and intentional', async ({ page }) => {

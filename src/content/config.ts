@@ -7,6 +7,7 @@ export const postSchema = z.object({
   author: z.string(),
   draft: z.boolean().optional(),
   internal: z.boolean().optional(),
+  homepageHidden: z.boolean().optional(),
   featured: z.boolean().optional(),
   evergreen: z.boolean().optional(),
   category: z.string().optional(),

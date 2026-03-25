@@ -1,16 +1,14 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { buildSections } from '../utils/postSections';
 import { formatDate } from '../utils/format';
 import PostCard from '../components/PostCard.astro';
 import SubscribeInline from '../components/SubscribeInline';
 import { SURVIVAL_HUBS } from '../data/hubs';
+import { buildHomepagePlacement } from '../data/homepage';
 
 const posts = await getCollection('posts');
-const { featured, evergreen, latest, remaining } = buildSections(posts);
-const contextPosts = evergreen.slice(0, 2);
-const signalPosts = latest.slice(0, 4);
+const { featured, latestIntelligence, editorPicks, fearAreaSpotlights, remaining } = buildHomepagePlacement(posts);
 const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 ---
 
@@ -46,10 +44,10 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       {featured ? (
         <section class="space-y-5" data-testid="featured-story-section">
           <div class="max-w-3xl space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured story</p>
-            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The clearest signal on the front page</h2>
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured / Most Urgent</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The front-page story to read first</h2>
             <p class="text-neutral-600">
-              Start with the story that best explains where the current pressure is building, then use the sections below to widen out.
+              This slot is manually locked so the homepage always leads with the clearest current pressure signal, not just the newest upload.
             </p>
           </div>
           <div class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl ring-1 ring-neutral-100">
@@ -86,7 +84,7 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
                     href={`/posts/${featured.slug}/`}
                     class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
                   >
-                    Read the featured story
+                    Read the urgent story
                   </a>
                   <a
                     href="/posts"
@@ -106,14 +104,14 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
         </section>
       )}
 
-      {(contextPosts.length > 0 || signalPosts.length > 0) && (
+      {latestIntelligence.length > 0 && (
         <section class="space-y-6" data-testid="latest-intelligence-section">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div class="max-w-3xl space-y-2">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Latest intelligence</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The next stories to read after the lead</h2>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The newest signals coming into focus</h2>
               <p class="text-neutral-600">
-                Start with the editor's picks for grounding, then scan the latest signals to see where new pressure is surfacing.
+                This block stays automatic so the three newest eligible posts surface fast without displacing the manually locked lead story.
               </p>
             </div>
             <a
@@ -123,41 +121,18 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               View the full library
             </a>
           </div>
-          <div class="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-            {contextPosts.length > 0 && (
-              <div class="space-y-4" data-testid="context-stack">
-                <div class="space-y-1">
-                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Start here</p>
-                  <h3 class="text-xl font-black text-neutral-900">Editor's picks for first-time readers</h3>
-                </div>
-                <div class="grid grid-cols-1 gap-6">
-                  {contextPosts.map((post) => (
-                    <PostCard post={post} />
-                  ))}
-                </div>
-              </div>
-            )}
-            {signalPosts.length > 0 && (
-              <div class="space-y-4" data-testid="signal-stack">
-                <div class="space-y-1">
-                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">New pressure points</p>
-                  <h3 class="text-xl font-black text-neutral-900">What moved most recently</h3>
-                </div>
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  {signalPosts.map((post) => (
-                    <PostCard post={post} />
-                  ))}
-                </div>
-              </div>
-            )}
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {latestIntelligence.map((post) => (
+              <PostCard post={post} />
+            ))}
           </div>
         </section>
       )}
 
       <section class="space-y-6" data-testid="survival-areas-section">
         <div class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Areas</p>
-          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Browse by survival area</h2>
+          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Browse by fear area</h2>
           <p class="max-w-3xl text-neutral-600">Move from the front page into the arena that matters most to your work, family, or daily life.</p>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -170,7 +145,7 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               <div class="flex items-start gap-3">
                 <span class="mt-1 inline-block h-2 w-2 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
                 <div class="space-y-1">
-                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival area</p>
+                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Fear area</p>
                   <h3 class="text-lg font-bold leading-tight text-neutral-900 transition group-hover:text-neutral-700">{area.shortName}</h3>
                 </div>
               </div>
@@ -179,6 +154,71 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
           ))}
         </div>
       </section>
+
+      <section class="space-y-6" data-testid="fear-area-representatives-section">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">One from each fear area</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Five deterministic paths into the full map</h2>
+          <p class="max-w-3xl text-neutral-600">
+            Each fear area gets one representative slot. When a manual spotlight is not available, the homepage falls back to the newest clean
+            post in that area before it ever shows placeholder content.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
+          {fearAreaSpotlights.map((item) => (
+            <div class="space-y-3" data-testid="fear-area-representative">
+              <div class="space-y-1">
+                <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Fear area</p>
+                <h3 class="text-lg font-black text-neutral-900" data-testid="fear-area-representative-label">{item.hub.shortName}</h3>
+              </div>
+              {item.post ? (
+                <PostCard post={item.post} />
+              ) : (
+                <a
+                  href={item.fallbackHref}
+                  class="flex h-full flex-col justify-between rounded-3xl border border-neutral-200 bg-neutral-50 p-5 shadow-sm transition hover:border-neutral-300 hover:bg-white"
+                  data-testid="fear-area-fallback"
+                >
+                  <div class="space-y-3">
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">No featured post yet</p>
+                    <p class="text-sm leading-relaxed text-neutral-700">
+                      This fear area does not have an eligible homepage representative yet, but the hub is still live and ready to browse.
+                    </p>
+                  </div>
+                  <span class="mt-5 inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950">
+                    {item.fallbackLabel}
+                  </span>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {editorPicks.length > 0 && (
+        <section class="space-y-6" data-testid="start-here-section">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div class="max-w-3xl space-y-2">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Three controlled entry points for first-time readers</h2>
+              <p class="text-neutral-600">
+                This section is manually curated to keep onboarding stable even when the news cycle gets noisy or lopsided.
+              </p>
+            </div>
+            <a
+              href="/posts"
+              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+            >
+              Explore the full library
+            </a>
+          </div>
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {editorPicks.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="space-y-6" data-testid="homepage-subscribe">
         <SubscribeInline
@@ -193,11 +233,11 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       {remaining.length > 0 && (
         <section class="space-y-6" data-testid="library-cta-section">
           <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Library</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
             <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Everything else lives in the archive path.</h2>
             <p class="max-w-3xl text-neutral-600">
-              The homepage stays selective. The Survival Library keeps the full reporting stream available when you want to go deeper without
-              losing the front-page hierarchy.
+              The homepage stays selective by design. The Survival Library keeps the full reporting stream available when you want to go deeper
+              without losing the front-page hierarchy.
             </p>
           </div>
           <div class="flex flex-wrap gap-3">
@@ -211,7 +251,7 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               href="/survival-areas/work-money"
               class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
             >
-              Browse Survival Areas
+              Browse Fear Areas
             </a>
           </div>
         </section>
