@@ -24,6 +24,8 @@ type HomepagePlacement = {
   remaining: PostEntry[];
 };
 
+const LATEST_INTELLIGENCE_SIZE = 3;
+
 export const homepageConfig: HomepageConfig = {
   featuredSlug: 'ai-agents-arent-tools',
   editorPickSlugs: ['aiproofyourkid', 'replacing-human-intimacy', 'credentialism'],
@@ -53,6 +55,32 @@ function buildFearAreaFallback(hub: SurvivalHub): FearAreaSpotlight {
   };
 }
 
+function buildLatestIntelligence(posts: PostEntry[], used: Set<string>) {
+  const areaCandidates = [...SURVIVAL_HUBS]
+    .map((hub) => {
+      const post = posts.find((entry) => getPillarFromPost(entry) === hub.key && !used.has(entry.slug));
+      return post ? { hub, post } : undefined;
+    })
+    .filter((entry): entry is { hub: SurvivalHub; post: PostEntry } => Boolean(entry))
+    .sort((a, b) => b.post.data.date.getTime() - a.post.data.date.getTime());
+
+  const picked = areaCandidates.slice(0, LATEST_INTELLIGENCE_SIZE).map((entry) => entry.post);
+  picked.forEach((post) => used.add(post.slug));
+
+  if (picked.length === LATEST_INTELLIGENCE_SIZE) {
+    return picked;
+  }
+
+  for (const post of posts) {
+    if (used.has(post.slug)) continue;
+    picked.push(post);
+    used.add(post.slug);
+    if (picked.length === LATEST_INTELLIGENCE_SIZE) break;
+  }
+
+  return picked;
+}
+
 export function buildHomepagePlacement(allPosts: PostEntry[]): HomepagePlacement {
   const eligiblePosts = sortPosts(allPosts).filter(isHomepageEligible);
   const used = new Set<string>();
@@ -64,8 +92,7 @@ export function buildHomepagePlacement(allPosts: PostEntry[]): HomepagePlacement
 
   if (featured) used.add(featured.slug);
 
-  const latestIntelligence = eligiblePosts.filter((post) => !used.has(post.slug)).slice(0, 3);
-  latestIntelligence.forEach((post) => used.add(post.slug));
+  const latestIntelligence = buildLatestIntelligence(eligiblePosts, used);
 
   const fearAreaSpotlights = [...SURVIVAL_HUBS]
     .sort((a, b) => a.order - b.order)

@@ -106,7 +106,7 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div class="max-w-3xl space-y-1">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Latest intelligence</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Newest signals</h2>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Newest signals across the fear areas</h2>
             </div>
             <a
               href="/posts"
@@ -151,7 +151,7 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       <section class="space-y-6" data-testid="fear-area-representatives-section">
         <div class="space-y-1">
           <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">One from each fear area</p>
-          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">One from each fear area</h2>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Across the whole map</h2>
         </div>
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
           {fearAreaSpotlights.map((item) => (
@@ -169,10 +169,8 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
                   data-testid="fear-area-fallback"
                 >
                   <div class="space-y-3">
-                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">No featured post yet</p>
-                    <p class="text-sm leading-relaxed text-neutral-700">
-                      This fear area does not have an eligible homepage representative yet, but the hub is still live and ready to browse.
-                    </p>
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">Go deeper</p>
+                    <p class="text-sm leading-relaxed text-neutral-700">Open this fear area hub for the latest reporting, guidance, and next steps.</p>
                   </div>
                   <span class="mt-5 inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950">
                     {item.fallbackLabel}
