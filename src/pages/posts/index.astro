@@ -1,25 +1,36 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
+import ArchiveBrowsePanel from '../../components/ArchiveBrowsePanel.astro';
 import BlogList from '../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
 import { isPublicPost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../utils/postSections';
+import { getPillarFromPost } from '../../utils/postLinking';
 
 const posts = await getCollection('posts');
 const sortedPosts = sortPosts(posts).filter(isPublicPost);
 const { pages, totalPages } = paginatePosts(sortedPosts, SURVIVAL_LIBRARY_PAGE_SIZE);
 const pagePosts = pages[0] ?? [];
 const pageTitle = 'Survival Library';
+const hubCounts: Record<string, number> = {};
+
+for (const post of sortedPosts) {
+  const pillar = getPillarFromPost(post);
+  if (!pillar) continue;
+  hubCounts[pillar] = (hubCounts[pillar] ?? 0) + 1;
+}
 ---
 
 <Layout title={`${pageTitle} · Survive the AI`} description="Browse every SurviveTheAI post in reverse chronological order.">
   <main class="bg-white py-14 text-neutral-900 sm:py-16">
-    <div class="mx-auto max-w-screen-xl space-y-6 px-4 sm:px-6 lg:px-8">
-      <div class="space-y-2">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
-        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
-        <p class="text-neutral-600">All posts in reverse chronological order. Twelve posts per page.</p>
-      </div>
-
+    <div class="mx-auto max-w-screen-xl space-y-8 px-4 sm:px-6 lg:px-8">
+      <ArchiveBrowsePanel
+        pageTitle={pageTitle}
+        pageDescription="Scan the full reporting stream in order, or jump directly into the Survival Area that matches the pressure building around your work, family, or attention."
+        currentPage={1}
+        totalPages={totalPages}
+        totalPosts={sortedPosts.length}
+        hubCounts={hubCounts}
+      />
       <BlogList posts={pagePosts} currentPage={1} totalPages={totalPages} basePath="/posts" />
     </div>
   </main>

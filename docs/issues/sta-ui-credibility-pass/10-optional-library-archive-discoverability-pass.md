@@ -1,5 +1,10 @@
 # Issue 10: Optional Library/Archive Discoverability Pass
 
+## Status
+Closed on 2026-03-24.
+
+Executed as a restrained archive/library polish pass. Added a shared archive browse panel with clearer library framing, direct Survival Area entry points, and simple page context; improved the archive grid header so pagination and browse paths are easier to scan; and fixed visible archive-page mojibake in the library titles while keeping the existing editorial model intact.
+
 ## Objective
 Optionally improve archive and library discoverability after the primary credibility issues are stable and verified.
 

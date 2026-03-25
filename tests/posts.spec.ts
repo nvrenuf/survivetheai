@@ -3,11 +3,17 @@ import { expect, test } from '@playwright/test';
 test('Survival Library stays within 12 post cards per page and exposes pagination when needed', async ({ page }) => {
   await page.goto('/posts/');
   await expect(page).toHaveTitle(/Survival Library/);
+  await expect(page.getByTestId('archive-browse-panel')).toBeVisible();
+  await expect(page.getByTestId('archive-browse-panel')).toContainText('Choose the pressure map you want');
+  await expect(page.getByTestId('archive-hub-link')).toHaveCount(5);
+  await expect(page.getByTestId('archive-page-context')).toContainText('Total posts');
 
   const cards = page.getByTestId('blog-list').getByTestId('post-card');
   await expect(cards).toHaveCount(12);
   await expect(cards.locator('[data-testid="post-card-meta"]')).toHaveCount(12);
   await expect(cards.locator('[data-testid="post-card-impact"]')).toHaveCount(12);
+  await expect(page.getByTestId('archive-grid-header')).toContainText('Page 1');
+  await expect(page.getByTestId('archive-grid-header')).toContainText('Showing 12 posts');
 
   const libraryHrefs = await cards.evaluateAll((links) => links.map((link) => link.getAttribute('href')).filter(Boolean));
   expect(new Set(libraryHrefs).size).toBe(libraryHrefs.length);
@@ -16,9 +22,17 @@ test('Survival Library stays within 12 post cards per page and exposes paginatio
   const totalPages = Number(totalPagesAttr ?? '1');
   if (totalPages > 1) {
     await expect(page.getByTestId('pagination')).toBeVisible();
+    await page.goto('/posts/page/2/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Survival Library - Page 2');
+    await expect(page.getByTestId('archive-grid-header')).toContainText('Page 2');
   } else {
     await expect(page.getByTestId('pagination')).toHaveCount(0);
   }
+
+  await page.goto('/posts/');
+  await page.getByTestId('archive-hub-link').first().click();
+  await expect(page).toHaveURL(/\/survival-areas\//);
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });
 
 test('homepage and article pages render one global header', async ({ page }) => {
