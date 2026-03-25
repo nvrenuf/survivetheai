@@ -27,6 +27,17 @@ test.describe('Homepage layout', () => {
     );
     expect(latestSlugs).not.toContain(featuredSlug);
 
+    const latestAreas = await page
+      .getByTestId('latest-intelligence-section')
+      .locator('[data-testid="post-card-meta"]')
+      .evaluateAll((meta) =>
+        meta
+          .map((node) => node.textContent?.trim() ?? '')
+          .map((text) => text.split('•')[0]?.trim() || text)
+          .filter(Boolean),
+      );
+    expect(new Set(latestAreas).size).toBe(3);
+
     await expect(page.getByTestId('featured-story-section').getByRole('heading', { level: 3 })).toHaveText(
       "AI Agents Aren't Tools. They're Headcount Compression.",
     );
@@ -130,7 +141,7 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
     await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
-    await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals');
+    await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals across the fear areas');
     await expect(page.getByTestId('start-here-section')).toContainText('Start here');
   });
 
