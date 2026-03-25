@@ -1,5 +1,10 @@
 # Issue 09: Improve Article Body Rhythm, CTA Section, and Related Reading
 
+## Status
+Closed on 2026-03-24.
+
+Implemented shared article-body rhythm and endcap refinements in `PostLayout.astro`, replaced the stub `CTA.jsx` with a real reusable article CTA surface, tightened `buildPostLinking()` so `next up` does not duplicate a related card, and added Playwright coverage for article body/endcap structure on reviewed posts.
+
 ## Objective
 Make article reading flow feel more deliberate by improving body typography rhythm, replacing obvious placeholder CTA behavior, and tightening the related-reading/endcap section.
 
