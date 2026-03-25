@@ -1,14 +1,23 @@
 ---
 import Layout from '../../../layouts/BaseLayout.astro';
+import ArchiveBrowsePanel from '../../../components/ArchiveBrowsePanel.astro';
 import BlogList from '../../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
 import { isPublicPost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
 import type { PostEntry } from '../../../content/config';
+import { getPillarFromPost } from '../../../utils/postLinking';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   const sortedPosts = sortPosts(posts).filter(isPublicPost);
   const { pages, totalPages } = paginatePosts(sortedPosts, SURVIVAL_LIBRARY_PAGE_SIZE);
+  const hubCounts: Record<string, number> = {};
+
+  for (const post of sortedPosts) {
+    const pillar = getPillarFromPost(post);
+    if (!pillar) continue;
+    hubCounts[pillar] = (hubCounts[pillar] ?? 0) + 1;
+  }
 
   return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {
     const pageNumber = index + 2;
@@ -16,30 +25,34 @@ export async function getStaticPaths() {
 
     return {
       params: { page: pageNumber.toString() },
-      props: { pageNumber, totalPages, pagePosts },
+      props: { pageNumber, totalPages, pagePosts, totalPosts: sortedPosts.length, hubCounts },
       route: `/posts/page/${pageNumber}/`,
     };
   });
 }
 
-const { pageNumber, totalPages, pagePosts } = Astro.props as {
+const { pageNumber, totalPages, pagePosts, totalPosts, hubCounts } = Astro.props as {
   pageNumber: number;
   totalPages: number;
   pagePosts: PostEntry[];
+  totalPosts: number;
+  hubCounts: Record<string, number>;
 };
 
-const pageTitle = `Survival Library – Page ${pageNumber}`;
+const pageTitle = `Survival Library - Page ${pageNumber}`;
 ---
 
 <Layout title={`${pageTitle} · Survive the AI`} description="SurviveTheAI post archive with pagination.">
   <main class="bg-white py-14 text-neutral-900 sm:py-16">
-    <div class="mx-auto max-w-screen-xl space-y-6 px-4 sm:px-6 lg:px-8">
-      <div class="space-y-2">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Archive</p>
-        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">{pageTitle}</h1>
-        <p class="text-neutral-600">All posts in reverse chronological order. Twelve posts per page.</p>
-      </div>
-
+    <div class="mx-auto max-w-screen-xl space-y-8 px-4 sm:px-6 lg:px-8">
+      <ArchiveBrowsePanel
+        pageTitle={pageTitle}
+        pageDescription="Keep moving through the reporting archive in sequence, or break out into a Survival Area when you want one focused pressure map."
+        currentPage={pageNumber}
+        totalPages={totalPages}
+        totalPosts={totalPosts}
+        hubCounts={hubCounts}
+      />
       <BlogList posts={pagePosts} currentPage={pageNumber} totalPages={totalPages} basePath="/posts" />
     </div>
   </main>
