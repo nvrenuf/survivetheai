@@ -77,3 +77,20 @@ test('demo article renders the reusable STA callout system cleanly', async ({ pa
   await expect(callouts.first()).toContainText('TL;DR');
   await expect(callouts.last()).toContainText('Claims & Verification');
 });
+
+test('demo article stays directly routable but out of public reader-facing post feeds', async ({ page }) => {
+  await page.goto('/posts/pro-template-demo/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('The 2026 Survival Blueprint for AI Acceleration');
+
+  await page.goto('/posts/');
+  await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+
+  await page.goto('/');
+  await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+
+  await page.goto('/survival-areas/work-money/');
+  await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+
+  await page.goto('/posts/ai-agents-arent-tools/');
+  await expect(page.locator('[data-testid="related-rail"] a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+});

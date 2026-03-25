@@ -1,6 +1,6 @@
 import type { PostEntry } from '../content/config';
 import { getHubByKey } from '../data/hubs';
-import { sortPosts } from './postSections';
+import { isPublicPost, sortPosts } from './postSections';
 
 const PILLAR_KEYS = ['work-money', 'kids-school', 'love-connection', 'mind-attention', 'system-shock'] as const;
 export type PillarKey = (typeof PILLAR_KEYS)[number];
@@ -20,7 +20,7 @@ function uniquePosts(entries: PostEntry[]): PostEntry[] {
 }
 
 export function buildPostLinking(post: PostEntry, allPosts: PostEntry[]) {
-  const sorted = sortPosts(allPosts).filter((entry) => !entry.data.draft);
+  const sorted = sortPosts(allPosts).filter(isPublicPost);
   const pillar = getPillarFromPost(post);
   const hub = getHubByKey(pillar);
 

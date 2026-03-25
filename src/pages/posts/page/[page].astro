@@ -2,12 +2,12 @@
 import Layout from '../../../layouts/BaseLayout.astro';
 import BlogList from '../../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
-import { paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
+import { isPublicPost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
 import type { PostEntry } from '../../../content/config';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const sortedPosts = sortPosts(posts).filter((post) => !post.data.draft);
+  const sortedPosts = sortPosts(posts).filter(isPublicPost);
   const { pages, totalPages } = paginatePosts(sortedPosts, SURVIVAL_LIBRARY_PAGE_SIZE);
 
   return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {

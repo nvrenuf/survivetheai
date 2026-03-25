@@ -15,6 +15,10 @@ export function sortPosts(posts: PostEntry[]): PostEntry[] {
   return [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
+export function isPublicPost(post: PostEntry): boolean {
+  return !post.data.draft && !post.data.internal;
+}
+
 export function isPlaceholderPost(post: PostEntry): boolean {
   const title = post.data.title.trim().toLowerCase();
   const description = post.data.description.trim().toLowerCase();
@@ -29,7 +33,7 @@ export function isPlaceholderPost(post: PostEntry): boolean {
 }
 
 export function buildSections(allPosts: PostEntry[]): Sections {
-  const publishedPosts = sortPosts(allPosts).filter((post) => !post.data.draft);
+  const publishedPosts = sortPosts(allPosts).filter(isPublicPost);
   const posts = publishedPosts.filter((post) => !isPlaceholderPost(post));
   const used = new Set<string>();
 
@@ -55,7 +59,7 @@ export function buildSections(allPosts: PostEntry[]): Sections {
 }
 
 export function paginatePosts(posts: PostEntry[], pageSize = SURVIVAL_LIBRARY_PAGE_SIZE) {
-  const sorted = sortPosts(posts).filter((post) => !post.data.draft);
+  const sorted = sortPosts(posts).filter(isPublicPost);
   const pages: PostEntry[][] = [];
 
   for (let i = 0; i < sorted.length; i += pageSize) {
