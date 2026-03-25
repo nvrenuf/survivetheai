@@ -130,8 +130,8 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
     await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
-    await expect(page.getByTestId('latest-intelligence-section')).toContainText('The newest signals coming into focus');
-    await expect(page.getByTestId('start-here-section')).toContainText("Three controlled entry points for first-time readers");
+    await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals');
+    await expect(page.getByTestId('start-here-section')).toContainText('Start here');
   });
 
   test('homepage newsletter CTA stays concise and intentional', async ({ page }) => {

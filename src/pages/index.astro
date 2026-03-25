@@ -43,12 +43,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 
       {featured ? (
         <section class="space-y-5" data-testid="featured-story-section">
-          <div class="max-w-3xl space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured / Most Urgent</p>
-            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The front-page story to read first</h2>
-            <p class="text-neutral-600">
-              This slot is manually locked so the homepage always leads with the clearest current pressure signal, not just the newest upload.
-            </p>
+          <div class="max-w-3xl space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured Analysis</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Most urgent now</h2>
           </div>
           <div class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl ring-1 ring-neutral-100">
             <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
@@ -107,12 +104,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       {latestIntelligence.length > 0 && (
         <section class="space-y-6" data-testid="latest-intelligence-section">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div class="max-w-3xl space-y-2">
+            <div class="max-w-3xl space-y-1">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Latest intelligence</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The newest signals coming into focus</h2>
-              <p class="text-neutral-600">
-                This block stays automatic so the three newest eligible posts surface fast without displacing the manually locked lead story.
-              </p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Newest signals</h2>
             </div>
             <a
               href="/posts"
@@ -130,10 +124,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       )}
 
       <section class="space-y-6" data-testid="survival-areas-section">
-        <div class="space-y-2">
+        <div class="space-y-1">
           <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
           <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Browse by fear area</h2>
-          <p class="max-w-3xl text-neutral-600">Move from the front page into the arena that matters most to your work, family, or daily life.</p>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {survivalAreas.map((area) => (
@@ -156,13 +149,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       </section>
 
       <section class="space-y-6" data-testid="fear-area-representatives-section">
-        <div class="space-y-2">
+        <div class="space-y-1">
           <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">One from each fear area</p>
-          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Five deterministic paths into the full map</h2>
-          <p class="max-w-3xl text-neutral-600">
-            Each fear area gets one representative slot. When a manual spotlight is not available, the homepage falls back to the newest clean
-            post in that area before it ever shows placeholder content.
-          </p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">One from each fear area</h2>
         </div>
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
           {fearAreaSpotlights.map((item) => (
@@ -198,12 +187,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       {editorPicks.length > 0 && (
         <section class="space-y-6" data-testid="start-here-section">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div class="max-w-3xl space-y-2">
+            <div class="max-w-3xl space-y-1">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Three controlled entry points for first-time readers</h2>
-              <p class="text-neutral-600">
-                This section is manually curated to keep onboarding stable even when the news cycle gets noisy or lopsided.
-              </p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Start here</h2>
             </div>
             <a
               href="/posts"
@@ -232,13 +218,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 
       {remaining.length > 0 && (
         <section class="space-y-6" data-testid="library-cta-section">
-          <div class="space-y-2">
+          <div class="space-y-1">
             <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
-            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Everything else lives in the archive path.</h2>
-            <p class="max-w-3xl text-neutral-600">
-              The homepage stays selective by design. The Survival Library keeps the full reporting stream available when you want to go deeper
-              without losing the front-page hierarchy.
-            </p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Explore the Survival Library</h2>
           </div>
           <div class="flex flex-wrap gap-3">
             <a
