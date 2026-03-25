@@ -1,5 +1,10 @@
 # Issue 08: Add Reusable STA Article Callout Components
 
+## Status
+Closed on 2026-03-24.
+
+Implemented a constrained reusable callout system by extending the shared `Callout.astro` component with STA-specific variants for TL;DR, What We Can Defend, What Could Happen Next, Warning, Checklist, and Claims & Verification. Added MDX support so callouts render through the existing post pipeline, documented the authoring API in `src/content/README.md`, and validated the pattern in `src/content/posts/pro-template-demo.mdx` with Playwright coverage.
+
 ## Objective
 Provide a reusable set of STA-native article callout blocks that can be used to reinforce key arguments and improve article credibility without changing the underlying content model.
 

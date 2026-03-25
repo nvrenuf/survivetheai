@@ -61,3 +61,19 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
   await expect(page.locator('article h1')).toHaveCount(0);
 });
+
+test('demo article renders the reusable STA callout system cleanly', async ({ page }) => {
+  await page.goto('/posts/pro-template-demo/');
+
+  const callouts = page.getByTestId('article-callout');
+  await expect(callouts).toHaveCount(6);
+  await expect(page.locator('[data-callout-kind="tldr"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="defend"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="next"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="warning"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="checklist"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="claims"]')).toHaveCount(1);
+  await expect(page.locator('[data-callout-kind="checklist"] li')).toHaveCount(3);
+  await expect(callouts.first()).toContainText('TL;DR');
+  await expect(callouts.last()).toContainText('Claims & Verification');
+});

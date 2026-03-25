@@ -1,8 +1,8 @@
 # STA UI Credibility Pass Issue Order
 
 Current status as of 2026-03-24:
-- Completed: Issue 01, Issue 02, Issue 03, Issue 04, Issue 05, Issue 06, Issue 07
-- Next recommended issue: Issue 08
+- Completed: Issue 01, Issue 02, Issue 03, Issue 04, Issue 05, Issue 06, Issue 07, Issue 08
+- Next recommended issue: Issue 09
 
 This pass is a touch-up/editorial credibility pass for SurviveTheAI. It preserves the current STA identity, tone, and overall content model. It is not a redesign, rebrand, or CMS migration.
 
@@ -26,8 +26,8 @@ This pass is a touch-up/editorial credibility pass for SurviveTheAI. It preserve
 - Issue 05: Complete
 - Issue 06: Complete
 - Issue 07: Complete
-- Issue 08: Ready
-- Issue 09: Pending
+- Issue 08: Complete
+- Issue 09: Ready
 - Issue 10: Deferred pending stability of issues 01-09
 
 ## Control Notes
