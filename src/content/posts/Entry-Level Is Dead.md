@@ -24,10 +24,6 @@ affiliate_offer:
 canonicalUrl: "https://survivetheai.com/posts/entry-level-is-dead"
 ---
 
-Entry-Level Is Dead: How AI Is Sawing Off the Bottom Rung of the Career Ladder
-
-![Black and white hero image: a career ladder in stark lighting with its bottom rungs missing, fading into shadow below.](/images/entry-level-dead-ladder-bw.jpg)
-
 A new grad sits in front of a laptop, staring at a spreadsheet of 287 applications.
 
 Same story every time: polished resume, decent GPA, side projects, internships that were supposed to “set them apart.”

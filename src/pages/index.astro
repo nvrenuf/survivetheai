@@ -9,86 +9,112 @@ import { SURVIVAL_HUBS } from '../data/hubs';
 
 const posts = await getCollection('posts');
 const { featured, evergreen, latest, remaining } = buildSections(posts);
-const supportingPosts = [...evergreen, ...latest].slice(0, 6);
+const contextPosts = evergreen.slice(0, 2);
+const signalPosts = latest.slice(0, 4);
 const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
 ---
 
-<Layout title="Survive the AI — Prepare, adapt, and stay ahead">
+<Layout title="Survive the AI - Prepare, adapt, and stay ahead">
   <main class="bg-white py-16 text-neutral-900 sm:py-20">
     <div class="mx-auto max-w-screen-xl space-y-16 px-4 sm:px-6 lg:px-8">
-      <section class="py-10 sm:py-12" data-testid="mission-block">
-        <div class="mx-auto max-w-3xl text-center space-y-4">
-          <h1 class="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-            The AI Flood Is Here. Learn to Adapt Before You’re Forced To
-          </h1>
-          <p class="text-base leading-relaxed text-neutral-600 sm:text-lg">
-            SurviveTheAI delivers clear, evidence-based survival strategies for a world reshaped by artificial intelligence. We go beyond
-            headlines to explain what AI is actually changing — jobs, education, attention, relationships, and institutions — and what
-            individuals and families can do now to stay relevant, resilient, and informed.
-          </p>
+      <section class="py-6 sm:py-8" data-testid="homepage-hero">
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-end">
+          <div class="space-y-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survive the AI</p>
+            <div class="max-w-4xl space-y-4">
+              <h1 class="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
+                The AI Flood Is Here. Learn to Adapt Before You're Forced To.
+              </h1>
+              <p class="max-w-3xl text-base leading-relaxed text-neutral-600 sm:text-lg">
+                SurviveTheAI is an editorial survival guide for a world reshaped by artificial intelligence. We track what AI is changing
+                across jobs, education, attention, relationships, and institutions, then translate those shifts into clear next moves for
+                people and families.
+              </p>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-7">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">What you'll find here</p>
+            <ul class="mt-4 space-y-3 text-sm leading-relaxed text-neutral-700">
+              <li>Evidence-based reporting on where AI pressure is building first.</li>
+              <li>Editorial context that separates structural risk from passing hype.</li>
+              <li>Practical survival paths for people who need to act before the system catches up.</li>
+            </ul>
+          </div>
         </div>
       </section>
+
       {featured ? (
-        <section class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl ring-1 ring-neutral-100" data-testid="hero-section">
-          <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-            <a
-              href={`/posts/${featured.slug}/`}
-              class="block overflow-hidden bg-neutral-100 transition lg:order-last lg:border-l lg:border-neutral-200"
-            >
-              <div class="relative h-full min-h-[260px] sm:min-h-[320px]">
-                <img
-                  src={featured.data.heroImage}
-                  alt={featured.data.heroImageAlt ?? featured.data.title}
-                  class="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="630"
-                />
-              </div>
-            </a>
-            <div class="space-y-6 px-6 py-8 sm:px-8 sm:py-10 lg:py-12">
-              <div class="space-y-3">
-                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Primary Featured Post</p>
-                <h2 class="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">{featured.data.title}</h2>
-                <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{featured.data.description}</p>
-              </div>
-              <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
-                <span>{formatDate(featured.data.date)}</span>
-                <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                <span>Impact Score {featured.data.impact_score}</span>
-              </div>
-              <div class="flex flex-wrap gap-3 pt-2">
-                <a
-                  href={`/posts/${featured.slug}/`}
-                  class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-                >
-                  Start here
-                </a>
-                <a
-                  href="/posts"
-                  class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-                >
-                  Browse the Survival Library
-                </a>
+        <section class="space-y-5" data-testid="featured-story-section">
+          <div class="max-w-3xl space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured story</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The clearest signal on the front page</h2>
+            <p class="text-neutral-600">
+              Start with the story that best explains where the current pressure is building, then use the sections below to widen out.
+            </p>
+          </div>
+          <div class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl ring-1 ring-neutral-100">
+            <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+              <a
+                href={`/posts/${featured.slug}/`}
+                class="block overflow-hidden bg-neutral-100 transition lg:order-last lg:border-l lg:border-neutral-200"
+              >
+                <div class="relative h-full min-h-[260px] sm:min-h-[320px]">
+                  <img
+                    src={featured.data.heroImage}
+                    alt={featured.data.heroImageAlt ?? featured.data.title}
+                    class="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    width="1200"
+                    height="630"
+                  />
+                </div>
+              </a>
+              <div class="space-y-6 px-6 py-8 sm:px-8 sm:py-10 lg:py-12">
+                <div class="space-y-3">
+                  <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Featured analysis</p>
+                  <h3 class="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">{featured.data.title}</h3>
+                  <p class="max-w-3xl text-lg text-neutral-700 sm:text-xl">{featured.data.description}</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
+                  <span>{formatDate(featured.data.date)}</span>
+                  <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                  <span>Impact Score {featured.data.impact_score}</span>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                  <a
+                    href={`/posts/${featured.slug}/`}
+                    class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                  >
+                    Read the featured story
+                  </a>
+                  <a
+                    href="/posts"
+                    class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                  >
+                    Browse the Survival Library
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </section>
       ) : (
-        <section class="space-y-3" data-testid="hero-section">
+        <section class="space-y-3" data-testid="featured-story-section">
           <h2 class="text-3xl font-extrabold sm:text-4xl">No posts published yet.</h2>
           <p class="text-neutral-600">Come back soon for the latest analysis on surviving the AI disruption.</p>
         </section>
       )}
 
-      {supportingPosts.length > 0 && (
-        <section class="space-y-5" data-testid="curated-grid-section">
+      {(contextPosts.length > 0 || signalPosts.length > 0) && (
+        <section class="space-y-6" data-testid="latest-intelligence-section">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div class="space-y-2">
-              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Next up</p>
-              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Further intelligence</h2>
-              <p class="max-w-3xl text-neutral-600">A deliberate stack of follow-on reads—kept tight so the featured story still leads.</p>
+            <div class="max-w-3xl space-y-2">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Latest intelligence</p>
+              <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">The next stories to read after the lead</h2>
+              <p class="text-neutral-600">
+                Start with the editor's picks for grounding, then scan the latest signals to see where new pressure is surfacing.
+              </p>
             </div>
             <a
               href="/posts"
@@ -97,10 +123,33 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               View the full library
             </a>
           </div>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {supportingPosts.map((post) => (
-              <PostCard post={post} />
-            ))}
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            {contextPosts.length > 0 && (
+              <div class="space-y-4" data-testid="context-stack">
+                <div class="space-y-1">
+                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Start here</p>
+                  <h3 class="text-xl font-black text-neutral-900">Editor's picks for first-time readers</h3>
+                </div>
+                <div class="grid grid-cols-1 gap-6">
+                  {contextPosts.map((post) => (
+                    <PostCard post={post} />
+                  ))}
+                </div>
+              </div>
+            )}
+            {signalPosts.length > 0 && (
+              <div class="space-y-4" data-testid="signal-stack">
+                <div class="space-y-1">
+                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">New pressure points</p>
+                  <h3 class="text-xl font-black text-neutral-900">What moved most recently</h3>
+                </div>
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  {signalPosts.map((post) => (
+                    <PostCard post={post} />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -108,19 +157,20 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       <section class="space-y-6" data-testid="survival-areas-section">
         <div class="space-y-2">
           <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Areas</p>
-          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Choose your entry point</h2>
-          <p class="max-w-3xl text-neutral-600">Deep dives organized by the five arenas where AI is already rewriting the rules.</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Browse by survival area</h2>
+          <p class="max-w-3xl text-neutral-600">Move from the front page into the arena that matters most to your work, family, or daily life.</p>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {survivalAreas.map((area) => (
             <a
               href={`${area.slug}/`}
               class="group flex h-full flex-col justify-between gap-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+              data-testid="survival-area-tile"
             >
               <div class="flex items-start gap-3">
                 <span class="mt-1 inline-block h-2 w-2 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
                 <div class="space-y-1">
-                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Navigation</p>
+                  <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Survival area</p>
                   <h3 class="text-lg font-bold leading-tight text-neutral-900 transition group-hover:text-neutral-700">{area.shortName}</h3>
                 </div>
               </div>
@@ -131,15 +181,24 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       </section>
 
       <section class="space-y-6" data-testid="homepage-subscribe">
-        <SubscribeInline client:load location="home" />
+        <SubscribeInline
+          client:load
+          location="home"
+          heading="Get the weekly briefing"
+          helperText="One concise weekly email with the newest signal, what it means, and where to act next."
+          privacyText="Free. No spam. Unsubscribe anytime."
+        />
       </section>
 
       {remaining.length > 0 && (
         <section class="space-y-6" data-testid="library-cta-section">
           <div class="space-y-2">
             <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survival Library</p>
-            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Rolled off? It lives in the library.</h2>
-            <p class="max-w-3xl text-neutral-600">Featured and curated posts stay above. Everything else lands in the Survival Library so you can binge without duplicates.</p>
+            <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Everything else lives in the archive path.</h2>
+            <p class="max-w-3xl text-neutral-600">
+              The homepage stays selective. The Survival Library keeps the full reporting stream available when you want to go deeper without
+              losing the front-page hierarchy.
+            </p>
           </div>
           <div class="flex flex-wrap gap-3">
             <a

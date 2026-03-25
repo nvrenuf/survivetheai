@@ -31,10 +31,6 @@ affiliate_offer:
 canonicalUrl: "https://survivetheai.com/posts/normal-photo-child-ai-risk"
 ---
 
-# A Normal Photo of Your Child Is Now Raw Material for Abuse
-
-![Abstract hero image showing an anonymous photo card breaking into pixels](/images/deepfake-kids-hero-abstract.png)
-
 ## TL;DR
 
 A normal photo of your child can now be turned into fake sexualized content with cheap AI tools. Your child does not have to post anything risky for this to happen. A school photo, a sports picture, or a family post can be enough. That means the old internet safety rules are no longer enough on their own. Parents and schools need to think less about “bad photos” and more about how any child photo can be copied, changed, and used for harm.

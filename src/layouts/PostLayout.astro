@@ -1,11 +1,12 @@
 ---
-import Navbar from '../components/Navbar.astro';
+import BaseLayout from './BaseLayout.astro';
 import HeroImage from '../components/HeroImage.astro';
 import Byline from '../components/Byline.tsx';
 import RightRailRelated from '../components/RightRailRelated.astro';
 import ShareBar from '../components/ShareBar.tsx';
 import PostCard from '../components/PostCard.astro';
 import TableOfContents from '../components/TableOfContents.tsx';
+import CTA from '../components/CTA.jsx';
 import '../styles/tokens.css';
 import '../styles/tailwind.css';
 import type { PostEntry } from '../content/config';
@@ -15,8 +16,6 @@ import { TOPIC_CATEGORIES } from '../data/categories';
 import SubscribeInline from '../components/SubscribeInline';
 import { buildPostLinking } from '../utils/postLinking';
 import { getHubByKey } from '../data/hubs';
-import Footer from '../components/Footer.astro';
-import { getBuildFingerprint } from '../utils/buildFingerprint';
 
 const {
   post,
@@ -48,9 +47,17 @@ const linking = buildPostLinking(post, allPosts);
 const hub = getHubByKey(linking.pillar);
 const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
 const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
+const showCategoryLabel = categoryLabel && categoryLabel !== hubLabel;
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
 const hasGa = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
-const fingerprint = getBuildFingerprint();
+const ctaTitle = hubLabel ? `Stay with the ${hubLabel} signal, not just this one story.` : 'Keep building your map before the next shift hits.';
+const ctaDescription = hubLabel
+  ? `Use the ${hubLabel} survival area for deeper reporting, then keep the wider pressure map in view with the full library and weekly briefing.`
+  : 'Move from one article into the wider reporting stream, then get the weekly STA briefing so the next pressure point does not catch you flat-footed.';
+const ctaPrimaryHref = hubPath ?? '/posts';
+const ctaPrimaryLabel = hubLabel ? `Browse ${hubLabel}` : 'Browse the Survival Library';
+const ctaSecondaryHref = hubPath ? '/posts' : '/survival-areas/work-money';
+const ctaSecondaryLabel = hubPath ? 'Open the Survival Library' : 'Browse Survival Areas';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -71,12 +78,11 @@ const structuredData = {
   mainEntityOfPage: canonicalUrl,
 };
 ---
-<!DOCTYPE html>
-<html lang="en" class="bg-white text-neutral-900">
-  <head>
+
+<BaseLayout title={`${title} - Survive the AI`} description={description} wrapMain={false} bodyClass="bg-white text-neutral-900 antialiased">
+  <Fragment slot="head">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:type" content="article" />
     <meta property="og:title" content={title} />
@@ -89,170 +95,215 @@ const structuredData = {
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={heroSrc.startsWith('http') ? heroSrc : new URL(heroSrc, canonicalUrl).toString()} />
-    <meta name="build" content={fingerprint.metaContent} />
-    <title>{title} · Survive the AI</title>
     <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-  </head>
-  <body class="bg-white text-neutral-900 antialiased">
-    <Navbar />
-  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 pt-10 sm:pt-12">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-12">
-        <main class="space-y-8 sm:space-y-10 lg:col-span-8">
-          <slot name="hero">
-            <HeroImage src={heroSrc} alt={heroAlt} />
-          </slot>
-          <header class="space-y-5 sm:space-y-6">
-            <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-neutral-500">
-              <span>{categoryLabel ?? 'Key Topic'}</span>
-              <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
-              <span>Impact Score: {impact_score}</span>
-            </div>
-            <slot name="heading">
-              <h1 class="text-4xl font-black tracking-tight text-neutral-900 sm:text-5xl leading-[1.05]">{title}</h1>
-              {description && (
-                <p class="text-xl text-neutral-700 sm:text-2xl leading-relaxed">
-                  {description}
-                </p>
+  </Fragment>
+  <div class="mx-auto max-w-[1200px] px-4 pb-16 pt-10 sm:px-6 sm:pt-12 lg:px-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+      <main class="space-y-8 sm:space-y-10 lg:col-span-8">
+        <slot name="hero">
+          <HeroImage src={heroSrc} alt={heroAlt} />
+        </slot>
+        <header class="space-y-6 sm:space-y-7" data-testid="article-top-block">
+          <div class="space-y-5">
+            <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">
+              {hubPath ? (
+                <a
+                  href={hubPath}
+                  class="inline-flex items-center gap-2 text-neutral-700 transition hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                >
+                  <span>Survival Area</span>
+                  <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                  <span>{hubLabel}</span>
+                </a>
+              ) : (
+                <span>{categoryLabel ?? 'Key Topic'}</span>
               )}
-            </slot>
+              {showCategoryLabel && (
+                <>
+                  <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
+                  <span>{categoryLabel}</span>
+                </>
+              )}
+            </div>
+          </div>
+          <slot name="heading">
+            <h1 class="text-4xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl">{title}</h1>
+            {description && (
+              <p class="text-xl leading-relaxed text-neutral-700 sm:text-2xl">
+                {description}
+              </p>
+            )}
+          </slot>
+          <div
+            class="flex flex-col gap-4 border-y border-neutral-200 py-4 sm:gap-5"
+            data-testid="article-meta-row"
+          >
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="inline-flex items-center rounded-full bg-neutral-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-700">
+                Impact Score {impact_score}
+              </span>
+              <Byline
+                client:idle
+                author={author}
+                displayDate={displayDate}
+                isoDate={isoDate}
+                readingTime={readingTimeLabel}
+              />
+            </div>
             <div class="lg:hidden">
               <slot name="share-bar-top">
-                <ShareBar client:load url={shareUrl} title={title} className="mt-2" />
+                <ShareBar client:load url={shareUrl} title={title} className="mt-1" />
               </slot>
             </div>
-          </header>
-          <Byline
-            client:idle
-            author={author}
-            displayDate={displayDate}
-            isoDate={isoDate}
-            readingTime={readingTimeLabel}
-          />
-          {hub && (
-            <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm">
-              <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-600">Part of this Survival Area</p>
-              <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
-                <div class="space-y-1">
-                  <a
-                    class="text-lg font-bold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-700"
-                    href={hubPath}
-                  >
-                    {hub.shortName}
-                  </a>
-                  <p class="text-sm text-neutral-700">{hub.tagline}</p>
-                </div>
+          </div>
+        </header>
+        {hub && (
+          <div class="rounded-2xl border border-neutral-200 bg-neutral-50 px-5 py-4 shadow-sm" data-testid="article-hub-box">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-600">Part of this Survival Area</p>
+            <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+              <div class="space-y-1">
                 <a
-                  class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                  class="text-lg font-bold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-700"
                   href={hubPath}
+                >
+                  {hub.shortName}
+                </a>
+                <p class="text-sm text-neutral-700">{hub.tagline}</p>
+              </div>
+              <a
+                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                href={hubPath}
                 >
                   View the hub
                 </a>
-              </div>
             </div>
-          )}
-          <slot name="inline-cta" />
-          <article class="prose prose-lg text-neutral-900 prose-headings:font-black prose-h2:mt-12 prose-h2:pt-2 prose-h3:mt-8 prose-p:text-neutral-800 prose-li:text-neutral-800 prose-strong:text-neutral-900 prose-blockquote:border-l-4 prose-blockquote:border-neutral-900/30 prose-blockquote:bg-neutral-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-semibold prose-blockquote:text-neutral-800">
-            <slot />
-          </article>
-          <section class="space-y-6 pt-6">
-            <SubscribeInline client:load location="post" />
-            {linking.related.length >= 2 && (
-              <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Related reading</p>
-                    <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Stay in the flow</h2>
-                  </div>
-                </div>
+          </div>
+        )}
+        <slot name="inline-cta" />
+        <article
+          class="prose prose-lg max-w-none text-neutral-900 prose-headings:font-black prose-headings:tracking-tight prose-headings:text-neutral-900 prose-h2:mt-14 prose-h2:mb-5 prose-h2:border-t prose-h2:border-neutral-200 prose-h2:pt-6 prose-h3:mt-10 prose-h3:mb-3 prose-p:my-5 prose-p:leading-8 prose-p:text-neutral-800 prose-a:font-semibold prose-a:text-neutral-900 prose-a:underline prose-a:decoration-neutral-300 prose-a:underline-offset-4 prose-strong:text-neutral-900 prose-ul:my-6 prose-ol:my-6 prose-li:my-2 prose-li:text-neutral-800 prose-li:marker:text-neutral-400 prose-blockquote:border-l-4 prose-blockquote:border-neutral-900/25 prose-blockquote:bg-neutral-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-semibold prose-blockquote:text-neutral-800 prose-hr:my-10 prose-hr:border-neutral-200"
+          data-testid="article-body"
+        >
+          <slot />
+        </article>
+        <section class="space-y-8 border-t border-neutral-200 pt-8 sm:space-y-10 sm:pt-10" data-testid="article-endcap">
+          <CTA
+            eyebrow="Continue the signal"
+            title={ctaTitle}
+            description={ctaDescription}
+            primaryHref={ctaPrimaryHref}
+            primaryLabel={ctaPrimaryLabel}
+            secondaryHref={ctaSecondaryHref}
+            secondaryLabel={ctaSecondaryLabel}
+          />
+          <SubscribeInline
+            client:load
+            location="post"
+            heading="Get the weekly STA briefing"
+            helperText="One concise weekly email with the newest signal, what it means, and where to act next."
+            privacyText="Free. No spam. Unsubscribe anytime."
+          />
+          {(linking.related.length >= 2 || linking.nextUp) && (
+            <div class="space-y-5" data-testid="article-related-reading">
+              <div class="max-w-3xl space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Related reading</p>
+                <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Continue from here without losing the thread</h2>
+                <p class="text-neutral-700">
+                  Move sideways into adjacent reporting, then use the next-step handoff below if you want a more directed reading path.
+                </p>
+              </div>
+              {linking.related.length >= 2 && (
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   {linking.related.map((entry) => (
                     <PostCard post={entry} />
                   ))}
                 </div>
-              </div>
-            )}
-            {linking.nextUp && (
-              <div class="space-y-3 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Next up</p>
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div class="space-y-1">
-                    <h2 class="text-xl font-black text-neutral-900 sm:text-2xl">{linking.nextUp.data.title}</h2>
-                    <p class="text-sm text-neutral-700">{linking.nextUp.data.description}</p>
+              )}
+              {linking.nextUp && (
+                <div
+                  class="space-y-3 rounded-[28px] border border-neutral-200 bg-white px-6 py-6 shadow-sm sm:px-7"
+                  data-testid="article-next-up"
+                >
+                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Next up</p>
+                  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div class="max-w-2xl space-y-2">
+                      <h2 class="text-xl font-black text-neutral-900 sm:text-2xl">{linking.nextUp.data.title}</h2>
+                      <p class="text-sm leading-relaxed text-neutral-700 sm:text-base">{linking.nextUp.data.description}</p>
+                    </div>
+                    <a
+                      href={`/posts/${linking.nextUp.slug}/`}
+                      class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-500 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                    >
+                      Keep reading
+                    </a>
                   </div>
-                  <a
-                    href={`/posts/${linking.nextUp.slug}/`}
-                    class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-500 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-                  >
-                    Keep reading
-                  </a>
                 </div>
-              </div>
-            )}
-          </section>
-          <footer class="pt-6">
-            <slot name="share-bar-bottom">
-              <ShareBar client:load url={shareUrl} title={title} />
-            </slot>
-          </footer>
-        </main>
-        <aside class="space-y-8 lg:col-span-4">
-          <div class="space-y-8 lg:sticky lg:top-24">
-            {linking.sidebar.length > 0 && (
-              <RightRailRelated related={linking.sidebar} heading={hubLabel ? `More in ${hubLabel}` : 'More to explore'} />
-            )}
-            {tocHeadings.length > 0 && (
-              <div class="hidden lg:block">
-                <TableOfContents client:load headings={tocHeadings} initiallyCollapsed={false} />
-              </div>
-            )}
-          </div>
-        </aside>
-      </div>
+              )}
+            </div>
+          )}
+        </section>
+        <footer class="pt-6">
+          <slot name="share-bar-bottom">
+            <ShareBar client:load url={shareUrl} title={title} />
+          </slot>
+        </footer>
+      </main>
+      <aside class="space-y-8 lg:col-span-4">
+        <div class="space-y-8 lg:sticky lg:top-24">
+          {linking.sidebar.length > 0 && (
+            <RightRailRelated related={linking.sidebar} heading={hubLabel ? `More in ${hubLabel}` : 'More to explore'} />
+          )}
+          {tocHeadings.length > 0 && (
+            <div class="hidden lg:block">
+              <TableOfContents client:load headings={tocHeadings} initiallyCollapsed={false} />
+            </div>
+          )}
+        </div>
+      </aside>
     </div>
-    <Footer fingerprint={fingerprint} />
-    <script is:inline>
-      {`
-        (function() {
-          const thresholds = [25, 50, 75, 90];
-          const seen = new Set();
-          const debug = ${analyticsDebug ? 'true' : 'false'};
-          const hasGa = ${hasGa ? 'true' : 'false'};
+  </div>
+  <script is:inline>
+    {`
+      (function() {
+        const thresholds = [25, 50, 75, 90];
+        const seen = new Set();
+        const debug = ${analyticsDebug ? 'true' : 'false'};
+        const hasGa = ${hasGa ? 'true' : 'false'};
 
-          function report(threshold) {
-            if (hasGa && typeof window.gtag === 'function') {
-              window.gtag('event', 'scroll_depth', { threshold });
-            } else if (debug) {
-              console.info('[analytics] scroll_depth', threshold);
+        function report(threshold) {
+          if (hasGa && typeof window.gtag === 'function') {
+            window.gtag('event', 'scroll_depth', { threshold });
+          } else if (debug) {
+            console.info('[analytics] scroll_depth', threshold);
+          }
+        }
+
+        let ticking = false;
+
+        function checkScroll() {
+          const doc = document.documentElement;
+          const scrolled = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
+          thresholds.forEach((threshold) => {
+            if (!seen.has(threshold) && scrolled >= threshold) {
+              seen.add(threshold);
+              report(threshold);
             }
+          });
+          if (seen.size === thresholds.length) {
+            window.removeEventListener('scroll', onScroll);
           }
+          ticking = false;
+        }
 
-          let ticking = false;
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(checkScroll);
+        }
 
-          function checkScroll() {
-            const doc = document.documentElement;
-            const scrolled = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
-            thresholds.forEach((threshold) => {
-              if (!seen.has(threshold) && scrolled >= threshold) {
-                seen.add(threshold);
-                report(threshold);
-              }
-            });
-            if (seen.size === thresholds.length) {
-              window.removeEventListener('scroll', onScroll);
-            }
-            ticking = false;
-          }
-
-          function onScroll() {
-            if (ticking) return;
-            ticking = true;
-            window.requestAnimationFrame(checkScroll);
-          }
-
-          window.addEventListener('scroll', onScroll, { passive: true });
-          checkScroll();
-        })();
-      `}
-    </script>
-  </body>
-</html>
+        window.addEventListener('scroll', onScroll, { passive: true });
+        checkScroll();
+      })();
+    `}
+  </script>
+</BaseLayout>

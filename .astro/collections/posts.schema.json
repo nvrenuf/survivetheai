@@ -32,6 +32,9 @@
         "draft": {
           "type": "boolean"
         },
+        "internal": {
+          "type": "boolean"
+        },
         "featured": {
           "type": "boolean"
         },
