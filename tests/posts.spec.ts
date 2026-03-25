@@ -34,8 +34,14 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await page.goto('/posts/ai-agents-arent-tools/');
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText("AI Agents Aren't Tools. They're Headcount Compression.");
-  await expect(page.locator('article')).not.toContainText(/Ã¢â‚¬â„¢|Ã¢â‚¬Å“|Ã¢â‚¬|Ã¢â‚¬â€œ|Ãƒ/);
+  await expect(page.locator('article')).not.toContainText(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
   await expect(page).toHaveTitle(/AI Agents Aren't Tools\. They're Headcount Compression\. - Survive the AI/);
+  await expect(page.getByTestId('article-top-block')).toContainText('Survival Area');
+  await expect(page.getByTestId('article-top-block')).toContainText('Work & Money');
+  await expect(page.getByTestId('article-meta-row')).toContainText('Impact Score 78');
+  await expect(page.getByTestId('article-meta-row')).toContainText('Published February 6, 2026');
+  await expect(page.getByTestId('article-meta-row')).toContainText('6 min read');
+  await expect(page.getByTestId('article-hub-box')).toContainText('Part of this Survival Area');
 
   const compactCards = page.getByTestId('related-rail').getByTestId('compact-post-card');
   const compactCount = await compactCards.count();
@@ -45,6 +51,7 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
 
   await page.goto('/posts/normal-photo-child-ai-risk/');
 
+  await expect(page.getByTestId('article-meta-row')).toContainText('Impact Score');
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
   await expect(page.locator('article h1')).toHaveCount(0);
   await expect(page.locator('img[src*="deepfake-kids-hero-abstract.png"]')).toHaveCount(1);

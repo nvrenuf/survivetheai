@@ -46,6 +46,7 @@ const linking = buildPostLinking(post, allPosts);
 const hub = getHubByKey(linking.pillar);
 const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
 const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
+const showCategoryLabel = categoryLabel && categoryLabel !== hubLabel;
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
 const hasGa = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
 
@@ -93,11 +94,28 @@ const structuredData = {
         <slot name="hero">
           <HeroImage src={heroSrc} alt={heroAlt} />
         </slot>
-        <header class="space-y-5 sm:space-y-6">
-          <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-neutral-500">
-            <span>{categoryLabel ?? 'Key Topic'}</span>
-            <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
-            <span>Impact Score: {impact_score}</span>
+        <header class="space-y-6 sm:space-y-7" data-testid="article-top-block">
+          <div class="space-y-5">
+            <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">
+              {hubPath ? (
+                <a
+                  href={hubPath}
+                  class="inline-flex items-center gap-2 text-neutral-700 transition hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                >
+                  <span>Survival Area</span>
+                  <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                  <span>{hubLabel}</span>
+                </a>
+              ) : (
+                <span>{categoryLabel ?? 'Key Topic'}</span>
+              )}
+              {showCategoryLabel && (
+                <>
+                  <span aria-hidden class="hidden h-1 w-1 rounded-full bg-neutral-300 sm:block" />
+                  <span>{categoryLabel}</span>
+                </>
+              )}
+            </div>
           </div>
           <slot name="heading">
             <h1 class="text-4xl font-black leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl">{title}</h1>
@@ -107,23 +125,33 @@ const structuredData = {
               </p>
             )}
           </slot>
-          <div class="lg:hidden">
-            <slot name="share-bar-top">
-              <ShareBar client:load url={shareUrl} title={title} className="mt-2" />
-            </slot>
+          <div
+            class="flex flex-col gap-4 border-y border-neutral-200 py-4 sm:gap-5"
+            data-testid="article-meta-row"
+          >
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="inline-flex items-center rounded-full bg-neutral-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-700">
+                Impact Score {impact_score}
+              </span>
+              <Byline
+                client:idle
+                author={author}
+                displayDate={displayDate}
+                isoDate={isoDate}
+                readingTime={readingTimeLabel}
+              />
+            </div>
+            <div class="lg:hidden">
+              <slot name="share-bar-top">
+                <ShareBar client:load url={shareUrl} title={title} className="mt-1" />
+              </slot>
+            </div>
           </div>
         </header>
-        <Byline
-          client:idle
-          author={author}
-          displayDate={displayDate}
-          isoDate={isoDate}
-          readingTime={readingTimeLabel}
-        />
         {hub && (
-          <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm">
+          <div class="rounded-2xl border border-neutral-200 bg-neutral-50 px-5 py-4 shadow-sm" data-testid="article-hub-box">
             <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-600">Part of this Survival Area</p>
-            <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+            <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
               <div class="space-y-1">
                 <a
                   class="text-lg font-bold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-700"
@@ -136,9 +164,9 @@ const structuredData = {
               <a
                 class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
                 href={hubPath}
-              >
-                View the hub
-              </a>
+                >
+                  View the hub
+                </a>
             </div>
           </div>
         )}
