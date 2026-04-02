@@ -1,38 +1,50 @@
-# STA UI Credibility Pass Issue Order
+# STA Trust, Authority, and Conversion Pass Issue Order
 
-Current status as of 2026-03-24:
-- Completed: Issue 01, Issue 02, Issue 03, Issue 04, Issue 05, Issue 06, Issue 07, Issue 08, Issue 09, Issue 10
-- Next recommended issue: None; STA UI credibility pass is complete
+Current status as of 2026-04-02:
+- Completed prior pass: STA UI credibility pass (historical)
+- Active pass: STA trust, authority, and conversion pass
+- Next recommended issue: Issue 01
 
-This pass is a touch-up/editorial credibility pass for SurviveTheAI. It preserves the current STA identity, tone, and overall content model. It is not a redesign, rebrand, or CMS migration.
+This pass strengthens SurviveTheAI where the current site is weakest: trust, editorial authority, consistency, and conversion readiness.
 
 ## Execution Order
-1. [Issue 01: Baseline, Branch Safety, and UI Surface Mapping](docs/issues/sta-ui-credibility-pass/01-baseline-branch-safety-and-ui-surface-mapping.md)
-2. [Issue 02: Fix Duplicated Global Header and Duplicated Article Title/Hero Rendering](docs/issues/sta-ui-credibility-pass/02-fix-duplicated-global-header-and-duplicated-article-title-hero-rendering.md)
-3. [Issue 03: Fix Encoding/Rendering Glitches and Remove Placeholder Content from Surfaced Homepage Areas](docs/issues/sta-ui-credibility-pass/03-fix-encoding-rendering-glitches-and-remove-placeholder-homepage-content.md)
-4. [Issue 04: Standardize Surfaced Post Card Metadata and Spacing](docs/issues/sta-ui-credibility-pass/04-standardize-surfaced-post-card-metadata-and-spacing.md)
-5. [Issue 05: Refactor Homepage into Clearer Editorial Sections](docs/issues/sta-ui-credibility-pass/05-refactor-homepage-into-clearer-editorial-sections.md)
-6. [Issue 06: Refine Survival Area Tiles, Newsletter Block, and Add Start Here / Editor's Picks](docs/issues/sta-ui-credibility-pass/06-refine-survival-area-tiles-newsletter-block-and-add-start-here-editors-picks.md)
-7. [Issue 07: Refactor Article Hero/Top Block and Metadata Row](docs/issues/sta-ui-credibility-pass/07-refactor-article-hero-top-block-and-metadata-row.md)
-8. [Issue 08: Add Reusable STA Article Callout Components](docs/issues/sta-ui-credibility-pass/08-add-reusable-sta-article-callout-components.md)
-9. [Issue 09: Improve Article Body Rhythm, CTA Section, and Related Reading](docs/issues/sta-ui-credibility-pass/09-improve-article-body-rhythm-cta-section-and-related-reading.md)
-10. [Issue 10: Optional Library/Archive Discoverability Pass](docs/issues/sta-ui-credibility-pass/10-optional-library-archive-discoverability-pass.md)
+
+1. Issue 01: Baseline audit, branch safety, and source-of-truth cleanup
+2. Issue 02: Add author/byline, bio, and site-level credibility layer
+3. Issue 03: Placeholder, noindex, and surfaced-content hygiene pass
+4. Issue 04: Standardize Claims & Verification across all live posts
+5. Issue 05: Publish Impact Score methodology and trust framing
+6. Issue 06: Fill Mind & Attention gap and remove dead-end navigation states
+7. Issue 07: Add Start Here / guided reader path for first-time visitors
+8. Issue 08: Add conversion spine and monetization entry points
+9. Issue 09: Archive quality triage for weak or off-brand early posts
+10. Issue 10: Final regression sweep, docs touch-up, and issue closeout
 
 ## Status
-- Issue 01: Complete
-- Issue 02: Complete
-- Issue 03: Complete
-- Issue 04: Complete
-- Issue 05: Complete
-- Issue 06: Complete
-- Issue 07: Complete
-- Issue 08: Complete
-- Issue 09: Complete
-- Issue 10: Complete
+
+- Issue 01: Not started
+- Issue 02: Not started
+- Issue 03: Not started
+- Issue 04: Not started
+- Issue 05: Not started
+- Issue 06: Not started
+- Issue 07: Not started
+- Issue 08: Not started
+- Issue 09: Not started
+- Issue 10: Not started
 
 ## Control Notes
-- Issue 02 should land before broader article refinements so layout duplication is removed at the source.
-- Issue 03 should land before homepage curation work so broken copy and placeholder content do not contaminate later editorial polishing.
-- Issues 05 and 06 stay homepage-focused and intentionally avoid a redesign.
-- Issues 07 through 09 move from article top-block cleanup into reusable article systems and then end-of-article polish.
-- Issue 10 was kept optional and executed only after the earlier issues remained stable through review.
+
+- Issue 01 must land first (reset baseline)
+- Issue 02 unlocks trust (non-negotiable)
+- Issue 03 prevents contamination of UX + SEO
+- Issue 04 defines editorial standard
+- Issue 05 turns Impact Score into real IP
+- Issue 06–07 fix navigation + reader journey
+- Issue 08 introduces monetization (carefully)
+- Issue 09 cleans archive without over-deleting
+- Issue 10 closes the pass cleanly
+
+## Historical Note
+
+- Previous UI credibility pass is complete and archived
