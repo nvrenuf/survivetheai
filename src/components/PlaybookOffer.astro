@@ -9,6 +9,10 @@ const {
   secondaryLabel,
   disclaimer = 'Optional. No popups. No aggressive funneling.',
   testId,
+  primaryAnalyticsEvent,
+  primaryAnalyticsLocation,
+  secondaryAnalyticsEvent,
+  secondaryAnalyticsLocation,
 } = Astro.props as {
   eyebrow?: string;
   title?: string;
@@ -19,6 +23,10 @@ const {
   secondaryLabel?: string;
   disclaimer?: string;
   testId?: string;
+  primaryAnalyticsEvent?: string;
+  primaryAnalyticsLocation?: string;
+  secondaryAnalyticsEvent?: string;
+  secondaryAnalyticsLocation?: string;
 };
 ---
 
@@ -37,6 +45,9 @@ const {
       <a
         href={href}
         class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+        data-analytics-event={primaryAnalyticsEvent}
+        data-analytics-location={primaryAnalyticsLocation}
+        data-analytics-label={ctaLabel}
       >
         {ctaLabel}
       </a>
@@ -44,6 +55,9 @@ const {
         <a
           href={secondaryHref}
           class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+          data-analytics-event={secondaryAnalyticsEvent}
+          data-analytics-location={secondaryAnalyticsLocation}
+          data-analytics-label={secondaryLabel}
         >
           {secondaryLabel}
         </a>

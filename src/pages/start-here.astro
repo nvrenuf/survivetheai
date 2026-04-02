@@ -38,6 +38,9 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
                 href={`/posts/${featured.slug}/`}
                 class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800"
                 data-testid="start-here-featured-link"
+                data-analytics-event="start_here_content_click"
+                data-analytics-location="start-here-step-1"
+                data-analytics-label="Read the urgent story"
               >
                 Read the urgent story
               </a>
@@ -123,6 +126,8 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
         secondaryLabel="Open the full library"
         disclaimer="Free reader resource. Optional and consistent with the public reporting."
         testId="start-here-playbook-offer"
+        primaryAnalyticsEvent="playbook_cta_click"
+        primaryAnalyticsLocation="start-here-playbook-offer"
       />
 
       <section>

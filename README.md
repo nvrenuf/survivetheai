@@ -27,7 +27,7 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
   - `RESEND_FROM`
 - Safe enable checklist:
   - In Preview or Production, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` only after Supabase + Resend credentials are present.
-  - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql` so the `subscribers` table includes status, token, and request-metadata columns used by the handlers.
+  - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql` and `supabase/migrations/0002_subscriber_attribution.sql` so the `subscribers` table includes status, token, request-metadata, and attribution columns used by the handlers.
   - Verify `/api/subscribe` GET reports `mode: "provider"` and `hasCredentials: true`.
   - Submit a test signup, confirm a pending row is written to `public.subscribers`, complete `/api/confirm`, and verify the row transitions to `status = "active"`.
   - Verify `/api/unsubscribe` clears the active subscription state and sends the user to `/newsletter/unsubscribed`.
@@ -35,7 +35,15 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
 ## Analytics (minimal)
 - Events:
   - `newsletter_submit`, `newsletter_success`, `newsletter_error` (emitted from subscribe flows with location + mode metadata).
+  - `start_here_entry_click` for the guided-path entry points.
+  - `playbook_cta_click` for primary playbook conversion CTAs.
+  - `start_here_content_click` for the featured-story jump on `/start-here`.
   - `scroll_depth` at 25/50/75/90 thresholds on post pages.
+- Attribution baseline on subscribe:
+  - `source_page` from the CTA/form location
+  - `page_path`
+  - `referrer`
+  - `utm_source`, `utm_medium`, `utm_campaign`
 - Enable GA4 by setting `PUBLIC_GA_MEASUREMENT_ID`; analytics uses `gtag` when present.
 - Debug behavior:
   - If GA is absent and `PUBLIC_ANALYTICS_DEBUG=true` (or running in dev), events log to the console instead of sending to GA.

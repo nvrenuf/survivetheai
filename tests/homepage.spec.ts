@@ -158,10 +158,15 @@ test.describe('Homepage layout', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('A guided first path through SurviveTheAI');
     await expect(page.getByTestId('start-here-step')).toHaveCount(3);
     await expect(page.getByTestId('start-here-featured-link')).toHaveAttribute('href', '/posts/ai-agents-arent-tools/');
+    await expect(page.getByTestId('start-here-featured-link')).toHaveAttribute('data-analytics-event', 'start_here_content_click');
     await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'How we research' })).toHaveAttribute('href', '/how-we-research');
     await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'Impact Score methodology' })).toHaveAttribute('href', '/impact-score-methodology');
     await expect(page.getByTestId('start-here-editor-picks').getByTestId('post-card')).toHaveCount(3);
     await expect(page.getByTestId('start-here-playbook-offer')).toBeVisible();
+    await expect(page.getByTestId('start-here-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute(
+      'data-analytics-event',
+      'playbook_cta_click',
+    );
   });
 
   test('impact score methodology page explains how to interpret the score', async ({ page }) => {
@@ -188,6 +193,11 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('homepage-playbook-offer')).toContainText('Get the free Survival Playbook');
     await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute('href', '/playbook');
+    await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute(
+      'data-analytics-event',
+      'playbook_cta_click',
+    );
+    await expect(page.getByTestId('start-here-guided-link')).toHaveAttribute('data-analytics-event', 'start_here_entry_click');
     await expect(page.getByTestId('homepage-subscribe')).toContainText('Get the weekly briefing');
     await expect(page.getByTestId('homepage-subscribe')).toContainText(
       'One concise weekly email with the newest signal, what it means, and where to act next.',

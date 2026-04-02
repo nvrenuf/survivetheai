@@ -71,6 +71,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     email?: string;
     source?: string;
     source_page?: string;
+    page_path?: string;
+    referrer?: string;
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
     honeypot?: string;
     company?: string;
   };
@@ -111,6 +116,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   const sourceValue = (payload.source_page ?? payload.source ?? "").toString().slice(0, 200);
+  const pagePathValue = (payload.page_path ?? "").toString().slice(0, 200);
+  const referrerValue = (payload.referrer ?? "").toString().slice(0, 200);
+  const utmSourceValue = (payload.utm_source ?? "").toString().slice(0, 120);
+  const utmMediumValue = (payload.utm_medium ?? "").toString().slice(0, 120);
+  const utmCampaignValue = (payload.utm_campaign ?? "").toString().slice(0, 120);
 
   try {
     const supabase = createClient(env.supabaseUrl, env.supabaseKey, {
@@ -147,6 +157,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         {
           email: normalizedEmail,
           source_page: sourceValue || null,
+          page_path: pagePathValue || null,
+          referrer: referrerValue || null,
+          utm_source: utmSourceValue || null,
+          utm_medium: utmMediumValue || null,
+          utm_campaign: utmCampaignValue || null,
           status: "pending",
           confirmed_at: null,
           unsubscribed_at: null,

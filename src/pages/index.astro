@@ -207,6 +207,9 @@ const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undef
                 href="/start-here"
                 class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
                 data-testid="start-here-guided-link"
+                data-analytics-event="start_here_entry_click"
+                data-analytics-location="homepage-start-here-section"
+                data-analytics-label="Open the guided path"
               >
                 Open the guided path
               </a>
@@ -236,6 +239,10 @@ const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undef
         secondaryLabel="Open Start Here"
         disclaimer="Free reader resource. Integrated intentionally, not spammed everywhere."
         testId="homepage-playbook-offer"
+        primaryAnalyticsEvent="playbook_cta_click"
+        primaryAnalyticsLocation="homepage-playbook-offer"
+        secondaryAnalyticsEvent="start_here_entry_click"
+        secondaryAnalyticsLocation="homepage-playbook-offer"
       />
 
       <section class="space-y-6" data-testid="homepage-subscribe">
