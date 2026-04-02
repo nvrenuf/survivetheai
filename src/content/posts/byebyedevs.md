@@ -3,6 +3,8 @@ title: "Are Programmers Becoming Obsolete in the Age of AI?"
 description: "As AI tools become more powerful, the traditional role of a programmer is evolving — and potentially disappearing."
 date: 2025-07-26T13:52:00Z
 author: "Alex Morgan"
+noindex: true
+archiveHidden: true
 category: "Work & Money – AI Job Displacement"
 topics:
   - "work-money"

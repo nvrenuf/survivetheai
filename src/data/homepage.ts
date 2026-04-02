@@ -1,7 +1,7 @@
 import type { PostEntry } from '../content/config';
 import { SURVIVAL_HUBS, type SurvivalHub } from './hubs';
 import { getPillarFromPost } from '../utils/postLinking';
-import { isPlaceholderPost, isPublicPost, sortPosts } from '../utils/postSections';
+import { isArchiveVisiblePost, isPlaceholderPost, sortPosts } from '../utils/postSections';
 
 type HomepageConfig = {
   featuredSlug: string;
@@ -39,7 +39,7 @@ export const homepageConfig: HomepageConfig = {
 };
 
 function isHomepageEligible(post: PostEntry): boolean {
-  return isPublicPost(post) && !post.data.homepageHidden && !isPlaceholderPost(post);
+  return isArchiveVisiblePost(post) && !post.data.homepageHidden && !isPlaceholderPost(post);
 }
 
 function findEligiblePostBySlug(posts: PostEntry[], slug?: string, used?: Set<string>) {

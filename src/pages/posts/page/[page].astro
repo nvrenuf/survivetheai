@@ -3,13 +3,13 @@ import Layout from '../../../layouts/BaseLayout.astro';
 import ArchiveBrowsePanel from '../../../components/ArchiveBrowsePanel.astro';
 import BlogList from '../../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
-import { isPublicPost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
+import { isArchiveVisiblePost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../../utils/postSections';
 import type { PostEntry } from '../../../content/config';
 import { getHubKeysForPost } from '../../../utils/postLinking';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const sortedPosts = sortPosts(posts).filter(isPublicPost);
+  const sortedPosts = sortPosts(posts).filter(isArchiveVisiblePost);
   const { pages, totalPages } = paginatePosts(sortedPosts, SURVIVAL_LIBRARY_PAGE_SIZE);
   const hubCounts: Record<string, number> = {};
 

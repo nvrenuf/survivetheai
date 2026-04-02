@@ -144,6 +144,34 @@ test('internal and placeholder posts stay out of public routes and public reader
   await expect(page).toHaveTitle(/404|Not Found/i);
 });
 
+test('triaged weak archive posts are removed from discovery surfaces and marked noindex', async ({ page }) => {
+  const triagedSlugs = ['/posts/aifears/', '/posts/byebyedevs/', '/posts/riseofgigeconomy/'];
+
+  await page.goto('/posts/');
+  for (const slug of triagedSlugs) {
+    await expect(page.locator(`a[href="${slug}"]`)).toHaveCount(0);
+  }
+
+  await page.goto('/survival-areas/work-money/');
+  await expect(page.locator('a[href="/posts/byebyedevs/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/riseofgigeconomy/"]')).toHaveCount(0);
+
+  await page.goto('/survival-areas/system-shock/');
+  await expect(page.locator('a[href="/posts/aifears/"]')).toHaveCount(0);
+
+  await page.goto('/posts/entry-level-is-dead/');
+  await expect(page.locator('[data-testid="article-related-reading"] a[href="/posts/byebyedevs/"]')).toHaveCount(0);
+
+  await page.goto('/posts/aifears/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+
+  await page.goto('/sitemap.xml');
+  const sitemapBody = await page.locator('body').textContent();
+  expect(sitemapBody).not.toContain('/posts/aifears/');
+  expect(sitemapBody).not.toContain('/posts/byebyedevs/');
+  expect(sitemapBody).not.toContain('/posts/riseofgigeconomy/');
+});
+
 test('mind and attention hub exposes multiple live paths instead of a one-post dead end', async ({ page }) => {
   await page.goto('/survival-areas/mind-attention/');
 

@@ -3,11 +3,11 @@ import Layout from '../../layouts/BaseLayout.astro';
 import BlogList from '../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
 import { TOPIC_CATEGORIES } from '../../data/categories';
-import { isPublicPost, sortPosts } from '../../utils/postSections';
+import { isArchiveVisiblePost, sortPosts } from '../../utils/postSections';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const published = posts.filter(isPublicPost);
+  const published = posts.filter(isArchiveVisiblePost);
 
   return TOPIC_CATEGORIES.map((category) => {
     const categoryPosts = sortPosts(published.filter((post) => post.data.topics?.includes(category.key)));

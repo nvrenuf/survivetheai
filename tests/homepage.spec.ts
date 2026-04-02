@@ -45,8 +45,9 @@ test.describe('Homepage layout', () => {
 
     const fearAreaSection = page.getByTestId('fear-area-representatives-section');
     await expect(fearAreaSection.getByTestId('fear-area-representative')).toHaveCount(5);
-    await expect(fearAreaSection.locator('[data-testid="post-card"]')).toHaveCount(5);
-    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toHaveCount(0);
+    await expect(fearAreaSection.locator('[data-testid="post-card"]')).toHaveCount(4);
+    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toHaveCount(1);
+    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toContainText('Browse System Shock');
 
     await expect(page.locator('[data-testid="start-here-section"] [data-testid="post-card"]')).toHaveCount(3);
 

@@ -3,6 +3,8 @@ title: "Exploring the Biggest AI Fears in 2026"
 description: "What keeps experts, governments, and citizens up at night as AI accelerates into 2026?"
 date: 2025-07-29T17:52:00Z
 author: "Justin Cuevas"
+noindex: true
+archiveHidden: true
 category: "System Shock – Soft Extinction & Collapse"
 topics:
   - "system-shock"

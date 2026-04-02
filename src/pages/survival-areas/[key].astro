@@ -3,11 +3,11 @@ import { getCollection } from 'astro:content';
 import HubLayout from '../../layouts/HubLayout.astro';
 import { SURVIVAL_HUBS } from '../../data/hubs';
 import { postBelongsToHub } from '../../utils/postLinking';
-import { isPublicPost, sortPosts } from '../../utils/postSections';
+import { isArchiveVisiblePost, sortPosts } from '../../utils/postSections';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const published = posts.filter(isPublicPost);
+  const published = posts.filter(isArchiveVisiblePost);
 
   return SURVIVAL_HUBS.map((hub) => {
     const hubPosts = sortPosts(published.filter((post) => postBelongsToHub(post, hub.key)));
