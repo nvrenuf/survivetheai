@@ -48,7 +48,7 @@ test('welcome email baseline points readers to the next-step path for their segm
     'https://survivetheai.com',
     'https://survivetheai.com/api/unsubscribe?token=abc',
   );
-  expect(playbookText).toContain('Get the playbook: https://survivetheai.com/playbook');
+  expect(playbookText).toContain('Open the playbook path: https://survivetheai.com/playbook');
 
   const hubText = buildWelcomeEmailText(
     { signupIntent: 'briefing', leadSegment: 'hub-specific', interestArea: 'mind-attention' },
@@ -56,4 +56,13 @@ test('welcome email baseline points readers to the next-step path for their segm
     'https://survivetheai.com/api/unsubscribe?token=abc',
   );
   expect(hubText).toContain('Return to your pressure area: https://survivetheai.com/survival-areas/mind-attention');
+});
+
+test('confirmed page gives subscribers a clear next-step path', async ({ page }) => {
+  await page.goto('/newsletter/confirmed/');
+
+  await expect(page.getByTestId('newsletter-confirmed-page')).toContainText('Subscription confirmed');
+  await expect(page.getByRole('link', { name: 'Go to the playbook' })).toHaveAttribute('href', '/playbook');
+  await expect(page.getByRole('link', { name: 'Open Start Here' })).toHaveAttribute('href', '/start-here');
+  await expect(page.getByRole('link', { name: 'Browse the library' })).toHaveAttribute('href', '/posts');
 });

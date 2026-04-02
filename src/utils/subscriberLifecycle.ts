@@ -66,7 +66,7 @@ export function buildWelcomeEmailText(profile: SubscriberLifecycleProfile, baseU
 
   if (profile.signupIntent === 'playbook') {
     nextStep =
-      `Get the playbook: ${baseUrl}/playbook\n` +
+      `Open the playbook path: ${baseUrl}/playbook\n` +
       `Then use Start Here: ${baseUrl}/start-here`;
   } else if (profile.leadSegment === 'hub-specific' && profile.interestArea) {
     nextStep =
