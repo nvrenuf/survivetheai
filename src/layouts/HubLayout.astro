@@ -4,6 +4,7 @@ import type { SurvivalHub } from '../data/hubs';
 import type { PostEntry } from '../content/config';
 import PostCard from '../components/PostCard.astro';
 import SubscribeInline from '../components/SubscribeInline';
+import PlaybookOffer from '../components/PlaybookOffer.astro';
 
 const { hub, posts } = Astro.props as { hub: SurvivalHub; posts: PostEntry[] };
 const hasPosts = posts.length > 0;
@@ -66,6 +67,20 @@ const title = `${hub.shortName} - Survival Areas`;
             We are drafting this playbook now. Subscribe below to get the first drop.
           </div>
         )}
+      </section>
+
+      <section class="pb-4">
+        <PlaybookOffer
+          eyebrow="Free resource"
+          title={`Get the ${hub.shortName} survival playbook layer`}
+          description={`If ${hub.shortName} is your pressure point, the free Survival Playbook gives you a compact action layer to go with the reporting.`}
+          href="/playbook"
+          ctaLabel="Get the free playbook"
+          secondaryHref="/start-here"
+          secondaryLabel="Open Start Here"
+          disclaimer="Optional. Meant to support the reporting, not interrupt it."
+          testId="hub-playbook-offer"
+        />
       </section>
 
       <section class="pb-4">

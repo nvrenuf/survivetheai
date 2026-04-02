@@ -60,6 +60,8 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.getByTestId('article-hub-box')).toContainText('Part of this Survival Area');
   await expect(page.getByTestId('author-card')).toContainText('About the author');
   await expect(page.getByTestId('author-card')).toContainText('Lee Cuevas');
+  await expect(page.getByTestId('article-playbook-offer')).toContainText('Get the free playbook');
+  await expect(page.getByTestId('article-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute('href', '/playbook');
   await expect(page.getByTestId('article-body')).toBeVisible();
   await expect(page.getByTestId('article-claims-verification')).toContainText('Claims & Verification');
   await expect(page.getByTestId('article-claims-verification')).toContainText('Well-supported');
@@ -148,7 +150,16 @@ test('mind and attention hub exposes multiple live paths instead of a one-post d
   const hubCards = page.locator('[data-testid="hub-page"] [data-testid="post-card"]');
   await expect(hubCards).toHaveCount(3);
   await expect(page.getByText('We are drafting this playbook now.')).toHaveCount(0);
+  await expect(page.getByTestId('hub-playbook-offer')).toContainText('Get the free playbook');
   await expect(page.locator('a[href="/posts/rapidchange/"]')).toHaveCount(1);
   await expect(page.locator('a[href="/posts/collapse-of-thinking-skills-ai-education/"]')).toHaveCount(1);
   await expect(page.locator('a[href="/posts/ai-divide-classrooms/"]')).toHaveCount(1);
+});
+
+test('playbook page acts as a clean conversion landing page', async ({ page }) => {
+  await page.goto('/playbook/');
+
+  await expect(page.getByTestId('playbook-page')).toContainText('Get the free Survival Playbook');
+  await expect(page.getByTestId('playbook-page')).toContainText('No spammy bait-and-switch');
+  await expect(page.getByTestId('playbook-page')).toContainText('Send me the weekly briefing and the playbook');
 });

@@ -12,6 +12,7 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('fear-area-representatives-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
+    await expect(page.getByTestId('homepage-playbook-offer')).toBeVisible();
     await expect(page.getByTestId('credibility-panel')).toBeVisible();
     await expect(page.getByTestId('library-cta-section')).toBeVisible();
 
@@ -73,6 +74,7 @@ test.describe('Homepage layout', () => {
       'survival-areas-section',
       'fear-area-representatives-section',
       'start-here-section',
+      'homepage-playbook-offer',
       'homepage-subscribe',
       'credibility-panel',
       'library-cta-section',
@@ -158,6 +160,7 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'How we research' })).toHaveAttribute('href', '/how-we-research');
     await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'Impact Score methodology' })).toHaveAttribute('href', '/impact-score-methodology');
     await expect(page.getByTestId('start-here-editor-picks').getByTestId('post-card')).toHaveCount(3);
+    await expect(page.getByTestId('start-here-playbook-offer')).toBeVisible();
   });
 
   test('impact score methodology page explains how to interpret the score', async ({ page }) => {
@@ -182,6 +185,8 @@ test.describe('Homepage layout', () => {
   test('homepage newsletter CTA stays concise and intentional', async ({ page }) => {
     await page.goto('/');
 
+    await expect(page.getByTestId('homepage-playbook-offer')).toContainText('Get the free Survival Playbook');
+    await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute('href', '/playbook');
     await expect(page.getByTestId('homepage-subscribe')).toContainText('Get the weekly briefing');
     await expect(page.getByTestId('homepage-subscribe')).toContainText(
       'One concise weekly email with the newest signal, what it means, and where to act next.',

@@ -3,7 +3,7 @@
 Current status as of 2026-04-02:
 - Completed prior pass: STA UI credibility pass (historical)
 - Active pass: STA trust, authority, and conversion pass
-- Next recommended issue: STA-08
+- Next recommended issue: STA-09
 
 This pass strengthens SurviveTheAI where the current site is weakest: trust, editorial authority, consistency, and conversion readiness.
 
@@ -29,7 +29,7 @@ This pass strengthens SurviveTheAI where the current site is weakest: trust, edi
 - STA-05: Completed 2026-04-02
 - STA-06: Completed 2026-04-02
 - STA-07: Completed 2026-04-02
-- STA-08: Not started
+- STA-08: Completed 2026-04-02
 - STA-09: Not started
 - STA-10: Not started
 

@@ -1,0 +1,53 @@
+---
+const {
+  eyebrow = 'Free resource',
+  title = 'Get the Survival Playbook',
+  description = 'A concise field guide with checklists and next-step prompts for work, family, and attention under AI pressure.',
+  href = '/playbook',
+  ctaLabel = 'Get the free playbook',
+  secondaryHref,
+  secondaryLabel,
+  disclaimer = 'Optional. No popups. No aggressive funneling.',
+  testId,
+} = Astro.props as {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  href?: string;
+  ctaLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  disclaimer?: string;
+  testId?: string;
+};
+---
+
+<section
+  class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)] sm:p-8"
+  data-testid={testId}
+>
+  <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-2xl space-y-3">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">{eyebrow}</p>
+      <h2 class="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl">{title}</h2>
+      <p class="text-base leading-relaxed text-neutral-700 sm:text-lg">{description}</p>
+      <p class="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">{disclaimer}</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <a
+        href={href}
+        class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+      >
+        {ctaLabel}
+      </a>
+      {secondaryHref && secondaryLabel && (
+        <a
+          href={secondaryHref}
+          class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+        >
+          {secondaryLabel}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

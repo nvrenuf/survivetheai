@@ -3,6 +3,7 @@ import Layout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import SubscribeInline from '../components/SubscribeInline';
 import CredibilityPanel from '../components/CredibilityPanel.astro';
+import PlaybookOffer from '../components/PlaybookOffer.astro';
 import { getCollection } from 'astro:content';
 import { buildHomepagePlacement } from '../data/homepage';
 import { SURVIVAL_HUBS } from '../data/hubs';
@@ -110,6 +111,18 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
         eyebrow="Trust check"
         title="Inspect the site before you invest your attention"
         summary="Use the pages above to see who publishes STA, how claims are handled, and how editorial scores are meant to be interpreted before you go deeper."
+      />
+
+      <PlaybookOffer
+        eyebrow="Next step"
+        title="Want the action layer? Get the free Survival Playbook"
+        description="Once the map makes sense, the playbook gives you a compact set of checklists and prompts to help you move from reading into action."
+        href="/playbook"
+        ctaLabel="Get the free playbook"
+        secondaryHref="/posts"
+        secondaryLabel="Open the full library"
+        disclaimer="Free reader resource. Optional and consistent with the public reporting."
+        testId="start-here-playbook-offer"
       />
 
       <section>

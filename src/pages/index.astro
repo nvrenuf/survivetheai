@@ -8,6 +8,7 @@ import { SURVIVAL_HUBS } from '../data/hubs';
 import { buildHomepagePlacement } from '../data/homepage';
 import CredibilityPanel from '../components/CredibilityPanel.astro';
 import { getAuthorProfile } from '../data/authors';
+import PlaybookOffer from '../components/PlaybookOffer.astro';
 
 const posts = await getCollection('posts');
 const { featured, latestIntelligence, editorPicks, fearAreaSpotlights, remaining } = buildHomepagePlacement(posts);
@@ -224,6 +225,18 @@ const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undef
           </div>
         </section>
       )}
+
+      <PlaybookOffer
+        eyebrow="Reader offer"
+        title="Get the free Survival Playbook before the pressure gets personal"
+        description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the site into a sales funnel."
+        href="/playbook"
+        ctaLabel="Get the free playbook"
+        secondaryHref="/start-here"
+        secondaryLabel="Open Start Here"
+        disclaimer="Free reader resource. Integrated intentionally, not spammed everywhere."
+        testId="homepage-playbook-offer"
+      />
 
       <section class="space-y-6" data-testid="homepage-subscribe">
         <SubscribeInline
