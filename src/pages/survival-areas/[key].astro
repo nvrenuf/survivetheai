@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import HubLayout from '../../layouts/HubLayout.astro';
 import { SURVIVAL_HUBS } from '../../data/hubs';
-import { getPillarFromPost } from '../../utils/postLinking';
+import { postBelongsToHub } from '../../utils/postLinking';
 import { isPublicPost, sortPosts } from '../../utils/postSections';
 
 export async function getStaticPaths() {
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const published = posts.filter(isPublicPost);
 
   return SURVIVAL_HUBS.map((hub) => {
-    const hubPosts = sortPosts(published.filter((post) => getPillarFromPost(post) === hub.key));
+    const hubPosts = sortPosts(published.filter((post) => postBelongsToHub(post, hub.key)));
     return {
       params: { key: hub.key },
       props: { hub, hubPosts },

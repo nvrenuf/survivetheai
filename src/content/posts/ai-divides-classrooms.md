@@ -5,7 +5,11 @@ date: 2026-02-07
 author: "Lee Cuevas"
 topics:
   - kids-school
+  - mind-attention
 pillar: kids-school
+related:
+  - rapidchange
+  - collapse-of-thinking-skills-ai-education
 tags:
   - education
   - AI in schools

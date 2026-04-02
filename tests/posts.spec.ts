@@ -141,3 +141,14 @@ test('internal and placeholder posts stay out of public routes and public reader
   await page.goto('/posts/soft-extinction/');
   await expect(page).toHaveTitle(/404|Not Found/i);
 });
+
+test('mind and attention hub exposes multiple live paths instead of a one-post dead end', async ({ page }) => {
+  await page.goto('/survival-areas/mind-attention/');
+
+  const hubCards = page.locator('[data-testid="hub-page"] [data-testid="post-card"]');
+  await expect(hubCards).toHaveCount(3);
+  await expect(page.getByText('We are drafting this playbook now.')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/rapidchange/"]')).toHaveCount(1);
+  await expect(page.locator('a[href="/posts/collapse-of-thinking-skills-ai-education/"]')).toHaveCount(1);
+  await expect(page.locator('a[href="/posts/ai-divide-classrooms/"]')).toHaveCount(1);
+});

@@ -4,7 +4,7 @@ import ArchiveBrowsePanel from '../../components/ArchiveBrowsePanel.astro';
 import BlogList from '../../components/BlogList.astro';
 import { getCollection } from 'astro:content';
 import { isPublicPost, paginatePosts, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../../utils/postSections';
-import { getPillarFromPost } from '../../utils/postLinking';
+import { getHubKeysForPost } from '../../utils/postLinking';
 
 const posts = await getCollection('posts');
 const sortedPosts = sortPosts(posts).filter(isPublicPost);
@@ -14,9 +14,9 @@ const pageTitle = 'Survival Library';
 const hubCounts: Record<string, number> = {};
 
 for (const post of sortedPosts) {
-  const pillar = getPillarFromPost(post);
-  if (!pillar) continue;
-  hubCounts[pillar] = (hubCounts[pillar] ?? 0) + 1;
+  for (const hubKey of getHubKeysForPost(post)) {
+    hubCounts[hubKey] = (hubCounts[hubKey] ?? 0) + 1;
+  }
 }
 ---
 

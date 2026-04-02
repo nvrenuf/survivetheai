@@ -8,7 +8,8 @@ topics:
   - "mind-attention"
 pillar: "mind-attention"
 related:
-  - "cognitive-erosion"
+  - "collapse-of-thinking-skills-ai-education"
+  - "ai-divide-classrooms"
 tags:
   - "adaptability"
   - "AI"
