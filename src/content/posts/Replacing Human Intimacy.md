@@ -2,7 +2,7 @@
 title: "The Artificial Embrace: How AI Companions Are Quietly Replacing Human Intimacy"
 description: "AI companions promise endless empathy and attention -- this post explores how they reshape intimacy, fuel dependence, and deepen loneliness."
 date: 2025-12-05
-author: "Admin"
+author: "SurviveTheAI Editorial Team"
 evergreen: true
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:

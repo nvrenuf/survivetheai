@@ -1,284 +1,196 @@
-# SurviveTheAI — Canonical Blog Post Creation Workflow
+# SurviveTheAI - Canonical Blog Post Creation Workflow
 
-This document defines the **single source of truth** for how SurviveTheAI blog posts are created.
+This document is the single source of truth for how SurviveTheAI posts move from signal intake to repo-ready publication.
 
-**Goals**
-- Maintain analytical authority (not hype)
-- Preserve fear → mechanism → survival framing
-- Enable future automation without quality loss
-- Prevent tool drift and content corruption
+## Goals
 
-This workflow is **manual-first, automation-ready**.
+- Maintain analytical authority instead of hype.
+- Preserve STA's fear -> mechanism -> survival framing.
+- Keep the workflow automation-ready without losing reviewability.
+- Prevent editorial drift and weak trust signals from reaching live posts.
 
----
+This workflow is manual-first and automation-ready.
 
-## Phase 0 — Topic Intake (Signal Collection)
-**Primary owner:** Human
+## Required Live-Post Standards
 
-**Inputs**
-- YouTube videos (preferred)
-- Articles / research papers
-- Social media threads (X, LinkedIn, Reddit)
+Before a post remains public, it must satisfy the repo-enforced standards below:
+
+- use a canonical author byline from `src/data/authors.ts`
+- keep a Claims & Verification entry in `src/data/claimsVerification.ts`
+- rely on the shared article layout for byline and Impact Score methodology treatment
+- avoid hand-written replacement sections that bypass those shared trust surfaces
+
+`npm run build` is the enforcement gate for these live-post standards.
+
+## Phase 0 - Topic Intake
+
+Primary owner: Human
+
+Inputs:
+- YouTube videos
+- Articles or research papers
+- Social threads
 - Earnings calls, layoffs news, policy documents
 
-**Output**
-- Topic packet (links + 1–2 sentence rationale: *why this explains something people feel but can’t articulate*)
+Output:
+- topic packet with links and a short rationale for why the signal matters
 
-**Rules**
-- Do not summarize yet
-- Do not form conclusions yet
-- This phase is about **signal detection**, not writing
+Rules:
+- do not summarize yet
+- do not form conclusions yet
+- this phase is signal detection, not writing
 
----
+## Phase 1 - Source Ingest And Grounding
 
-## Phase 1 — Source Ingest & Grounding
-**Owner:** NotebookLM
+Owner: NotebookLM
 
-**Purpose**
-Establish a source-locked factual base.
+Purpose:
+- establish a source-locked factual base
 
-**Inputs**
-- Transcripts
-- Articles / PDFs
-- Copied social content (as text)
+Outputs:
+- key claims
+- mechanisms
+- assumptions
+- what is supported vs speculative
+- terminology list
 
-**Outputs**
-- Key claims (verbatim or tight paraphrase)
-- Mechanisms (how it works)
-- Assumptions
-- What is supported vs speculative
-- Terminology list
+Rules:
+- no prose drafting
+- no new facts
+- treat sources as canonical
 
-**Rules**
-- No prose drafting
-- No new facts
-- Treat sources as canonical
+## Phase 2 - Research Expansion And Validation
 
-**Internal note**
-This becomes the **Source Ingest Agent** during automation.
+Owner: Perplexity, prompted by ChatGPT
 
----
+Purpose:
+- add citations and credibility ballast
 
-## Phase 2 — Research Expansion & Validation
-**Owner:** Perplexity (prompted by ChatGPT)
+Outputs:
+- 5-10 high-quality citations
+- supporting evidence for key claims
+- counterpoints and uncertainties
 
-**Purpose**
-Add credibility ballast and citations.
+Rules:
+- prefer primary sources
+- research informs the thesis; it does not invent one
 
-**Inputs**
-- NotebookLM grounding
-- Topic packet
+## Phase 3 - Narrative Blueprint
 
-**Outputs**
-- 5–10 high-quality citations
-- Supporting evidence for key claims
-- Counterpoints / uncertainties
+Owner: ChatGPT
 
-**Rules**
-- Perplexity informs; it does not steer the thesis
-- Prefer primary sources
+Purpose:
+- decide framing before drafting
 
----
-
-## Phase 3 — Narrative Blueprint (Fear → Mechanism → Survival)
-**Owner:** ChatGPT
-
-**Purpose**
-Decide framing *before* drafting.
-
-**Inputs**
-- Grounded sources
-- Validated research
-
-**Outputs**
-- Final SEO title
-- One-paragraph thesis
+Outputs:
+- final SEO title
+- one-paragraph thesis
 - H2/H3 outline
-- 3–5 fear angles
-- 3–7 survival principles (no false promises)
-- Infographic markers
-- Video placement notes
+- fear angles
+- survival principles
+- infographic markers
+- video placement notes
 
-**Rules**
-- No long prose
-- This phase is structural, not stylistic
+Rules:
+- no long prose
+- this phase is structural, not stylistic
 
-**Internal note**
-If the blueprint is weak, drafting will fail.
+## Phase 4 - First Draft
 
----
+Owner: Claude
 
-## Phase 4 — First Draft
-**Owner:** Claude
+Purpose:
+- produce coherent long-form narrative
 
-**Purpose**
-Produce coherent long-form narrative.
+Outputs:
+- full draft
+- conservative claims
+- visual placeholders
 
-**Inputs**
-- Blueprint
-- Source notes
-- Citations
+Rules:
+- follow the blueprint
+- do not invent facts
 
-**Outputs**
-- Full draft (≈1,200–2,000 words)
-- Conservative claims
-- Visual placeholders
+## Phase 5 - Finalization For Publish
 
-**Rules**
-- Follow blueprint strictly
-- No invented facts
+Owner: ChatGPT
 
----
+Purpose:
+- convert the draft into publish-ready Markdown
 
-## Phase 5 — Finalization for Publish
-**Owner:** ChatGPT
+Outputs:
+- final `.md` or `.mdx` file
+- valid schema-compliant frontmatter
+- clean headings
+- encoding cleanup
 
-**Purpose**
-Convert the draft into publish-ready Markdown.
+Rules:
+- preserve meaning
+- improve clarity, not argument
+- use a canonical author name from `src/data/authors.ts`
+- do not hand-write a `## Claims & Verification` section for a live post
+- add the matching entry in `src/data/claimsVerification.ts` before publish
 
-**Inputs**
-- Claude draft
-- Citations
-- Site conventions
+## Phase 6 - Visual Production
 
-**Outputs**
-- Final `.md` file
-- Valid frontmatter (schema-compliant)
-- TL;DR section
-- Clean H2/H3 hierarchy
-- INFOGRAPHIC MARKERS
-- VIDEO PLACEHOLDER
-- Encoding cleanup
+Owners:
+- ChatGPT + DALL-E for hero image
+- NotebookLM for infographics and source-faithful companion video
 
-**Rules**
-- Preserve meaning
-- Improve clarity, not argument
+Rules:
+- visuals must not introduce new claims
+- the blog remains canonical; video is supportive
 
-**Internal note**
-This is the last point where text is edited.
+## Phase 7 - Repo Integration
 
----
+Owner: Human or Codex
 
-## Phase 6 — Visual Production (Visual Agent)
+Structure:
+- posts: `src/content/posts/`
+- images: `public/images/`
+- videos: YouTube-hosted by default
 
-### 6A — Hero Image
-**Owner:** ChatGPT + DALL·E
+Rules:
+- use web-root image paths
+- do not self-host video unless explicitly required
 
-**Purpose**
-Set emotional and tonal framing.
+## Phase 8 - QA And Pre-Deploy Checks
 
-**Output**
-- One hero image (PNG/JPG)
+Owner: Human + Codex
 
-**Rules**
-- Editorial, non-hype
-- Duotone preferred
-
----
-
-### 6B — Infographics
-**Owner:** NotebookLM
-
-**Purpose**
-Convert mechanisms into glanceable understanding.
-
-**Inputs**
-- Locked article
-- Explicit INFOGRAPHIC MARKERS
-
-**Outputs**
-- Infographic briefs
-- Infographic images (PNG)
-
-**Rules**
-- No new claims
-- Wording must match the article exactly
-
----
-
-### 6C — Video (YouTube-First, v1)
-**Owner:** NotebookLM
-
-**Purpose**
-Provide a companion explanation as an alternate intake path.
-
-**Inputs**
-- Locked article
-- Strict “do not change source” instructions
-
-**Outputs**
-- One source-faithful video (length determined by NotebookLM)
-- Published to YouTube
-- Embedded in the blog post
-
-**Rules**
-- Blog remains the canonical asset
-- Video must not introduce new claims
-- Runtime optimization is deferred
-- Short/long video splits are optional and future-state
-
-**Internal note**
-High-performing posts may later receive expanded or segmented video versions.
-
----
-
-## Phase 7 — Repo Integration
-**Owner:** Human or Codex
-
-**Structure**
-- Posts: `src/content/posts/`
-- Images: `public/images/`
-- Videos: *YouTube-hosted by default*
-
-**Rules**
-- Embed videos from YouTube
-- Do not self-host video files unless explicitly required
-- Use web-root paths for images (`/images/...`)
-- Avoid relative `./images` paths for public assets
-
----
-
-## Phase 8 — QA & Pre-Deploy Checks
-**Owner:** Human + Codex
-
-**Checklist**
+Checklist:
 - `npm run build` passes
-- No encoding artifacts (`â`, `Â`, etc.)
-- Hero renders once
-- All images resolve
-- Embedded video plays
-- Canonical URL correct
-- Mobile layout sanity check
+- public posts pass the shared live-post standards gate
+- no encoding artifacts remain
+- hero renders once
+- images resolve
+- embedded video plays
+- canonical URL is correct
+- mobile layout sanity check
 
----
+## Phase 9 - Deploy And Observe
 
-## Phase 9 — Deploy & Observe
-**Owner:** Human
+Owner: Human
 
-**Outputs**
+Outputs:
 - Vercel preview
-- Production deploy when ready
-- Notes for iteration
-
----
+- production deploy when ready
+- notes for iteration
 
 ## Tool Ownership Summary
 
-- **NotebookLM:** Source grounding, infographics, video
-- **Perplexity:** Research validation
-- **Claude:** First draft
-- **ChatGPT:** Blueprint, final Markdown, SEO, hero image
-- **Codex:** Mechanical repo tasks (cleanup, insertion, commits)
+- NotebookLM: grounding, infographics, video
+- Perplexity: research validation
+- Claude: first draft
+- ChatGPT: blueprint, final Markdown, SEO, hero image
+- Codex: repo integration, enforcement, cleanup, and verification
 
----
+## Internal Guidance
 
-## Internal Guidance (for ChatGPT and future agents)
+- authority over virality
+- mechanisms over headlines
+- fear without false certainty
+- survival means positioning, not promises
+- visuals must never introduce new claims
 
-- Authority > virality
-- Mechanisms > headlines
-- Fear without false certainty
-- Survival = positioning, not safety
-- Visuals must never introduce new claims
-- Blog is canonical; video is supportive
-
-**This workflow is canonical. Deviations require intent.**
+This workflow is canonical. Deviations require intent.

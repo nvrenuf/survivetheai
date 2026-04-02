@@ -2,7 +2,7 @@
 title: "Alone, Together: How AI Companions Are Quietly Rewiring Human Emotion"
 description: "AI friends soothe loneliness in the short term but can erode real-world connection and emotional resilience."
 date: 2025-12-05
-author: "Admin"
+author: "SurviveTheAI Editorial Team"
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"

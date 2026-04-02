@@ -103,6 +103,14 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.locator('article h1')).toHaveCount(0);
 });
 
+test('legacy public posts use the canonical editorial-team byline', async ({ page }) => {
+  await page.goto('/posts/alone-together/');
+
+  await expect(page.getByTestId('article-meta-row')).toContainText('By SurviveTheAI Editorial Team');
+  await expect(page.getByTestId('author-card')).toContainText('SurviveTheAI Editorial Team');
+  await expect(page.getByTestId('article-impact-score-link')).toHaveAttribute('href', '/impact-score-methodology');
+});
+
 test('internal and placeholder posts stay out of public routes and public reader-facing feeds', async ({ page }) => {
   await page.goto('/posts/pro-template-demo/');
   await expect(page).toHaveTitle(/404|Not Found/i);

@@ -207,6 +207,10 @@ export const CLAIMS_VERIFICATION_BY_SLUG: Record<string, ClaimsVerificationEntry
   },
 };
 
+export function hasClaimsVerificationForSlug(slug: string): boolean {
+  return Boolean(CLAIMS_VERIFICATION_BY_SLUG[slug]);
+}
+
 export function getClaimsVerificationForPost(post: PostEntry): ClaimsVerificationEntry | null {
   if (post.data.draft || post.data.internal) {
     return null;

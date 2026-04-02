@@ -4,9 +4,10 @@ import PostLayout from '../../layouts/PostLayout.astro';
 import { readingTime } from '../../utils/readingTime';
 import { isPublicPost } from '../../utils/postSections';
 import PlaybookOffer from '../../components/PlaybookOffer.astro';
+import { assertLivePostStandards } from '../../utils/livePostStandards';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts')).filter(isPublicPost);
+  const posts = assertLivePostStandards((await getCollection('posts')).filter(isPublicPost));
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post, allPosts: posts },

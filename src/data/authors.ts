@@ -67,3 +67,12 @@ export function getAuthorProfile(authorName: string): AuthorProfile {
     shortBio: 'Contributor to SurviveTheAI reporting.',
   };
 }
+
+export const AUTHOR_CANONICAL_NAMES = AUTHOR_PROFILES.map((profile) => profile.canonicalName);
+export const AUTHOR_NAME_OPTIONS = AUTHOR_PROFILES.flatMap((profile) => [profile.canonicalName, ...(profile.aliases ?? [])]);
+
+const canonicalAuthorLookup = new Set(AUTHOR_CANONICAL_NAMES.map((name) => name.toLowerCase()));
+
+export function isKnownCanonicalAuthorName(authorName: string): boolean {
+  return canonicalAuthorLookup.has(authorName.trim().toLowerCase());
+}
