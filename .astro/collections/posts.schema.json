@@ -27,7 +27,14 @@
           ]
         },
         "author": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Lee Cuevas",
+            "Justin Cuevas",
+            "Alex Morgan",
+            "SurviveTheAI Editorial Team",
+            "Admin"
+          ]
         },
         "draft": {
           "type": "boolean"
