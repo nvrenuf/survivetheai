@@ -1,12 +1,23 @@
 ---
 // Footer.astro — Wrappixel-inspired, as described in SETUP.md
 import type { BuildFingerprint } from '../utils/buildFingerprint';
+import { SITE_CREDIBILITY } from '../data/authors';
 
 const { fingerprint } = Astro.props as { fingerprint: BuildFingerprint };
 ---
 <footer class="w-full bg-gray-50 border-t border-gray-200 py-6 mt-12 text-sm">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2">
-    <div class="text-gray-700 font-semibold">© Survive the AI</div>
+  <div class="max-w-7xl mx-auto flex flex-col gap-4 px-4 md:flex-row md:items-start md:justify-between">
+    <div class="max-w-xl space-y-2">
+      <div class="text-gray-700 font-semibold">© Survive the AI</div>
+      <p class="text-sm leading-relaxed text-gray-600">
+        Published by the {SITE_CREDIBILITY.publisherLabel}. Named bylines, editorial standards, and correction paths are available across the site.
+      </p>
+      <div class="flex flex-wrap gap-4 text-sm font-medium text-gray-500">
+        <a href="/about" class="hover:text-blue-600 transition">Meet the team</a>
+        <a href="/how-we-research" class="hover:text-blue-600 transition">How we research</a>
+        <a href="mailto:editor@survivetheai.com" class="hover:text-blue-600 transition">editor@survivetheai.com</a>
+      </div>
+    </div>
     <nav class="flex flex-wrap gap-4 text-gray-500 font-medium">
       <a href="/" class="hover:text-blue-600 transition">Home</a>
       <a href="/posts" class="hover:text-blue-600 transition">Survival Library</a>

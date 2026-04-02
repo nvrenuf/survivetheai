@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
+import CredibilityPanel from '../components/CredibilityPanel.astro';
+import { AUTHOR_PROFILES } from '../data/authors';
 ---
 
 <Layout title="About · SurviveTheAI" description="What SurviveTheAI is, who it serves, and the editorial stance that guides every post.">
@@ -49,6 +51,30 @@ import Layout from '../layouts/BaseLayout.astro';
             SurviveTheAI exists to help you make better decisions under uncertainty. We do not trade in dark patterns, popups, or manipulative
             funnels. You get signal-rich writing, clear calls to action, and the option to subscribe—nothing else.
           </p>
+        </div>
+      </section>
+
+      <CredibilityPanel
+        eyebrow="Credibility"
+        title="Who is behind SurviveTheAI"
+        summary="SurviveTheAI publishes named analysis, team-reviewed updates, and public editorial standards so readers can see who is speaking and how claims are handled."
+      />
+
+      <section class="space-y-5">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Masthead</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Named contributors and editorial ownership</h2>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          {AUTHOR_PROFILES.map((author) => (
+            <article class="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+              <div class="space-y-2">
+                <h3 class="text-xl font-black text-neutral-900">{author.displayName}</h3>
+                <p class="text-sm font-medium text-neutral-700">{author.role}, SurviveTheAI</p>
+                <p class="text-neutral-700">{author.shortBio}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </div>

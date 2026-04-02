@@ -6,10 +6,13 @@ import PostCard from '../components/PostCard.astro';
 import SubscribeInline from '../components/SubscribeInline';
 import { SURVIVAL_HUBS } from '../data/hubs';
 import { buildHomepagePlacement } from '../data/homepage';
+import CredibilityPanel from '../components/CredibilityPanel.astro';
+import { getAuthorProfile } from '../data/authors';
 
 const posts = await getCollection('posts');
 const { featured, latestIntelligence, editorPicks, fearAreaSpotlights, remaining } = buildHomepagePlacement(posts);
 const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
+const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undefined;
 ---
 
 <Layout title="Survive the AI - Prepare, adapt, and stay ahead">
@@ -73,6 +76,8 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
                 </div>
                 <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-600">
                   <span>{formatDate(featured.data.date)}</span>
+                  <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+                  <span>{`By ${featuredAuthor?.displayName}`}</span>
                   <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
                   <span>Impact Score {featured.data.impact_score}</span>
                 </div>
@@ -213,6 +218,11 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
           privacyText="Free. No spam. Unsubscribe anytime."
         />
       </section>
+
+      <CredibilityPanel
+        eyebrow="Why trust STA"
+        title="Named reporting, visible standards, clear ownership"
+      />
 
       {remaining.length > 0 && (
         <section class="space-y-6" data-testid="library-cta-section">

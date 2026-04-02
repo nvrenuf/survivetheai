@@ -12,6 +12,7 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('fear-area-representatives-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
+    await expect(page.getByTestId('credibility-panel')).toBeVisible();
     await expect(page.getByTestId('library-cta-section')).toBeVisible();
 
     const featuredHref = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
@@ -74,6 +75,7 @@ test.describe('Homepage layout', () => {
       'fear-area-representatives-section',
       'start-here-section',
       'homepage-subscribe',
+      'credibility-panel',
       'library-cta-section',
     ]);
   });
@@ -141,8 +143,18 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
     await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
+    await expect(page.getByTestId('featured-story-section')).toContainText('By Lee Cuevas');
     await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals across the fear areas');
     await expect(page.getByTestId('start-here-section')).toContainText('Start here');
+  });
+
+  test('homepage trust layer exposes publisher ownership and standards links', async ({ page }) => {
+    await page.goto('/');
+
+    const trustPanel = page.getByTestId('credibility-panel');
+    await expect(trustPanel).toContainText('Named reporting, visible standards, clear ownership');
+    await expect(trustPanel.getByRole('link', { name: 'Meet the team' })).toHaveAttribute('href', '/about');
+    await expect(trustPanel.getByRole('link', { name: 'Read our standards' })).toHaveAttribute('href', '/how-we-research');
   });
 
   test('homepage newsletter CTA stays concise and intentional', async ({ page }) => {
