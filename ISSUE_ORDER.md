@@ -4,12 +4,39 @@ Current status as of 2026-04-02:
 - Historical completed pass: STA UI credibility pass
 - Historical completed pass: STA trust, authority, and conversion pass
 - Historical completed pass: STA Operations, Capture, and Editorial Enforcement Pass
-- Active pass: none
-- Next recommended issue: none
+- Active pass: STA Subscriber Experience, Reporting, and Offer Architecture Pass
+- Next recommended issue: STA-17
 
-There is no active STA execution pass at the moment. The most recently completed pass focused on operational reliability after the trust/authority/conversion work: lead capture, trust/contact reality checks, editorial enforcement, conversion measurement, and basic post-signup lifecycle clarity.
+This pass focuses on business/editorial leverage after the completed operations/capture/enforcement work: subscriber experience quality, operator-visible lead-source reporting, lightweight content review loops, offer ladder planning, and editor-contact workflow clarity.
 
-## Most Recently Completed Pass
+## Active Execution Order
+
+1. STA-17: Playbook and subscriber experience audit
+2. STA-18: Lead-source reporting and operator dashboard baseline
+3. STA-19: Content performance review loop
+4. STA-20: Playbook offer ladder and next-offer architecture
+5. STA-21: Contact/editor workflow baseline
+6. STA-22: Final regression sweep and closeout
+
+## Active Status
+
+- STA-17: Not started
+- STA-18: Not started
+- STA-19: Not started
+- STA-20: Not started
+- STA-21: Not started
+- STA-22: Not started
+
+## Active Control Notes
+
+- STA-17 verifies the actual first subscriber experience against the site promise
+- STA-18 exposes attribution data in an operator-usable form
+- STA-19 defines how content performance should drive update and demotion decisions
+- STA-20 maps the next-offer path after the free playbook
+- STA-21 defines the operator workflow behind the public editor contact path
+- STA-22 closes the pass cleanly and keeps tracker state synchronized
+
+## Historical Passes
 
 ### STA Operations, Capture, and Editorial Enforcement Pass
 
@@ -39,8 +66,6 @@ Completed 2026-04-02
 - STA-14 establishes minimal measurement for key conversion paths
 - STA-15 defines post-signup lifecycle logic against the real capture state
 - STA-16 closes the pass cleanly and keeps tracker state synchronized
-
-## Historical Passes
 
 ### STA Trust, Authority, and Conversion Pass
 
