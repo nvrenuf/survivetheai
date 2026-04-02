@@ -18,6 +18,8 @@ import { buildPostLinking } from '../utils/postLinking';
 import { getHubByKey } from '../data/hubs';
 import AuthorCard from '../components/AuthorCard.astro';
 import { getAuthorProfile, SITE_CREDIBILITY } from '../data/authors';
+import ClaimsVerification from '../components/ClaimsVerification.astro';
+import { getClaimsVerificationForPost } from '../data/claimsVerification';
 
 const {
   post,
@@ -47,6 +49,7 @@ const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
 const primaryCategory = topics?.[0] ? categoryByKey.get(topics[0]) : undefined;
 const categoryLabel = primaryCategory?.label;
 const linking = buildPostLinking(post, allPosts);
+const claimsVerification = getClaimsVerificationForPost(post);
 const hub = getHubByKey(linking.pillar);
 const hubPath = hub?.slug ? `${hub.slug}/` : undefined;
 const hubLabel = hub?.shortName ?? (linking.pillar ? categoryByKey.get(linking.pillar)?.label : undefined);
@@ -190,6 +193,7 @@ const structuredData = {
         >
           <slot />
         </article>
+        {claimsVerification && <ClaimsVerification entry={claimsVerification} />}
         <section class="space-y-8 border-t border-neutral-200 pt-8 sm:space-y-10 sm:pt-10" data-testid="article-endcap">
           <CTA
             eyebrow="Continue the signal"

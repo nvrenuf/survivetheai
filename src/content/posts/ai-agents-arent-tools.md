@@ -249,20 +249,3 @@ That's the next question we'll tackle:
 
 ## CTA
 If you want early warning signals *before* your role gets quietly compressed, subscribe and download the **AI Displacement Early Warning Checklist**. It's designed to tell you **when to move**, not after you're already on a layoff spreadsheet.
-
----
-
-## Claims & Verification
-
-**Well-supported**
-- Agents enable workflow-level automation, not just task assistance.
-- White-collar cognitive work shows high task exposure.
-- Agentic workflows can reduce human hours 30-50% in specific processes.
-- Adoption is fast due to SaaS embedding and low friction.
-
-**Still uncertain**
-- Exact long-run job loss magnitude.
-- Economy-wide middle-management outcomes.
-- Whether productivity gains translate into wage growth or fewer jobs.
-
-We will update claims as better data emerges.

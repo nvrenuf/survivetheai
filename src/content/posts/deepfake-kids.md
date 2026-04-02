@@ -205,14 +205,6 @@ In the next 30 days, families should complete a simple photo exposure audit and 
 
 In the next 90 days, families should make this part of their normal digital safety habits. Schools should move from awareness to system: fewer unnecessary public student photos, clearer escalation, and staff who know this threat is real.
 
-## Claims & Verification
-
-What we can say with confidence is that AI-generated sexualized images of children are a real and growing abuse problem. Child-protection organizations are already treating it that way. Ordinary photos can be used as source material, and the harm that follows can include bullying, coercion, humiliation, and emotional distress.
-
-What is still less clear is the exact long-term impact across large groups of children, how risk varies from one place to another, and how quickly schools, platforms, and legal systems will catch up.
-
-What this article is not saying is that every child online will be targeted, or that one normal photo guarantees disaster. The point is more practical than that: the threat model changed, and many families and schools are still acting like it did not.
-
 ## What to do now
 
 Parents do not need more abstract panic. They need a better framework.

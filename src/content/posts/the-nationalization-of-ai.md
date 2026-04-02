@@ -28,7 +28,7 @@ canonicalUrl: "https://survivetheai.com/posts/the-nationalization-of-ai"
 
 ---
 
-**TL;DR:** If frontier AI becomes decisive in war, private companies will not retain full control over how it’s used. The legal tools to compel cooperation already exist. The only uncertainty is timing. Position yourself near governance, infrastructure, and compliance chokepoints before the autonomy narrative collapses.
+**TL;DR:** If frontier AI becomes decisive in war, private companies will not retain full control over how itâ€™s used. The legal tools to compel cooperation already exist. The only uncertainty is timing. Position yourself near governance, infrastructure, and compliance chokepoints before the autonomy narrative collapses.
 
 ---
 
@@ -52,11 +52,11 @@ And infrastructure is governable.
 
 Frontier AI is no longer just a productivity layer.
 
-It analyzes intelligence at scale. It compresses logistics cycles. It models conflict scenarios. It accelerates cyber operations. That makes it dual-use by default — not by accident, not by misuse, but by nature.
+It analyzes intelligence at scale. It compresses logistics cycles. It models conflict scenarios. It accelerates cyber operations. That makes it dual-use by default â€” not by accident, not by misuse, but by nature.
 
 Some labs have tried to draw moral "red lines" around military applications. The instinct is understandable. The impulse to protect a technology from its darkest uses is, in its own way, admirable. But geopolitics does not respect corporate mission statements.
 
-China’s 2017 national AI strategy explicitly integrates civilian and military objectives under state direction from the outset. AI is treated as sovereign infrastructure.
+Chinaâ€™s 2017 national AI strategy explicitly integrates civilian and military objectives under state direction from the outset. AI is treated as sovereign infrastructure.
 
 If American labs insist on autonomy while adversarial states integrate seamlessly, the asymmetry grows.
 
@@ -92,7 +92,7 @@ When survival is framed as the issue, corporate autonomy narrows.
 
 Not because founders lack intelligence.
 
-Not because their concerns aren’t legitimate.
+Not because their concerns arenâ€™t legitimate.
 
 But because sovereignty outranks leverage.
 
@@ -112,7 +112,7 @@ In peacetime markets, capital dominates.
 
 In strategic crises, authority dominates.
 
-The rules change — and they change fast.
+The rules change â€” and they change fast.
 
 You do not need tanks in the street to see the direction of travel.
 
@@ -122,7 +122,7 @@ You do not need tanks in the street to see the direction of travel.
 
 The implications extend well past any particular contract or any particular lab.
 
-If frontier AI becomes sovereign infrastructure — meaning state-directed, nationally controlled, auditable on demand — the civilian economy reorganizes around that fact.
+If frontier AI becomes sovereign infrastructure â€” meaning state-directed, nationally controlled, auditable on demand â€” the civilian economy reorganizes around that fact.
 
 Access tightens.
 
@@ -142,7 +142,7 @@ The question is not whether state intervention is possible.
 
 The legal tools make that obvious.
 
-The question is: **when — and what triggers it.**
+The question is: **when â€” and what triggers it.**
 
 ---
 
@@ -160,7 +160,7 @@ When infrastructure becomes sovereign, power concentrates in three places:
 - **Assurance**
 - **Infrastructure control**
 
-The people who understand those systems — who built careers around them before they became fashionable — will not be scrambling.
+The people who understand those systems â€” who built careers around them before they became fashionable â€” will not be scrambling.
 
 They will be essential.
 
@@ -183,11 +183,11 @@ They are durable ones.
 
 ## Career Repositioning Signal
 
-If you are early in your AI career, stop optimizing for “AI fluency.”
+If you are early in your AI career, stop optimizing for â€œAI fluency.â€
 
 Optimize for **AI control fluency.**
 
-The most resilient paths over the next five years are not pure model builders — they are:
+The most resilient paths over the next five years are not pure model builders â€” they are:
 
 - AI governance operators  
 - Model risk and evaluation specialists  
@@ -203,7 +203,7 @@ Be the person who understands the control architecture.
 
 ---
 
-## 7 / 30 / 90 — Position Before the Trigger
+## 7 / 30 / 90 â€” Position Before the Trigger
 
 ![7 30 90 Repositioning Plan](/images/infographic_7_30_90_plan.png)
 
@@ -240,21 +240,8 @@ The direction is not.
 
 The tools for state coercion already exist.
 
-If frontier AI becomes genuinely decisive — if it shifts outcomes tied to national survival — private red lines will not hold.
+If frontier AI becomes genuinely decisive â€” if it shifts outcomes tied to national survival â€” private red lines will not hold.
 
 The state will not ask permission.
 
 Position accordingly.
-
----
-
-## Claims & Verification
-
-- Defense Production Act overview: https://www.britannica.com/topic/Defense-Production-Act  
-- 1918 federal control of telecom systems: https://www.presidency.ucsb.edu/documents/proclamation-1466-assuming-control-telegraph-and-telephone-systems  
-- Invention secrecy framework analysis: https://fas.org/publication/invention-secrecy-2018/  
-- China AI national strategy (2017 translation): https://digichina.stanford.edu/work/full-translation-chinas-new-generation-artificial-intelligence-development-plan-2017/
-
-Uncertainty remains regarding the timing threshold for coercive state action. This article analyzes mechanisms and precedent, not a specific predicted date.
-
----

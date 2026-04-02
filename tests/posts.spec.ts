@@ -60,6 +60,9 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.getByTestId('author-card')).toContainText('About the author');
   await expect(page.getByTestId('author-card')).toContainText('Lee Cuevas');
   await expect(page.getByTestId('article-body')).toBeVisible();
+  await expect(page.getByTestId('article-claims-verification')).toContainText('Claims & Verification');
+  await expect(page.getByTestId('article-claims-verification')).toContainText('Well-supported');
+  await expect(page.getByTestId('article-claims-verification')).toContainText('Still uncertain');
   await expect(page.getByTestId('article-endcap')).toBeVisible();
   await expect(page.getByTestId('article-cta')).toContainText('Continue the signal');
   await expect(page.getByTestId('article-cta')).toContainText('Browse Work & Money');
@@ -88,6 +91,7 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.locator('img[src*="deepfake-kids-hero-abstract.png"]')).toHaveCount(1);
   await expect(page.getByTestId('article-cta')).toContainText('Continue the signal');
   await expect(page.getByTestId('article-endcap')).toContainText('Get the weekly STA briefing');
+  await expect(page.getByTestId('article-claims-verification')).toContainText('What we can defend, what remains uncertain');
   await expect(page.getByTestId('article-related-reading')).toBeVisible();
 
   await page.goto('/posts/ai-chatfishing-ai-wingmen-dating-apps/');
