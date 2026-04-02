@@ -35,6 +35,15 @@
         "internal": {
           "type": "boolean"
         },
+        "noindex": {
+          "type": "boolean"
+        },
+        "archiveHidden": {
+          "type": "boolean"
+        },
+        "homepageHidden": {
+          "type": "boolean"
+        },
         "featured": {
           "type": "boolean"
         },
