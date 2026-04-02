@@ -1,72 +1,179 @@
-Title: STA Repo Docs + Automation Standard (Source of Truth)
+Title: STA Agent Execution Standard (Source of Truth)
 
 Objective
-SurviveTheAI (STA) needs a repeatable, low-risk content pipeline that can be automated (n8n) while keeping quality, citations, and compliance consistent. Markdown docs in the repo are the operating system for humans + coding agents.
 
-Non-negotiables
+SurviveTheAI (STA) needs a repeatable, low-risk operating standard for coding agents and automation working in the repo. The goal is not just to generate content or code, but to execute issue-driven work cleanly, preserve factual integrity, and keep GitHub Issues, `ISSUE_ORDER.md`, and the repo state synchronized.
 
-No third-party remote “skills” / heartbeat auto-updates. No agent pulling instructions from the internet and executing unattended.
+Markdown docs in the repo are the operating system for humans + coding agents. The assistant must treat them as control surfaces, not decoration.
 
-No publishing without citations for factual claims. If sources are weak, downgrade claims or label as speculation.
+## Source-of-Truth Order
 
-Always include “research / not an expert” framing where appropriate.
+When working in this repo, follow this priority order:
 
-No medical/legal/financial advice. Use disclaimers when topics touch those areas.
+1. The assigned GitHub issue
+2. `ISSUE_ORDER.md`
+3. Relevant repo standards and workflow docs
+4. The current codebase and content state
+5. Prior closed historical work only as reference, never as active scope
 
-Avoid hallucinated stats. If a number appears, it must have a source link.
+If any of these conflict, do not guess. Report the conflict and proceed using the highest-priority available source of truth.
 
-Repo .md files to create (minimum set)
+## Non-Negotiables
 
-README.md — what STA is, how to run locally, how to deploy, how content is structured.
+- No third-party remote “skills,” heartbeat auto-updates, or unattended instruction pulling from the internet.
+- No publishing without citations for factual claims.
+- If sources are weak, downgrade claims or label uncertainty clearly.
+- No hallucinated stats. If a number appears, it must have a source.
+- No destructive commands or destructive repo actions unless explicitly requested and clearly justified.
+- No auto-merging, auto-publishing, or auto-deploying without explicit instruction.
+- No medical, legal, or financial advice framing. Use disclaimers when topics touch those domains.
+- Preserve the STA editorial model: fear is allowed, misinformation is not.
 
-AGENT.md — instructions for Codex/Claude Code: repo map, allowed actions, required workflow (“plan → diff → apply”), commands, and guardrails.
+## Required Working Style
 
-EDITORIAL_PIPELINE.md — step-by-step pipeline: intake → scoring → research brief → outline → draft → fact-check → publish → distribution.
+- Plan → inspect → diff → apply
+- Make the smallest correct change set
+- Prefer repo-ready markdown and explicit, reviewable edits
+- Keep fixes scoped to the active issue
+- Do not widen into adjacent cleanup unless it is required to satisfy acceptance criteria
+- Do not silently redesign, rename, or restructure beyond issue scope
+- Be explicit about assumptions and blockers
 
-CONTENT_STYLE_GUIDE.md — voice, structure, required sections, citation rules, banned claims, “fear index” framing rules.
+## Issue-Driven Execution Contract
 
-AFFILIATE_DISCLOSURE.md — standard disclosure language + where it must appear.
+When executing work from GitHub Issues:
 
-RUNBOOK.md — deploy, rollback, secrets handling, troubleshooting.
+1. Read the assigned GitHub issue in full
+2. Read `ISSUE_ORDER.md`
+3. Confirm dependencies are satisfied
+4. Inspect only the parts of the repo needed for the current issue
+5. Execute only the current issue unless explicitly authorized to batch tightly related work
 
-Automation direction
+### Scope Discipline
 
-n8n is the orchestration spine: ingest → dedupe → score → queue → research → draft → human gate (optional) → publish.
+- Do not implement future issues while working the current one
+- Do not do “while I’m here” cleanup that belongs to later issues
+- Small adjacent fixes are allowed only if they are necessary to complete the current issue cleanly
+- If the current issue is underspecified, stay conservative and document assumptions
 
-LLM/agent is the cognitive worker, invoked by n8n with strict inputs/outputs:
+### Tracker Discipline
 
-Output 1: Topic scorecard (criteria + numeric scores + rationale)
+For completed issue work, the assistant must:
 
-Output 2: Research brief (claims list + sources list)
+- update `ISSUE_ORDER.md` status if the issue is completed
+- add a GitHub issue comment summarizing what changed and what was verified
+- close the GitHub issue only if acceptance criteria are actually met
+- keep the issue queue and repo state aligned
 
-Output 3: Draft post (with citations + disclosure + CTA)
+If issue tracking cannot be updated due to permissions or tooling limits, report that explicitly.
 
-Output 4: Distribution snippets (X/Reddit/newsletter)
+## Required Closeout Format
 
-Scoring criteria for intake (STA-specific)
+Every issue execution should end with a control summary containing:
 
-Fear relevance (job displacement/education/healthcare denial/surveillance/cognitive offloading/etc.)
+- outcome
+- status
+- branch
+- files changed
+- tests/checks run
+- issue tracking updates made
+- acceptance criteria status
+- blockers
+- assumptions
 
-Novelty (not already covered recently)
+Do not claim success without evidence.
 
-Source quality (primary sources preferred)
+## STA Content and Editorial Guardrails
 
-Monetization fit (product/affiliate alignment)
+All content-related work must preserve STA’s core operating rules:
 
-Audience fit (professionals/parents/students)
+- Every post must explain what is happening, why it matters, and what to do now
+- Fear framing is allowed, but it must be tied to real stakes and defensible mechanisms
+- Uncertainty must be labeled
+- Claims must be supportable
+- Do not invent sources, expertise, or methodology
+- Do not present decorative systems as real frameworks without explaining them
+- Do not use AI fluency to hide weak sourcing
 
-Desired workflow behavior for the assistant
+## Content Quality Rules
 
-Default to producing repo-ready markdown.
+When writing or editing content, prefer:
 
-Never write or run destructive commands.
+- mechanism over metaphor
+- household stakes over abstract trends
+- specific consequences over vague alarm
+- direct language over hype
+- citations over tone-based authority
 
-Always propose a plan before making changes.
+Avoid:
 
-When asked to create a new site “based on STA”, treat STA as a template: same docs, same pipeline, new SITE_BRIEF.md and TOPIC_MAP.md.
+- generic “AI will change everything” filler
+- unsupported timelines
+- fake certainty
+- empty SEO padding
+- fake social proof
+- arbitrary scores without method
 
-Deliverables
+## Repo Docs Expectations
 
-Create the six .md files above with content appropriate to STA.
+The repo should maintain a compact but useful documentation set. At minimum, agents should understand and preserve the role of:
 
-Provide n8n workflow outline (nodes + data contracts) that implements the pipeline.
+- `README.md` — repo/project overview and local/deploy basics
+- `AGENT.md` — top-level pointer and immediate guardrails
+- `ISSUE_ORDER.md` — active execution queue
+- editorial/workflow docs — intake, research, drafting, publishing, and compliance behavior
+- disclosure/runbook docs where applicable
+
+If a referenced doc is missing, outdated, or moved, report it immediately and continue with the best available source of truth.
+
+## Automation Direction
+
+n8n is the orchestration spine for pipeline work:
+ingest → dedupe → score → queue → research → draft → human gate (optional) → publish → distribute
+
+The LLM/agent is the cognitive worker. It should be invoked with strict inputs and expected outputs, not open-ended autonomy.
+
+Preferred structured outputs include:
+
+- topic scorecard
+- research brief
+- draft with citations
+- distribution snippets
+- issue closeout/control summary
+
+Automation should make the system more reliable, not less reviewable.
+
+## Branch and PR Discipline
+
+Unless explicitly told otherwise:
+
+- use one issue or one tightly related issue batch per branch
+- keep commit scope aligned with the issue
+- reference the issue in branch/PR context
+- do not claim PR readiness without checks actually run
+- do not hide incomplete work behind broad summaries
+
+## New-Site Rule
+
+If asked to create a new site “based on STA,” treat STA as the operational template, not a content clone.
+
+Reuse:
+- issue discipline
+- docs structure
+- execution standards
+- pipeline logic
+
+Then create site-specific source-of-truth docs such as:
+- `SITE_BRIEF.md`
+- `TOPIC_MAP.md`
+
+## Deliverable Standard
+
+When asked to create repo docs, workflow docs, issue docs, or execution plans:
+
+- default to repo-ready markdown
+- keep structure tight and operational
+- optimize for maintainability, not performative documentation
+- prefer concise clarity over bloated agent text
+
+The standard is successful when a coding agent can enter the repo, execute the correct issue in order, avoid drift, and leave both the codebase and trackers cleaner than it found them.
