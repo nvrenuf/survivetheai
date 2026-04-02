@@ -96,35 +96,43 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.locator('article h1')).toHaveCount(0);
 });
 
-test('demo article renders the reusable STA callout system cleanly', async ({ page }) => {
+test('internal and placeholder posts stay out of public routes and public reader-facing feeds', async ({ page }) => {
   await page.goto('/posts/pro-template-demo/');
-
-  const callouts = page.getByTestId('article-callout');
-  await expect(callouts).toHaveCount(6);
-  await expect(page.locator('[data-callout-kind="tldr"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="defend"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="next"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="warning"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="checklist"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="claims"]')).toHaveCount(1);
-  await expect(page.locator('[data-callout-kind="checklist"] li')).toHaveCount(3);
-  await expect(callouts.first()).toContainText('TL;DR');
-  await expect(callouts.last()).toContainText('Claims & Verification');
-});
-
-test('demo article stays directly routable but out of public reader-facing post feeds', async ({ page }) => {
-  await page.goto('/posts/pro-template-demo/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('The 2026 Survival Blueprint for AI Acceleration');
+  await expect(page).toHaveTitle(/404|Not Found/i);
 
   await page.goto('/posts/');
   await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/soft-extinction/"]')).toHaveCount(0);
 
   await page.goto('/');
   await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="/posts/soft-extinction/"]')).toHaveCount(0);
 
   await page.goto('/survival-areas/work-money/');
   await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
 
+  await page.goto('/survival-areas/love-connection/');
+  await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
+
+  await page.goto('/survival-areas/mind-attention/');
+  await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
+
+  await page.goto('/survival-areas/system-shock/');
+  await expect(page.locator('a[href="/posts/soft-extinction/"]')).toHaveCount(0);
+
   await page.goto('/posts/ai-agents-arent-tools/');
   await expect(page.locator('[data-testid="related-rail"] a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
+
+  await page.goto('/posts/ai-companionship/');
+  await expect(page).toHaveTitle(/404|Not Found/i);
+
+  await page.goto('/posts/cognitive-erosion/');
+  await expect(page).toHaveTitle(/404|Not Found/i);
+
+  await page.goto('/posts/soft-extinction/');
+  await expect(page).toHaveTitle(/404|Not Found/i);
 });

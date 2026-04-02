@@ -2,9 +2,10 @@
 import { getCollection } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 import { readingTime } from '../../utils/readingTime';
+import { isPublicPost } from '../../utils/postSections';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
+  const posts = (await getCollection('posts')).filter(isPublicPost);
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post, allPosts: posts },
