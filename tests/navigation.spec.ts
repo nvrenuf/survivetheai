@@ -10,6 +10,7 @@ test('desktop navigation links to the Survival Library and shows Survival Areas 
   const navbar = page.getByTestId('navbar');
   await expect(navbar).toBeVisible();
   await expect(page.getByTestId('nav-home')).toHaveClass(/text-neutral-95/);
+  await expect(page.getByTestId('nav-start-here')).toHaveAttribute('href', '/start-here');
 
   await page.getByTestId('nav-library').click();
   await expect(page).toHaveURL(/\/posts\/?$/);
@@ -49,6 +50,7 @@ test('mobile navigation toggles Survival Library and Survival Areas', async ({ p
   await page.goto('/');
 
   await page.getByTestId('mobile-menu-toggle').click();
+  await expect(page.getByTestId('nav-start-here-mobile')).toBeVisible();
   await expect(page.getByTestId('nav-library-mobile')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Drops' })).toHaveCount(0);
 

@@ -199,13 +199,23 @@ const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undef
             <div class="max-w-3xl space-y-1">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
               <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Start here</h2>
+              <p class="text-neutral-600">New readers should use the guided path first, then drop into the full library once the map makes sense.</p>
             </div>
-            <a
-              href="/posts"
-              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
-              Explore the full library
-            </a>
+            <div class="flex flex-wrap gap-3">
+              <a
+                href="/start-here"
+                class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                data-testid="start-here-guided-link"
+              >
+                Open the guided path
+              </a>
+              <a
+                href="/posts"
+                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+              >
+                Explore the full library
+              </a>
+            </div>
           </div>
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {editorPicks.map((post) => (

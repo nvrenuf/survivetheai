@@ -146,6 +146,18 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('featured-impact-score-link')).toHaveAttribute('href', '/impact-score-methodology');
     await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals across the fear areas');
     await expect(page.getByTestId('start-here-section')).toContainText('Start here');
+    await expect(page.getByTestId('start-here-guided-link')).toHaveAttribute('href', '/start-here');
+  });
+
+  test('start here page gives new readers a guided path into trust and content surfaces', async ({ page }) => {
+    await page.goto('/start-here/');
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('A guided first path through SurviveTheAI');
+    await expect(page.getByTestId('start-here-step')).toHaveCount(3);
+    await expect(page.getByTestId('start-here-featured-link')).toHaveAttribute('href', '/posts/ai-agents-arent-tools/');
+    await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'How we research' })).toHaveAttribute('href', '/how-we-research');
+    await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'Impact Score methodology' })).toHaveAttribute('href', '/impact-score-methodology');
+    await expect(page.getByTestId('start-here-editor-picks').getByTestId('post-card')).toHaveCount(3);
   });
 
   test('impact score methodology page explains how to interpret the score', async ({ page }) => {
