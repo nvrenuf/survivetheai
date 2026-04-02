@@ -1,5 +1,5 @@
 ---
-// Footer.astro — Wrappixel-inspired, as described in SETUP.md
+// Footer.astro - Wrappixel-inspired, as described in SETUP.md
 import type { BuildFingerprint } from '../utils/buildFingerprint';
 import { SITE_CREDIBILITY } from '../data/authors';
 
@@ -8,7 +8,7 @@ const { fingerprint } = Astro.props as { fingerprint: BuildFingerprint };
 <footer class="w-full bg-gray-50 border-t border-gray-200 py-6 mt-12 text-sm">
   <div class="max-w-7xl mx-auto flex flex-col gap-4 px-4 md:flex-row md:items-start md:justify-between">
     <div class="max-w-xl space-y-2">
-      <div class="text-gray-700 font-semibold">© Survive the AI</div>
+      <div class="text-gray-700 font-semibold">Copyright Survive the AI</div>
       <p class="text-sm leading-relaxed text-gray-600">
         Published by the {SITE_CREDIBILITY.publisherLabel}. Named bylines, editorial standards, and correction paths are available across the site.
       </p>

@@ -63,3 +63,22 @@ test('mobile navigation toggles Survival Library and Survival Areas', async ({ p
   await expect(page).toHaveURL(new RegExp(`/survival-areas/${firstHub.key}/`));
   await expect(page.getByRole('heading', { level: 1 })).toContainText(firstHub.shortName);
 });
+
+test('contact and trust surfaces use the same editor inbox and render without mojibake', async ({ page }) => {
+  await page.goto('/contact/');
+
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Contact the editor');
+  await expect(page.locator('main').getByRole('link', { name: 'editor@survivetheai.com' })).toHaveCount(2);
+  await expect(page.locator('a[href="mailto:hello@survivetheai.com"]')).toHaveCount(0);
+  await expect(page.getByText('This page is an email path, not a live contact form.')).toBeVisible();
+
+  let bodyText = await page.evaluate(() => document.body.innerText);
+  expect(bodyText).not.toMatch(/Weâ€™|Â·|â€”|Â©/);
+
+  await page.goto('/about/');
+  bodyText = await page.evaluate(() => document.body.innerText);
+  expect(bodyText).not.toMatch(/Weâ€™|Â·|â€”|Â©/);
+
+  await page.goto('/how-we-research/');
+  await expect(page.locator('main').getByRole('link', { name: 'editor@survivetheai.com' })).toBeVisible();
+});
