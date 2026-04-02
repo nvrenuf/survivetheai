@@ -79,7 +79,13 @@ const featuredAuthor = featured ? getAuthorProfile(featured.data.author) : undef
                   <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
                   <span>{`By ${featuredAuthor?.displayName}`}</span>
                   <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-                  <span>Impact Score {featured.data.impact_score}</span>
+                  <a
+                    href="/impact-score-methodology"
+                    class="underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-800"
+                    data-testid="featured-impact-score-link"
+                  >
+                    Impact Score {featured.data.impact_score}
+                  </a>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-2">
                   <a

@@ -8,7 +8,7 @@ test('Survival Library stays within 12 post cards per page and exposes paginatio
   await expect(page.getByTestId('archive-hub-link')).toHaveCount(5);
   await expect(page.getByTestId('archive-page-context')).toContainText('Total posts');
 
-  const cards = page.getByTestId('blog-list').getByTestId('post-card');
+  const cards = page.locator('[data-testid="blog-list"] [data-testid="post-card"]');
   await expect(cards).toHaveCount(12);
   await expect(cards.locator('[data-testid="post-card-meta"]')).toHaveCount(12);
   await expect(cards.locator('[data-testid="post-card-impact"]')).toHaveCount(12);
@@ -48,11 +48,12 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await page.goto('/posts/ai-agents-arent-tools/');
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText("AI Agents Aren't Tools. They're Headcount Compression.");
-  await expect(page.locator('article')).not.toContainText(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
+  await expect(page.locator('article')).not.toContainText(/ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÆ’Ã†â€™/);
   await expect(page).toHaveTitle(/AI Agents Aren't Tools\. They're Headcount Compression\. - Survive the AI/);
   await expect(page.getByTestId('article-top-block')).toContainText('Survival Area');
   await expect(page.getByTestId('article-top-block')).toContainText('Work & Money');
   await expect(page.getByTestId('article-meta-row')).toContainText('Impact Score 78');
+  await expect(page.getByTestId('article-impact-score-link')).toHaveAttribute('href', '/impact-score-methodology');
   await expect(page.getByTestId('article-meta-row')).toContainText('By Lee Cuevas');
   await expect(page.getByTestId('article-meta-row')).toContainText('Published February 6, 2026');
   await expect(page.getByTestId('article-meta-row')).toContainText('6 min read');
@@ -69,7 +70,7 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.getByTestId('article-related-reading')).toContainText('Continue from here without losing the thread');
   await expect(page.getByTestId('article-next-up')).toBeVisible();
 
-  const compactCards = page.getByTestId('related-rail').getByTestId('compact-post-card');
+  const compactCards = page.locator('[data-testid="related-rail"] [data-testid="compact-post-card"]');
   const compactCount = await compactCards.count();
   expect(compactCount).toBeGreaterThan(0);
   await expect(compactCards.locator('[data-testid="compact-post-card-meta"]')).toHaveCount(compactCount);

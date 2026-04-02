@@ -27,7 +27,9 @@ const impactClass = compact
   <div class={impactClass} data-testid={compact ? 'compact-post-card-impact' : 'post-card-impact'}>
     <span>{`By ${authorLabel}`}</span>
     <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
-    <span>Impact Score {post.data.impact_score}</span>
+    <span data-testid={compact ? 'compact-impact-score-label' : 'impact-score-label'}>
+      Impact Score {post.data.impact_score}
+    </span>
   </div>
 ) : (
   <div class={metaClass} data-testid={compact ? 'compact-post-card-meta' : 'post-card-meta'}>

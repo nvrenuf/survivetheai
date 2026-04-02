@@ -18,7 +18,7 @@ test.describe('Homepage layout', () => {
     const featuredHref = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
     const featuredSlug = featuredHref?.replace(/\/posts\/|\/$/g, '');
 
-    const latestCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
+    const latestCards = page.locator('[data-testid="latest-intelligence-section"] [data-testid="post-card"]');
     await expect(latestCards).toHaveCount(3);
 
     const latestSlugs = await latestCards.evaluateAll((links) =>
@@ -29,8 +29,7 @@ test.describe('Homepage layout', () => {
     expect(latestSlugs).not.toContain(featuredSlug);
 
     const latestAreas = await page
-      .getByTestId('latest-intelligence-section')
-      .locator('[data-testid="post-card-meta"]')
+      .locator('[data-testid="latest-intelligence-section"] [data-testid="post-card-meta"]')
       .evaluateAll((meta) =>
         meta
           .map((node) => node.textContent?.trim() ?? '')
@@ -45,13 +44,13 @@ test.describe('Homepage layout', () => {
 
     const fearAreaSection = page.getByTestId('fear-area-representatives-section');
     await expect(fearAreaSection.getByTestId('fear-area-representative')).toHaveCount(5);
-    await expect(fearAreaSection.getByTestId('post-card')).toHaveCount(5);
+    await expect(fearAreaSection.locator('[data-testid="post-card"]')).toHaveCount(5);
     await expect(fearAreaSection.getByTestId('fear-area-fallback')).toHaveCount(0);
 
-    await expect(page.getByTestId('start-here-section').getByTestId('post-card')).toHaveCount(3);
+    await expect(page.locator('[data-testid="start-here-section"] [data-testid="post-card"]')).toHaveCount(3);
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/Ã¢â‚¬â„¢|Ã¢â‚¬Å“|Ã¢â‚¬|Ã¢â‚¬â€œ|Ãƒ/);
+    expect(bodyText).not.toMatch(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
     await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
@@ -100,17 +99,17 @@ test.describe('Homepage layout', () => {
   test('homepage and hub surfaced post cards use the shared metadata and spacing treatment', async ({ page }) => {
     await page.goto('/');
 
-    const latestCards = page.getByTestId('latest-intelligence-section').getByTestId('post-card');
+    const latestCards = page.locator('[data-testid="latest-intelligence-section"] [data-testid="post-card"]');
     await expect(latestCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
     await expect(latestCards.locator('[data-testid="post-card-impact"]')).toHaveCount(3);
 
-    const startHereCards = page.getByTestId('start-here-section').getByTestId('post-card');
+    const startHereCards = page.locator('[data-testid="start-here-section"] [data-testid="post-card"]');
     await expect(startHereCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
     await expect(startHereCards.locator('[data-testid="post-card-impact"]')).toHaveCount(3);
 
     await page.goto('/survival-areas/work-money/');
 
-    const hubCards = page.getByTestId('hub-page').getByTestId('post-card');
+    const hubCards = page.locator('[data-testid="hub-page"] [data-testid="post-card"]');
     const hubCount = await hubCards.count();
     expect(hubCount).toBeGreaterThan(0);
     await expect(hubCards.locator('[data-testid="post-card-meta"]')).toHaveCount(hubCount);
@@ -121,7 +120,7 @@ test.describe('Homepage layout', () => {
     await page.goto('/survival-areas/kids-school/');
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/Ã¢â‚¬â„¢|Ã¢â‚¬Å“|Ã¢â‚¬|Ã¢â‚¬â€œ|Ãƒ/);
+    expect(bodyText).not.toMatch(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
     await expect(page.getByText("What's happening")).toBeVisible();
   });
 
@@ -142,10 +141,21 @@ test.describe('Homepage layout', () => {
     await page.goto('/');
 
     await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
-    await expect(page.getByTestId('featured-story-section').getByTestId('post-card')).toHaveCount(0);
+    await expect(page.getByTestId('featured-story-section').locator('[data-testid="post-card"]')).toHaveCount(0);
     await expect(page.getByTestId('featured-story-section')).toContainText('By Lee Cuevas');
+    await expect(page.getByTestId('featured-impact-score-link')).toHaveAttribute('href', '/impact-score-methodology');
     await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals across the fear areas');
     await expect(page.getByTestId('start-here-section')).toContainText('Start here');
+  });
+
+  test('impact score methodology page explains how to interpret the score', async ({ page }) => {
+    await page.goto('/impact-score-methodology/');
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Impact Score methodology');
+    await expect(page.getByText('Four editorial inputs')).toBeVisible();
+    await expect(page.getByText('Interpretation bands')).toBeVisible();
+    await expect(page.getByText('40-59: meaningful, but narrower')).toBeVisible();
+    await expect(page.getByText('75+: urgent and broadly consequential')).toBeVisible();
   });
 
   test('homepage trust layer exposes publisher ownership and standards links', async ({ page }) => {
