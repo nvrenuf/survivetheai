@@ -14,20 +14,23 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
 - `output: "hybrid"` is invalid in Astro v5—do not set it. Use `output: "static"` with selective `prerender = false` for server needs.
 
 ## Newsletter / Subscribe system
-- Inline forms post to `/api/subscribe`, which routes to Buttondown when enabled.
+- Inline forms on newsletter and playbook surfaces post to `/api/subscribe`.
 - Modes:
-  - **Disabled:** default when `PUBLIC_ENABLE_SUBSCRIBE_API` is not `true`. Forms show “not enabled.”
-  - **Log-only:** set `PUBLIC_ENABLE_SUBSCRIBE_API=true` and `SUBSCRIBE_LOG_ONLY=true`; requests log to the server console, no provider calls.
-  - **Provider:** set `PUBLIC_ENABLE_SUBSCRIBE_API=true` with `BUTTONDOWN_API_KEY` (and optional `BUTTONDOWN_PUBLICATION_ID`); live Buttondown API calls return “Check your inbox.”
+  - **Disabled:** default when `PUBLIC_ENABLE_SUBSCRIBE_API` is not `true`. Forms disable submit and show that signup is not enabled yet.
+  - **Provider:** set `PUBLIC_ENABLE_SUBSCRIBE_API=true` with Supabase + Resend credentials. `/api/subscribe` creates or updates a row in `public.subscribers`, stores a hashed confirm token plus basic request metadata, and sends a confirmation email through Resend.
 - Required environment variables:
   - `PUBLIC_ENABLE_SUBSCRIBE_API` (string `true`/`false`)
-  - `SUBSCRIBE_LOG_ONLY` (string `true`/`false`, optional)
-  - `BUTTONDOWN_API_KEY` (server-only, required for provider mode)
-  - `BUTTONDOWN_PUBLICATION_ID` (server-only, optional for multi-publication setups)
+  - `SITE_URL` (used for confirmation/unsubscribe links; request origin is the fallback)
+  - `SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY` (preferred) or `SUPABASE_ANON_KEY` (fallback)
+  - `RESEND_API_KEY`
+  - `RESEND_FROM`
 - Safe enable checklist:
-  - In a preview, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` and `SUBSCRIBE_LOG_ONLY=true` to validate UI flow without Buttondown.
-  - Add `BUTTONDOWN_API_KEY` (and optional publication ID) to the Preview environment, flip `SUBSCRIBE_LOG_ONLY=false`, and confirm successful subscriptions.
-  - Promote the same secrets to Production, keep `PUBLIC_ENABLE_SUBSCRIBE_API=true`, and verify `/api/subscribe` GET reports `mode: "provider"` with `hasCredentials: true`.
+  - In Preview or Production, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` only after Supabase + Resend credentials are present.
+  - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql` so the `subscribers` table includes status, token, and request-metadata columns used by the handlers.
+  - Verify `/api/subscribe` GET reports `mode: "provider"` and `hasCredentials: true`.
+  - Submit a test signup, confirm a pending row is written to `public.subscribers`, complete `/api/confirm`, and verify the row transitions to `status = "active"`.
+  - Verify `/api/unsubscribe` clears the active subscription state and sends the user to `/newsletter/unsubscribed`.
 
 ## Analytics (minimal)
 - Events:
@@ -42,14 +45,17 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
 - Domains + SSL: set primary domain in Vercel (apex or `www`) and enforce redirects between apex and `www` to avoid duplicate origins; ensure TLS is active on both.
 - Required env vars in Vercel:
   - Public: `PUBLIC_ENABLE_SUBSCRIBE_API`, `PUBLIC_ANALYTICS_DEBUG` (optional), `PUBLIC_GA_MEASUREMENT_ID` (optional).
-  - Server-only: `BUTTONDOWN_API_KEY`, `BUTTONDOWN_PUBLICATION_ID` (optional), `SUBSCRIBE_LOG_ONLY` for preview safety.
+  - Server-only: `SITE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (preferred) or `SUPABASE_ANON_KEY`, `RESEND_API_KEY`, `RESEND_FROM`.
 - Healthy deployment verification:
   - `npm run build` succeeds locally or in CI.
-  - `/api/subscribe` GET responds with the expected mode (`provider` with credentials, `log-only`, or disabled).
+  - `/api/subscribe` GET responds with the expected mode (`provider` or `disabled`) and truthful `hasCredentials`.
+  - Supabase captures pending subscribers in `public.subscribers`, keyed by unique email.
+  - Confirmation email links resolve through `/api/confirm` and unsubscribe links through `/api/unsubscribe`.
   - Page loads show GA script when `PUBLIC_GA_MEASUREMENT_ID` is set; in debug mode, console logs appear when GA is absent.
 - Common failure modes:
   - Missing Vercel adapter → API routes omitted or 404 in production.
-  - `PUBLIC_ENABLE_SUBSCRIBE_API=true` without `BUTTONDOWN_API_KEY` and `SUBSCRIBE_LOG_ONLY=true` → server errors on subscribe.
+  - `PUBLIC_ENABLE_SUBSCRIBE_API=true` without Supabase or Resend credentials → `/api/subscribe` returns a temporary-unavailable error.
+  - Supabase table schema not migrated → database lookup/upsert failures during subscribe/confirm/unsubscribe.
   - Setting `output` to `hybrid` in Astro v5 → build failure. Keep `output: "static"` and mark server routes with `prerender = false`.
 ## Control surfaces
 - Active issue queue: `ISSUE_ORDER.md`

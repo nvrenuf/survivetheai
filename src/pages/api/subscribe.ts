@@ -49,8 +49,10 @@ const getEnv = () => {
 export const GET: APIRoute = () => {
   const env = getEnv();
   const status = env.enabled && env.hasCredentials ? "ready" : "needs_config";
+  const mode = env.enabled ? "provider" : "disabled";
   return json(200, {
     status,
+    mode,
     enabled: env.enabled,
     hasCredentials: env.hasCredentials,
     provider: "supabase+resend",
