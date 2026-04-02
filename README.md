@@ -27,10 +27,18 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
   - `RESEND_FROM`
 - Safe enable checklist:
   - In Preview or Production, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` only after Supabase + Resend credentials are present.
-  - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql` and `supabase/migrations/0002_subscriber_attribution.sql` so the `subscribers` table includes status, token, request-metadata, and attribution columns used by the handlers.
+  - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql`, `supabase/migrations/0002_subscriber_attribution.sql`, and `supabase/migrations/0003_subscriber_lifecycle_baseline.sql` so the `subscribers` table includes status, token, attribution, and lifecycle-segmentation columns used by the handlers.
   - Verify `/api/subscribe` GET reports `mode: "provider"` and `hasCredentials: true`.
   - Submit a test signup, confirm a pending row is written to `public.subscribers`, complete `/api/confirm`, and verify the row transitions to `status = "active"`.
   - Verify `/api/unsubscribe` clears the active subscription state and sends the user to `/newsletter/unsubscribed`.
+- Baseline post-signup lifecycle:
+  - subscribe writes a pending row and sends the confirmation email
+  - confirm activates the subscriber and sends one welcome email with the next-step path
+  - unsubscribe marks the row unsubscribed and clears active tokens
+- Baseline segmentation fields:
+  - `signup_intent`: `briefing` or `playbook`
+  - `lead_segment`: `general-briefing`, `new-reader`, `action-seeker`, `article-deep-dive`, or `hub-specific`
+  - `interest_area`: populated for `hub-*` signup sources
 
 ## Analytics (minimal)
 - Events:

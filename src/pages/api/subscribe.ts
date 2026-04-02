@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { createHash, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { deriveSubscriberLifecycleProfile } from "../../utils/subscriberLifecycle";
 
 export const prerender = false;
 
@@ -116,6 +117,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   const sourceValue = (payload.source_page ?? payload.source ?? "").toString().slice(0, 200);
+  const lifecycleProfile = deriveSubscriberLifecycleProfile(sourceValue);
   const pagePathValue = (payload.page_path ?? "").toString().slice(0, 200);
   const referrerValue = (payload.referrer ?? "").toString().slice(0, 200);
   const utmSourceValue = (payload.utm_source ?? "").toString().slice(0, 120);
@@ -157,6 +159,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         {
           email: normalizedEmail,
           source_page: sourceValue || null,
+          signup_intent: lifecycleProfile.signupIntent,
+          lead_segment: lifecycleProfile.leadSegment,
+          interest_area: lifecycleProfile.interestArea,
           page_path: pagePathValue || null,
           referrer: referrerValue || null,
           utm_source: utmSourceValue || null,

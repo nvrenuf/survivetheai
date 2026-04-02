@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { buildWelcomeEmailText, deriveSubscriberLifecycleProfile } from '../src/utils/subscriberLifecycle';
 
 test('subscribe API reports disabled mode by default without capture credentials', async ({ request }) => {
   const response = await request.get('/api/subscribe');
@@ -19,4 +20,40 @@ test('subscribe API reports disabled mode by default without capture credentials
     hasCredentials: false,
     provider: 'supabase+resend',
   });
+});
+
+test('subscriber lifecycle profile maps source pages into baseline segments', async () => {
+  expect(deriveSubscriberLifecycleProfile('playbook')).toEqual({
+    signupIntent: 'playbook',
+    leadSegment: 'action-seeker',
+    interestArea: null,
+  });
+
+  expect(deriveSubscriberLifecycleProfile('start-here')).toEqual({
+    signupIntent: 'briefing',
+    leadSegment: 'new-reader',
+    interestArea: null,
+  });
+
+  expect(deriveSubscriberLifecycleProfile('hub-work-money')).toEqual({
+    signupIntent: 'briefing',
+    leadSegment: 'hub-specific',
+    interestArea: 'work-money',
+  });
+});
+
+test('welcome email baseline points readers to the next-step path for their segment', async () => {
+  const playbookText = buildWelcomeEmailText(
+    { signupIntent: 'playbook', leadSegment: 'action-seeker', interestArea: null },
+    'https://survivetheai.com',
+    'https://survivetheai.com/api/unsubscribe?token=abc',
+  );
+  expect(playbookText).toContain('Get the playbook: https://survivetheai.com/playbook');
+
+  const hubText = buildWelcomeEmailText(
+    { signupIntent: 'briefing', leadSegment: 'hub-specific', interestArea: 'mind-attention' },
+    'https://survivetheai.com',
+    'https://survivetheai.com/api/unsubscribe?token=abc',
+  );
+  expect(hubText).toContain('Return to your pressure area: https://survivetheai.com/survival-areas/mind-attention');
 });

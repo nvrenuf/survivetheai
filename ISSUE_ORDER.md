@@ -4,7 +4,7 @@ Current status as of 2026-04-02:
 - Historical completed pass: STA UI credibility pass
 - Historical completed pass: STA trust, authority, and conversion pass
 - Active pass: STA Operations, Capture, and Editorial Enforcement Pass
-- Next recommended issue: STA-15
+- Next recommended issue: STA-16
 
 This pass focuses on operational reliability after the completed trust/authority/conversion work: lead capture, trust/contact reality checks, editorial enforcement, conversion measurement, and basic post-signup lifecycle clarity.
 
@@ -23,7 +23,7 @@ This pass focuses on operational reliability after the completed trust/authority
 - STA-12: Completed 2026-04-02
 - STA-13: Completed 2026-04-02
 - STA-14: Completed 2026-04-02
-- STA-15: Not started
+- STA-15: Completed 2026-04-02
 - STA-16: Not started
 
 ## Active Control Notes
