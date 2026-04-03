@@ -57,6 +57,9 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
   - Optional filter: `npm run report:lead-sources -- --status=active --limit=100`
   - Uses `SUPABASE_URL` plus `SUPABASE_SERVICE_ROLE_KEY` preferred, with `SUPABASE_ANON_KEY` only as fallback.
   - Reports recent subscriber rows plus grouped counts for `source_page`, `page_path`, `referrer`, and UTM combinations.
+- Offer ladder planning:
+  - Current architecture for post-playbook next offers is documented in `docs/ops/STA-20-playbook-offer-ladder-architecture.md`.
+  - The recommended next step after the free playbook is a segmented starter offer by fear area, not an immediate generic premium pitch.
 - Enable GA4 by setting `PUBLIC_GA_MEASUREMENT_ID`; analytics uses `gtag` when present.
 - Debug behavior:
   - If GA is absent and `PUBLIC_ANALYTICS_DEBUG=true` (or running in dev), events log to the console instead of sending to GA.
