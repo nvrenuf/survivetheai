@@ -28,6 +28,7 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
 - Safe enable checklist:
   - In Preview or Production, set `PUBLIC_ENABLE_SUBSCRIBE_API=true` only after Supabase + Resend credentials are present.
   - Apply `supabase/schema.sql` plus `supabase/migrations/0001_newsletter_tokens.sql`, `supabase/migrations/0002_subscriber_attribution.sql`, and `supabase/migrations/0003_subscriber_lifecycle_baseline.sql` so the `subscribers` table includes status, token, attribution, and lifecycle-segmentation columns used by the handlers.
+  - Use the production apply checklist in `docs/ops/STA-23-supabase-production-migration-runbook.md` before or immediately after deploy whenever subscriber schema changes.
   - Verify `/api/subscribe` GET reports `mode: "provider"` and `hasCredentials: true`.
   - Submit a test signup, confirm a pending row is written to `public.subscribers`, complete `/api/confirm`, and verify the row transitions to `status = "active"`.
   - Verify `/api/unsubscribe` clears the active subscription state and sends the user to `/newsletter/unsubscribed`.
