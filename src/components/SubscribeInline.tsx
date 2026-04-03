@@ -74,7 +74,7 @@ export default function SubscribeInline({
 
     if (status === 'disabled' || !enabled) {
       setStatus('disabled');
-      setMessage("Newsletter signup isn't enabled yet.");
+      setMessage((currentMessage) => currentMessage || "Newsletter signup isn't enabled yet.");
       return;
     }
 

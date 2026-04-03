@@ -102,7 +102,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.error("[newsletter] Missing Supabase credentials");
     return json(500, {
       ok: false,
-      message: "Signup temporarily unavailable. Please try again later.",
+      message: "Signup storage is temporarily unavailable. Please try again later.",
       error: "missing_supabase_credentials",
     });
   }
@@ -111,7 +111,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.error("[newsletter] Missing Resend credentials");
     return json(500, {
       ok: false,
-      message: "Signup temporarily unavailable. Please try again later.",
+      message: "Confirmation email is temporarily unavailable. Please try again later.",
       error: "missing_resend_credentials",
     });
   }
@@ -139,7 +139,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       console.error("[newsletter] Supabase lookup error", lookupError);
       return json(500, {
         ok: false,
-        message: "Unable to subscribe right now. Please try again later.",
+        message: "Signup storage is temporarily unavailable. Please try again later.",
         error: "db_error",
       });
     }
@@ -182,7 +182,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       console.error("[newsletter] Supabase upsert error", upsertError);
       return json(500, {
         ok: false,
-        message: "Signup temporarily unavailable. Please try again later.",
+        message: "Signup storage is temporarily unavailable. Please try again later.",
         error: "db_error",
       });
     }
@@ -207,7 +207,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       console.error("[newsletter] Resend send error", resendError);
       return json(502, {
         ok: false,
-        message: "Unable to subscribe right now. Please try again later.",
+        message: "Confirmation email could not be sent right now. Please try again later.",
         error: "email_error",
       });
     }
