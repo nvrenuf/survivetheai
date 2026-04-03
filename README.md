@@ -60,6 +60,9 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
 - Offer ladder planning:
   - Current architecture for post-playbook next offers is documented in `docs/ops/STA-20-playbook-offer-ladder-architecture.md`.
   - The recommended next step after the free playbook is a segmented starter offer by fear area, not an immediate generic premium pitch.
+- Contact/editor workflow:
+  - Operator baseline for the public editor inbox is documented in `docs/ops/STA-21-contact-editor-workflow-baseline.md`.
+  - The public contact path remains `editor@survivetheai.com`; this is an inbox workflow, not a form or helpdesk product.
 - Enable GA4 by setting `PUBLIC_GA_MEASUREMENT_ID`; analytics uses `gtag` when present.
 - Debug behavior:
   - If GA is absent and `PUBLIC_ANALYTICS_DEBUG=true` (or running in dev), events log to the console instead of sending to GA.
