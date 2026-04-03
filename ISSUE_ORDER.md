@@ -4,12 +4,15 @@ Current status as of 2026-04-02:
 - Historical completed pass: STA UI credibility pass
 - Historical completed pass: STA trust, authority, and conversion pass
 - Historical completed pass: STA Operations, Capture, and Editorial Enforcement Pass
-- Active pass: STA Subscriber Experience, Reporting, and Offer Architecture Pass
-- Next recommended issue: STA-22
+- Historical completed pass: STA Subscriber Experience, Reporting, and Offer Architecture Pass
+- Active pass: none
+- Next recommended issue: none
 
-This pass focuses on business/editorial leverage after the completed operations/capture/enforcement work: subscriber experience quality, operator-visible lead-source reporting, lightweight content review loops, offer ladder planning, and editor-contact workflow clarity.
+There is no active STA execution pass at the moment. The most recently completed pass focused on subscriber experience quality, operator-visible lead-source reporting, lightweight content review loops, offer ladder planning, and editor-contact workflow clarity.
 
-## Active Execution Order
+## Most Recently Completed Pass
+
+### STA Subscriber Experience, Reporting, and Offer Architecture Pass
 
 1. STA-17: Playbook and subscriber experience audit
 2. STA-18: Lead-source reporting and operator dashboard baseline
@@ -18,16 +21,18 @@ This pass focuses on business/editorial leverage after the completed operations/
 5. STA-21: Contact/editor workflow baseline
 6. STA-22: Final regression sweep and closeout
 
-## Active Status
+Completed 2026-04-02
+
+### Status
 
 - STA-17: Completed 2026-04-02
 - STA-18: Completed 2026-04-02
 - STA-19: Completed 2026-04-02
 - STA-20: Completed 2026-04-02
 - STA-21: Completed 2026-04-02
-- STA-22: Not started
+- STA-22: Completed 2026-04-02
 
-## Active Control Notes
+### Control Notes
 
 - STA-17 verifies the actual first subscriber experience against the site promise
 - STA-18 exposes attribution data in an operator-usable form
