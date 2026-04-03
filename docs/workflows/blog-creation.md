@@ -177,6 +177,18 @@ Outputs:
 - production deploy when ready
 - notes for iteration
 
+## Phase 10 - Performance Review Loop
+
+Owner: Human + Codex
+
+Purpose:
+- decide whether a live post should be updated, expanded, repromoted, demoted, or left alone
+
+Rules:
+- use the lightweight review loop in `docs/ops/STA-19-content-performance-review-loop.md`
+- treat trust risk as equal to or more important than traffic
+- prefer narrow operational decisions over broad rewrite planning
+
 ## Tool Ownership Summary
 
 - NotebookLM: grounding, infographics, video

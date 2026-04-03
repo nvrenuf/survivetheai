@@ -5,7 +5,7 @@ Current status as of 2026-04-02:
 - Historical completed pass: STA trust, authority, and conversion pass
 - Historical completed pass: STA Operations, Capture, and Editorial Enforcement Pass
 - Active pass: STA Subscriber Experience, Reporting, and Offer Architecture Pass
-- Next recommended issue: STA-19
+- Next recommended issue: STA-20
 
 This pass focuses on business/editorial leverage after the completed operations/capture/enforcement work: subscriber experience quality, operator-visible lead-source reporting, lightweight content review loops, offer ladder planning, and editor-contact workflow clarity.
 
@@ -22,7 +22,7 @@ This pass focuses on business/editorial leverage after the completed operations/
 
 - STA-17: Completed 2026-04-02
 - STA-18: Completed 2026-04-02
-- STA-19: Not started
+- STA-19: Completed 2026-04-02
 - STA-20: Not started
 - STA-21: Not started
 - STA-22: Not started
