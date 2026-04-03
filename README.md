@@ -52,6 +52,11 @@ Operator notes for the SurviveTheAI site built with Astro and deployed to Vercel
   - `page_path`
   - `referrer`
   - `utm_source`, `utm_medium`, `utm_campaign`
+- Operator lead-source review:
+  - Run `npm run report:lead-sources -- --limit=50` to print a lightweight source report from Supabase.
+  - Optional filter: `npm run report:lead-sources -- --status=active --limit=100`
+  - Uses `SUPABASE_URL` plus `SUPABASE_SERVICE_ROLE_KEY` preferred, with `SUPABASE_ANON_KEY` only as fallback.
+  - Reports recent subscriber rows plus grouped counts for `source_page`, `page_path`, `referrer`, and UTM combinations.
 - Enable GA4 by setting `PUBLIC_GA_MEASUREMENT_ID`; analytics uses `gtag` when present.
 - Debug behavior:
   - If GA is absent and `PUBLIC_ANALYTICS_DEBUG=true` (or running in dev), events log to the console instead of sending to GA.
