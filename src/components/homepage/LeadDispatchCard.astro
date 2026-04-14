@@ -1,0 +1,66 @@
+---
+import type { PostEntry } from '../../content/config';
+import { getAuthorProfile } from '../../data/authors';
+import { formatDate } from '../../utils/format';
+
+const { post } = Astro.props as { post?: PostEntry };
+
+const author = post ? getAuthorProfile(post.data.author) : undefined;
+---
+
+<section class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.65)]" data-testid="pressure-room-lead-story">
+  {post ? (
+    <>
+      <a href={`/posts/${post.slug}/`} class="block">
+        <div class="relative aspect-[16/9] overflow-hidden bg-neutral-900">
+          <img
+            src={post.data.heroImage}
+            alt={post.data.heroImageAlt ?? post.data.title}
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="630"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+        </div>
+      </a>
+      <div class="space-y-4 p-5">
+        <div class="space-y-2">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-400">Lead dispatch</p>
+          <h3 class="text-2xl font-black tracking-tight text-white">{post.data.title}</h3>
+          <p class="text-sm leading-relaxed text-neutral-300">{post.data.description}</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+          <span>{formatDate(post.data.date)}</span>
+          <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-700" />
+          <span>{`By ${author?.displayName}`}</span>
+          <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-700" />
+          <a href="/impact-score-methodology" class="text-neutral-300 underline decoration-white/20 underline-offset-4 transition hover:text-white">
+            Impact Score {post.data.impact_score}
+          </a>
+        </div>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a
+            href={`/posts/${post.slug}/`}
+            class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
+          >
+            Read the lead dispatch
+          </a>
+          <a
+            href="/posts"
+            class="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
+          >
+            Browse the library
+          </a>
+        </div>
+      </div>
+    </>
+  ) : (
+    <div class="space-y-3 p-5">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-400">Lead dispatch</p>
+      <h3 class="text-2xl font-black text-white">No lead dispatch yet</h3>
+      <p class="text-sm leading-relaxed text-neutral-400">Publish the next post to populate the board’s lead story slot.</p>
+    </div>
+  )}
+</section>
