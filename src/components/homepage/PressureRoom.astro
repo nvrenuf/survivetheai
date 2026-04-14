@@ -11,35 +11,53 @@ const { board } = Astro.props as { board: HomepageBoardModel };
 ---
 
 <section
-  class="rounded-[2rem] border border-neutral-800 bg-neutral-950 px-5 py-6 text-white shadow-[0_28px_90px_-40px_rgba(0,0,0,0.75)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+  class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(120,113,108,0.08),transparent_26%),linear-gradient(180deg,rgba(16,16,18,0.98),rgba(5,5,6,1))] px-5 py-6 text-white shadow-[0_40px_120px_-48px_rgba(0,0,0,0.85)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
   data-testid="pressure-room-section"
 >
-  <div class="flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
-    <div class="max-w-3xl space-y-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-400">AI Pressure Room</p>
-      <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.4rem]">An editorial board surface for where AI pressure is building.</h2>
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:24px_24px] opacity-25" aria-hidden="true"></div>
+
+  <div class="relative flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-3xl space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">AI Pressure Room</p>
+        <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
+          Board-led homepage
+        </span>
+      </div>
+      <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.55rem]">The homepage now opens like a pressure board, not a magazine front page.</h2>
       <p class="text-base leading-relaxed text-neutral-300">
         Near-live modules summarize fresh STA coverage. Threat cards and macro gauges are explicit editorial judgments. Every route still
         leads back into posts, hubs, and methodology.
       </p>
     </div>
-    <div class="max-w-md rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-neutral-300">
-      <p class="font-semibold text-white">Board timestamp: {board.anchorDateLabel}</p>
-      <p class="mt-1">This surface uses local config and recent publishing cadence first, so future API wiring has a clear seam.</p>
+    <div class="grid max-w-xl gap-3 sm:grid-cols-2">
+      <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-relaxed text-neutral-300">
+        <p class="font-semibold text-white">Board timestamp: {board.anchorDateLabel}</p>
+        <p class="mt-1">Built from local config and recent publishing cadence first, so future API wiring has a clean seam.</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-relaxed text-neutral-300">
+        <p class="font-semibold text-white">Signal contract</p>
+        <p class="mt-1">Near-live inputs are recent STA signals, not external real-time feeds.</p>
+      </div>
     </div>
   </div>
 
-  <div class="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
-    <div class="space-y-6">
-      <LiveInputModules modules={board.liveModules} />
-      <ThreatCardsBoard cards={board.threatCards} />
-    </div>
+  <div class="relative mt-6 space-y-6">
+    <LiveInputModules modules={board.liveModules} />
 
-    <div class="space-y-6">
-      <LeadDispatchCard post={board.leadPost} />
-      <MacroGauges gauges={board.macroGauges} />
-      <ImpactScoreFeed items={board.impactItems} />
-      <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
+    <div class="grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
+      <div class="space-y-6">
+        <ThreatCardsBoard cards={board.threatCards} />
+      </div>
+
+      <div class="grid gap-6 xl:auto-rows-min">
+        <LeadDispatchCard post={board.leadPost} />
+        <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-1">
+          <MacroGauges gauges={board.macroGauges} />
+          <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
+        </div>
+        <ImpactScoreFeed items={board.impactItems} />
+      </div>
     </div>
   </div>
 </section>

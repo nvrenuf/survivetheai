@@ -4,7 +4,7 @@ import type { HomepageMacroGauge } from '../../data/homepageBoard';
 const { gauges } = Astro.props as { gauges: HomepageMacroGauge[] };
 ---
 
-<section class="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.65)]" data-testid="pressure-room-macro-gauges">
+<section class="rounded-[1.75rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_20px_54px_-34px_rgba(0,0,0,0.78)]" data-testid="pressure-room-macro-gauges">
   <div class="space-y-1">
     <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-400">Editorial macro gauges</p>
     <h3 class="text-xl font-black text-white">How the board reads the bigger picture</h3>
@@ -18,10 +18,12 @@ const { gauges } = Astro.props as { gauges: HomepageMacroGauge[] };
             <h4 class="text-base font-bold text-white">{gauge.title}</h4>
             <p class="text-sm leading-relaxed text-neutral-400">{gauge.summary}</p>
           </div>
-          <span class="text-2xl font-black tracking-tight text-white">{gauge.value}</span>
+          <span class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-2xl font-black tracking-tight text-white">
+            {gauge.value}
+          </span>
         </div>
         <div class="h-2 rounded-full bg-white/10" aria-hidden="true">
-          <div class="h-2 rounded-full bg-gradient-to-r from-neutral-300 via-neutral-100 to-white" style={`width:${gauge.value}%`}></div>
+          <div class="h-2 rounded-full bg-gradient-to-r from-stone-400 via-stone-200 to-neutral-50" style={`width:${gauge.value}%`}></div>
         </div>
         <div class="flex items-start justify-between gap-4">
           <p class="max-w-sm text-sm leading-relaxed text-neutral-500">{gauge.detail}</p>

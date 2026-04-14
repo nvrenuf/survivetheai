@@ -4,10 +4,11 @@ import { TOPIC_CATEGORIES } from '../data/categories';
 import { getAuthorProfile } from '../data/authors';
 import { formatDate } from '../utils/format';
 
-const { post, compact = false, showImpact = false } = Astro.props as {
+const { post, compact = false, showImpact = false, variant = 'default' } = Astro.props as {
   post: PostEntry;
   compact?: boolean;
   showImpact?: boolean;
+  variant?: 'default' | 'board';
 };
 
 const categoryByKey = new Map(TOPIC_CATEGORIES.map((c) => [c.key, c]));
@@ -15,18 +16,29 @@ const primaryCategory = post.data.topics?.[0] ? categoryByKey.get(post.data.topi
 const categoryLabel = primaryCategory?.label ?? post.data.category ?? 'Key Topic';
 const dateLabel = formatDate(post.data.date);
 const authorLabel = getAuthorProfile(post.data.author).displayName;
-const metaClass = compact
-  ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
-  : 'flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
-const impactClass = compact
-  ? 'text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
-  : 'text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
+const metaClass =
+  variant === 'board'
+    ? compact
+      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
+      : 'flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-400'
+    : compact
+      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
+      : 'flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
+const impactClass =
+  variant === 'board'
+    ? compact
+      ? 'text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-400'
+      : 'text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-300'
+    : compact
+      ? 'text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
+      : 'text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
+const dividerClass = variant === 'board' ? 'h-1 w-1 rounded-full bg-white/15' : 'h-1 w-1 rounded-full bg-neutral-300';
 ---
 
 {showImpact ? (
   <div class={impactClass} data-testid={compact ? 'compact-post-card-impact' : 'post-card-impact'}>
     <span>{`By ${authorLabel}`}</span>
-    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+    <span aria-hidden class={dividerClass} />
     <span data-testid={compact ? 'compact-impact-score-label' : 'impact-score-label'}>
       Impact Score {post.data.impact_score}
     </span>
@@ -34,7 +46,7 @@ const impactClass = compact
 ) : (
   <div class={metaClass} data-testid={compact ? 'compact-post-card-meta' : 'post-card-meta'}>
     <span>{categoryLabel}</span>
-    <span aria-hidden class="h-1 w-1 rounded-full bg-neutral-300" />
+    <span aria-hidden class={dividerClass} />
     <span>{dateLabel}</span>
   </div>
 )}

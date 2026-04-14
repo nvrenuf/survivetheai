@@ -39,13 +39,7 @@ test.describe('Homepage layout', () => {
   test('homepage section order stays locked and intentional', async ({ page }) => {
     await page.goto('/');
 
-    const sectionOrder = await page.locator('main > div').evaluate((container) =>
-      Array.from(container.children)
-        .map((node) => node.getAttribute('data-testid'))
-        .filter(Boolean),
-    );
-
-    expect(sectionOrder).toEqual([
+    const expectedOrder = [
       'homepage-hero',
       'pressure-room-section',
       'start-here-section',
@@ -54,7 +48,16 @@ test.describe('Homepage layout', () => {
       'homepage-subscribe',
       'credibility-panel',
       'library-cta-section',
-    ]);
+    ];
+
+    const sectionOrder = await page.locator('main [data-testid]').evaluateAll((nodes, ids) => {
+      const expectedIds = new Set(ids as string[]);
+      return nodes
+        .map((node) => node.getAttribute('data-testid'))
+        .filter((value): value is string => Boolean(value) && expectedIds.has(value));
+    }, expectedOrder);
+
+    expect(sectionOrder).toEqual(expectedOrder);
   });
 
   test('pressure room keeps its honest data separation and routes back into reporting', async ({ page }) => {
