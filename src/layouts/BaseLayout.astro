@@ -3,17 +3,27 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { getBuildFingerprint } from '../utils/buildFingerprint';
+import { warnIfAnalyticsMissing } from '../utils/env.server';
 
 const {
   title = 'Survive the AI',
-  description = 'Survive the AI — Tools, strategies, and content to prepare for the AI disruption.',
+  description = 'Survive the AI - Tools, strategies, and content to prepare for the AI disruption.',
+  wrapMain = true,
+  bodyClass = 'bg-white text-neutral-900 font-sans antialiased',
 } = Astro.props as {
   title?: string;
   description?: string;
+  wrapMain?: boolean;
+  bodyClass?: string;
 };
 
 const analyticsDebug = import.meta.env.PUBLIC_ANALYTICS_DEBUG === 'true';
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const fingerprint = getBuildFingerprint();
+
+if (!gaMeasurementId) {
+  warnIfAnalyticsMissing();
+}
 ---
 
 <!DOCTYPE html>
@@ -24,28 +34,61 @@ const fingerprint = getBuildFingerprint();
     <meta name="description" content={description} />
     <meta name="build" content={fingerprint.metaContent} />
     <title>{title}</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQHX35EW09"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BQHX35EW09');
-    </script>
+    <slot name="head" />
+    {gaMeasurementId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script is:inline>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${gaMeasurementId}');
+          `}
+        </script>
+      </>
+    )}
   </head>
-  <body class="bg-white text-neutral-900 font-sans antialiased">
+  <body class={bodyClass}>
     <Navbar />
-    <main class="min-h-screen">
-      <slot />
-    </main>
+    {wrapMain ? <main class="min-h-screen"><slot /></main> : <slot />}
     <Footer fingerprint={fingerprint} />
     <script is:inline>
       {`
         (function() {
           const debug = ${analyticsDebug ? 'true' : 'false'};
+          const hasGa = ${gaMeasurementId ? 'true' : 'false'};
+
+          function sendEvent(name, payload) {
+            if (typeof window.gtag === 'function' && hasGa) {
+              window.gtag('event', name, payload);
+            } else if (debug) {
+              console.info('[analytics] ' + name, payload);
+            }
+          }
+
           if (!window.gtag && debug) {
             console.info('[analytics] GA4 not configured. Events will log to console when triggered.');
           }
+
+          document.addEventListener('click', function(event) {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            const tracked = target.closest('[data-analytics-event]');
+            if (!(tracked instanceof HTMLElement)) return;
+
+            const eventName = tracked.dataset.analyticsEvent;
+            if (!eventName) return;
+
+            const destination = tracked instanceof HTMLAnchorElement ? tracked.href : tracked.dataset.analyticsDestination;
+            sendEvent(eventName, {
+              location: tracked.dataset.analyticsLocation || undefined,
+              label: tracked.dataset.analyticsLabel || undefined,
+              destination: destination || undefined,
+              page_path: window.location.pathname,
+            });
+          });
         })();
       `}
     </script>

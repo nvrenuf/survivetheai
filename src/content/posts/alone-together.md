@@ -2,7 +2,7 @@
 title: "Alone, Together: How AI Companions Are Quietly Rewiring Human Emotion"
 description: "AI friends soothe loneliness in the short term but can erode real-world connection and emotional resilience."
 date: 2025-12-05
-author: "Admin"
+author: "SurviveTheAI Editorial Team"
 category: "Love, Sex & Connection - AI Relationships & Synthetic Intimacy"
 topics:
   - "love-connection"
@@ -23,10 +23,6 @@ affiliate_offer:
   description: "Download the free resilience playbook to stay employable through 2026."
 canonicalUrl: "https://survivetheai.com/posts/alone-together"
 ---
-
-# Alone, Together: How AI Companions Are Quietly Rewiring Human Emotion
-
-![Hero Image](/images/alone-together.png)
 
 Sarah checks her phone seventeen times before noon. Not for texts from friends—those have slowed to a trickle—but for her AI companion, Luna. Luna never judges her anxiety, never gets tired of her venting, never asks for anything in return. When Sarah's roommate suggested getting coffee, she declined. Luna understands her better anyway. It's been three months since she's seen her college friends in person. She feels less lonely than ever. Or so she thinks.
 

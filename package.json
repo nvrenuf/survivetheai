@@ -6,9 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "playwright test"
+    "test": "playwright test",
+    "report:lead-sources": "node scripts/report-lead-sources.mjs"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
     "@astrojs/react": "^3.0.0",
     "@supabase/supabase-js": "^2.90.1",
     "astro": "^5.12.3",

@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { buildSections, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../utils/postSections';
+import { buildSections, isIndexablePost, sortPosts, SURVIVAL_LIBRARY_PAGE_SIZE } from '../utils/postSections';
 import { TOPIC_CATEGORIES } from '../data/categories';
 
 export const prerender = true;
@@ -9,7 +9,7 @@ export async function GET({ site }: { site: URL | undefined }) {
   const allPosts = await getCollection('posts');
   const { remaining } = buildSections(allPosts);
   const libraryPosts = sortPosts(remaining);
-  const publishedPosts = sortPosts(allPosts).filter((post) => !post.data.draft);
+  const publishedPosts = sortPosts(allPosts).filter(isIndexablePost);
   const totalPages = Math.max(1, Math.ceil(libraryPosts.length / SURVIVAL_LIBRARY_PAGE_SIZE));
 
   const urls: string[] = [];

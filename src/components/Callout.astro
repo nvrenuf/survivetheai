@@ -1,25 +1,67 @@
 ---
 const {
   title,
-  intent = 'info',
+  kind = 'tldr',
 } = Astro.props as {
   title?: string;
-  intent?: 'info' | 'caution';
+  kind?: 'tldr' | 'defend' | 'next' | 'warning' | 'checklist' | 'claims';
 };
 
-const intentStyles: Record<string, string> = {
-  info: 'bg-neutral-900 text-neutral-50 border-l-4 border-neutral-700',
-  caution: 'bg-neutral-800 text-neutral-50 border-l-4 border-orange-400',
+const variantConfig: Record<string, { label: string; shell: string; labelClass: string; bodyClass: string }> = {
+  tldr: {
+    label: 'TL;DR',
+    shell: 'border-neutral-200 bg-neutral-50/90 ring-1 ring-neutral-200/80',
+    labelClass: 'text-neutral-700',
+    bodyClass: 'text-neutral-800',
+  },
+  defend: {
+    label: 'What We Can Defend',
+    shell: 'border-emerald-200 bg-emerald-50/70 ring-1 ring-emerald-200/70',
+    labelClass: 'text-emerald-900',
+    bodyClass: 'text-emerald-950',
+  },
+  next: {
+    label: 'What Could Happen Next',
+    shell: 'border-sky-200 bg-sky-50/75 ring-1 ring-sky-200/70',
+    labelClass: 'text-sky-900',
+    bodyClass: 'text-sky-950',
+  },
+  warning: {
+    label: 'Warning',
+    shell: 'border-amber-300 bg-amber-50/80 ring-1 ring-amber-200/80',
+    labelClass: 'text-amber-900',
+    bodyClass: 'text-amber-950',
+  },
+  checklist: {
+    label: 'Checklist',
+    shell: 'border-neutral-300 bg-white ring-1 ring-neutral-200',
+    labelClass: 'text-neutral-700',
+    bodyClass: 'text-neutral-800',
+  },
+  claims: {
+    label: 'Claims & Verification',
+    shell: 'border-violet-200 bg-violet-50/70 ring-1 ring-violet-200/70',
+    labelClass: 'text-violet-900',
+    bodyClass: 'text-violet-950',
+  },
 };
-const style = intentStyles[intent] ?? intentStyles.info;
+
+const variant = variantConfig[kind] ?? variantConfig.tldr;
+const heading = title ?? variant.label;
 ---
 
-<div class={`relative overflow-hidden rounded-2xl shadow-lg ring-1 ring-neutral-800/40 ${style}`} role="note">
-  <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-orange-400 to-neutral-700 opacity-70" aria-hidden="true" />
-  <div class="space-y-3 px-5 py-5 sm:px-6 sm:py-6">
-    {title && <p class="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-200/80">{title}</p>}
-    <div class="space-y-2 text-sm sm:text-base leading-relaxed text-neutral-100">
+<aside
+  class={`my-8 overflow-hidden rounded-2xl border px-5 py-5 shadow-sm sm:px-6 sm:py-6 ${variant.shell}`}
+  role="note"
+  data-testid="article-callout"
+  data-callout-kind={kind}
+>
+  <div class="space-y-3">
+    <p class={`text-[11px] font-semibold uppercase tracking-[0.28em] ${variant.labelClass}`}>{heading}</p>
+    <div
+      class={`space-y-3 text-sm leading-relaxed sm:text-base [&_ol]:space-y-2 [&_ol]:pl-5 [&_ul]:space-y-2 [&_ul]:pl-5 [&_li]:pl-1 ${variant.bodyClass}`}
+    >
       <slot />
     </div>
   </div>
-</div>
+</aside>

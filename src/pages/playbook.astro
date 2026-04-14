@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import SubscribeInline from '../components/SubscribeInline';
+---
+
+<Layout title="Survival Playbook - SurviveTheAI" description="Free STA playbook with practical next steps for work, family, and attention under AI pressure.">
+  <main class="bg-white py-14 text-neutral-900 sm:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8" data-testid="playbook-page">
+      <header class="space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Playbook</p>
+        <h1 class="text-3xl font-extrabold text-neutral-900 sm:text-4xl">Get the free Survival Playbook</h1>
+        <p class="max-w-4xl text-lg text-neutral-700 sm:text-xl">
+          A concise subscriber path for people who want practical next steps, not vague reassurance. The playbook pulls together STA&apos;s
+          core checklists for work, family, and focus so you can act faster when AI pressure shows up.
+        </p>
+      </header>
+
+      <section class="grid gap-6 lg:grid-cols-3">
+        <article class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Inside</p>
+          <h2 class="mt-2 text-2xl font-black text-neutral-900">What you get</h2>
+          <ul class="mt-4 space-y-3 text-neutral-700">
+            <li>Early-warning checks for job pressure and workflow compression.</li>
+            <li>Household prompts for AI and kids, trust, and digital boundaries.</li>
+            <li>Focus and attention drills to reduce passive offloading.</li>
+          </ul>
+        </article>
+        <article class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Why it exists</p>
+          <h2 class="mt-2 text-2xl font-black text-neutral-900">A bridge from reading to action</h2>
+          <p class="mt-4 text-neutral-700">
+            STA tracks the signal. The playbook helps you turn that signal into a few concrete moves you can make this week without reading
+            the entire archive first.
+          </p>
+        </article>
+        <article class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Trust</p>
+          <h2 class="mt-2 text-2xl font-black text-neutral-900">No spammy bait-and-switch</h2>
+          <p class="mt-4 text-neutral-700">
+            This is a free starter path, not a hidden paid funnel. Sign up, confirm your email, and STA will point you to the playbook page,
+            Start Here, and the weekly briefing without locking the reporting behind a gate.
+          </p>
+        </article>
+      </section>
+
+      <section class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-8">
+        <div class="max-w-3xl space-y-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Get it</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Join the weekly STA briefing and unlock the playbook path</h2>
+          <p class="text-neutral-700">
+            Subscribe once, confirm your email, and STA will send the welcome path into the playbook, Start Here, and the weekly signal
+            updates. Free. No spam. Unsubscribe anytime.
+          </p>
+        </div>
+        <div class="mt-6">
+          <SubscribeInline
+            client:load
+            location="playbook"
+            heading="Send me the weekly briefing and the playbook path"
+            helperText="One concise weekly email plus the guided starter path into STA&apos;s work, family, and attention checklists."
+            privacyText="Free. No spam. Unsubscribe anytime."
+          />
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

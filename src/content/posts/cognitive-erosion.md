@@ -3,6 +3,7 @@ title: "Placeholder: Cognitive Erosion"
 description: "This is a placeholder post for the Cognitive Erosion category."
 date: 2025-07-31
 author: "Admin"
+internal: true
 category: "Mind & Attention – Cognitive Erosion & Offloading"
 topics:
   - "mind-attention"

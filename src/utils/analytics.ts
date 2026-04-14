@@ -19,3 +19,35 @@ export function trackEvent(name: string, payload: EventPayload = {}) {
     console.info(`[analytics] ${name}`, enrichedPayload);
   }
 }
+
+type SignupAttribution = {
+  page_path?: string;
+  referrer?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+};
+
+export function getSignupAttribution(): SignupAttribution {
+  if (typeof window === 'undefined') return {};
+
+  const params = new URLSearchParams(window.location.search);
+  let referrer = '';
+
+  if (document.referrer) {
+    try {
+      const refUrl = new URL(document.referrer);
+      referrer = refUrl.origin === window.location.origin ? `${refUrl.pathname}${refUrl.search}` : refUrl.hostname;
+    } catch {
+      referrer = document.referrer.slice(0, 200);
+    }
+  }
+
+  return {
+    page_path: `${window.location.pathname}${window.location.search}`.slice(0, 200),
+    referrer: referrer.slice(0, 200) || undefined,
+    utm_source: params.get('utm_source')?.slice(0, 120) || undefined,
+    utm_medium: params.get('utm_medium')?.slice(0, 120) || undefined,
+    utm_campaign: params.get('utm_campaign')?.slice(0, 120) || undefined,
+  };
+}

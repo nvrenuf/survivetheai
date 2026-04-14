@@ -1,11 +1,18 @@
 import { defineCollection, z, type CollectionEntry } from 'astro:content';
+import { AUTHOR_NAME_OPTIONS } from '../data/authors';
+
+const authorNameOptions = AUTHOR_NAME_OPTIONS as [string, ...string[]];
 
 export const postSchema = z.object({
   title: z.string(),
   description: z.string(),
   date: z.coerce.date(),
-  author: z.string(),
+  author: z.enum(authorNameOptions),
   draft: z.boolean().optional(),
+  internal: z.boolean().optional(),
+  noindex: z.boolean().optional(),
+  archiveHidden: z.boolean().optional(),
+  homepageHidden: z.boolean().optional(),
   featured: z.boolean().optional(),
   evergreen: z.boolean().optional(),
   category: z.string().optional(),

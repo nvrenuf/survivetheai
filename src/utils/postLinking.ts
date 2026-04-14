@@ -1,6 +1,6 @@
 import type { PostEntry } from '../content/config';
 import { getHubByKey } from '../data/hubs';
-import { sortPosts } from './postSections';
+import { isArchiveVisiblePost, sortPosts } from './postSections';
 
 const PILLAR_KEYS = ['work-money', 'kids-school', 'love-connection', 'mind-attention', 'system-shock'] as const;
 export type PillarKey = (typeof PILLAR_KEYS)[number];
@@ -8,6 +8,27 @@ export type PillarKey = (typeof PILLAR_KEYS)[number];
 export function getPillarFromPost(post: PostEntry): PillarKey | undefined {
   const pillar = post.data.pillar ?? post.data.topics?.[0];
   return PILLAR_KEYS.includes(pillar as PillarKey) ? (pillar as PillarKey) : undefined;
+}
+
+export function getHubKeysForPost(post: PostEntry): PillarKey[] {
+  const keys = new Set<PillarKey>();
+  const pillar = getPillarFromPost(post);
+  if (pillar) {
+    keys.add(pillar);
+  }
+
+  for (const topic of post.data.topics ?? []) {
+    if (PILLAR_KEYS.includes(topic as PillarKey)) {
+      keys.add(topic as PillarKey);
+    }
+  }
+
+  return [...keys];
+}
+
+export function postBelongsToHub(post: PostEntry, hubKey?: PillarKey): boolean {
+  if (!hubKey) return false;
+  return getHubKeysForPost(post).includes(hubKey);
 }
 
 function uniquePosts(entries: PostEntry[]): PostEntry[] {
@@ -20,7 +41,7 @@ function uniquePosts(entries: PostEntry[]): PostEntry[] {
 }
 
 export function buildPostLinking(post: PostEntry, allPosts: PostEntry[]) {
-  const sorted = sortPosts(allPosts).filter((entry) => !entry.data.draft);
+  const sorted = sortPosts(allPosts).filter(isArchiveVisiblePost);
   const pillar = getPillarFromPost(post);
   const hub = getHubByKey(pillar);
 
@@ -31,16 +52,12 @@ export function buildPostLinking(post: PostEntry, allPosts: PostEntry[]) {
   const explicitRelatedSlugs = new Set(post.data.related ?? []);
   const explicitRelated = sorted.filter((entry) => explicitRelatedSlugs.has(entry.slug));
 
-  const pillarPool = sorted.filter(
-    (entry) => entry.slug !== post.slug && getPillarFromPost(entry) === pillar && !explicitRelatedSlugs.has(entry.slug),
-  );
+  const pillarPool = sorted.filter((entry) => entry.slug !== post.slug && postBelongsToHub(entry, pillar) && !explicitRelatedSlugs.has(entry.slug));
   const fallbackPool = sorted.filter((entry) => entry.slug !== post.slug && !explicitRelatedSlugs.has(entry.slug));
-
-  const related = uniquePosts([...explicitRelated, ...pillarPool, ...fallbackPool]).slice(0, 3);
 
   let nextUp: PostEntry | undefined;
   if (pillar) {
-    const pillarSorted = sorted.filter((entry) => getPillarFromPost(entry) === pillar);
+    const pillarSorted = sorted.filter((entry) => postBelongsToHub(entry, pillar));
     const index = pillarSorted.findIndex((entry) => entry.slug === post.slug);
     if (index >= 0 && index + 1 < pillarSorted.length) {
       nextUp = pillarSorted[index + 1];
@@ -49,6 +66,10 @@ export function buildPostLinking(post: PostEntry, allPosts: PostEntry[]) {
   if (!nextUp) {
     nextUp = sorted.find((entry) => entry.slug !== post.slug);
   }
+
+  const related = uniquePosts([...explicitRelated, ...pillarPool, ...fallbackPool])
+    .filter((entry) => entry.slug !== nextUp?.slug)
+    .slice(0, 3);
 
   const sidebarBase = uniquePosts([...related, ...pillarPool]);
   const sidebar =

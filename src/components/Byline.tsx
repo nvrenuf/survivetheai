@@ -5,24 +5,22 @@ type BylineProps = {
   displayDate: string;
   isoDate: string;
   readingTime: string;
+  className?: string;
 };
 
-const Byline: FC<BylineProps> = ({ author, displayDate, isoDate, readingTime }) => {
-  const showAuthor = import.meta.env.PUBLIC_SHOW_AUTHOR === 'true';
-
+const Byline: FC<BylineProps> = ({ author, displayDate, isoDate, readingTime, className = '' }) => {
   return (
-    <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-neutral-500 font-medium">
-      {showAuthor && (
-        <>
-          <span className="text-neutral-700">{author}</span>
-          <span aria-hidden className="hidden h-1 w-1 rounded-full bg-neutral-400 sm:block" />
-        </>
-      )}
-      <time dateTime={isoDate} className="text-neutral-500">
-        {displayDate}
+    <div
+      className={`flex flex-wrap items-center gap-2 text-xs font-medium text-neutral-600 sm:text-sm ${className}`.trim()}
+      data-testid="article-byline"
+    >
+      <span className="text-neutral-800">{`By ${author}`}</span>
+      <span aria-hidden className="hidden h-1 w-1 rounded-full bg-neutral-400 sm:block" />
+      <time dateTime={isoDate} className="text-neutral-600">
+        {`Published ${displayDate}`}
       </time>
       <span aria-hidden className="hidden h-1 w-1 rounded-full bg-neutral-400 sm:block" />
-      <span className="text-neutral-500">{readingTime}</span>
+      <span className="text-neutral-600">{readingTime}</span>
     </div>
   );
 };

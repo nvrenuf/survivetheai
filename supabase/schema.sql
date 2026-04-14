@@ -4,5 +4,13 @@ create table if not exists subscribers (
   id uuid primary key default gen_random_uuid(),
   email text not null unique,
   source_page text,
+  signup_intent text,
+  lead_segment text,
+  interest_area text,
+  page_path text,
+  referrer text,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
   created_at timestamptz not null default now()
 );

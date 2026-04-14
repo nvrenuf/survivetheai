@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { createHash, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { buildWelcomeEmailText, deriveSubscriberLifecycleProfile } from "../../utils/subscriberLifecycle";
 
 export const prerender = false;
 
@@ -69,7 +70,7 @@ export const GET: APIRoute = async ({ request }) => {
 
     const { data: subscriber, error: lookupError } = await supabase
       .from("subscribers")
-      .select("id,status,email")
+      .select("id,status,email,source_page,signup_intent,lead_segment,interest_area")
       .eq("confirm_token_hash", tokenHash)
       .maybeSingle();
 
@@ -106,16 +107,20 @@ export const GET: APIRoute = async ({ request }) => {
 
     const base = (env.siteUrl ?? new URL(request.url).origin).replace(/\/$/, "");
     const unsubscribeUrl = `${base}/api/unsubscribe?token=${unsubscribeToken}`;
+    const lifecycleProfile =
+      subscriber.signup_intent && subscriber.lead_segment
+        ? {
+            signupIntent: subscriber.signup_intent,
+            leadSegment: subscriber.lead_segment,
+            interestArea: subscriber.interest_area ?? null,
+          }
+        : deriveSubscriberLifecycleProfile(subscriber.source_page);
     const resend = new Resend(env.resendApiKey);
     const sendResult = await resend.emails.send({
       from: env.resendFrom,
       to: [subscriber.email],
       subject: "Welcome to Survive the AI",
-      text:
-        "Welcome to Survive the AI.\n\n" +
-        "What you'll receive: weekly survival intel - early signals, what they mean, and what to do next.\n\n" +
-        `Home: ${base}\n\n` +
-        `Unsubscribe: ${unsubscribeUrl}`,
+      text: buildWelcomeEmailText(lifecycleProfile, base, unsubscribeUrl),
     });
 
     const resendError =

@@ -2,15 +2,15 @@
 import { getCollection } from 'astro:content';
 import HubLayout from '../../layouts/HubLayout.astro';
 import { SURVIVAL_HUBS } from '../../data/hubs';
-import { getPillarFromPost } from '../../utils/postLinking';
-import { sortPosts } from '../../utils/postSections';
+import { postBelongsToHub } from '../../utils/postLinking';
+import { isArchiveVisiblePost, sortPosts } from '../../utils/postSections';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  const published = posts.filter((post) => !post.data.draft);
+  const published = posts.filter(isArchiveVisiblePost);
 
   return SURVIVAL_HUBS.map((hub) => {
-    const hubPosts = sortPosts(published.filter((post) => getPillarFromPost(post) === hub.key));
+    const hubPosts = sortPosts(published.filter((post) => postBelongsToHub(post, hub.key)));
     return {
       params: { key: hub.key },
       props: { hub, hubPosts },

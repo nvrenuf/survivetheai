@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
+import CredibilityPanel from '../components/CredibilityPanel.astro';
+import { AUTHOR_PROFILES } from '../data/authors';
 ---
 
-<Layout title="About · SurviveTheAI" description="What SurviveTheAI is, who it serves, and the editorial stance that guides every post.">
+<Layout title="About - SurviveTheAI" description="What SurviveTheAI is, who it serves, and the editorial stance that guides every post.">
   <main class="bg-white py-14 text-neutral-900 sm:py-16">
     <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
       <header class="space-y-3">
@@ -24,11 +26,11 @@ import Layout from '../layouts/BaseLayout.astro';
           </p>
         </div>
         <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Who it’s for</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Who it's for</p>
           <h2 class="text-xl font-black text-neutral-900">Workers, parents, builders</h2>
           <p class="mt-3 text-neutral-700">
             Professionals protecting their careers, parents raising resilient kids, and leaders making choices that affect real people.
-            If you need straight talk and practical moves, you’re in the right place.
+            If you need straight talk and practical moves, you're in the right place.
           </p>
         </div>
         <div class="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
@@ -47,8 +49,32 @@ import Layout from '../layouts/BaseLayout.astro';
           <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">We keep it human</h2>
           <p class="max-w-4xl text-neutral-700">
             SurviveTheAI exists to help you make better decisions under uncertainty. We do not trade in dark patterns, popups, or manipulative
-            funnels. You get signal-rich writing, clear calls to action, and the option to subscribe—nothing else.
+            funnels. You get signal-rich writing, clear calls to action, and the option to subscribe - nothing else.
           </p>
+        </div>
+      </section>
+
+      <CredibilityPanel
+        eyebrow="Credibility"
+        title="Who is behind SurviveTheAI"
+        summary="SurviveTheAI publishes named analysis, team-reviewed updates, and public editorial standards so readers can see who is speaking and how claims are handled."
+      />
+
+      <section class="space-y-5">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">Masthead</p>
+          <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">Named contributors and editorial ownership</h2>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          {AUTHOR_PROFILES.map((author) => (
+            <article class="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+              <div class="space-y-2">
+                <h3 class="text-xl font-black text-neutral-900">{author.displayName}</h3>
+                <p class="text-sm font-medium text-neutral-700">{author.role}, SurviveTheAI</p>
+                <p class="text-neutral-700">{author.shortBio}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </div>

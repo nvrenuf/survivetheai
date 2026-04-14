@@ -1,0 +1,19 @@
+---
+import type { AuthorProfile } from '../data/authors';
+
+const { author } = Astro.props as { author: AuthorProfile };
+---
+
+<section
+  class="rounded-3xl border border-neutral-200 bg-neutral-50 px-6 py-5 shadow-sm"
+  data-testid="author-card"
+>
+  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">About the author</p>
+  <div class="mt-3 space-y-2">
+    <div class="space-y-1">
+      <h2 class="text-xl font-black text-neutral-900">{author.displayName}</h2>
+      <p class="text-sm font-medium text-neutral-700">{author.role}, SurviveTheAI</p>
+    </div>
+    <p class="max-w-3xl text-sm leading-relaxed text-neutral-700 sm:text-base">{author.shortBio}</p>
+  </div>
+</section>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { trackEvent } from '../utils/analytics';
+import { getSignupAttribution, trackEvent } from '../utils/analytics';
 
 type Status = 'idle' | 'loading' | 'success' | 'error' | 'disabled';
 
@@ -74,7 +74,7 @@ export default function SubscribeInline({
 
     if (status === 'disabled' || !enabled) {
       setStatus('disabled');
-      setMessage("Newsletter signup isn't enabled yet.");
+      setMessage((currentMessage) => currentMessage || "Newsletter signup isn't enabled yet.");
       return;
     }
 
@@ -92,13 +92,14 @@ export default function SubscribeInline({
 
     setStatus('loading');
     setMessage('');
-    trackEvent('newsletter_submit', { location, mode });
+    const attribution = getSignupAttribution();
+    trackEvent('newsletter_submit', { location, mode, ...attribution });
 
     if (!enableApi) {
       form.reset();
       setStatus('success');
       setMessage('Newsletter coming soon. You are on the early-access list.');
-      trackEvent('newsletter_success', { location, mode: 'log-only' });
+      trackEvent('newsletter_success', { location, mode: 'log-only', ...attribution });
       return;
     }
 
@@ -106,7 +107,7 @@ export default function SubscribeInline({
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source_page: location, company: honeypot }),
+        body: JSON.stringify({ email, source_page: location, company: honeypot, ...attribution }),
       });
       const data = (await response.json().catch(() => ({}))) as { ok?: boolean; message?: string; mode?: string };
 
@@ -117,12 +118,12 @@ export default function SubscribeInline({
       setStatus('success');
       setMessage(data?.message ?? 'You are subscribed. Welcome aboard.');
       form.reset();
-      trackEvent('newsletter_success', { location, mode: data?.mode ?? mode });
+      trackEvent('newsletter_success', { location, mode: data?.mode ?? mode, ...attribution });
     } catch (error) {
       const fallbackMessage = error instanceof Error ? error.message : 'Unable to subscribe right now.';
       setStatus('error');
       setMessage(fallbackMessage);
-      trackEvent('newsletter_error', { location, message: fallbackMessage, mode });
+      trackEvent('newsletter_error', { location, message: fallbackMessage, mode, ...attribution });
     }
   };
 
@@ -162,7 +163,7 @@ export default function SubscribeInline({
               className="inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 disabled:cursor-not-allowed disabled:opacity-70"
               disabled={status === 'loading' || status === 'disabled'}
             >
-              {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
+              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
             </button>
             <p id={`subscribe-helper-${location}`} className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">
               {privacyText}
