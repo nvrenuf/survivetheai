@@ -1,0 +1,45 @@
+---
+import type { HomepageBoardModel } from '../../data/homepageBoard';
+import CommunityVote from './CommunityVote.astro';
+import ImpactScoreFeed from './ImpactScoreFeed.astro';
+import LeadDispatchCard from './LeadDispatchCard.astro';
+import LiveInputModules from './LiveInputModules.astro';
+import MacroGauges from './MacroGauges.astro';
+import ThreatCardsBoard from './ThreatCardsBoard.astro';
+
+const { board } = Astro.props as { board: HomepageBoardModel };
+---
+
+<section
+  class="rounded-[2rem] border border-neutral-800 bg-neutral-950 px-5 py-6 text-white shadow-[0_28px_90px_-40px_rgba(0,0,0,0.75)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+  data-testid="pressure-room-section"
+>
+  <div class="flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-3xl space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-400">AI Pressure Room</p>
+      <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.4rem]">An editorial board surface for where AI pressure is building.</h2>
+      <p class="text-base leading-relaxed text-neutral-300">
+        Near-live modules summarize fresh STA coverage. Threat cards and macro gauges are explicit editorial judgments. Every route still
+        leads back into posts, hubs, and methodology.
+      </p>
+    </div>
+    <div class="max-w-md rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-neutral-300">
+      <p class="font-semibold text-white">Board timestamp: {board.anchorDateLabel}</p>
+      <p class="mt-1">This surface uses local config and recent publishing cadence first, so future API wiring has a clear seam.</p>
+    </div>
+  </div>
+
+  <div class="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+    <div class="space-y-6">
+      <LiveInputModules modules={board.liveModules} />
+      <ThreatCardsBoard cards={board.threatCards} />
+    </div>
+
+    <div class="space-y-6">
+      <LeadDispatchCard post={board.leadPost} />
+      <MacroGauges gauges={board.macroGauges} />
+      <ImpactScoreFeed items={board.impactItems} />
+      <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
+    </div>
+  </div>
+</section>

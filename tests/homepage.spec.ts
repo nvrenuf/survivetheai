@@ -1,58 +1,35 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Homepage layout', () => {
-  test('renders one global header and the locked homepage sections without repeating the featured post in latest', async ({ page }) => {
+  test('renders the board-led homepage shell and core conversion surfaces', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByTestId('navbar')).toHaveCount(1);
     await expect(page.getByTestId('homepage-hero')).toBeVisible();
-    await expect(page.getByTestId('featured-story-section')).toBeVisible();
-    await expect(page.getByTestId('latest-intelligence-section')).toBeVisible();
-    await expect(page.getByTestId('survival-areas-section')).toBeVisible();
-    await expect(page.getByTestId('fear-area-representatives-section')).toBeVisible();
+    await expect(page.getByTestId('pressure-room-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
-    await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
+    await expect(page.getByTestId('survival-areas-section')).toBeVisible();
     await expect(page.getByTestId('homepage-playbook-offer')).toBeVisible();
+    await expect(page.getByTestId('homepage-subscribe')).toBeVisible();
     await expect(page.getByTestId('credibility-panel')).toBeVisible();
     await expect(page.getByTestId('library-cta-section')).toBeVisible();
 
-    const featuredHref = await page.getByTestId('featured-story-section').locator('a[href^="/posts/"]').first().getAttribute('href');
-    const featuredSlug = featuredHref?.replace(/\/posts\/|\/$/g, '');
+    await expect(page.getByTestId('pressure-room-live-modules').locator('article')).toHaveCount(4);
+    await expect(page.getByTestId('pressure-room-threat-card')).toHaveCount(5);
+    await expect(page.getByTestId('pressure-room-macro-gauges').locator('article')).toHaveCount(3);
+    await expect(page.getByTestId('pressure-room-impact-item')).toHaveCount(5);
+    await expect(page.getByTestId('pressure-room-vote')).toContainText('Local browser vote for now.');
 
-    const latestCards = page.locator('[data-testid="latest-intelligence-section"] [data-testid="post-card"]');
-    await expect(latestCards).toHaveCount(3);
-
-    const latestSlugs = await latestCards.evaluateAll((links) =>
-      links
-        .map((link) => (link.getAttribute('href') ?? '').replace(/\/posts\/|\/$/g, ''))
-        .filter(Boolean),
+    await expect(page.getByTestId('pressure-room-lead-story')).toContainText("AI Agents Aren't Tools. They're Headcount Compression.");
+    await expect(page.getByTestId('pressure-room-lead-story').getByRole('link', { name: /Impact Score/i })).toHaveAttribute(
+      'href',
+      '/impact-score-methodology',
     );
-    expect(latestSlugs).not.toContain(featuredSlug);
-
-    const latestAreas = await page
-      .locator('[data-testid="latest-intelligence-section"] [data-testid="post-card-meta"]')
-      .evaluateAll((meta) =>
-        meta
-          .map((node) => node.textContent?.trim() ?? '')
-          .map((text) => text.split('•')[0]?.trim() || text)
-          .filter(Boolean),
-      );
-    expect(new Set(latestAreas).size).toBe(3);
-
-    await expect(page.getByTestId('featured-story-section').getByRole('heading', { level: 3 })).toHaveText(
-      "AI Agents Aren't Tools. They're Headcount Compression.",
-    );
-
-    const fearAreaSection = page.getByTestId('fear-area-representatives-section');
-    await expect(fearAreaSection.getByTestId('fear-area-representative')).toHaveCount(5);
-    await expect(fearAreaSection.locator('[data-testid="post-card"]')).toHaveCount(4);
-    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toHaveCount(1);
-    await expect(fearAreaSection.getByTestId('fear-area-fallback')).toContainText('Browse System Shock');
 
     await expect(page.locator('[data-testid="start-here-section"] [data-testid="post-card"]')).toHaveCount(3);
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
+    expect(bodyText).not.toMatch(/ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÆ’Ã†â€™/);
     await expect(page.locator('a[href="/posts/pro-template-demo/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/ai-companionship/"]')).toHaveCount(0);
     await expect(page.locator('a[href="/posts/cognitive-erosion/"]')).toHaveCount(0);
@@ -70,11 +47,9 @@ test.describe('Homepage layout', () => {
 
     expect(sectionOrder).toEqual([
       'homepage-hero',
-      'featured-story-section',
-      'latest-intelligence-section',
-      'survival-areas-section',
-      'fear-area-representatives-section',
+      'pressure-room-section',
       'start-here-section',
+      'survival-areas-section',
       'homepage-playbook-offer',
       'homepage-subscribe',
       'credibility-panel',
@@ -82,7 +57,27 @@ test.describe('Homepage layout', () => {
     ]);
   });
 
-  test('fear areas section links to the five hubs and the representative section gives one post per area', async ({ page }) => {
+  test('pressure room keeps its honest data separation and routes back into reporting', async ({ page }) => {
+    await page.goto('/');
+
+    const pressureRoom = page.getByTestId('pressure-room-section');
+    await expect(pressureRoom).toContainText('Near-live modules summarize fresh STA coverage.');
+    await expect(pressureRoom).toContainText('Threat cards and macro gauges are explicit editorial judgments.');
+    await expect(pressureRoom).toContainText('Board timestamp:');
+
+    const impactItems = page.getByTestId('pressure-room-impact-item');
+    const hrefs = await impactItems.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));
+    expect(hrefs.length).toBe(5);
+    expect(hrefs.every((href) => href?.startsWith('/posts/'))).toBe(true);
+
+    await expect(page.getByTestId('pressure-room-threat-cards').getByRole('link', { name: 'Open Work & Money' })).toHaveAttribute(
+      'href',
+      '/survival-areas/work-money/',
+    );
+    await expect(pressureRoom.getByRole('link', { name: 'Open the hub' })).toHaveCount(0);
+  });
+
+  test('fear areas section links to the five hubs', async ({ page }) => {
     await page.goto('/');
 
     const survivalCards = page.getByTestId('survival-areas-section').getByTestId('survival-area-tile');
@@ -91,20 +86,10 @@ test.describe('Homepage layout', () => {
     const hrefs = await survivalCards.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));
     expect(new Set(hrefs).size).toBe(5);
     await expect(survivalCards.first()).toContainText('Fear area');
-
-    const representativeHeadings = await page
-      .getByTestId('fear-area-representatives-section')
-      .getByTestId('fear-area-representative-label')
-      .evaluateAll((headings) => headings.map((heading) => heading.textContent?.trim()).filter(Boolean));
-    expect(new Set(representativeHeadings).size).toBe(5);
   });
 
   test('homepage and hub surfaced post cards use the shared metadata and spacing treatment', async ({ page }) => {
     await page.goto('/');
-
-    const latestCards = page.locator('[data-testid="latest-intelligence-section"] [data-testid="post-card"]');
-    await expect(latestCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
-    await expect(latestCards.locator('[data-testid="post-card-impact"]')).toHaveCount(3);
 
     const startHereCards = page.locator('[data-testid="start-here-section"] [data-testid="post-card"]');
     await expect(startHereCards.locator('[data-testid="post-card-meta"]')).toHaveCount(3);
@@ -123,7 +108,7 @@ test.describe('Homepage layout', () => {
     await page.goto('/survival-areas/kids-school/');
 
     const bodyText = await page.evaluate(() => document.body.innerText);
-    expect(bodyText).not.toMatch(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢|ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÂ¢Ã¢â€šÂ¬|ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“|ÃƒÆ’/);
+    expect(bodyText).not.toMatch(/ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬|ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ|ÃƒÆ’Ã†â€™/);
     await expect(page.getByText("What's happening")).toBeVisible();
   });
 
@@ -140,18 +125,6 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('mobile-menu')).toBeVisible();
   });
 
-  test('featured story stays distinct from latest intelligence and editor picks', async ({ page }) => {
-    await page.goto('/');
-
-    await expect(page.getByTestId('featured-story-section')).toContainText('Featured analysis');
-    await expect(page.getByTestId('featured-story-section').locator('[data-testid="post-card"]')).toHaveCount(0);
-    await expect(page.getByTestId('featured-story-section')).toContainText('By Lee Cuevas');
-    await expect(page.getByTestId('featured-impact-score-link')).toHaveAttribute('href', '/impact-score-methodology');
-    await expect(page.getByTestId('latest-intelligence-section')).toContainText('Newest signals across the fear areas');
-    await expect(page.getByTestId('start-here-section')).toContainText('Start here');
-    await expect(page.getByTestId('start-here-guided-link')).toHaveAttribute('href', '/start-here');
-  });
-
   test('start here page gives new readers a guided path into trust and content surfaces', async ({ page }) => {
     await page.goto('/start-here/');
 
@@ -160,7 +133,10 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('start-here-featured-link')).toHaveAttribute('href', '/posts/ai-agents-arent-tools/');
     await expect(page.getByTestId('start-here-featured-link')).toHaveAttribute('data-analytics-event', 'start_here_content_click');
     await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'How we research' })).toHaveAttribute('href', '/how-we-research');
-    await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'Impact Score methodology' })).toHaveAttribute('href', '/impact-score-methodology');
+    await expect(page.getByTestId('start-here-steps').getByRole('link', { name: 'Impact Score methodology' })).toHaveAttribute(
+      'href',
+      '/impact-score-methodology',
+    );
     await expect(page.getByTestId('start-here-editor-picks').getByTestId('post-card')).toHaveCount(3);
     await expect(page.getByTestId('start-here-playbook-offer')).toBeVisible();
     await expect(page.getByTestId('start-here-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute(
@@ -192,7 +168,10 @@ test.describe('Homepage layout', () => {
     await page.goto('/');
 
     await expect(page.getByTestId('homepage-playbook-offer')).toContainText('Get the free Survival Playbook');
-    await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute('href', '/playbook');
+    await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute(
+      'href',
+      '/playbook',
+    );
     await expect(page.getByTestId('homepage-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute(
       'data-analytics-event',
       'playbook_cta_click',
