@@ -8,6 +8,7 @@ type SubscribeInlineProps = {
   helperText?: string;
   privacyText?: string;
   location?: string;
+  variant?: 'default' | 'board';
 };
 
 export default function SubscribeInline({
@@ -15,6 +16,7 @@ export default function SubscribeInline({
   helperText = 'Weekly signal, no hype: practical moves to protect your work, family, and focus.',
   privacyText = 'No spam. Unsubscribe anytime.',
   location = 'inline',
+  variant = 'default',
 }: SubscribeInlineProps) {
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState<string>('');
@@ -129,20 +131,24 @@ export default function SubscribeInline({
 
   return (
     <section
-      className="rounded-3xl border border-neutral-200 bg-gradient-to-br from-white via-neutral-50 to-white p-6 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)] sm:p-8"
+      className={`rounded-3xl p-6 sm:p-8 ${
+        variant === 'board'
+          ? 'border border-white/10 bg-[linear-gradient(135deg,rgba(23,23,23,0.94),rgba(10,10,10,0.98))] shadow-[0_24px_70px_-42px_rgba(0,0,0,0.8)]'
+          : 'border border-neutral-200 bg-gradient-to-br from-white via-neutral-50 to-white shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)]'
+      }`}
       aria-live="polite"
     >
       <div className="space-y-2">
         <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Newsletter</p>
-        <h2 className="text-2xl font-black text-neutral-900 sm:text-3xl">{heading}</h2>
-        <p className="text-neutral-700">{helperText}</p>
+        <h2 className={`text-2xl font-black sm:text-3xl ${variant === 'board' ? 'text-white' : 'text-neutral-900'}`}>{heading}</h2>
+        <p className={variant === 'board' ? 'text-neutral-300' : 'text-neutral-700'}>{helperText}</p>
       </div>
 
       <form className="mt-6 space-y-4" onSubmit={onSubmit}>
         <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="flex-1 space-y-2">
-            <label htmlFor={`email-${location}`} className="text-sm font-semibold text-neutral-800">
+            <label htmlFor={`email-${location}`} className={`text-sm font-semibold ${variant === 'board' ? 'text-neutral-200' : 'text-neutral-800'}`}>
               Email address
             </label>
             <input
@@ -150,7 +156,11 @@ export default function SubscribeInline({
               name="email"
               type="email"
               required
-              className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 shadow-sm transition focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/30"
+              className={`w-full rounded-xl px-4 py-3 text-base shadow-sm transition focus:outline-none focus:ring-2 ${
+                variant === 'board'
+                  ? 'border border-white/10 bg-black/20 text-white placeholder:text-neutral-500 focus:border-white/25 focus:ring-white/15'
+                  : 'border border-neutral-300 bg-white text-neutral-900 focus:border-neutral-500 focus:ring-neutral-500/30'
+              }`}
               placeholder="you@example.com"
               autoComplete="email"
               disabled={status === 'loading' || status === 'disabled'}
@@ -160,7 +170,11 @@ export default function SubscribeInline({
           <div className="flex-none space-y-2 sm:pt-8">
             <button
               type="submit"
-              className="inline-flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 disabled:cursor-not-allowed disabled:opacity-70"
+              className={`inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-70 ${
+                variant === 'board'
+                  ? 'bg-white text-neutral-950 hover:bg-neutral-200 focus-visible:ring-white/35'
+                  : 'bg-neutral-900 text-white hover:bg-neutral-800 focus-visible:ring-neutral-700'
+              }`}
               disabled={status === 'loading' || status === 'disabled'}
             >
               {status === 'loading' ? 'Subscribing...' : 'Subscribe'}

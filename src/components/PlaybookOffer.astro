@@ -27,24 +27,36 @@ const {
   primaryAnalyticsLocation?: string;
   secondaryAnalyticsEvent?: string;
   secondaryAnalyticsLocation?: string;
+  variant?: 'default' | 'board';
 };
+const variant = Astro.props.variant ?? 'default';
 ---
 
 <section
-  class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)] sm:p-8"
+  class:list={[
+    'rounded-3xl p-6 sm:p-8',
+    variant === 'board'
+      ? 'border border-white/10 bg-[linear-gradient(135deg,rgba(23,23,23,0.94),rgba(10,10,10,0.98))] shadow-[0_24px_70px_-42px_rgba(0,0,0,0.8)]'
+      : 'border border-neutral-200 bg-white shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)]',
+  ]}
   data-testid={testId}
 >
   <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
     <div class="max-w-2xl space-y-3">
       <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">{eyebrow}</p>
-      <h2 class="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl">{title}</h2>
-      <p class="text-base leading-relaxed text-neutral-700 sm:text-lg">{description}</p>
+      <h2 class:list={['text-2xl font-black tracking-tight sm:text-3xl', variant === 'board' ? 'text-white' : 'text-neutral-900']}>{title}</h2>
+      <p class:list={['text-base leading-relaxed sm:text-lg', variant === 'board' ? 'text-neutral-300' : 'text-neutral-700']}>{description}</p>
       <p class="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">{disclaimer}</p>
     </div>
     <div class="flex flex-col gap-3 sm:flex-row">
       <a
         href={href}
-        class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+        class:list={[
+          'inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2',
+          variant === 'board'
+            ? 'bg-white text-neutral-950 hover:bg-neutral-200 focus-visible:ring-white/40'
+            : 'bg-neutral-900 text-white hover:bg-neutral-800 focus-visible:ring-neutral-700',
+        ]}
         data-analytics-event={primaryAnalyticsEvent}
         data-analytics-location={primaryAnalyticsLocation}
         data-analytics-label={ctaLabel}
@@ -54,7 +66,12 @@ const {
       {secondaryHref && secondaryLabel && (
         <a
           href={secondaryHref}
-          class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+          class:list={[
+            'inline-flex items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2',
+            variant === 'board'
+              ? 'border-white/15 text-white hover:border-white/30 hover:bg-white/5 focus-visible:ring-white/30'
+              : 'border-neutral-300 text-neutral-900 hover:border-neutral-500 hover:text-neutral-950 focus-visible:ring-neutral-700',
+          ]}
           data-analytics-event={secondaryAnalyticsEvent}
           data-analytics-location={secondaryAnalyticsLocation}
           data-analytics-label={secondaryLabel}
