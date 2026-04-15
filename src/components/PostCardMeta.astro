@@ -19,19 +19,19 @@ const authorLabel = getAuthorProfile(post.data.author).displayName;
 const metaClass =
   variant === 'board'
     ? compact
-      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-slate-400'
-      : 'flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-slate-400'
+      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-400'
+      : 'flex flex-wrap items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-400'
     : compact
-      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
-      : 'flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
+      ? 'flex flex-wrap items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.3em] text-neutral-500'
+      : 'flex flex-wrap items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.34em] text-neutral-500';
 const impactClass =
   variant === 'board'
     ? compact
-      ? 'text-[9px] font-semibold uppercase tracking-[0.28em] text-slate-300'
-      : 'text-[10px] font-semibold uppercase tracking-[0.32em] text-slate-300'
+      ? 'text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-300'
+      : 'text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-300'
     : compact
-      ? 'text-[9px] font-semibold uppercase tracking-[0.28em] text-neutral-500'
-      : 'text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-500';
+      ? 'text-[9px] font-semibold uppercase tracking-[0.3em] text-neutral-500'
+      : 'text-[10px] font-semibold uppercase tracking-[0.34em] text-neutral-500';
 const dividerClass = variant === 'board' ? 'h-1 w-1 rounded-full bg-slate-500/60' : 'h-1 w-1 rounded-full bg-neutral-300';
 ---
 

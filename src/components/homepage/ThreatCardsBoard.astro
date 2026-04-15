@@ -4,22 +4,22 @@ import type { HomepageThreatCard } from '../../data/homepageBoard';
 const { cards } = Astro.props as { cards: HomepageThreatCard[] };
 ---
 
-<section class="space-y-4" data-testid="pressure-room-threat-cards">
-  <div class="space-y-1">
-    <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-400">Editorial threat board</p>
+<section class="space-y-5" data-testid="pressure-room-threat-cards">
+  <div class="space-y-1.5">
+    <p class="text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-400">Editorial threat board</p>
     <h3 class="text-xl font-black text-white sm:text-2xl">Fear-area scores and weekly deltas</h3>
   </div>
 
   <div class="grid gap-4 lg:grid-cols-2">
     {cards.map((card) => (
-      <article class="rounded-[1.75rem] border border-stone-200/80 bg-[linear-gradient(180deg,rgba(250,250,249,0.98),rgba(245,245,244,0.94))] p-5 shadow-[0_22px_52px_-34px_rgba(0,0,0,0.78)]" data-testid="pressure-room-threat-card">
+      <article class="rounded-[1.75rem] border border-stone-200/80 bg-[linear-gradient(180deg,rgba(250,250,249,0.98),rgba(245,245,244,0.94))] p-5 shadow-[0_22px_52px_-34px_rgba(0,0,0,0.78)] sm:p-6" data-testid="pressure-room-threat-card">
         <div class="flex items-start justify-between gap-4">
-          <div class="space-y-2">
+          <div class="space-y-2.5">
             <div class="flex items-center gap-3">
               <span class="inline-block h-2.5 w-2.5 rounded-full" style={`background:${card.hub.color}`} aria-hidden="true" />
-              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-stone-500">Editorial score</p>
+              <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-stone-500">Editorial score</p>
             </div>
-            <h4 class="text-lg font-black text-stone-950">{card.hub.shortName}</h4>
+            <h4 class="text-xl font-black leading-tight text-stone-950">{card.hub.shortName}</h4>
           </div>
           <div class="text-right">
             <p class="text-4xl font-black tracking-tight text-stone-950">{card.score}</p>
@@ -34,12 +34,12 @@ const { cards } = Astro.props as { cards: HomepageThreatCard[] };
           <div class="h-2 rounded-full" style={`width:${card.score}%;background:${card.hub.color};`}></div>
         </div>
 
-        <div class="mt-4 space-y-2">
-          <p class="text-sm font-semibold leading-relaxed text-stone-900">{card.stance}</p>
-          <p class="text-sm leading-relaxed text-stone-600">{card.summary}</p>
+        <div class="mt-5 space-y-2.5">
+          <p class="text-sm font-semibold leading-7 text-stone-900">{card.stance}</p>
+          <p class="text-sm leading-7 text-stone-600">{card.summary}</p>
         </div>
 
-        <div class="mt-5 flex flex-wrap items-center gap-3 border-t border-stone-200 pt-4">
+        <div class="mt-6 flex flex-wrap items-center gap-[0.875rem] border-t border-stone-200 pt-[1.125rem]">
           <a
             href={`${card.hub.slug}/`}
             class="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white/70 px-4 py-2 text-sm font-semibold text-stone-950 transition hover:border-stone-400 hover:bg-white"
