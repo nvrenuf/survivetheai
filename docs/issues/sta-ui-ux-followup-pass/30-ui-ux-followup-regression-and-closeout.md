@@ -1,7 +1,7 @@
 # STA-30: UI/UX follow-up regression and closeout
 
 ## Status
-Completed on 2026-04-15 (environment-qualified).
+Planned.
 
 ## Objective
 Run a final regression sweep after STA-25 through STA-29 and close the pass with tracker synchronization.
@@ -26,8 +26,3 @@ Run a final regression sweep after STA-25 through STA-29 and close the pass with
 - `tests/posts.spec.ts`
 - `tests/subscribe.spec.ts`
 - pass documentation files in `docs/issues/sta-ui-ux-followup-pass/`
-
-## Completion Notes
-- Verified build health with `npm run build` after STA-25 through STA-29 changes.
-- Executed targeted Playwright commands for homepage and post flows; tests are currently environment-blocked by missing Chromium binary and fail fast via the Playwright preflight guard.
-- Tracker and issue docs are synchronized; this pass is closed with the explicit environment qualifier above.

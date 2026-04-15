@@ -1,7 +1,7 @@
 # STA-28: Newsletter value-proposition microcopy
 
 ## Status
-Completed on 2026-04-15.
+Planned.
 
 ## Objective
 Improve signup intent quality by clarifying exactly what subscribers receive each week.
@@ -25,8 +25,3 @@ Improve signup intent quality by clarifying exactly what subscribers receive eac
 - `src/pages/index.astro`
 - `src/pages/start-here.astro`
 - `tests/subscribe.spec.ts`
-
-## Completion Notes
-- Extended `SubscribeInline` with optional value bullets rendering and preserved existing signup behavior.
-- Added three value bullets to the homepage newsletter surface to clarify expected weekly output.
-- Added homepage regression checks to verify microcopy bullets remain visible.

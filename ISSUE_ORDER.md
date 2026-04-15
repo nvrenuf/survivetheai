@@ -1,9 +1,9 @@
 # STA Issue Order
 
 Current status as of 2026-04-15:
-- Active pass: none
-- Current issue in queue: none
-- Next recommended issue: none
+- Active pass: STA UI/UX Follow-up Pass
+- Current issue in queue: STA-25
+- Next recommended issue: STA-26
 - Tracker note: STA-24 review is complete and now decomposed into tightly scoped execution issues to prevent drift.
 
 ## Active Pass
@@ -20,12 +20,12 @@ Execution order:
 
 ### Status
 
-- STA-25: Completed 2026-04-15
-- STA-26: Completed 2026-04-15 (after STA-25)
-- STA-27: Completed 2026-04-15
-- STA-28: Completed 2026-04-15 (parallel-safe with STA-26)
-- STA-29: Completed 2026-04-15
-- STA-30: Completed 2026-04-15 (environment-qualified)
+- STA-25: Planned
+- STA-26: Planned (depends on STA-25)
+- STA-27: Planned (parallel-safe with STA-26)
+- STA-28: Planned (parallel-safe with STA-26)
+- STA-29: Planned (after STA-27)
+- STA-30: Planned (depends on STA-25 through STA-29)
 
 ### Scope Control Notes
 
@@ -41,8 +41,6 @@ Execution order:
 - `docs/issues/sta-ui-ux-followup-pass/28-newsletter-value-prop-microcopy.md`
 - `docs/issues/sta-ui-ux-followup-pass/29-longform-reading-progress-affordance.md`
 - `docs/issues/sta-ui-ux-followup-pass/30-ui-ux-followup-regression-and-closeout.md`
-
-Completed 2026-04-15 (environment-qualified closeout).
 
 ## Most Recently Completed Pass
 
