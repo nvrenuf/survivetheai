@@ -1,7 +1,7 @@
 # STA-26: Homepage CTA hierarchy normalization
 
 ## Status
-Completed on 2026-04-15.
+Planned.
 
 ## Objective
 Reduce CTA competition on the homepage by enforcing one primary action per major section.
@@ -25,8 +25,3 @@ Reduce CTA competition on the homepage by enforcing one primary action per major
 - `src/components/homepage/*`
 - `src/styles/*`
 - `tests/homepage.spec.ts`
-
-## Completion Notes
-- Kept one primary filled CTA in hero/start-here/library sections and demoted secondary actions to text-link treatment.
-- Preserved existing destinations while reducing equal-weight button competition.
-- Updated homepage regression expectations where section structure and hierarchy changed.
