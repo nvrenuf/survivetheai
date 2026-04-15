@@ -112,9 +112,12 @@ const heroCards = [
 
       <PressureRoom board={board} />
 
-      <div class="space-y-8 rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,18,21,0.96),rgba(10,10,12,0.99))] px-5 py-6 shadow-[0_32px_90px_-52px_rgba(0,0,0,0.8)] sm:px-6 sm:py-7 lg:px-8 lg:py-8">
+      <div class="space-y-8">
         {editorPicks.length > 0 && (
-          <section class="space-y-6" data-testid="start-here-section">
+          <section
+            class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(148,163,184,0.12),transparent_30%),linear-gradient(180deg,rgba(24,28,35,0.94),rgba(15,18,24,0.98))] px-5 py-6 shadow-[0_28px_80px_-50px_rgba(0,0,0,0.72)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+            data-testid="start-here-section"
+          >
             <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
               <div class="max-w-3xl space-y-1">
                 <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
@@ -151,23 +154,28 @@ const heroCards = [
           </section>
         )}
 
-        <PlaybookOffer
-          eyebrow="Reader offer"
-          title="Get the free Survival Playbook before the pressure gets personal"
-          description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
-          href="/playbook"
-          ctaLabel="Get the free playbook"
-          secondaryHref="/start-here"
-          secondaryLabel="Open Start Here"
-          disclaimer="Free reader resource. Intentional placement, not constant interruption."
-          testId="homepage-playbook-offer"
-          primaryAnalyticsEvent="playbook_cta_click"
-          primaryAnalyticsLocation="homepage-playbook-offer"
-          secondaryAnalyticsEvent="start_here_entry_click"
-          secondaryAnalyticsLocation="homepage-playbook-offer"
-        />
+        <div class="rounded-[1.8rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(44,44,46,0.52),rgba(24,24,27,0.68))] p-[1px] shadow-[0_24px_70px_-54px_rgba(0,0,0,0.55)]">
+          <PlaybookOffer
+            eyebrow="Reader offer"
+            title="Get the free Survival Playbook before the pressure gets personal"
+            description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
+            href="/playbook"
+            ctaLabel="Get the free playbook"
+            secondaryHref="/start-here"
+            secondaryLabel="Open Start Here"
+            disclaimer="Free reader resource. Intentional placement, not constant interruption."
+            testId="homepage-playbook-offer"
+            primaryAnalyticsEvent="playbook_cta_click"
+            primaryAnalyticsLocation="homepage-playbook-offer"
+            secondaryAnalyticsEvent="start_here_entry_click"
+            secondaryAnalyticsLocation="homepage-playbook-offer"
+          />
+        </div>
 
-        <section class="space-y-6" data-testid="homepage-subscribe">
+        <section
+          class="rounded-[1.9rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(41,37,36,0.58),rgba(23,23,25,0.74))] px-5 py-6 shadow-[0_26px_76px_-56px_rgba(0,0,0,0.58)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+          data-testid="homepage-subscribe"
+        >
           <SubscribeInline
             client:load
             location="home"
@@ -177,7 +185,10 @@ const heroCards = [
           />
         </section>
 
-        <section class="space-y-6" data-testid="survival-areas-section">
+        <section
+          class="rounded-[2rem] border border-stone-300/15 bg-[radial-gradient(circle_at_top_right,rgba(120,113,108,0.12),transparent_28%),linear-gradient(180deg,rgba(30,33,39,0.88),rgba(20,23,28,0.94))] px-5 py-6 shadow-[0_28px_82px_-56px_rgba(0,0,0,0.62)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+          data-testid="survival-areas-section"
+        >
           <div class="space-y-1">
             <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
             <h2 class="text-2xl font-black text-white sm:text-3xl">Route by fear area</h2>
@@ -207,10 +218,15 @@ const heroCards = [
           </div>
         </section>
 
-        <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
+        <div class="rounded-[1.8rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(39,39,42,0.5),rgba(24,24,27,0.66))] p-[1px] shadow-[0_24px_70px_-54px_rgba(0,0,0,0.52)]">
+          <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
+        </div>
 
         {remaining.length > 0 && (
-          <section class="space-y-5" data-testid="library-cta-section">
+          <section
+            class="rounded-[2rem] border border-stone-300/15 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.12),transparent_28%),linear-gradient(180deg,rgba(34,31,32,0.84),rgba(20,20,23,0.92))] px-5 py-6 shadow-[0_28px_82px_-56px_rgba(0,0,0,0.62)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+            data-testid="library-cta-section"
+          >
             <div class="space-y-1">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
               <h2 class="text-2xl font-black text-white sm:text-3xl">Keep moving through the reporting</h2>
