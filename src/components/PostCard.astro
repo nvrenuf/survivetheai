@@ -33,22 +33,22 @@ const imageAlt = post.data.heroImageAlt ?? post.data.title;
       class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
     />
   </div>
-  <div class="flex flex-1 flex-col gap-5 p-5 sm:p-6">
-    <div class="space-y-3">
+  <div class="flex flex-1 flex-col gap-6 p-5 sm:p-6 lg:p-[1.625rem]">
+    <div class="space-y-3.5">
       <PostCardMeta post={post} variant={variant} />
       <h3
         class:list={[
-          'text-xl font-bold leading-tight line-clamp-2 transition',
+          'text-xl font-bold leading-tight line-clamp-2 transition sm:text-[1.42rem]',
           variant === 'board' ? 'text-stone-100 group-hover:text-white' : 'text-neutral-900 group-hover:text-neutral-700',
         ]}
       >
         {post.data.title}
       </h3>
-      <p class:list={['text-sm leading-relaxed line-clamp-3', variant === 'board' ? 'text-slate-300' : 'text-neutral-600']}>
+      <p class:list={['text-sm leading-7 line-clamp-3', variant === 'board' ? 'text-slate-300' : 'text-neutral-600']}>
         {post.data.description}
       </p>
     </div>
-    <div class:list={['mt-auto pt-4', variant === 'board' ? 'border-t border-slate-700/80' : 'border-t border-neutral-100']}>
+    <div class:list={['mt-auto pt-5', variant === 'board' ? 'border-t border-slate-700/80' : 'border-t border-neutral-100']}>
       <PostCardMeta post={post} compact={false} showImpact={true} variant={variant} />
     </div>
   </div>
