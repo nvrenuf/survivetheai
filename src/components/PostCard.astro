@@ -1,6 +1,7 @@
 ---
 import type { PostEntry } from '../content/config';
-import PostCardMeta from './PostCardMeta.astro';
+import { TOPIC_CATEGORIES } from '../data/categories';
+import { formatDate } from '../utils/format';
 
 const { post, variant = 'default' } = Astro.props as {
   post: PostEntry;
@@ -10,6 +11,18 @@ const { post, variant = 'default' } = Astro.props as {
 const FALLBACK_HERO = '/images/placeholder-hero.svg';
 const imageSrc = (post.data.heroImageThumb ?? post.data.heroImage)?.trim() || FALLBACK_HERO;
 const imageAlt = post.data.heroImageAlt ?? post.data.title;
+const categoryByKey = new Map(TOPIC_CATEGORIES.map((category) => [category.key, category]));
+const categoryLabel = post.data.topics?.[0] ? categoryByKey.get(post.data.topics[0])?.label ?? 'Key Topic' : post.data.category ?? 'Key Topic';
+const dateLabel = formatDate(post.data.date);
+const categoryClass =
+  variant === 'board'
+    ? 'inline-flex items-center rounded-full border border-slate-500/70 bg-slate-700/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-slate-200'
+    : 'inline-flex items-center rounded-full border border-neutral-300 bg-neutral-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-neutral-700';
+const metaRowClass =
+  variant === 'board'
+    ? 'flex flex-wrap items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-300'
+    : 'flex flex-wrap items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500';
+const dividerClass = variant === 'board' ? 'h-1 w-1 rounded-full bg-slate-500/70' : 'h-1 w-1 rounded-full bg-neutral-300';
 ---
 
 <a
@@ -35,7 +48,7 @@ const imageAlt = post.data.heroImageAlt ?? post.data.title;
   </div>
   <div class="flex flex-1 flex-col gap-6 p-5 sm:p-6 lg:p-[1.625rem]">
     <div class="space-y-3.5">
-      <PostCardMeta post={post} variant={variant} />
+      <p class={categoryClass} data-testid="post-card-meta">{categoryLabel}</p>
       <h3
         class:list={[
           'text-xl font-bold leading-tight line-clamp-2 transition sm:text-[1.42rem]',
@@ -49,7 +62,11 @@ const imageAlt = post.data.heroImageAlt ?? post.data.title;
       </p>
     </div>
     <div class:list={['mt-auto pt-5', variant === 'board' ? 'border-t border-slate-700/80' : 'border-t border-neutral-100']}>
-      <PostCardMeta post={post} compact={false} showImpact={true} variant={variant} />
+      <div class={metaRowClass} data-testid="post-card-impact">
+        <span>{dateLabel}</span>
+        <span aria-hidden class={dividerClass} />
+        <span data-testid="impact-score-label">Impact Score {post.data.impact_score}</span>
+      </div>
     </div>
   </div>
 </a>
