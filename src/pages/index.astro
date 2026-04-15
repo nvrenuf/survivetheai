@@ -8,88 +8,124 @@ import SubscribeInline from '../components/SubscribeInline';
 import { buildHomepagePlacement } from '../data/homepage';
 import { buildHomepageBoard } from '../data/homepageBoard';
 import Layout from '../layouts/BaseLayout.astro';
-import { formatDate } from '../utils/format';
 
 const posts = await getCollection('posts');
 const { editorPicks, remaining } = buildHomepagePlacement(posts);
 const board = buildHomepageBoard(posts);
 const heroSignals = board.liveModules.slice(0, 3);
 const topThreats = board.threatCards.slice(0, 3);
-const supportingPosts = (editorPicks.length > 0 ? editorPicks : remaining).slice(0, 3);
+const supportingPosts = remaining.slice(0, 3);
+const intentPaths = [
+  {
+    title: 'Protect my work and income',
+    description: 'Go straight to the work-and-money pressure map and practical reporting.',
+    href: '/survival-areas/work-money/',
+    analyticsLabel: 'Work and money path',
+  },
+  {
+    title: 'Protect my family and school reality',
+    description: 'Start with the kids-and-school hub for policy, classroom, and household impacts.',
+    href: '/survival-areas/kids-school/',
+    analyticsLabel: 'Kids and school path',
+  },
+  {
+    title: 'Just send me the weekly signal',
+    description: 'Skip to the weekly briefing signup if you want concise updates only.',
+    href: '#homepage-subscribe',
+    analyticsLabel: 'Weekly signal path',
+  },
+];
 ---
 
 <Layout title="Survive the AI - Prepare, adapt, and stay ahead">
-  <main class="bg-[radial-gradient(circle_at_top,rgba(148,163,184,0.08),transparent_24%),linear-gradient(180deg,#fbfbfa_0%,#f4f4f2_42%,#ecece8_100%)] py-8 text-neutral-900 sm:py-10 lg:py-12">
-    <div class="mx-auto max-w-screen-xl space-y-8 px-4 sm:px-6 lg:px-8 lg:space-y-10">
-      <section class="rounded-[2rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,246,242,0.98))] px-5 py-6 shadow-[0_24px_70px_-50px_rgba(28,25,23,0.22)] sm:px-6 sm:py-7 lg:px-8" data-testid="homepage-hero">
-        <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start xl:gap-8">
-          <div class="space-y-5">
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-orange-700">
-                <span class="h-1.5 w-1.5 rounded-full bg-orange-500" aria-hidden="true"></span>
-                LIVE AI PRESSURE BOARD
-              </span>
-              <span class="text-xs font-medium uppercase tracking-[0.22em] text-stone-500">Updated through {board.anchorDateLabel}</span>
+  <main class="bg-[radial-gradient(circle_at_top,_rgba(23,23,23,0.06),_transparent_34%),linear-gradient(to_bottom,_#fafafa,_#f5f5f5_28%,_#ffffff_60%)] py-10 text-neutral-900 sm:py-14 lg:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-11 px-4 sm:px-6 lg:px-8 lg:space-y-12">
+      <section class="rounded-[2rem] border border-neutral-200 bg-white/90 px-5 py-6 shadow-[0_24px_64px_-40px_rgba(0,0,0,0.22)] backdrop-blur sm:px-6 sm:py-8 lg:px-8 lg:py-9" data-testid="homepage-hero">
+        <div class="grid gap-7 xl:grid-cols-[minmax(0,1.02fr)_388px] xl:gap-10">
+          <div class="space-y-7">
+            <div class="space-y-5">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-2 rounded-full border border-[#ff6b57]/25 bg-[#ff6b57]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff8b79]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b57]" aria-hidden="true"></span>
+                  LIVE AI PRESSURE BOARD
+                </span>
+              </div>
+              <div class="max-w-4xl space-y-4.5">
+                <h1 class="max-w-3xl text-4xl font-black leading-[0.97] tracking-[-0.03em] text-neutral-950 sm:text-[3.52rem]">
+                  The AI flood is here. Learn to swim.
+                </h1>
+                <p class="max-w-[42rem] text-base leading-8 text-neutral-600 sm:text-[1.05rem]">
+                  SurviveTheAI is a live editorial control surface for everyday AI risk. Use the board to see what is moving now, which
+                  fear areas are heating up, and what analysis is worth your time next.
+                </p>
+              </div>
             </div>
 
-            <div class="max-w-4xl space-y-3.5">
-              <h1 class="max-w-3xl text-4xl font-black leading-[0.96] tracking-[-0.04em] text-stone-950 sm:text-[3.3rem]">
-                The AI flood is here. Learn to swim.
-              </h1>
-              <p class="max-w-[42rem] text-base leading-8 text-stone-700 sm:text-[1.02rem]">
-                SurviveTheAI is a live dashboard for everyday AI risk across work, school, trust, and attention. Check the board first, then use the reporting when you need the mechanism behind the signal.
-              </p>
-            </div>
-
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3.5">
               <a
                 href="#pressure-room"
-                class="inline-flex items-center justify-center rounded-full bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-500/40"
+                class="inline-flex items-center justify-center rounded-full bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/40"
                 data-testid="hero-pressure-room-link"
               >
-                Open the board
+                Open the Pressure Room
               </a>
               <a
-                href="/how-we-research"
-                class="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition hover:border-stone-400 hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-500/30"
+                href="/start-here"
+                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/30"
+                data-testid="hero-start-here-link"
               >
-                Why trust this
+                Start here
               </a>
             </div>
 
-            <div class="grid gap-3 md:grid-cols-3">
+            <div class="grid gap-3.5 md:grid-cols-3">
               {heroSignals.map((signal) => (
-                <article class="rounded-[1.4rem] border border-stone-200 bg-white p-4 shadow-[0_12px_28px_-24px_rgba(28,25,23,0.35)] sm:p-5">
-                  <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">{signal.title}</p>
-                  <p class="mt-3 text-[1.65rem] font-black tracking-[-0.03em] text-stone-950">{signal.value}</p>
-                  <p class="mt-2.5 text-sm leading-7 text-stone-600">{signal.summary}</p>
+                <article class="rounded-[1.4rem] border border-neutral-200 bg-white p-4 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.16)] sm:p-5">
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500">{signal.title}</p>
+                  <p class="mt-3 text-[1.65rem] font-black tracking-[-0.03em] text-neutral-950">{signal.value}</p>
+                  <p class="mt-2.5 text-sm leading-7 text-neutral-600">{signal.summary}</p>
                 </article>
               ))}
             </div>
+
+            <div class="flex flex-wrap gap-3 text-sm text-neutral-600">
+              <a href="/how-we-research" class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3.5 py-2 transition hover:border-neutral-300 hover:bg-white hover:text-neutral-950">
+                How we research
+              </a>
+              <a href="/impact-score-methodology" class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3.5 py-2 transition hover:border-neutral-300 hover:bg-white hover:text-neutral-950">
+                Impact Score methodology
+              </a>
+              <a href="/about" class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3.5 py-2 transition hover:border-neutral-300 hover:bg-white hover:text-neutral-950">
+                Meet the team
+              </a>
+            </div>
           </div>
 
-          <aside class="rounded-[1.7rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(249,248,245,0.98),rgba(244,241,236,0.98))] p-4 shadow-[0_18px_40px_-34px_rgba(28,25,23,0.28)] sm:p-5" data-testid="most-watched-panel">
-            <div class="border-b border-stone-200 pb-3.5">
-              <p class="text-[10px] font-semibold uppercase tracking-[0.34em] text-stone-500">Top pressure zones</p>
-              <p class="mt-1.5 text-sm leading-6 text-stone-600">The fear areas carrying the strongest editorial pressure right now.</p>
+          <aside class="rounded-[1.75rem] border border-neutral-200 bg-white p-4 shadow-[0_20px_54px_-36px_rgba(0,0,0,0.18)] sm:p-5" data-testid="most-watched-panel">
+            <div class="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3.5">
+              <div>
+                <p class="text-[10px] font-semibold uppercase tracking-[0.34em] text-neutral-500">Control surface at a glance</p>
+                <p class="mt-1.5 text-sm leading-6 text-neutral-600">Updated through {board.anchorDateLabel} with the highest-pressure zones.</p>
+              </div>
             </div>
 
             <div class="mt-5 space-y-3.5">
               {topThreats.map((threat) => (
                 <a
                   href={`${threat.hub.slug}/`}
-                  class="block rounded-[1.25rem] border border-stone-200 bg-white p-4 transition hover:border-stone-300 hover:bg-stone-50 sm:p-[1.125rem]"
+                  class="block rounded-[1.35rem] border border-neutral-200 bg-neutral-50/70 p-4 transition hover:border-neutral-300 hover:bg-white sm:p-[1.125rem]"
                 >
                   <div class="flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.26em] text-stone-500">
+                    <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.26em] text-neutral-500">
                       <span class="h-2 w-2 rounded-full" style={`background:${threat.hub.color}`} aria-hidden="true"></span>
                       <span>{threat.hub.shortName}</span>
                     </div>
-                    <span class="rounded-full border border-stone-200 bg-stone-50 px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-stone-900">
+                    <span class="rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-neutral-900">
                       {threat.score}
                     </span>
                   </div>
-                  <p class="mt-4 text-sm font-semibold leading-6 text-stone-900">{threat.stance}</p>
+                  <h2 class="mt-4 text-[1.05rem] font-black leading-tight text-neutral-950">{threat.stance}</h2>
+                  <p class="mt-2.5 text-sm leading-7 text-neutral-600">{threat.summary}</p>
                 </a>
               ))}
             </div>
@@ -97,25 +133,134 @@ const supportingPosts = (editorPicks.length > 0 ? editorPicks : remaining).slice
         </div>
       </section>
 
+      <section
+        class="rounded-[1.9rem] border border-neutral-200 bg-white/85 px-5 py-6 shadow-[0_20px_54px_-38px_rgba(0,0,0,0.18)] backdrop-blur sm:px-6 sm:py-7 lg:px-8"
+        data-testid="homepage-intent-routing"
+      >
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Choose your path</p>
+          <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Start where your pressure is highest</h2>
+          <p class="max-w-3xl text-[15px] leading-7 text-neutral-600 sm:text-base">
+            If you are new to STA, pick the path that matches your immediate risk and we will route you into the right reporting stream.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 gap-4 pt-3 md:grid-cols-3">
+          {intentPaths.map((path) => (
+            <a
+              href={path.href}
+              class="group flex h-full flex-col justify-between gap-4 rounded-[1.45rem] border border-neutral-200 bg-neutral-50/70 p-5 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/25"
+              data-testid="intent-path-card"
+              data-analytics-event="intent_path_click"
+              data-analytics-location="homepage-intent-routing"
+              data-analytics-label={path.analyticsLabel}
+            >
+              <div class="space-y-2.5">
+                <h3 class="text-lg font-black leading-tight text-neutral-950">{path.title}</h3>
+                <p class="text-sm leading-7 text-neutral-600">{path.description}</p>
+              </div>
+              <span class="text-sm font-semibold text-neutral-900 underline-offset-4 group-hover:underline">Open this path</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <PressureRoom board={board} />
 
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div class="space-y-9 lg:space-y-10">
+        <div class="rounded-[1.8rem] border border-neutral-200 bg-white/85 p-[1px] shadow-[0_20px_54px_-38px_rgba(0,0,0,0.16)]">
+          <CredibilityPanel eyebrow="Why trust the board" title="Named reporting, visible standards, clear editorial framing" />
+        </div>
+
+        {editorPicks.length > 0 && (
+          <section
+            class="relative overflow-hidden rounded-[2rem] border border-neutral-200 bg-[radial-gradient(circle_at_top_left,rgba(148,163,184,0.12),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.98),rgba(245,245,245,0.98))] px-5 py-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.16)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+            data-testid="start-here-section"
+          >
+            <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div class="max-w-3xl space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Supporting Analysis</p>
+                <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Use the board first, then go deeper with the reporting</h2>
+                <p class="max-w-[44rem] text-[15px] leading-7 text-neutral-600 sm:text-base">
+                  The widgets are the live surface. These guided paths and editor picks explain the mechanism behind the strongest signals
+                  and show where the pressure is likely to spread next.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3.5">
+                <a
+                  href="/start-here"
+                  class="inline-flex items-center justify-center rounded-full bg-neutral-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/40"
+                  data-testid="start-here-guided-link"
+                  data-analytics-event="start_here_entry_click"
+                  data-analytics-location="homepage-start-here-section"
+                  data-analytics-label="Open the guided path"
+                >
+                  Open the guided path
+                </a>
+                <a
+                  href="/posts"
+                  class="inline-flex items-center justify-center px-2 py-2 text-sm font-semibold text-neutral-600 underline-offset-4 transition hover:text-neutral-950 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/30"
+                >
+                  Explore the full library
+                </a>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-6 pt-1 lg:grid-cols-3">
+              {editorPicks.map((post) => (
+                <PostCard post={post} variant="board" />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section
+          class="rounded-[2rem] border border-neutral-200 bg-[radial-gradient(circle_at_top_right,rgba(120,113,108,0.08),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,247,247,0.98))] px-5 py-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.16)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+          data-testid="survival-areas-section"
+        >
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
+            <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Route by fear area</h2>
+            <p class="max-w-3xl text-[15px] leading-7 text-neutral-600 sm:text-base">
+              The board condenses the pressure. The fear-area hubs hold the ongoing reporting, practical framing, and deeper archive for
+              each zone.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 xl:grid-cols-5">
+            {board.threatCards.map((card) => (
+              <a
+                href={`${card.hub.slug}/`}
+                class="group flex h-full flex-col justify-between gap-5 rounded-[1.6rem] border border-neutral-200 bg-white p-5 shadow-[0_16px_44px_-34px_rgba(0,0,0,0.16)] transition hover:-translate-y-1 hover:border-neutral-300 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/25 sm:p-[1.375rem]"
+                data-testid="survival-area-tile"
+              >
+                <div class="space-y-3.5">
+                  <div class="flex items-center gap-3">
+                    <span class="inline-block h-2.5 w-2.5 rounded-full" style={`background:${card.hub.color}`} aria-hidden="true" />
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Fear area</p>
+                  </div>
+                  <h3 class="text-lg font-black leading-tight text-neutral-950 transition group-hover:text-neutral-700">{card.hub.shortName}</h3>
+                  <p class="text-sm leading-7 text-neutral-600">{card.hub.tagline}</p>
+                </div>
+                <span class="text-sm font-semibold tracking-[0.01em] text-neutral-900">Open the hub</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
         {supportingPosts.length > 0 && (
           <section
-            class="rounded-[2rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,244,239,0.96))] px-5 py-6 shadow-[0_24px_70px_-50px_rgba(28,25,23,0.18)] sm:px-6 sm:py-7 lg:px-8"
+            class="rounded-[2rem] border border-neutral-200 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.08),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,247,247,0.98))] px-5 py-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.16)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
             data-testid="supporting-analysis-section"
           >
             <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div class="max-w-3xl space-y-2">
-                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-stone-500">Suggested First Reads</p>
-                <h2 class="text-2xl font-black text-stone-950 sm:text-3xl">Read the reporting behind the dashboard</h2>
-                <p class="max-w-[42rem] text-[15px] leading-7 text-stone-600 sm:text-base">
-                  Keep the homepage focused on the board. Use a small number of strong posts when you want the deeper explanation behind the signal.
+                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Recent Supporting Analysis</p>
+                <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Dispatches behind the dashboard</h2>
+                <p class="max-w-[44rem] text-[15px] leading-7 text-neutral-600 sm:text-base">
+                  These are the latest pieces that explain why the board is moving. Use them when you want the mechanism, not just the signal.
                 </p>
               </div>
               <a
                 href="/posts"
-                class="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-stone-900 transition hover:border-stone-400 hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/30"
+                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/30"
               >
                 Browse all reporting
               </a>
@@ -123,41 +268,73 @@ const supportingPosts = (editorPicks.length > 0 ? editorPicks : remaining).slice
 
             <div class="grid gap-4 pt-2 lg:grid-cols-3">
               {supportingPosts.map((post) => (
-                <PostCard post={post} />
+                <PostCard post={post} variant="board" />
               ))}
             </div>
           </section>
         )}
 
-        <div class="space-y-5">
-          <CredibilityPanel eyebrow="Trust" title="Clear standards and visible ownership" />
+        <div class="rounded-[1.8rem] border border-neutral-200 bg-white/85 p-[1px] shadow-[0_20px_54px_-38px_rgba(0,0,0,0.16)]">
+          <PlaybookOffer
+            eyebrow="Reader offer"
+            title="Get the free Survival Playbook before the pressure gets personal"
+            description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the dashboard into a funnel."
+            href="/playbook"
+            ctaLabel="Get the free playbook"
+            secondaryHref="/start-here"
+            secondaryLabel="Open Start Here"
+            disclaimer="Free reader resource. Intentional placement, not constant interruption."
+            testId="homepage-playbook-offer"
+            primaryAnalyticsEvent="playbook_cta_click"
+            primaryAnalyticsLocation="homepage-playbook-offer"
+            secondaryAnalyticsEvent="start_here_entry_click"
+            secondaryAnalyticsLocation="homepage-playbook-offer"
+          />
+        </div>
 
+        <section
+          class="rounded-[1.9rem] border border-neutral-200 bg-white/85 px-5 py-6 shadow-[0_20px_54px_-38px_rgba(0,0,0,0.16)] backdrop-blur sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+          data-testid="homepage-subscribe"
+        >
           <SubscribeInline
             client:load
             location="home"
             heading="Get the weekly briefing"
             helperText="One concise weekly email with the newest signal, what it means, and where to act next."
             privacyText="Free. No spam. Unsubscribe anytime."
+            valueBullets={['One weekly risk signal', 'One practical action step', 'One tool, policy, or product watch item']}
           />
-        </div>
-      </div>
+        </section>
 
-      <div class="rounded-[1.8rem] border border-stone-200 bg-white p-[1px] shadow-[0_16px_42px_-32px_rgba(28,25,23,0.24)]">
-        <PlaybookOffer
-          eyebrow="Reader offer"
-          title="Get the free Survival Playbook"
-          description="If you want one clear next-step resource beyond the dashboard, use the playbook."
-          href="/playbook"
-          ctaLabel="Get the free playbook"
-          secondaryHref="/start-here"
-          secondaryLabel="Open Start Here"
-          disclaimer="Free reader resource. No aggressive funnel."
-          testId="homepage-playbook-offer"
-          primaryAnalyticsEvent="playbook_cta_click"
-          primaryAnalyticsLocation="homepage-playbook-offer"
-          secondaryAnalyticsEvent="start_here_entry_click"
-          secondaryAnalyticsLocation="homepage-playbook-offer"
-        />
+        {remaining.length > 0 && (
+          <section
+            class="rounded-[2rem] border border-neutral-200 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.08),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,247,247,0.98))] px-5 py-6 shadow-[0_24px_60px_-40px_rgba(0,0,0,0.16)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+            data-testid="library-cta-section"
+          >
+            <div class="space-y-2">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
+              <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Keep moving through the reporting</h2>
+              <p class="max-w-3xl text-[15px] leading-7 text-neutral-600 sm:text-base">
+                The latest board only shows the surface. The library is where the deeper reporting, archive work, and longer survival map
+                keep filling in.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3.5 pt-1">
+              <a
+                href="/posts"
+                class="inline-flex items-center justify-center rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/40"
+              >
+                Go to the Survival Library
+              </a>
+              <a
+                href="/impact-score-methodology"
+                class="inline-flex items-center justify-center px-1 py-3 text-sm font-semibold text-neutral-600 underline-offset-4 transition hover:text-neutral-950 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700/30"
+              >
+                Read the Impact Score methodology
+              </a>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   </main>
