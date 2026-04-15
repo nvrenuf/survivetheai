@@ -11,8 +11,11 @@ const categoryByKey = new Map(TOPIC_CATEGORIES.map((category) => [category.key, 
 <section class="rounded-[1.75rem] border border-stone-200/80 bg-[linear-gradient(180deg,rgba(250,250,249,0.98),rgba(245,245,244,0.94))] p-5 shadow-[0_20px_54px_-34px_rgba(0,0,0,0.78)] sm:p-6" data-testid="pressure-room-impact-feed">
   <div class="flex items-end justify-between gap-4">
     <div class="space-y-1.5">
-      <p class="text-[10px] font-semibold uppercase tracking-[0.32em] text-stone-500">Latest impact score items</p>
-      <h3 class="text-xl font-black text-stone-950">Route into the newest reporting</h3>
+      <p class="text-[10px] font-semibold uppercase tracking-[0.32em] text-stone-500">Latest impact score movement</p>
+      <h3 class="text-xl font-black text-stone-950">Where the highest-pressure reporting is clustering</h3>
+      <p class="max-w-xl text-sm leading-7 text-stone-600">
+        This is a board widget, not the main article gallery. Use it to scan the newest high-impact dispatches, then drop into the full write-up only when needed.
+      </p>
     </div>
     <a href="/posts" class="text-sm font-semibold text-stone-700 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-950">
       Full archive
@@ -20,29 +23,47 @@ const categoryByKey = new Map(TOPIC_CATEGORIES.map((category) => [category.key, 
   </div>
 
   <div class="mt-6 space-y-3">
-    {items.map((post) => {
+    {items.map((post, index) => {
       const category = post.data.topics?.[0] ? categoryByKey.get(post.data.topics[0]) : undefined;
 
       return (
         <a
           href={`/posts/${post.slug}/`}
-          class="flex flex-col gap-4 rounded-[1.35rem] border border-stone-200 bg-white/70 p-4 transition hover:border-stone-300 hover:bg-white sm:flex-row sm:items-center sm:justify-between sm:p-[1.125rem]"
+          class="grid gap-4 rounded-[1.35rem] border border-stone-200 bg-white/70 p-4 transition hover:border-stone-300 hover:bg-white sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:gap-5 sm:p-[1.125rem]"
           data-testid="pressure-room-impact-item"
         >
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-stone-300 bg-stone-100 text-sm font-black tracking-[-0.03em] text-stone-950">
+              {index + 1}
+            </span>
+            <div class="hidden h-12 w-px bg-stone-200 sm:block" aria-hidden="true"></div>
+          </div>
+
           <div class="space-y-2.5">
             <div class="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
               <span>{category?.label ?? post.data.category ?? 'Key topic'}</span>
               <span aria-hidden class="h-1 w-1 rounded-full bg-stone-300" />
               <span>{formatDate(post.data.date)}</span>
             </div>
-            <h4 class="text-lg font-bold leading-tight text-stone-950">{post.data.title}</h4>
-            <p class="text-sm leading-7 text-stone-600">{post.data.description}</p>
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div class="space-y-1.5">
+                <h4 class="text-lg font-bold leading-tight text-stone-950">{post.data.title}</h4>
+                <p class="text-sm leading-7 text-stone-600">{post.data.description}</p>
+              </div>
+            </div>
+            <div class="h-2 rounded-full bg-stone-200" aria-hidden="true">
+              <div
+                class="h-2 rounded-full bg-gradient-to-r from-stone-500 via-stone-400 to-stone-300"
+                style={`width:${Math.max(12, Math.min(post.data.impact_score, 100))}%`}
+              ></div>
+            </div>
           </div>
-          <div class="flex flex-none items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
+
+          <div class="flex flex-none items-center justify-between gap-3 sm:min-w-[112px] sm:flex-col sm:items-end sm:justify-center sm:gap-2">
             <span class="rounded-full border border-stone-300 bg-stone-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-stone-700">
-              Impact {post.data.impact_score}
+              Score {post.data.impact_score}
             </span>
-            <span class="text-sm font-semibold tracking-[0.01em] text-stone-700">Read post</span>
+            <span class="text-sm font-semibold tracking-[0.01em] text-stone-700">Open dispatch</span>
           </div>
         </a>
       );
