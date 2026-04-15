@@ -86,6 +86,13 @@ const structuredData = {
 ---
 
 <BaseLayout title={`${title} - Survive the AI`} description={description} wrapMain={false} bodyClass="bg-white text-neutral-900 antialiased">
+  <div
+    class="fixed left-0 right-0 top-0 z-50 h-1 bg-neutral-200/90 backdrop-blur-sm"
+    aria-hidden="true"
+    data-testid="article-reading-progress"
+  >
+    <div class="h-full w-0 bg-neutral-900 transition-[width] duration-150 ease-out" data-testid="article-reading-progress-bar"></div>
+  </div>
   <Fragment slot="head">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -295,7 +302,14 @@ const structuredData = {
 
         function checkScroll() {
           const doc = document.documentElement;
+          const progressBar = document.querySelector('[data-testid="article-reading-progress-bar"]');
           const scrolled = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
+          const clampedProgress = Math.max(0, Math.min(scrolled, 100));
+
+          if (progressBar instanceof HTMLElement) {
+            progressBar.style.width = clampedProgress + '%';
+          }
+
           thresholds.forEach((threshold) => {
             if (!seen.has(threshold) && scrolled >= threshold) {
               seen.add(threshold);

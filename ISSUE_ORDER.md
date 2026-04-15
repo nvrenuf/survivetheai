@@ -1,14 +1,46 @@
 # STA Issue Order
 
-Current status as of 2026-04-02:
-- Historical completed pass: STA UI credibility pass
-- Historical completed pass: STA trust, authority, and conversion pass
-- Historical completed pass: STA Operations, Capture, and Editorial Enforcement Pass
-- Historical completed pass: STA Subscriber Experience, Reporting, and Offer Architecture Pass
-- Active pass: none
+Current status as of 2026-04-15:
+- Active pass: STA UI/UX Follow-up Pass
+- Current issue in queue: STA-30
 - Next recommended issue: none
+- Tracker note: STA-24 review is complete and now decomposed into tightly scoped execution issues to prevent drift.
 
-There is no active STA execution pass at the moment. The most recently completed pass focused on subscriber experience quality, operator-visible lead-source reporting, lightweight content review loops, offer ladder planning, and editor-contact workflow clarity.
+## Active Pass
+
+### STA UI/UX Follow-up Pass
+
+Execution order:
+1. STA-25: Homepage intent routing block
+2. STA-26: Homepage CTA hierarchy normalization
+3. STA-27: Post-card metadata pattern lock
+4. STA-28: Newsletter value-proposition microcopy
+5. STA-29: Long-form reading progress affordance
+6. STA-30: UI/UX follow-up regression and closeout
+
+### Status
+
+- STA-25: Completed 2026-04-15
+- STA-26: Completed 2026-04-15 (after STA-25)
+- STA-27: Completed 2026-04-15
+- STA-28: Completed 2026-04-15 (parallel-safe with STA-26)
+- STA-29: Completed 2026-04-15
+- STA-30: Planned (depends on STA-25 through STA-29)
+
+### Scope Control Notes
+
+- These issues intentionally split the STA-24 review recommendations into small, verifiable units.
+- No redesign work is authorized in this pass; execution is hierarchy, clarity, and conversion-quality focused.
+- Any regression discovered during this pass should be handled with a new tightly scoped issue rather than broad opportunistic edits.
+
+### Issue Docs
+
+- `docs/issues/sta-ui-ux-followup-pass/25-homepage-intent-routing-block.md`
+- `docs/issues/sta-ui-ux-followup-pass/26-homepage-cta-hierarchy-normalization.md`
+- `docs/issues/sta-ui-ux-followup-pass/27-post-card-metadata-pattern-lock.md`
+- `docs/issues/sta-ui-ux-followup-pass/28-newsletter-value-prop-microcopy.md`
+- `docs/issues/sta-ui-ux-followup-pass/29-longform-reading-progress-affordance.md`
+- `docs/issues/sta-ui-ux-followup-pass/30-ui-ux-followup-regression-and-closeout.md`
 
 ## Most Recently Completed Pass
 
