@@ -5,170 +5,237 @@ import PlaybookOffer from '../components/PlaybookOffer.astro';
 import PostCard from '../components/PostCard.astro';
 import PressureRoom from '../components/homepage/PressureRoom.astro';
 import SubscribeInline from '../components/SubscribeInline';
-import { SURVIVAL_HUBS } from '../data/hubs';
 import { buildHomepagePlacement } from '../data/homepage';
 import { buildHomepageBoard } from '../data/homepageBoard';
 import Layout from '../layouts/BaseLayout.astro';
+import { formatDate } from '../utils/format';
 
 const posts = await getCollection('posts');
 const { editorPicks, remaining } = buildHomepagePlacement(posts);
 const board = buildHomepageBoard(posts);
-const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
+const mostWatched = board.impactItems.slice(0, 3);
+
+const heroCards = [
+  {
+    title: 'Daily + weekly',
+    copy: 'Scan the newest pressure before it hardens into the norm.',
+  },
+  {
+    title: 'News, trends, incidents',
+    copy: 'Track signal density across work, school, attention, and trust.',
+  },
+  {
+    title: 'Clarity, not hype',
+    copy: 'Use the board to sort real pressure from passing noise.',
+  },
+];
 ---
 
 <Layout title="Survive the AI - Prepare, adapt, and stay ahead">
-  <main class="bg-[radial-gradient(circle_at_top,_rgba(23,23,23,0.06),_transparent_34%),linear-gradient(to_bottom,_#fafafa,_#f5f5f5_28%,_#ffffff_60%)] py-14 text-neutral-900 sm:py-18">
-    <div class="mx-auto max-w-screen-xl space-y-14 px-4 sm:px-6 lg:px-8">
-      <section class="py-2 sm:py-4" data-testid="homepage-hero">
-        <div class="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)] lg:items-end">
-          <div class="space-y-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survive the AI</p>
-            <div class="max-w-4xl space-y-4">
-              <h1 class="text-3xl font-black leading-[1.02] tracking-tight text-neutral-950 sm:text-[2.8rem] lg:text-[3.7rem]">
-                The pressure is no longer theoretical. Track where AI is pressing first.
-              </h1>
-              <p class="max-w-3xl text-base leading-relaxed text-neutral-600 sm:text-lg">
-                SurviveTheAI is an editorial survival guide for people navigating AI pressure across work, school, relationships, attention,
-                and institutions. The homepage now opens with the board: what STA is seeing, how the editor scores it, and where to read
-                deeper next.
-              </p>
+  <main class="bg-[radial-gradient(circle_at_top,rgba(120,113,108,0.15),transparent_28%),radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.06),transparent_20%),linear-gradient(180deg,#09090b_0%,#111113_34%,#0b0b0d_100%)] py-10 text-neutral-100 sm:py-14">
+    <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
+      <section class="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,20,23,0.96),rgba(11,11,13,0.99))] px-5 py-6 shadow-[0_32px_90px_-52px_rgba(0,0,0,0.82)] sm:px-6 sm:py-7 lg:px-8 lg:py-8" data-testid="homepage-hero">
+        <div class="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_360px]">
+          <div class="space-y-6">
+            <div class="space-y-4">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-2 rounded-full border border-[#ff6b57]/25 bg-[#ff6b57]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff8b79]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b57]" aria-hidden="true"></span>
+                  LIVE AI FEAR SIGNALS
+                </span>
+              </div>
+              <div class="max-w-4xl space-y-4">
+                <h1 class="max-w-3xl text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-[3.6rem]">
+                  The AI flood is here. Learn to swim.
+                </h1>
+                <p class="max-w-3xl text-base leading-relaxed text-neutral-300 sm:text-lg">
+                  SurviveTheAI tracks where pressure is rising across work, school, trust, fraud, relationships, and cognitive life using
+                  a mix of live inputs people can trust and hard-won editorial judgment.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <a
+                href="#pressure-room"
+                class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+                data-testid="hero-pressure-room-link"
+              >
+                Open the Pressure Room
+              </a>
+              <a
+                href="/posts"
+                class="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                data-testid="hero-latest-fear-papers-link"
+              >
+                Read the latest fear papers
+              </a>
+            </div>
+
+            <div class="grid gap-3 md:grid-cols-3">
+              {heroCards.map((card) => (
+                <article class="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 shadow-[0_18px_40px_-32px_rgba(0,0,0,0.78)]">
+                  <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{card.title}</p>
+                  <p class="mt-3 text-sm leading-relaxed text-neutral-300">{card.copy}</p>
+                </article>
+              ))}
             </div>
           </div>
-          <div class="rounded-3xl border border-neutral-200 bg-white/90 p-6 shadow-[0_18px_48px_-36px_rgba(0,0,0,0.35)] backdrop-blur">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">How to use the board</p>
-            <ul class="mt-4 space-y-3 text-sm leading-relaxed text-neutral-700">
-              <li>Read the near-live modules as recent signal summaries, not real-time feeds.</li>
-              <li>Treat the threat cards and gauges as clearly labeled editorial judgment.</li>
-              <li>Use the impact feed, fear areas, and Start Here path to route into full reporting.</li>
-            </ul>
-          </div>
+
+          <aside class="rounded-[1.7rem] border border-white/10 bg-black/25 p-4 shadow-[0_24px_54px_-36px_rgba(0,0,0,0.85)]" data-testid="most-watched-panel">
+            <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div>
+                <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Most watched this week</p>
+                <p class="mt-1 text-sm text-neutral-400">Stories readers keep circling back to.</p>
+              </div>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              {mostWatched.map((post) => (
+                <a
+                  href={`/posts/${post.slug}/`}
+                  class="block rounded-[1.3rem] border border-white/10 bg-white/[0.04] p-4 transition hover:border-white/20 hover:bg-white/[0.06]"
+                >
+                  <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                    <span>Fear paper</span>
+                    <span aria-hidden class="h-1 w-1 rounded-full bg-white/15"></span>
+                    <span>{formatDate(post.data.date)}</span>
+                  </div>
+                  <h2 class="mt-3 text-lg font-black leading-tight text-white">{post.data.title}</h2>
+                  <p class="mt-2 text-sm leading-relaxed text-neutral-400">{post.data.description}</p>
+                </a>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
       <PressureRoom board={board} />
 
-      {editorPicks.length > 0 && (
-        <section class="space-y-6" data-testid="start-here-section">
-          <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-            <div class="max-w-3xl space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
-              <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Use the board, then take the guided path</h2>
-              <p class="text-neutral-600">
-                New readers should map the pressure first, then use Start Here and these editor-selected posts to understand the site’s
-                logic.
+      <div class="space-y-8 rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,18,21,0.96),rgba(10,10,12,0.99))] px-5 py-6 shadow-[0_32px_90px_-52px_rgba(0,0,0,0.8)] sm:px-6 sm:py-7 lg:px-8 lg:py-8">
+        {editorPicks.length > 0 && (
+          <section class="space-y-6" data-testid="start-here-section">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+              <div class="max-w-3xl space-y-1">
+                <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
+                <h2 class="text-2xl font-black text-white sm:text-3xl">Use the board, then take the guided path</h2>
+                <p class="text-neutral-300">
+                  New readers should start with the pressure map, then use Start Here and these editor picks to understand the stakes,
+                  the patterns, and the practical next questions.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href="/start-here"
+                  class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+                  data-testid="start-here-guided-link"
+                  data-analytics-event="start_here_entry_click"
+                  data-analytics-location="homepage-start-here-section"
+                  data-analytics-label="Open the guided path"
+                >
+                  Open the guided path
+                </a>
+                <a
+                  href="/posts"
+                  class="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                >
+                  Explore the full library
+                </a>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              {editorPicks.map((post) => (
+                <PostCard post={post} variant="board" />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <PlaybookOffer
+          eyebrow="Reader offer"
+          title="Get the free Survival Playbook before the pressure gets personal"
+          description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
+          href="/playbook"
+          ctaLabel="Get the free playbook"
+          secondaryHref="/start-here"
+          secondaryLabel="Open Start Here"
+          disclaimer="Free reader resource. Intentional placement, not constant interruption."
+          testId="homepage-playbook-offer"
+          primaryAnalyticsEvent="playbook_cta_click"
+          primaryAnalyticsLocation="homepage-playbook-offer"
+          secondaryAnalyticsEvent="start_here_entry_click"
+          secondaryAnalyticsLocation="homepage-playbook-offer"
+        />
+
+        <section class="space-y-6" data-testid="homepage-subscribe">
+          <SubscribeInline
+            client:load
+            location="home"
+            heading="Get the weekly briefing"
+            helperText="One concise weekly email with the newest signal, what it means, and where to act next."
+            privacyText="Free. No spam. Unsubscribe anytime."
+          />
+        </section>
+
+        <section class="space-y-6" data-testid="survival-areas-section">
+          <div class="space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
+            <h2 class="text-2xl font-black text-white sm:text-3xl">Route by fear area</h2>
+            <p class="max-w-3xl text-neutral-300">
+              The board condenses the pressure. The fear-area hubs hold the ongoing reporting, practical framing, and deeper archive for
+              each zone.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            {board.threatCards.map((card) => (
+              <a
+                href={`${card.hub.slug}/`}
+                class="group flex h-full flex-col justify-between gap-4 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_44px_-34px_rgba(0,0,0,0.75)] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/25"
+                data-testid="survival-area-tile"
+              >
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <span class="inline-block h-2.5 w-2.5 rounded-full" style={`background:${card.hub.color}`} aria-hidden="true" />
+                    <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Fear area</p>
+                  </div>
+                  <h3 class="text-lg font-black leading-tight text-white transition group-hover:text-neutral-200">{card.hub.shortName}</h3>
+                  <p class="text-sm leading-relaxed text-neutral-300">{card.hub.tagline}</p>
+                </div>
+                <span class="text-sm font-semibold text-white">Open the hub</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
+
+        {remaining.length > 0 && (
+          <section class="space-y-5" data-testid="library-cta-section">
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
+              <h2 class="text-2xl font-black text-white sm:text-3xl">Keep moving through the reporting</h2>
+              <p class="max-w-3xl text-neutral-300">
+                The latest board only shows the surface. The library is where the deeper reporting, archive work, and longer survival map
+                keep filling in.
               </p>
             </div>
             <div class="flex flex-wrap gap-3">
               <a
-                href="/start-here"
-                class="inline-flex items-center justify-center rounded-full bg-neutral-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-                data-testid="start-here-guided-link"
-                data-analytics-event="start_here_entry_click"
-                data-analytics-location="homepage-start-here-section"
-                data-analytics-label="Open the guided path"
+                href="/posts"
+                class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
               >
-                Open the guided path
+                Go to the Survival Library
               </a>
               <a
-                href="/posts"
-                class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
+                href="/impact-score-methodology"
+                class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
               >
-                Explore the full library
+                Read the Impact Score methodology
               </a>
             </div>
-          </div>
-          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {editorPicks.map((post) => (
-              <PostCard post={post} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section class="space-y-6" data-testid="survival-areas-section">
-        <div class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
-          <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Route by fear area</h2>
-          <p class="max-w-3xl text-neutral-600">
-            The board condenses the pressure. The fear-area hubs hold the ongoing reporting, practical framing, and deeper archive for each
-            zone.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
-          {survivalAreas.map((area) => (
-            <a
-              href={`${area.slug}/`}
-              class="group flex h-full flex-col justify-between gap-4 rounded-2xl border border-neutral-200 bg-white p-5 shadow-[0_16px_40px_-34px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_20px_48px_-32px_rgba(0,0,0,0.42)] focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
-              data-testid="survival-area-tile"
-            >
-              <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <span class="inline-block h-2.5 w-2.5 rounded-full" style={`background:${area.color}`} aria-hidden="true" />
-                  <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Fear area</p>
-                </div>
-                <h3 class="text-lg font-black leading-tight text-neutral-900 transition group-hover:text-neutral-700">{area.shortName}</h3>
-                <p class="text-sm leading-relaxed text-neutral-600">{area.tagline}</p>
-              </div>
-              <span class="text-sm font-semibold text-neutral-900">Open the hub</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <PlaybookOffer
-        eyebrow="Reader offer"
-        title="Get the free Survival Playbook before the pressure gets personal"
-        description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
-        href="/playbook"
-        ctaLabel="Get the free playbook"
-        secondaryHref="/start-here"
-        secondaryLabel="Open Start Here"
-        disclaimer="Free reader resource. Intentional placement, not constant interruption."
-        testId="homepage-playbook-offer"
-        primaryAnalyticsEvent="playbook_cta_click"
-        primaryAnalyticsLocation="homepage-playbook-offer"
-        secondaryAnalyticsEvent="start_here_entry_click"
-        secondaryAnalyticsLocation="homepage-playbook-offer"
-      />
-
-      <section class="space-y-6" data-testid="homepage-subscribe">
-        <SubscribeInline
-          client:load
-          location="home"
-          heading="Get the weekly briefing"
-          helperText="One concise weekly email with the newest signal, what it means, and where to act next."
-          privacyText="Free. No spam. Unsubscribe anytime."
-        />
-      </section>
-
-      <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
-
-      {remaining.length > 0 && (
-        <section class="space-y-5" data-testid="library-cta-section">
-          <div class="space-y-1">
-            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
-            <h2 class="text-2xl font-black text-neutral-950 sm:text-3xl">Keep moving through the reporting</h2>
-            <p class="max-w-3xl text-neutral-600">
-              The homepage board is the front door, not the whole system. The full library is where the longer survival map keeps filling
-              in.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a
-              href="/posts"
-              class="inline-flex items-center justify-center rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
-              Go to the Survival Library
-            </a>
-            <a
-              href="/impact-score-methodology"
-              class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
-              Read the Impact Score methodology
-            </a>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
+      </div>
     </div>
   </main>
 </Layout>

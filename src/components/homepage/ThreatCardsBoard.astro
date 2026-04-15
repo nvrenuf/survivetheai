@@ -10,9 +10,9 @@ const { cards } = Astro.props as { cards: HomepageThreatCard[] };
     <h3 class="text-xl font-black text-white sm:text-2xl">Fear-area scores and weekly deltas</h3>
   </div>
 
-  <div class="grid gap-4 lg:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+  <div class="grid gap-4 lg:grid-cols-2">
     {cards.map((card) => (
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.65)]" data-testid="pressure-room-threat-card">
+      <article class="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))] p-5 shadow-[0_22px_52px_-34px_rgba(0,0,0,0.78)]" data-testid="pressure-room-threat-card">
         <div class="flex items-start justify-between gap-4">
           <div class="space-y-2">
             <div class="flex items-center gap-3">
@@ -22,12 +22,16 @@ const { cards } = Astro.props as { cards: HomepageThreatCard[] };
             <h4 class="text-lg font-black text-white">{card.hub.shortName}</h4>
           </div>
           <div class="text-right">
-            <p class="text-3xl font-black tracking-tight text-white">{card.score}</p>
+            <p class="text-4xl font-black tracking-tight text-white">{card.score}</p>
             <p class={`text-xs font-semibold uppercase tracking-[0.18em] ${card.delta >= 0 ? 'text-amber-300' : 'text-emerald-300'}`}>
               {card.delta >= 0 ? '+' : ''}
               {card.delta} this week
             </p>
           </div>
+        </div>
+
+        <div class="mt-4 h-2 rounded-full bg-white/10" aria-hidden="true">
+          <div class="h-2 rounded-full" style={`width:${card.score}%;background:${card.hub.color};`}></div>
         </div>
 
         <div class="mt-4 space-y-2">

@@ -6,6 +6,11 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('navbar')).toHaveCount(1);
     await expect(page.getByTestId('homepage-hero')).toBeVisible();
+    await expect(page.getByTestId('homepage-hero')).toContainText('LIVE AI FEAR SIGNALS');
+    await expect(page.getByTestId('homepage-hero')).toContainText('The AI flood is here. Learn to swim.');
+    await expect(page.getByTestId('hero-pressure-room-link')).toHaveAttribute('href', '#pressure-room');
+    await expect(page.getByTestId('hero-latest-fear-papers-link')).toHaveAttribute('href', '/posts');
+    await expect(page.getByTestId('most-watched-panel')).toBeVisible();
     await expect(page.getByTestId('pressure-room-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('survival-areas-section')).toBeVisible();
@@ -39,31 +44,34 @@ test.describe('Homepage layout', () => {
   test('homepage section order stays locked and intentional', async ({ page }) => {
     await page.goto('/');
 
-    const sectionOrder = await page.locator('main > div').evaluate((container) =>
-      Array.from(container.children)
-        .map((node) => node.getAttribute('data-testid'))
-        .filter(Boolean),
-    );
-
-    expect(sectionOrder).toEqual([
+    const expectedOrder = [
       'homepage-hero',
       'pressure-room-section',
       'start-here-section',
-      'survival-areas-section',
       'homepage-playbook-offer',
       'homepage-subscribe',
+      'survival-areas-section',
       'credibility-panel',
       'library-cta-section',
-    ]);
+    ];
+
+    const sectionOrder = await page.locator('main [data-testid]').evaluateAll((nodes, ids) => {
+      const expectedIds = new Set(ids as string[]);
+      return nodes
+        .map((node) => node.getAttribute('data-testid'))
+        .filter((value): value is string => Boolean(value) && expectedIds.has(value));
+    }, expectedOrder);
+
+    expect(sectionOrder).toEqual(expectedOrder);
   });
 
   test('pressure room keeps its honest data separation and routes back into reporting', async ({ page }) => {
     await page.goto('/');
 
     const pressureRoom = page.getByTestId('pressure-room-section');
-    await expect(pressureRoom).toContainText('Near-live modules summarize fresh STA coverage.');
-    await expect(pressureRoom).toContainText('Threat cards and macro gauges are explicit editorial judgments.');
-    await expect(pressureRoom).toContainText('Board timestamp:');
+    await expect(pressureRoom).toContainText('Near-live signals track recent coverage.');
+    await expect(pressureRoom).toContainText('Scores and gauges are editorial judgment.');
+    await expect(pressureRoom).toContainText('Updated through');
 
     const impactItems = page.getByTestId('pressure-room-impact-item');
     const hrefs = await impactItems.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));
