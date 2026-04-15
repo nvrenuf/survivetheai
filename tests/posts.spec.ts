@@ -63,6 +63,12 @@ test('article pages render one hero/title block on reviewed posts', async ({ pag
   await expect(page.getByTestId('article-playbook-offer')).toContainText('Get the free playbook');
   await expect(page.getByTestId('article-playbook-offer').getByRole('link', { name: 'Get the free playbook' })).toHaveAttribute('href', '/playbook');
   await expect(page.getByTestId('article-body')).toBeVisible();
+  await expect(page.getByTestId('article-reading-progress')).toBeVisible();
+  await expect(page.getByTestId('article-reading-progress-bar')).toHaveCSS('width', '0px');
+
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await expect(page.getByTestId('article-reading-progress-bar')).not.toHaveCSS('width', '0px');
+
   await expect(page.getByTestId('article-claims-verification')).toContainText('Claims & Verification');
   await expect(page.getByTestId('article-claims-verification')).toContainText('Well-supported');
   await expect(page.getByTestId('article-claims-verification')).toContainText('Still uncertain');

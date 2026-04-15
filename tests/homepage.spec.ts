@@ -10,6 +10,9 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('homepage-hero')).toContainText('The AI flood is here. Learn to swim.');
     await expect(page.getByTestId('hero-pressure-room-link')).toHaveAttribute('href', '#pressure-room');
     await expect(page.getByTestId('hero-latest-fear-papers-link')).toHaveAttribute('href', '/posts');
+    await expect(page.getByTestId('homepage-intent-routing')).toBeVisible();
+    await expect(page.getByTestId('intent-path-card')).toHaveCount(3);
+    await expect(page.getByTestId('intent-path-card').first()).toHaveAttribute('data-analytics-event', 'intent_path_click');
     await expect(page.getByTestId('most-watched-panel')).toBeVisible();
     await expect(page.getByTestId('pressure-room-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
@@ -46,6 +49,7 @@ test.describe('Homepage layout', () => {
 
     const expectedOrder = [
       'homepage-hero',
+      'homepage-intent-routing',
       'pressure-room-section',
       'start-here-section',
       'homepage-playbook-offer',
@@ -189,6 +193,9 @@ test.describe('Homepage layout', () => {
     await expect(page.getByTestId('homepage-subscribe')).toContainText(
       'One concise weekly email with the newest signal, what it means, and where to act next.',
     );
+    await expect(page.getByTestId('subscribe-value-bullets-home')).toContainText('One weekly risk signal');
+    await expect(page.getByTestId('subscribe-value-bullets-home')).toContainText('One practical action step');
+    await expect(page.getByTestId('subscribe-value-bullets-home')).toContainText('One tool, policy, or product watch item');
     await expect(page.getByTestId('homepage-subscribe')).toContainText('Free. No spam. Unsubscribe anytime.');
   });
 });

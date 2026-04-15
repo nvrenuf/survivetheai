@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "playwright test",
+    "test": "node scripts/ensure-playwright-chromium.mjs && playwright test",
     "report:lead-sources": "node scripts/report-lead-sources.mjs"
   },
   "dependencies": {
