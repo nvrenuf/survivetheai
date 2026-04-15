@@ -8,6 +8,7 @@ type SubscribeInlineProps = {
   helperText?: string;
   privacyText?: string;
   location?: string;
+  valueBullets?: string[];
 };
 
 export default function SubscribeInline({
@@ -15,6 +16,7 @@ export default function SubscribeInline({
   helperText = 'Weekly signal, no hype: practical moves to protect your work, family, and focus.',
   privacyText = 'No spam. Unsubscribe anytime.',
   location = 'inline',
+  valueBullets,
 }: SubscribeInlineProps) {
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState<string>('');
@@ -136,6 +138,16 @@ export default function SubscribeInline({
         <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Newsletter</p>
         <h2 className="text-2xl font-black text-neutral-900 sm:text-3xl">{heading}</h2>
         <p className="text-neutral-700">{helperText}</p>
+        {valueBullets && valueBullets.length > 0 && (
+          <ul className="grid gap-1 pt-1 text-sm text-neutral-700 sm:grid-cols-3" data-testid={`subscribe-value-bullets-${location}`}>
+            {valueBullets.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-2">
+                <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-neutral-500" aria-hidden="true"></span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <form className="mt-6 space-y-4" onSubmit={onSubmit}>
