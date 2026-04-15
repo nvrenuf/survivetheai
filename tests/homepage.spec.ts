@@ -64,9 +64,9 @@ test.describe('Homepage layout', () => {
     await page.goto('/');
 
     const pressureRoom = page.getByTestId('pressure-room-section');
-    await expect(pressureRoom).toContainText('Near-live modules summarize fresh STA coverage.');
-    await expect(pressureRoom).toContainText('Threat cards and macro gauges are explicit editorial judgments.');
-    await expect(pressureRoom).toContainText('Board timestamp:');
+    await expect(pressureRoom).toContainText('Near-live signals track recent coverage.');
+    await expect(pressureRoom).toContainText('Scores and gauges are editorial judgment.');
+    await expect(pressureRoom).toContainText('Updated through');
 
     const impactItems = page.getByTestId('pressure-room-impact-item');
     const hrefs = await impactItems.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('href')).filter(Boolean));

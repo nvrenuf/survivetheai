@@ -22,35 +22,29 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
       <section class="py-2 sm:py-3" data-testid="homepage-hero">
         <div class="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(300px,0.95fr)] lg:items-end">
           <div class="space-y-5">
-            <div class="flex flex-wrap items-center gap-2">
-              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survive the AI</p>
-              <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
-                Editorial pressure board
-              </span>
-            </div>
+            <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Survive the AI</p>
             <div class="max-w-4xl space-y-4">
               <h1 class="text-3xl font-black leading-[1.01] tracking-tight text-white sm:text-[2.9rem] lg:text-[4rem]">
-                The pressure is no longer theoretical. Start with the board.
+                See where AI pressure is rising before it hits home.
               </h1>
               <p class="max-w-3xl text-base leading-relaxed text-neutral-300 sm:text-lg">
-                SurviveTheAI is an editorial survival guide for people navigating AI pressure across work, school, relationships, attention,
-                and institutions. The homepage now frames the site as a live board first, then routes you deeper into reporting,
-                methodology, and fear-area hubs.
+                SurviveTheAI tracks how AI pressure is changing work, school, relationships, attention, and institutions. Start here to
+                see where the pressure is building fastest, what it means, and where to go next.
               </p>
             </div>
           </div>
           <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             <div class="rounded-[1.65rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_52px_-36px_rgba(0,0,0,0.75)]">
-              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Read honestly</p>
-              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Near-live modules summarize recent STA publishing activity. They are not real-time feeds.</p>
+              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">See the pressure</p>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Scan the newest signals first so the pattern is visible before the headlines fully catch up.</p>
             </div>
             <div class="rounded-[1.65rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_52px_-36px_rgba(0,0,0,0.75)]">
-              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Score clearly</p>
-              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Threat cards and macro gauges are labeled editorial judgment, not synthetic certainty.</p>
+              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Know what matters</p>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Use the scores, gauges, and dispatches to understand where the pressure is turning personal.</p>
             </div>
             <div class="rounded-[1.65rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_52px_-36px_rgba(0,0,0,0.75)]">
-              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Route deeper</p>
-              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Use the board to enter Start Here, fear-area hubs, posts, and standards without losing context.</p>
+              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Go deeper</p>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-300">Jump from the board into Start Here, fear-area hubs, and the archive when you need the full picture.</p>
             </div>
           </div>
         </div>
@@ -66,8 +60,8 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
                 <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
                 <h2 class="text-2xl font-black text-white sm:text-3xl">Use the board, then take the guided path</h2>
                 <p class="text-neutral-300">
-                  New readers should map the pressure first, then use Start Here and these editor-selected posts to understand the site's
-                  logic.
+                  New readers should start with the pressure map, then use Start Here and these editor picks to understand the stakes,
+                  the patterns, and the practical next questions.
                 </p>
               </div>
               <div class="flex flex-wrap gap-3">
@@ -137,7 +131,6 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
           secondaryLabel="Open Start Here"
           disclaimer="Free reader resource. Intentional placement, not constant interruption."
           testId="homepage-playbook-offer"
-          variant="board"
           primaryAnalyticsEvent="playbook_cta_click"
           primaryAnalyticsLocation="homepage-playbook-offer"
           secondaryAnalyticsEvent="start_here_entry_click"
@@ -151,11 +144,10 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
             heading="Get the weekly briefing"
             helperText="One concise weekly email with the newest signal, what it means, and where to act next."
             privacyText="Free. No spam. Unsubscribe anytime."
-            variant="board"
           />
         </section>
 
-        <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" variant="board" />
+        <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
 
         {remaining.length > 0 && (
           <section class="space-y-5" data-testid="library-cta-section">
@@ -163,8 +155,8 @@ const survivalAreas = [...SURVIVAL_HUBS].sort((a, b) => a.order - b.order);
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
               <h2 class="text-2xl font-black text-white sm:text-3xl">Keep moving through the reporting</h2>
               <p class="max-w-3xl text-neutral-300">
-                The homepage board is the front door, not the whole system. The full library is where the longer survival map keeps
-                filling in.
+                The latest board only shows the surface. The library is where the deeper reporting, archive work, and longer survival map
+                keep filling in.
               </p>
             </div>
             <div class="flex flex-wrap gap-3">

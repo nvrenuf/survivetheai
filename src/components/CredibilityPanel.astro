@@ -5,60 +5,35 @@ const {
   eyebrow = 'Trust',
   title = 'Who publishes this',
   summary = SITE_CREDIBILITY.summary,
-  variant = 'default',
 } = Astro.props as {
   eyebrow?: string;
   title?: string;
   summary?: string;
-  variant?: 'default' | 'board';
 };
 ---
 
-<section
-  class:list={[
-    'rounded-3xl p-6',
-    variant === 'board'
-      ? 'border border-white/10 bg-[linear-gradient(180deg,rgba(23,23,23,0.94),rgba(10,10,10,0.98))] shadow-[0_20px_60px_-36px_rgba(0,0,0,0.8)]'
-      : 'border border-neutral-200 bg-neutral-50 shadow-sm',
-  ]}
-  data-testid="credibility-panel"
->
+<section class="rounded-3xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm" data-testid="credibility-panel">
   <div class="space-y-3">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">{eyebrow}</p>
-    <h2 class:list={['text-2xl font-black sm:text-3xl', variant === 'board' ? 'text-white' : 'text-neutral-900']}>{title}</h2>
-    <p class:list={['max-w-4xl', variant === 'board' ? 'text-neutral-300' : 'text-neutral-700']}>{summary}</p>
+    <h2 class="text-2xl font-black text-neutral-900 sm:text-3xl">{title}</h2>
+    <p class="max-w-4xl text-neutral-700">{summary}</p>
   </div>
   <div class="mt-5 flex flex-wrap gap-3">
     <a
       href={SITE_CREDIBILITY.aboutHref}
-      class:list={[
-        'inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition',
-        variant === 'board'
-          ? 'border-white/15 text-white hover:border-white/30 hover:bg-white/5'
-          : 'border-neutral-300 text-neutral-900 hover:border-neutral-500 hover:text-neutral-950',
-      ]}
+      class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950"
     >
       Meet the team
     </a>
     <a
       href={SITE_CREDIBILITY.standardsHref}
-      class:list={[
-        'inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition',
-        variant === 'board'
-          ? 'border-white/15 text-white hover:border-white/30 hover:bg-white/5'
-          : 'border-neutral-300 text-neutral-900 hover:border-neutral-500 hover:text-neutral-950',
-      ]}
+      class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950"
     >
       Read our standards
     </a>
     <a
       href={SITE_CREDIBILITY.contactHref}
-      class:list={[
-        'inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition',
-        variant === 'board'
-          ? 'border-white/15 text-white hover:border-white/30 hover:bg-white/5'
-          : 'border-neutral-300 text-neutral-900 hover:border-neutral-500 hover:text-neutral-950',
-      ]}
+      class="inline-flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:border-neutral-500 hover:text-neutral-950"
     >
       Contact the editor
     </a>
