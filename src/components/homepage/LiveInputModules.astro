@@ -16,10 +16,10 @@ const toneDotClasses: Record<HomepageLiveModule['tone'], string> = {
 };
 ---
 
-<section class="space-y-4" data-testid="pressure-room-live-modules">
+<section class="space-y-5" data-testid="pressure-room-live-modules">
   <div class="flex items-end justify-between gap-4">
-    <div class="space-y-1">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-400">Near-live inputs</p>
+    <div class="space-y-1.5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.32em] text-neutral-400">Near-live inputs</p>
       <h3 class="text-xl font-black text-white sm:text-2xl">What is moving right now</h3>
     </div>
     <p class="max-w-sm text-right text-xs leading-relaxed text-neutral-500">Pulled from recent STA publishing activity.</p>
@@ -27,23 +27,23 @@ const toneDotClasses: Record<HomepageLiveModule['tone'], string> = {
 
   <div class="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
     {modules.map((module) => (
-      <article class={`rounded-[1.6rem] border p-5 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.75)] ${toneClasses[module.tone]}`}>
-        <div class="space-y-3">
+      <article class={`rounded-[1.6rem] border p-5 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.75)] ${toneClasses[module.tone]} sm:p-[1.375rem]`}>
+        <div class="space-y-3.5">
           <div class="flex items-start justify-between gap-4">
-            <div class="space-y-2">
-              <div class="flex items-center gap-2">
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-2.5">
                 <span class={`inline-block h-2 w-2 rounded-full ${toneDotClasses[module.tone]}`} aria-hidden="true"></span>
-                <p class="max-w-[15rem] text-[11px] font-semibold uppercase tracking-[0.24em] text-stone-500">{module.title}</p>
+                <p class="max-w-[15rem] text-[10px] font-semibold uppercase tracking-[0.26em] text-stone-500">{module.title}</p>
               </div>
-              <p class="text-3xl font-black tracking-tight text-stone-950">{module.value}</p>
+              <p class="text-[2rem] font-black tracking-[-0.03em] text-stone-950">{module.value}</p>
             </div>
             <span class="rounded-full border border-stone-300 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-600">
               {module.value}
             </span>
           </div>
-          <div class="space-y-2">
+          <div class="space-y-2.5">
             <p class="text-sm font-semibold uppercase tracking-[0.18em] text-stone-900">{module.summary}</p>
-            <p class="text-sm leading-relaxed text-stone-600">{module.detail}</p>
+            <p class="text-sm leading-7 text-stone-600">{module.detail}</p>
           </div>
           {module.items && module.items.length > 0 && (
             <ul class="flex flex-wrap gap-2">
@@ -53,8 +53,8 @@ const toneDotClasses: Record<HomepageLiveModule['tone'], string> = {
             </ul>
           )}
         </div>
-        <div class="mt-4 flex items-center justify-between gap-4 border-t border-stone-200 pt-4">
-          <p class="max-w-xs text-[11px] font-medium uppercase tracking-[0.18em] text-stone-500">{module.sourceLabel}</p>
+        <div class="mt-5 flex items-center justify-between gap-4 border-t border-stone-200 pt-4">
+          <p class="max-w-xs text-[10px] font-medium uppercase tracking-[0.22em] text-stone-500">{module.sourceLabel}</p>
           {module.href && module.hrefLabel && (
             <a href={module.href} class="text-sm font-semibold text-stone-700 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-950">
               {module.hrefLabel}
