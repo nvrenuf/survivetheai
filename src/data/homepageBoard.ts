@@ -25,7 +25,6 @@ export type HomepageThreatCard = {
   delta: number;
   stance: string;
   summary: string;
-  latestPost?: PostEntry;
 };
 
 export type HomepageMacroGauge = {
@@ -45,7 +44,6 @@ export type HomepageVoteOption = {
 
 export type HomepageBoardModel = {
   anchorDateLabel: string;
-  leadPost?: PostEntry;
   liveModules: HomepageLiveModule[];
   threatCards: HomepageThreatCard[];
   macroGauges: HomepageMacroGauge[];
@@ -189,7 +187,6 @@ function buildTrendingAnxieties(posts: PostEntry[]) {
 
 export function buildHomepageBoard(allPosts: PostEntry[]): HomepageBoardModel {
   const eligiblePosts = getHomepageEligiblePosts(allPosts);
-  const placement = buildHomepagePlacement(allPosts);
   const anchorDate = eligiblePosts[0]?.data.date ?? new Date();
   const trailing14 = getPostsInWindow(eligiblePosts, anchorDate, 14);
   const trailing30 = getPostsInWindow(eligiblePosts, anchorDate, 30);
@@ -250,12 +247,10 @@ export function buildHomepageBoard(allPosts: PostEntry[]): HomepageBoardModel {
     .map((hub) => ({
       hub,
       ...EDITORIAL_THREAT_MODEL[hub.key],
-      latestPost: eligiblePosts.find((post) => getPillarFromPost(post) === hub.key),
     }));
 
   return {
     anchorDateLabel: formatDate(anchorDate),
-    leadPost: placement.featured,
     liveModules,
     threatCards,
     macroGauges: EDITORIAL_MACRO_GAUGES,

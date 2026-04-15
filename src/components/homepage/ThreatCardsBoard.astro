@@ -46,14 +46,6 @@ const { cards } = Astro.props as { cards: HomepageThreatCard[] };
           >
             Open {card.hub.shortName}
           </a>
-          {card.latestPost && (
-            <a
-              href={`/posts/${card.latestPost.slug}/`}
-              class="text-sm font-semibold text-stone-700 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-950"
-            >
-              Latest dispatch
-            </a>
-          )}
         </div>
       </article>
     ))}
