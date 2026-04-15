@@ -11,6 +11,7 @@ const { board } = Astro.props as { board: HomepageBoardModel };
 ---
 
 <section
+  id="pressure-room"
   class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(120,113,108,0.08),transparent_26%),linear-gradient(180deg,rgba(16,16,18,0.98),rgba(5,5,6,1))] px-5 py-6 text-white shadow-[0_40px_120px_-48px_rgba(0,0,0,0.85)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
   data-testid="pressure-room-section"
 >
@@ -18,10 +19,11 @@ const { board } = Astro.props as { board: HomepageBoardModel };
 
   <div class="relative flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
     <div class="max-w-3xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">AI Pressure Room</p>
-      <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.55rem]">Where AI pressure is rising, spreading, and getting harder to ignore.</h2>
+      <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">LIVE INPUTS PEOPLE CAN ACTUALLY TRUST</p>
+      <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.55rem]">Track the signals, map the fear areas, and see what is changing fastest.</h2>
       <p class="text-base leading-relaxed text-neutral-300">
-        Use the board to scan the newest signals, see where the editor sees pressure building, and decide where to read deeper next.
+        Near-live signals show where coverage is clustering. Fear-area scores and macro gauges help you sort signal from noise before you
+        decide what to read next.
       </p>
     </div>
     <div class="grid max-w-xl gap-3 sm:grid-cols-2">
@@ -38,20 +40,16 @@ const { board } = Astro.props as { board: HomepageBoardModel };
 
   <div class="relative mt-6 space-y-6">
     <LiveInputModules modules={board.liveModules} />
+    <ThreatCardsBoard cards={board.threatCards} />
 
-    <div class="grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
-      <div class="space-y-6">
-        <ThreatCardsBoard cards={board.threatCards} />
-      </div>
+    <div class="grid gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <LeadDispatchCard post={board.leadPost} />
+      <MacroGauges gauges={board.macroGauges} />
+    </div>
 
-      <div class="grid gap-6 xl:auto-rows-min">
-        <LeadDispatchCard post={board.leadPost} />
-        <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-1">
-          <MacroGauges gauges={board.macroGauges} />
-          <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
-        </div>
-        <ImpactScoreFeed items={board.impactItems} />
-      </div>
+    <div class="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)]">
+      <ImpactScoreFeed items={board.impactItems} />
+      <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
     </div>
   </div>
 </section>

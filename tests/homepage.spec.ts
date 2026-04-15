@@ -6,6 +6,11 @@ test.describe('Homepage layout', () => {
 
     await expect(page.getByTestId('navbar')).toHaveCount(1);
     await expect(page.getByTestId('homepage-hero')).toBeVisible();
+    await expect(page.getByTestId('homepage-hero')).toContainText('LIVE AI FEAR SIGNALS');
+    await expect(page.getByTestId('homepage-hero')).toContainText('The AI flood is here. Learn to swim.');
+    await expect(page.getByTestId('hero-pressure-room-link')).toHaveAttribute('href', '#pressure-room');
+    await expect(page.getByTestId('hero-latest-fear-papers-link')).toHaveAttribute('href', '/posts');
+    await expect(page.getByTestId('most-watched-panel')).toBeVisible();
     await expect(page.getByTestId('pressure-room-section')).toBeVisible();
     await expect(page.getByTestId('start-here-section')).toBeVisible();
     await expect(page.getByTestId('survival-areas-section')).toBeVisible();
@@ -43,9 +48,9 @@ test.describe('Homepage layout', () => {
       'homepage-hero',
       'pressure-room-section',
       'start-here-section',
-      'survival-areas-section',
       'homepage-playbook-offer',
       'homepage-subscribe',
+      'survival-areas-section',
       'credibility-panel',
       'library-cta-section',
     ];
