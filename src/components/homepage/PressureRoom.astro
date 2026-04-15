@@ -12,42 +12,44 @@ const { board } = Astro.props as { board: HomepageBoardModel };
 
 <section
   id="pressure-room"
-  class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(120,113,108,0.08),transparent_26%),linear-gradient(180deg,rgba(16,16,18,0.98),rgba(5,5,6,1))] px-5 py-6 text-white shadow-[0_40px_120px_-48px_rgba(0,0,0,0.85)] sm:px-6 sm:py-7 lg:px-8 lg:py-8"
+  class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(120,113,108,0.08),transparent_26%),linear-gradient(180deg,rgba(16,16,18,0.98),rgba(5,5,6,1))] px-5 py-6 text-white shadow-[0_44px_126px_-50px_rgba(0,0,0,0.86)] sm:px-6 sm:py-8 lg:px-8 lg:py-10"
   data-testid="pressure-room-section"
 >
   <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:24px_24px] opacity-25" aria-hidden="true"></div>
 
-  <div class="relative flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
-    <div class="max-w-3xl space-y-3">
+  <div class="relative flex flex-col gap-5 border-b border-white/10 pb-7 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-3xl space-y-3.5">
       <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">LIVE INPUTS PEOPLE CAN ACTUALLY TRUST</p>
       <h2 class="text-3xl font-black tracking-tight text-white sm:text-[2.55rem]">Track the signals, map the fear areas, and see what is changing fastest.</h2>
-      <p class="text-base leading-relaxed text-neutral-300">
+      <p class="max-w-[46rem] text-base leading-8 text-neutral-300">
         Near-live signals show where coverage is clustering. Fear-area scores and macro gauges help you sort signal from noise before you
         decide what to read next.
       </p>
     </div>
-    <div class="grid max-w-xl gap-3 sm:grid-cols-2">
-      <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-relaxed text-neutral-300">
-        <p class="font-semibold text-white">Updated through {board.anchorDateLabel}</p>
-        <p class="mt-1">Recent STA coverage sets the pace for what shows up here first.</p>
+    <div class="grid max-w-xl gap-3.5 sm:grid-cols-2">
+      <div class="rounded-2xl border border-stone-200/80 bg-stone-50/95 px-4 py-[0.875rem] text-sm leading-7 text-stone-600 shadow-[0_18px_40px_-34px_rgba(0,0,0,0.6)]">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">Coverage window</p>
+        <p class="mt-2 font-semibold text-stone-950">Updated through {board.anchorDateLabel}</p>
+        <p class="mt-1.5">Recent STA coverage sets the pace for what shows up here first.</p>
       </div>
-      <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-relaxed text-neutral-300">
-        <p class="font-semibold text-white">Read it cleanly</p>
-        <p class="mt-1">Near-live signals track recent coverage. Scores and gauges are editorial judgment.</p>
+      <div class="rounded-2xl border border-stone-200/80 bg-stone-50/95 px-4 py-[0.875rem] text-sm leading-7 text-stone-600 shadow-[0_18px_40px_-34px_rgba(0,0,0,0.6)]">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">Reading mode</p>
+        <p class="mt-2 font-semibold text-stone-950">Read it cleanly</p>
+        <p class="mt-1.5">Near-live signals track recent coverage. Scores and gauges are editorial judgment.</p>
       </div>
     </div>
   </div>
 
-  <div class="relative mt-6 space-y-6">
+  <div class="relative mt-7 space-y-6.5">
     <LiveInputModules modules={board.liveModules} />
     <ThreatCardsBoard cards={board.threatCards} />
 
-    <div class="grid gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+    <div class="grid gap-5 xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] xl:items-stretch">
       <LeadDispatchCard post={board.leadPost} />
       <MacroGauges gauges={board.macroGauges} />
     </div>
 
-    <div class="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)]">
+    <div class="grid gap-5 xl:grid-cols-[minmax(0,1.06fr)_minmax(340px,0.94fr)] xl:items-stretch">
       <ImpactScoreFeed items={board.impactItems} />
       <CommunityVote prompt={board.votePrompt} options={board.voteOptions} />
     </div>

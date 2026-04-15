@@ -32,30 +32,30 @@ const heroCards = [
 ---
 
 <Layout title="Survive the AI - Prepare, adapt, and stay ahead">
-  <main class="bg-[radial-gradient(circle_at_top,rgba(120,113,108,0.15),transparent_28%),radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.06),transparent_20%),linear-gradient(180deg,#09090b_0%,#111113_34%,#0b0b0d_100%)] py-10 text-neutral-100 sm:py-14">
-    <div class="mx-auto max-w-screen-xl space-y-10 px-4 sm:px-6 lg:px-8">
-      <section class="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,20,23,0.96),rgba(11,11,13,0.99))] px-5 py-6 shadow-[0_32px_90px_-52px_rgba(0,0,0,0.82)] sm:px-6 sm:py-7 lg:px-8 lg:py-8" data-testid="homepage-hero">
-        <div class="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_360px]">
-          <div class="space-y-6">
-            <div class="space-y-4">
+  <main class="bg-[radial-gradient(circle_at_top,rgba(120,113,108,0.15),transparent_28%),radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.06),transparent_20%),linear-gradient(180deg,#09090b_0%,#111113_34%,#0b0b0d_100%)] py-10 text-neutral-100 sm:py-14 lg:py-16">
+    <div class="mx-auto max-w-screen-xl space-y-11 px-4 sm:px-6 lg:px-8 lg:space-y-12">
+      <section class="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,20,23,0.96),rgba(11,11,13,0.99))] px-5 py-6 shadow-[0_36px_96px_-54px_rgba(0,0,0,0.84)] sm:px-6 sm:py-8 lg:px-8 lg:py-9" data-testid="homepage-hero">
+        <div class="grid gap-7 xl:grid-cols-[minmax(0,1.08fr)_372px] xl:gap-10">
+          <div class="space-y-7">
+            <div class="space-y-5">
               <div class="flex flex-wrap items-center gap-3">
                 <span class="inline-flex items-center gap-2 rounded-full border border-[#ff6b57]/25 bg-[#ff6b57]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff8b79]">
                   <span class="h-1.5 w-1.5 rounded-full bg-[#ff6b57]" aria-hidden="true"></span>
                   LIVE AI FEAR SIGNALS
                 </span>
               </div>
-              <div class="max-w-4xl space-y-4">
-                <h1 class="max-w-3xl text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-[3.6rem]">
+              <div class="max-w-4xl space-y-4.5">
+                <h1 class="max-w-3xl text-4xl font-black leading-[0.97] tracking-[-0.03em] text-white sm:text-[3.68rem]">
                   The AI flood is here. Learn to swim.
                 </h1>
-                <p class="max-w-3xl text-base leading-relaxed text-neutral-300 sm:text-lg">
+                <p class="max-w-[42rem] text-base leading-8 text-neutral-300 sm:text-[1.05rem]">
                   SurviveTheAI tracks where pressure is rising across work, school, trust, fraud, relationships, and cognitive life using
                   a mix of live inputs people can trust and hard-won editorial judgment.
                 </p>
               </div>
             </div>
 
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3.5">
               <a
                 href="#pressure-room"
                 class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
@@ -72,37 +72,37 @@ const heroCards = [
               </a>
             </div>
 
-            <div class="grid gap-3 md:grid-cols-3">
+            <div class="grid gap-3.5 md:grid-cols-3">
               {heroCards.map((card) => (
-                <article class="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 shadow-[0_18px_40px_-32px_rgba(0,0,0,0.78)]">
-                  <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{card.title}</p>
-                  <p class="mt-3 text-sm leading-relaxed text-neutral-300">{card.copy}</p>
+                <article class="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 shadow-[0_18px_40px_-32px_rgba(0,0,0,0.78)] sm:p-5">
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500">{card.title}</p>
+                  <p class="mt-3.5 text-sm leading-7 text-neutral-300">{card.copy}</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <aside class="rounded-[1.7rem] border border-white/10 bg-black/25 p-4 shadow-[0_24px_54px_-36px_rgba(0,0,0,0.85)]" data-testid="most-watched-panel">
-            <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+          <aside class="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(0,0,0,0.24),rgba(255,255,255,0.03))] p-4 shadow-[0_28px_60px_-38px_rgba(0,0,0,0.86)] sm:p-5" data-testid="most-watched-panel">
+            <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-3.5">
               <div>
-                <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Most watched this week</p>
-                <p class="mt-1 text-sm text-neutral-400">Stories readers keep circling back to.</p>
+                <p class="text-[10px] font-semibold uppercase tracking-[0.34em] text-neutral-500">Most watched this week</p>
+                <p class="mt-1.5 text-sm leading-6 text-neutral-400">Stories readers keep circling back to.</p>
               </div>
             </div>
 
-            <div class="mt-4 space-y-3">
+            <div class="mt-5 space-y-3.5">
               {mostWatched.map((post) => (
                 <a
                   href={`/posts/${post.slug}/`}
-                  class="block rounded-[1.3rem] border border-white/10 bg-white/[0.04] p-4 transition hover:border-white/20 hover:bg-white/[0.06]"
+                  class="block rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-4 transition hover:border-white/20 hover:bg-white/[0.07] sm:p-[1.125rem]"
                 >
-                  <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-500">
+                  <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.26em] text-neutral-500">
                     <span>Fear paper</span>
                     <span aria-hidden class="h-1 w-1 rounded-full bg-white/15"></span>
                     <span>{formatDate(post.data.date)}</span>
                   </div>
-                  <h2 class="mt-3 text-lg font-black leading-tight text-white">{post.data.title}</h2>
-                  <p class="mt-2 text-sm leading-relaxed text-neutral-400">{post.data.description}</p>
+                  <h2 class="mt-4 text-[1.1rem] font-black leading-tight text-white">{post.data.title}</h2>
+                  <p class="mt-2.5 text-sm leading-7 text-neutral-400">{post.data.description}</p>
                 </a>
               ))}
             </div>
@@ -112,19 +112,22 @@ const heroCards = [
 
       <PressureRoom board={board} />
 
-      <div class="space-y-8 rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,18,21,0.96),rgba(10,10,12,0.99))] px-5 py-6 shadow-[0_32px_90px_-52px_rgba(0,0,0,0.8)] sm:px-6 sm:py-7 lg:px-8 lg:py-8">
+      <div class="space-y-9 lg:space-y-10">
         {editorPicks.length > 0 && (
-          <section class="space-y-6" data-testid="start-here-section">
-            <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-              <div class="max-w-3xl space-y-1">
+          <section
+            class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(148,163,184,0.12),transparent_30%),linear-gradient(180deg,rgba(24,28,35,0.94),rgba(15,18,24,0.98))] px-5 py-6 shadow-[0_28px_80px_-50px_rgba(0,0,0,0.72)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+            data-testid="start-here-section"
+          >
+            <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div class="max-w-3xl space-y-2">
                 <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Start Here / Editor's Picks</p>
                 <h2 class="text-2xl font-black text-white sm:text-3xl">Use the board, then take the guided path</h2>
-                <p class="text-neutral-300">
+                <p class="max-w-[44rem] text-[15px] leading-7 text-neutral-300 sm:text-base">
                   New readers should start with the pressure map, then use Start Here and these editor picks to understand the stakes,
                   the patterns, and the practical next questions.
                 </p>
               </div>
-              <div class="flex flex-wrap gap-3">
+              <div class="flex flex-wrap gap-3.5">
                 <a
                   href="/start-here"
                   class="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
@@ -143,7 +146,7 @@ const heroCards = [
                 </a>
               </div>
             </div>
-            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-6 pt-1 lg:grid-cols-3">
               {editorPicks.map((post) => (
                 <PostCard post={post} variant="board" />
               ))}
@@ -151,23 +154,28 @@ const heroCards = [
           </section>
         )}
 
-        <PlaybookOffer
-          eyebrow="Reader offer"
-          title="Get the free Survival Playbook before the pressure gets personal"
-          description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
-          href="/playbook"
-          ctaLabel="Get the free playbook"
-          secondaryHref="/start-here"
-          secondaryLabel="Open Start Here"
-          disclaimer="Free reader resource. Intentional placement, not constant interruption."
-          testId="homepage-playbook-offer"
-          primaryAnalyticsEvent="playbook_cta_click"
-          primaryAnalyticsLocation="homepage-playbook-offer"
-          secondaryAnalyticsEvent="start_here_entry_click"
-          secondaryAnalyticsLocation="homepage-playbook-offer"
-        />
+        <div class="rounded-[1.8rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(44,44,46,0.52),rgba(24,24,27,0.68))] p-[1px] shadow-[0_24px_70px_-54px_rgba(0,0,0,0.55)]">
+          <PlaybookOffer
+            eyebrow="Reader offer"
+            title="Get the free Survival Playbook before the pressure gets personal"
+            description="If you want one clear next-step resource, use the playbook. It pulls together STA's practical checklists without turning the homepage into a funnel."
+            href="/playbook"
+            ctaLabel="Get the free playbook"
+            secondaryHref="/start-here"
+            secondaryLabel="Open Start Here"
+            disclaimer="Free reader resource. Intentional placement, not constant interruption."
+            testId="homepage-playbook-offer"
+            primaryAnalyticsEvent="playbook_cta_click"
+            primaryAnalyticsLocation="homepage-playbook-offer"
+            secondaryAnalyticsEvent="start_here_entry_click"
+            secondaryAnalyticsLocation="homepage-playbook-offer"
+          />
+        </div>
 
-        <section class="space-y-6" data-testid="homepage-subscribe">
+        <section
+          class="rounded-[1.9rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(41,37,36,0.58),rgba(23,23,25,0.74))] px-5 py-6 shadow-[0_26px_76px_-56px_rgba(0,0,0,0.58)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+          data-testid="homepage-subscribe"
+        >
           <SubscribeInline
             client:load
             location="home"
@@ -177,49 +185,57 @@ const heroCards = [
           />
         </section>
 
-        <section class="space-y-6" data-testid="survival-areas-section">
-          <div class="space-y-1">
+        <section
+          class="rounded-[2rem] border border-stone-300/15 bg-[radial-gradient(circle_at_top_right,rgba(120,113,108,0.12),transparent_28%),linear-gradient(180deg,rgba(30,33,39,0.88),rgba(20,23,28,0.94))] px-5 py-6 shadow-[0_28px_82px_-56px_rgba(0,0,0,0.62)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+          data-testid="survival-areas-section"
+        >
+          <div class="space-y-2">
             <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Fear Areas</p>
             <h2 class="text-2xl font-black text-white sm:text-3xl">Route by fear area</h2>
-            <p class="max-w-3xl text-neutral-300">
+            <p class="max-w-3xl text-[15px] leading-7 text-neutral-300 sm:text-base">
               The board condenses the pressure. The fear-area hubs hold the ongoing reporting, practical framing, and deeper archive for
               each zone.
             </p>
           </div>
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div class="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 xl:grid-cols-5">
             {board.threatCards.map((card) => (
               <a
                 href={`${card.hub.slug}/`}
-                class="group flex h-full flex-col justify-between gap-4 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_44px_-34px_rgba(0,0,0,0.75)] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/25"
+                class="group flex h-full flex-col justify-between gap-5 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_18px_44px_-34px_rgba(0,0,0,0.75)] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/25 sm:p-[1.375rem]"
                 data-testid="survival-area-tile"
               >
-                <div class="space-y-3">
+                <div class="space-y-3.5">
                   <div class="flex items-center gap-3">
                     <span class="inline-block h-2.5 w-2.5 rounded-full" style={`background:${card.hub.color}`} aria-hidden="true" />
-                    <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Fear area</p>
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500">Fear area</p>
                   </div>
                   <h3 class="text-lg font-black leading-tight text-white transition group-hover:text-neutral-200">{card.hub.shortName}</h3>
-                  <p class="text-sm leading-relaxed text-neutral-300">{card.hub.tagline}</p>
+                  <p class="text-sm leading-7 text-neutral-300">{card.hub.tagline}</p>
                 </div>
-                <span class="text-sm font-semibold text-white">Open the hub</span>
+                <span class="text-sm font-semibold tracking-[0.01em] text-white">Open the hub</span>
               </a>
             ))}
           </div>
         </section>
 
-        <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
+        <div class="rounded-[1.8rem] border border-stone-400/15 bg-[linear-gradient(180deg,rgba(39,39,42,0.5),rgba(24,24,27,0.66))] p-[1px] shadow-[0_24px_70px_-54px_rgba(0,0,0,0.52)]">
+          <CredibilityPanel eyebrow="Why trust STA" title="Named reporting, visible standards, clear ownership" />
+        </div>
 
         {remaining.length > 0 && (
-          <section class="space-y-5" data-testid="library-cta-section">
-            <div class="space-y-1">
+          <section
+            class="rounded-[2rem] border border-stone-300/15 bg-[radial-gradient(circle_at_top_left,rgba(120,113,108,0.12),transparent_28%),linear-gradient(180deg,rgba(34,31,32,0.84),rgba(20,20,23,0.92))] px-5 py-6 shadow-[0_28px_82px_-56px_rgba(0,0,0,0.62)] sm:px-6 sm:py-8 lg:px-8 lg:py-9"
+            data-testid="library-cta-section"
+          >
+            <div class="space-y-2">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-neutral-500">Library / Archive</p>
               <h2 class="text-2xl font-black text-white sm:text-3xl">Keep moving through the reporting</h2>
-              <p class="max-w-3xl text-neutral-300">
+              <p class="max-w-3xl text-[15px] leading-7 text-neutral-300 sm:text-base">
                 The latest board only shows the surface. The library is where the deeper reporting, archive work, and longer survival map
                 keep filling in.
               </p>
             </div>
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3.5 pt-1">
               <a
                 href="/posts"
                 class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
