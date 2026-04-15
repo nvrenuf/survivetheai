@@ -2,8 +2,8 @@
 
 Current status as of 2026-04-15:
 - Active pass: STA UI/UX Follow-up Pass
-- Current issue in queue: STA-30
-- Next recommended issue: none
+- Current issue in queue: STA-25
+- Next recommended issue: STA-26
 - Tracker note: STA-24 review is complete and now decomposed into tightly scoped execution issues to prevent drift.
 
 ## Active Pass
@@ -20,11 +20,11 @@ Execution order:
 
 ### Status
 
-- STA-25: Completed 2026-04-15
-- STA-26: Completed 2026-04-15 (after STA-25)
-- STA-27: Completed 2026-04-15
-- STA-28: Completed 2026-04-15 (parallel-safe with STA-26)
-- STA-29: Completed 2026-04-15
+- STA-25: Planned
+- STA-26: Planned (depends on STA-25)
+- STA-27: Planned (parallel-safe with STA-26)
+- STA-28: Planned (parallel-safe with STA-26)
+- STA-29: Planned (after STA-27)
 - STA-30: Planned (depends on STA-25 through STA-29)
 
 ### Scope Control Notes

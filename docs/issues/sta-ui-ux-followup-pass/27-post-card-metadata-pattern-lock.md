@@ -1,7 +1,7 @@
 # STA-27: Post-card metadata pattern lock
 
 ## Status
-Completed on 2026-04-15.
+Planned.
 
 ## Objective
 Standardize the post-card information order so cards are faster to scan across homepage, hubs, and listing surfaces.
@@ -26,8 +26,3 @@ Standardize the post-card information order so cards are faster to scan across h
 - `src/pages/survival-areas/[key].astro`
 - `src/pages/posts/index.astro`
 - `tests/homepage.spec.ts`
-
-## Completion Notes
-- Updated `PostCard` so card hierarchy is now category chip → title → dek → bottom metadata row.
-- Consolidated bottom metadata row to date + impact score and removed duplicated meta rows.
-- Kept shared `post-card-meta` and `post-card-impact` test IDs to preserve existing regression coverage.
