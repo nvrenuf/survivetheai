@@ -1,7 +1,7 @@
 # STA-25: Homepage intent routing block
 
 ## Status
-Completed on 2026-04-15.
+Planned.
 
 ## Objective
 Add a tightly scoped "choose your path" module near the top of the homepage so first-time readers can self-select into the most relevant journey.
@@ -25,8 +25,3 @@ Add a tightly scoped "choose your path" module near the top of the homepage so f
 - `src/pages/index.astro`
 - `src/components/homepage/*`
 - `tests/homepage.spec.ts`
-
-## Completion Notes
-- Added a new homepage intent-routing module with three path cards directly below the hero.
-- Wired analytics attributes for click attribution (`intent_path_click`) and location/label metadata.
-- Added regression assertions for presence, card count, and analytics attribute checks.
